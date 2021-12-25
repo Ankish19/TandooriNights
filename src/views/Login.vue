@@ -15,35 +15,17 @@
       <!-- Section -->
       <section class="sectionbg">
         <b-container>
-          <b-form @submit.prevent="save">
+          <b-form>
             <b-row>
               <b-col cols="6" class="mx-auto">
                 <b-col cols="12">
-                  <h2 class="font-weight-bold">Register Form</h2>
-                </b-col>
-                <b-col cols="12">
-                  <b-form-group>
-                    <b-form-input
-                      v-model="this.form.name"
-                      placeholder="Name"
-                    ></b-form-input>
-                  </b-form-group>
+                  <h2 class="font-weight-bold">Login Form</h2>
                 </b-col>
                 <b-col cols="12">
                   <b-form-group>
                     <b-form-group>
                       <b-form-input
-                        v-model="this.form.phone"
-                        placeholder="Phone"
-                      ></b-form-input>
-                    </b-form-group>
-                  </b-form-group>
-                </b-col>
-                <b-col cols="12">
-                  <b-form-group>
-                    <b-form-group>
-                      <b-form-input
-                        v-model="this.form.email"
+                        v-model="email"
                         placeholder="Email"
                       ></b-form-input>
                     </b-form-group>
@@ -53,22 +35,21 @@
                   <b-form-group>
                     <b-form-group>
                       <b-form-input
-                        v-model="this.form.password"
+                        v-model="password"
                         placeholder="Password"
-                        type="password"
                       ></b-form-input>
                     </b-form-group>
                   </b-form-group>
                 </b-col>
                 <b-col cols="12" class="mt-3">
                   <b-form-group>
-                    <b-button class="w-100" type="submit"><span>Submit</span></b-button>
+                    <b-button class="w-100"><span>Login</span></b-button>
                   </b-form-group>
                 </b-col>
                 <b-col cols="12" class="mt-3">
                   <p>
-                    <router-link to="/login"
-                      ><strong>Already Have an Account</strong></router-link
+                    <router-link to="/register"
+                      ><strong>Create an Account ?</strong></router-link
                     >
                   </p>
                 </b-col>
@@ -84,7 +65,6 @@
 <script>
 import Headbar from "@/views/layouts/Headbar.vue";
 import Footer from "@/views/layouts/Footer.vue";
-import { register } from "@/store/api";
 import {
   BForm,
   BFormGroup,
@@ -95,17 +75,7 @@ import {
   BContainer,
 } from "bootstrap-vue";
 export default {
-  name: "Register",
-  data() {
-    return {
-      form: {
-        name: '',
-        email: '',
-        phone: '',
-        password: ''
-      }
-    }
-  },
+  name: "Login",
   components: {
     Headbar,
     Footer,
@@ -116,13 +86,6 @@ export default {
     BRow,
     BCol,
     BContainer,
-  },
-  methods : {
-    save() {
-      register(this.form) .then(res => {
-        console.log(res)
-      })
-    }
   },
 };
 </script>
