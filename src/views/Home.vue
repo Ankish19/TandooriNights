@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Header></Header>
+    <Headbar></Headbar>
     <section class="section section-main section-main-2 bg-dark dark">
       <div id="section-main-2-slider" class="section-slider inner-controls">
         <!-- Slide -->
@@ -397,14 +397,14 @@
 
 <script>
 // @ is an alias to /src
-import Header from "@/views/layouts/Header.vue";
+import Headbar from "@/views/layouts/Headbar.vue";
 import Footer from "@/views/layouts/Footer.vue";
 import {} from "bootstrap-vue";
 export default {
   props: {},
   name: "Home",
   components: {
-    Header,
+    Headbar,
     Footer,
   },
   data() {
