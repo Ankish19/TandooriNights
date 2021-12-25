@@ -1,6 +1,6 @@
 <template>
   <div class="menu">
-    <Header></Header>
+    <Headbar></Headbar>
     <!-- Content -->
     <div id="content">
       <!-- Page Title -->
@@ -24,7 +24,7 @@
       <div class="page-content">
         <div class="container">
           <div class="row no-gutters">
-            <div class="col-md-3">
+            <div class="col-md-3 left-bar-fixed">
               <!-- Menu Navigation -->
               <nav
                 id="menu-navigation"
@@ -56,14 +56,14 @@
   </div>
 </template>
 <script>
-import Header from "@/views/layouts/Header.vue";
+import Headbar from "@/views/layouts/Headbar.vue";
 import Footer from "@/views/layouts/Footer.vue";
 import { getMenu } from "@/store/api";
 import MenuComp from "@/views/layouts/MenuComp.vue";
 export default {
   name: "Menu",
   components: {
-    Header,
+    Headbar,
     Footer,
     MenuComp,
   },

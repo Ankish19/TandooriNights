@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <Header></Header>
+    <Headbar></Headbar>
     <!-- Content -->
     <div id="content">
       <!-- Page Title -->
@@ -71,14 +71,14 @@
   </div>
 </template>
 <script>
-import Header from "@/views/layouts/Header.vue";
+import Headbar from "@/views/layouts/Headbar.vue";
 import Footer from "@/views/layouts/Footer.vue";
 
 export default {
   methods: {},
   name: "About",
   components: {
-    Header,
+    Headbar,
     Footer,
   },
 };
