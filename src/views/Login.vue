@@ -124,6 +124,11 @@ export default {
         console.log(res);
       });
     },
+      login (this.form)
+        .then(res => {
+            console.log(res)
+        })
+    }
   },
 };
 </script>
