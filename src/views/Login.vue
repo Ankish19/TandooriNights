@@ -98,7 +98,6 @@ export default {
   },
   methods : {
     userLogin() {
-      console.log(this.form)
       login (this.form) 
         .then(res => {
             console.log(res)

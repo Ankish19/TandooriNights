@@ -119,7 +119,6 @@ export default {
   },
   methods : {
     save() {
-      console.log(this.form)
       register(this.form) .then(res => {
         console.log(res)
       })
