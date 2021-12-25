@@ -8,8 +8,6 @@ export const getMenu = () => {
   );
 };
 
-export const register = () => {
-  return axios.post(
-    `${apiUrl}register`
-  );
-};
+export const register = (data) => {
+  return axios.post(`${apiUrl}register`, data)
+}
