@@ -24,7 +24,7 @@
                 <b-col cols="12">
                   <b-form-group>
                     <b-form-input
-                      v-model="this.form.name"
+                      v-model="form.name"
                       placeholder="Name"
                     ></b-form-input>
                   </b-form-group>
@@ -33,7 +33,7 @@
                   <b-form-group>
                     <b-form-group>
                       <b-form-input
-                        v-model="this.form.phone"
+                        v-model="form.phone"
                         placeholder="Phone"
                       ></b-form-input>
                     </b-form-group>
@@ -43,7 +43,7 @@
                   <b-form-group>
                     <b-form-group>
                       <b-form-input
-                        v-model="this.form.email"
+                        v-model="form.email"
                         placeholder="Email"
                       ></b-form-input>
                     </b-form-group>
@@ -53,7 +53,7 @@
                   <b-form-group>
                     <b-form-group>
                       <b-form-input
-                        v-model="this.form.password"
+                        v-model="form.password"
                         placeholder="Password"
                         type="password"
                       ></b-form-input>
@@ -68,7 +68,7 @@
                 <b-col cols="12" class="mt-3">
                   <p>
                     <router-link to="/login"
-                      ><strong>Already Have an Account</strong></router-link
+                      ><strong>Already have an account?</strong></router-link
                     >
                   </p>
                 </b-col>
@@ -119,6 +119,7 @@ export default {
   },
   methods : {
     save() {
+      console.log(this.form)
       register(this.form) .then(res => {
         console.log(res)
       })
