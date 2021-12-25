@@ -40,6 +40,11 @@ const routes = [
     name: "Forget",
     component: () => import("../views/Forget.vue"),
   },
+  {
+    path: "/otp",
+    name: "Otp",
+    component: () => import("../views/Otp.vue"),
+  },
 ];
 
 const router = new VueRouter({

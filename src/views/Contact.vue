@@ -91,7 +91,7 @@
         <b-form>
           <b-row>
             <b-col cols="12">
-              <h2 class="font-weight-bold">Send Us A Message</h2>
+              <h2 class="font-weight-bold">Send Us a Message</h2>
             </b-col>
             <b-col cols="6">
               <b-form-group>

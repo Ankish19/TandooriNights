@@ -19,7 +19,7 @@
             <b-row>
               <b-col cols="6" class="mx-auto">
                 <b-col cols="12">
-                  <h2 class="font-weight-bold">Login Form</h2>
+                  <h2 class="font-weight-bold">OTP With Login</h2>
                 </b-col>
                 <b-col cols="12">
                   <b-form-group>
@@ -35,39 +35,25 @@
                   <b-form-group>
                     <b-form-group>
                       <b-form-input
-                        v-model="password"
-                        placeholder="Password"
+                        v-model="text"
+                        placeholder="Phone"
                       ></b-form-input>
                     </b-form-group>
                   </b-form-group>
                 </b-col>
                 <b-col cols="12" class="mt-3">
                   <b-form-group>
-                    <b-button class="w-100"><span>Login</span></b-button>
-                  </b-form-group>
-                </b-col>
-                <b-col cols="12" class="mt-3"
-                  ><h4 class="font-weight-bold text-center">OR</h4></b-col
-                >
-                <b-col cols="12" class="mt-3">
-                  <b-form-group>
-                    <router-link to="/otp" class="btn btn-primary w-100"
-                      ><span>Login With OTP</span>
-                    </router-link>
+                    <b-button class="w-100"><span>Send OTP</span></b-button>
                   </b-form-group>
                 </b-col>
                 <b-row>
                   <b-col cols="6" class="mt-3">
-                    <p>
-                      <router-link to="/register"
-                        ><strong>Create an Account ?</strong></router-link
-                      >
-                    </p>
+                    <p></p>
                   </b-col>
                   <b-col cols="6" class="mt-3 text-right">
                     <p>
-                      <router-link to="/forget"
-                        ><strong>Forget password</strong></router-link
+                      <router-link to="#"
+                        ><strong>Resend Code </strong></router-link
                       >
                     </p>
                   </b-col>
