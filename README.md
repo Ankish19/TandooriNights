@@ -1,4 +1,4 @@
-# tandoori-night
+# tandoori_nights
 
 ## Project setup
 ```

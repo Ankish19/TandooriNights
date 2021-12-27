@@ -208,9 +208,9 @@
 </template>
 <script>
 export default {
-  setup (){},
-  props:["items"],
-  data (){
+  setup() {},
+  props: ["items"],
+  data() {
     return {
       siteLogo: require("../../assets/burges.jpg"),
       selectItem: "",
