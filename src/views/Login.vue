@@ -37,6 +37,7 @@
                       <b-form-input
                         v-model="form.password"
                         placeholder="Password"
+                        type="password"
                       ></b-form-input>
                     </b-form-group>
                   </b-form-group>
@@ -87,6 +88,7 @@
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import { login } from '@/store/api'
+import { saveLocalStorage } from '@/store/service'
 import {
   BForm,
   BFormGroup,
@@ -121,9 +123,12 @@ export default {
   },
   methods: {
     userLogin () {
-      console.log(this.form)
       login(this.form).then((res) => {
-        console.log(res)
+        if (res.data.success === true) {
+          // localStorage.setItem('userData', res.data.data)
+          saveLocalStorage('userData', JSON.stringify(res.data.data))
+          this.$router.push('/myaccount')
+        }
       })
     }
   }

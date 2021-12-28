@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const apiUrl = 'https://tandoorinights.ca/api/'
+const apiUrl = 'https://tandoorinights.ca/rest/api/'
 
 export const getMenu = () => {
   return axios.post(
