@@ -208,30 +208,30 @@
 </template>
 <script>
 export default {
-  setup (){},
-  props:["items"],
-  data (){
+  setup () {},
+  props: ['items'],
+  data () {
     return {
-      siteLogo: require("../../assets/burges.jpg"),
-      selectItem: "",
+      siteLogo: require('../../assets/burges.jpg'),
+      selectItem: '',
       options: [],
-      addons: [],
-    };
+      addons: []
+    }
   },
 
   methods: {
-    openModal(item) {
-      this.selectItem = item;
+    openModal (item) {
+      this.selectItem = item
       item.addon_categories.map((data) => {
-        if (data.type == "SINGLE") {
-          this.options.push(data);
+        if (data.type === 'SINGLE') {
+          this.options.push(data)
         } else {
-          this.addons.push(data);
+          this.addons.push(data)
         }
-      });
-    },
-  },
-};
+      })
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .bg-image img {

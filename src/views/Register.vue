@@ -82,9 +82,9 @@
   </div>
 </template>
 <script>
-import Headbar from "@/views/layouts/Headbar.vue";
-import Footer from "@/views/layouts/Footer.vue";
-import { register } from "@/store/api";
+import Headbar from '@/views/layouts/Headbar.vue'
+import Footer from '@/views/layouts/Footer.vue'
+import { register } from '@/store/api'
 import {
   BForm,
   BFormGroup,
@@ -92,11 +92,11 @@ import {
   BRow,
   BFormInput,
   BCol,
-  BContainer,
-} from "bootstrap-vue";
+  BContainer
+} from 'bootstrap-vue'
 export default {
-  name: "Register",
-  data() {
+  name: 'Register',
+  data () {
     return {
       form: {
         name: '',
@@ -115,14 +115,14 @@ export default {
     BButton,
     BRow,
     BCol,
-    BContainer,
+    BContainer
   },
-  methods : {
-    save() {
-      register(this.form) .then(res => {
+  methods: {
+    save () {
+      register(this.form).then(res => {
         console.log(res)
       })
     }
-  },
-};
+  }
+}
 </script>

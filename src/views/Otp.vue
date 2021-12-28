@@ -46,18 +46,41 @@
                     <b-button class="w-100"><span>Send OTP</span></b-button>
                   </b-form-group>
                 </b-col>
-                <b-row>
-                  <b-col cols="6" class="mt-3">
-                    <p></p>
-                  </b-col>
-                  <b-col cols="6" class="mt-3 text-right">
-                    <p>
+                  <b-col cols="12" class="text-right">
+                    <p class="pd-a1">
                       <router-link to="#"
                         ><strong>Resend Code </strong></router-link
                       >
                     </p>
                   </b-col>
-                </b-row>
+              </b-col>
+            </b-row>
+          </b-form>
+          <b-form>
+            <b-row>
+              <b-col cols="6" class="mx-auto">
+                <b-col cols="12">
+                  <b-form-group>
+                    <b-form-group>
+                      <b-form-input
+                        v-model="text"
+                        placeholder="Enter OTP"
+                      ></b-form-input>
+                    </b-form-group>
+                  </b-form-group>
+                </b-col>
+                <b-col cols="12">
+                  <b-form-group>
+                    <b-button class="w-100"><span>Sumbit OTP</span></b-button>
+                  </b-form-group>
+                </b-col>
+                     <b-col cols="12" class="text-right">
+                    <p class="pd-a1">
+                      <router-link to="#"
+                        ><strong>Resend Code </strong></router-link
+                      >
+                    </p>
+                  </b-col>
               </b-col>
             </b-row>
           </b-form>
@@ -68,8 +91,8 @@
   </div>
 </template>
 <script>
-import Headbar from "@/views/layouts/Headbar.vue";
-import Footer from "@/views/layouts/Footer.vue";
+import Headbar from '@/views/layouts/Headbar.vue'
+import Footer from '@/views/layouts/Footer.vue'
 import {
   BForm,
   BFormGroup,
@@ -77,10 +100,10 @@ import {
   BRow,
   BFormInput,
   BCol,
-  BContainer,
-} from "bootstrap-vue";
+  BContainer
+} from 'bootstrap-vue'
 export default {
-  name: "Login",
+  name: 'Login',
   components: {
     Headbar,
     Footer,
@@ -90,7 +113,14 @@ export default {
     BButton,
     BRow,
     BCol,
-    BContainer,
-  },
-};
+    BContainer
+  }
+}
 </script>
+<style>
+.pd-a1 {
+    position: relative;
+    top: -3px;
+    right: -1px;
+}
+</style>

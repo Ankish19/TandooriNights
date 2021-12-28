@@ -7,7 +7,7 @@
       <div class="page-title bg-light">
         <div class="container">
           <div class="row">
-            <div class="col-lg-7 offset-lg-5">
+            <div class="col-lg-12">
               <h1 class="mb-0">Menu</h1>
               <h4 class="text-muted mb-0">
                 Some informations about our restaurant
@@ -24,7 +24,7 @@
       <div class="page-content">
         <div class="container">
           <div class="row no-gutters">
-            <div class="col-md-3 left-bar-fixed">
+            <div class="col-md-3 left-bar-fixed text-left">
               <!-- Menu Navigation -->
               <nav
                 id="menu-navigation"
@@ -56,44 +56,44 @@
   </div>
 </template>
 <script>
-import Headbar from "@/views/layouts/Headbar.vue";
-import Footer from "@/views/layouts/Footer.vue";
-import { getMenu } from "@/store/api";
-import MenuComp from "@/views/layouts/MenuComp.vue";
+import Headbar from '@/views/layouts/Headbar.vue'
+import Footer from '@/views/layouts/Footer.vue'
+import { getMenu } from '@/store/api'
+import MenuComp from '@/views/layouts/MenuComp.vue'
 export default {
-  name: "Menu",
+  name: 'Menu',
   components: {
     Headbar,
     Footer,
-    MenuComp,
+    MenuComp
   },
-  data() {
+  data () {
     return {
-      Items: [],
-    };
+      Items: []
+    }
   },
-  mounted() {
+  mounted () {
     getMenu().then((res) => {
       // console.log(res.data['items']['Fast food'])
-      let arr = [];
-      arr = res.data["items"];
+      let arr = []
+      arr = res.data.items
 
       Object.keys(arr).map((e) => {
-        console.log(res.data["items"][e][0].price);
-      });
+        console.log(res.data.items[e][0].price)
+      })
 
       // Object.keys(res.data.items).map((item) => (
       //     console.log(item)
       // ));
 
-      console.log(arr);
-      this.Items = res.data.items;
-    });
+      console.log(arr)
+      this.Items = res.data.items
+    })
   },
   methods: {
-    cardModalClose() {},
-  },
-};
+    cardModalClose () {}
+  }
+}
 </script>
 <style lang="scss" scoped>
 .bg-image img {

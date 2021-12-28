@@ -60,14 +60,14 @@
                 </b-col>
                 <b-row>
                   <b-col cols="6" class="mt-3">
-                    <p>
+                    <p class="text-left">
                       <router-link to="/register"
                         ><strong>Create an Account ?</strong></router-link
                       >
                     </p>
                   </b-col>
-                  <b-col cols="6" class="mt-3 text-right">
-                    <p>
+                  <b-col cols="6" class="mt-3">
+                    <p class="text-right">
                       <router-link to="/forget"
                         ><strong>Forget password</strong></router-link
                       >
@@ -84,9 +84,9 @@
   </div>
 </template>
 <script>
-import Headbar from "@/views/layouts/Headbar.vue";
-import Footer from "@/views/layouts/Footer.vue";
-import { login } from "@/store/api";
+import Headbar from '@/views/layouts/Headbar.vue'
+import Footer from '@/views/layouts/Footer.vue'
+import { login } from '@/store/api'
 import {
   BForm,
   BFormGroup,
@@ -94,17 +94,19 @@ import {
   BRow,
   BFormInput,
   BCol,
-  BContainer,
-} from "bootstrap-vue";
+  BContainer
+} from 'bootstrap-vue'
 export default {
-  name: "Login",
-  data() {
+  props: {
+  },
+  name: 'Login',
+  data () {
     return {
       form: {
-        email: "",
-        password: "",
-      },
-    };
+        email: '',
+        password: ''
+      }
+    }
   },
   components: {
     Headbar,
@@ -115,15 +117,15 @@ export default {
     BButton,
     BRow,
     BCol,
-    BContainer,
+    BContainer
   },
   methods: {
-    userLogin() {
+    userLogin () {
       console.log(this.form)
       login(this.form).then((res) => {
         console.log(res)
       })
-    },
-  },
-};
+    }
+  }
+}
 </script>

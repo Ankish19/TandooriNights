@@ -74,7 +74,7 @@
       </div>
 
       <div class="container">
-        <div class="col-lg-5 col-md-9">
+        <div class="col-lg-5 col-md-9 text-left">
           <div class="rate mb-5 rate-lg">
             <i class="fa fa-star active"></i><i class="fa fa-star active"></i
             ><i class="fa fa-star active"></i><i class="fa fa-star active"></i
@@ -211,7 +211,7 @@
     </section>
     <!-- Section - Steps -->
     <section class="section bg-dark dark">
-      <div class="container">
+      <div class="container text">
         <div class="row">
           <div class="col-md-4">
             <!-- Step -->
@@ -269,7 +269,7 @@
           <div class="col-md-8" role="tablist">
             <h1 class="mb-6 text-center"><strong>Our</strong> Bestsellers</h1>
             <!-- Menu Category / Burgers -->
-            <div id="Burgers" class="menu-category">
+            <div id="Burgers" class="menu-category text-left">
               <div class="menu-category-title" role="tab">
                 <div class="bg-image">
                   <img
@@ -397,20 +397,20 @@
 
 <script>
 // @ is an alias to /src
-import Headbar from "@/views/layouts/Headbar.vue";
-import Footer from "@/views/layouts/Footer.vue";
-import {} from "bootstrap-vue";
+import Headbar from '@/views/layouts/Headbar.vue'
+import Footer from '@/views/layouts/Footer.vue'
+import {} from 'bootstrap-vue'
 export default {
   props: {},
-  name: "Home",
+  name: 'Home',
   components: {
     Headbar,
-    Footer,
+    Footer
   },
-  data() {
-    return {};
-  },
-};
+  data () {
+    return {}
+  }
+}
 </script>
 <style>
 h1.mb-0 {

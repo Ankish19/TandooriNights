@@ -1,56 +1,66 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Home from '../views/Home.vue'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/",
-    name: "Home",
-    component: Home,
+    path: '/',
+    name: 'Home',
+    component: Home
   },
   {
-    path: "/about",
-    name: "About",
-    component: () => import("../views/About.vue"),
+    path: '/about',
+    name: 'About',
+    component: () => import('../views/About.vue')
   },
   {
-    path: "/menu",
-    name: "Menu",
-    component: () => import("../views/Menu.vue"),
+    path: '/menu',
+    name: 'Menu',
+    component: () => import('../views/Menu.vue')
   },
   {
-    path: "/contact",
-    name: "Contact",
-    component: () => import("../views/Contact.vue"),
+    path: '/contact',
+    name: 'Contact',
+    component: () => import('../views/Contact.vue')
   },
   {
-    path: "/register",
-    name: "Register",
-    component: () => import("../views/Register.vue"),
+    path: '/register',
+    name: 'Register',
+    component: () => import('../views/Register.vue')
   },
   {
-    path: "/login",
-    name: "Login",
-    component: () => import("../views/Login.vue"),
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login.vue')
   },
   {
-    path: "/forget",
-    name: "Forget",
-    component: () => import("../views/Forget.vue"),
+    path: '/forget',
+    name: 'Forget',
+    component: () => import('../views/Forget.vue')
   },
   {
-    path: "/otp",
-    name: "Otp",
-    component: () => import("../views/Otp.vue"),
+    path: '/otp',
+    name: 'Otp',
+    component: () => import('../views/Otp.vue')
   },
-];
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: () => import('../views/CheckOut.vue')
+  },
+  {
+    path: '/myaccount',
+    name: 'MyAccount',
+    component: () => import('../views/myaccount/MyAccount.vue')
+  }
+]
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
-  routes,
-});
+  routes
+})
 
-export default router;
+export default router

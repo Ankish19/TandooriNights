@@ -36,6 +36,13 @@
                     <b-button class="w-100"><span>Submit</span></b-button>
                   </b-form-group>
                 </b-col>
+                   <b-col cols="12" class="mt-3">
+                  <p>
+                    <router-link to="/otp"
+                      ><strong>Forget With OTP?</strong></router-link
+                    >
+                  </p>
+                </b-col>
               </b-col>
             </b-row>
           </b-form>
@@ -46,8 +53,8 @@
   </div>
 </template>
 <script>
-import Headbar from "@/views/layouts/Headbar.vue";
-import Footer from "@/views/layouts/Footer.vue";
+import Headbar from '@/views/layouts/Headbar.vue'
+import Footer from '@/views/layouts/Footer.vue'
 import {
   BForm,
   BFormGroup,
@@ -55,10 +62,10 @@ import {
   BRow,
   BFormInput,
   BCol,
-  BContainer,
-} from "bootstrap-vue";
+  BContainer
+} from 'bootstrap-vue'
 export default {
-  name: "Login",
+  name: 'Login',
   components: {
     Headbar,
     Footer,
@@ -68,7 +75,7 @@ export default {
     BButton,
     BRow,
     BCol,
-    BContainer,
-  },
-};
+    BContainer
+  }
+}
 </script>

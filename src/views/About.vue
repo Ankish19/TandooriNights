@@ -7,7 +7,7 @@
       <div class="page-title bg-light">
         <div class="container">
           <div class="row">
-            <div class="col-lg-7 offset-lg-5">
+            <div class="col-lg-12">
               <h1 class="mb-0">About Us</h1>
               <h4 class="text-muted mb-0">
                 Some informations about our restaurant
@@ -18,7 +18,7 @@
       </div>
 
       <!-- Section -->
-      <section class="section section-bg-edge">
+      <section class="section section-bg-edge text-left">
         <div class="container mt-5 mb-5">
           <div class="row">
             <div class="col-md-6">
@@ -71,15 +71,15 @@
   </div>
 </template>
 <script>
-import Headbar from "@/views/layouts/Headbar.vue";
-import Footer from "@/views/layouts/Footer.vue";
+import Headbar from '@/views/layouts/Headbar.vue'
+import Footer from '@/views/layouts/Footer.vue'
 
 export default {
   methods: {},
-  name: "About",
+  name: 'About',
   components: {
     Headbar,
-    Footer,
-  },
-};
+    Footer
+  }
+}
 </script>
