@@ -49,7 +49,7 @@
                     >
                   </b-form-group>
                 </b-col>
-                <b-col cols="12" class="mt-3"
+                <!-- <b-col cols="12" class="mt-3"
                   ><h4 class="font-weight-bold text-center">OR</h4></b-col
                 >
                 <b-col cols="12" class="mt-3">
@@ -58,7 +58,7 @@
                       ><span>Login With OTP</span>
                     </router-link>
                   </b-form-group>
-                </b-col>
+                </b-col> -->
                 <b-row>
                   <b-col cols="6" class="mt-3">
                     <p class="text-left">
@@ -68,11 +68,11 @@
                     </p>
                   </b-col>
                   <b-col cols="6" class="mt-3">
-                    <p class="text-right">
+                    <!-- <p class="text-right">
                       <router-link to="/forget"
                         ><strong>Forget password</strong></router-link
                       >
-                    </p>
+                    </p> -->
                   </b-col>
                 </b-row>
               </b-col>

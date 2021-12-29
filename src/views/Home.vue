@@ -399,7 +399,6 @@
 // @ is an alias to /src
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import {} from 'bootstrap-vue'
 export default {
   props: {},
   name: 'Home',
