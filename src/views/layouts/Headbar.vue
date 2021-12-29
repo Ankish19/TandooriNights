@@ -8,7 +8,7 @@
                     <!-- Logo -->
                     <div class="module module-logo dark">
                         <router-link to="/">
-                            <img alt="Vue logo" src="@/assets/logo.png" />
+                            <img alt="Vue logo" src="@/assets/logo.svg" />
                         </router-link>
                     </div>
                 </div>

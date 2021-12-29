@@ -6,27 +6,27 @@
         <!-- Footer 1st Row -->
         <div class="footer-first-row row">
           <div class="col-lg-3 text-center">
-            <a href="index.html">
-              <img alt="Vue logo" class="footer-logo" src="@/assets/logo.png"
+            <a href="#">
+              <img alt="Vue logo" class="footer-logo" src="@/assets/logo.svg"
             /></a>
           </div>
           <div class="col-lg-4 col-md-6">
             <h5 class="text-muted">Latest news</h5>
             <ul class="list-posts">
               <li>
-                <a href="blog-post.html" class="title"
+                <a href="#" class="title"
                   >How to create effective webdeisign?</a
                 >
                 <span class="date">February 14, 2015</span>
               </li>
               <li>
-                <a href="blog-post.html" class="title"
+                <a href="#" class="title"
                   >Awesome weekend in Polish mountains!</a
                 >
                 <span class="date">February 14, 2015</span>
               </li>
               <li>
-                <a href="blog-post.html" class="title"
+                <a href="#" class="title"
                   >How to create effective webdeisign?</a
                 >
                 <span class="date">February 14, 2015</span>
@@ -84,16 +84,6 @@
             ></a>
             <a
               href="#"
-              class="icon icon-social icon-circle icon-sm icon-twitter"
-              ><i class="fa fa-twitter"></i
-            ></a>
-            <a
-              href="#"
-              class="icon icon-social icon-circle icon-sm icon-youtube"
-              ><i class="fa fa-youtube"></i
-            ></a>
-            <a
-              href="#"
               class="icon icon-social icon-circle icon-sm icon-instagram"
               ><i class="fa fa-instagram"></i
             ></a>
@@ -102,7 +92,7 @@
         <!-- Footer 2nd Row -->
         <div class="footer-second-row">
           <span class="text-muted"
-            >Copyright Soup 2020 ©. Made with love by Suelo.</span
+            >Copyright Tandoori Night 2022 ©. Made with love by Tng Websolutions.</span
           >
         </div>
       </div>

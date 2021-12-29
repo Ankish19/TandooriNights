@@ -22,25 +22,33 @@
         <div class="container mt-5 mb-5">
           <div class="row">
             <div class="col-md-6">
-              <img src="../assets/bg-chef.jpg" alt="" />
+              <img src="@/assets/bg-chef.jpg" alt="" />
             </div>
             <div class="col-md-6 mt-3">
-              <h2 class="font-weight-bold">About Us</h2>
+              <h2 class="font-weight-bold">Our Story</h2>
               <p class="lead">
-                Donec a eros metus. Vivamus volutpat leo dictum risus
-                ullamcorper condimentum. Cras sollicitudin varius condimentum.
-                Praesent a dolor sem....
+               Tandoori Nights is a nostalgic Calgary-based restaurant. The restaurant's design evokes the warmth and casual elegance of the quintessential Calgary
+                restaurants that serve as our inspiration, updated for today.
               </p>
-              <p>
-                Nam eleifend elementum sapien et bibendum. Nunc ac diam
-                efficitur, ultrices lorem quis, consectetur odio. Nullam
-                vulputate, eros quis accumsan cursus, elit lectus bibendum
-                nulla, sed dapibus ligula tellus at purus. Fusce id eros id mi
-                cursus semper. Quisque efficitur bibendum nunc a consectetur.
-                Maecenas vitae quam iaculis, scelerisque purus nec, varius
-                purus. Nullam eget varius elit. Donec eget facilisis nunc, non
-                rutrum lorem.
+              <p class="mt-1">
+                Our menu spotlights a seasonal selection of salads, vegetables, and many more to explore. Indian style dishes and Kids menu celebrates iconic
+                 recipes.  Through it all, Tandoori Nights has never veered from its mission to keep the fun in Tandoori recipes. By mixing high-quality
+                 ingredients with guilty pleasures, traditional flavors with the unexpected, & a youngster's imagination with an adult’s knowing wink & satirical tongue, we spin a new take on the old-school Indian Style experience. It's both for kids & for those of us who are kids at heart.
               </p>
+            </div>
+          </div>
+        </div>
+         <div class="container mt-5 mb-5">
+          <div class="row">
+            <div class="col-md-6 mt-3">
+              <h2 class="font-weight-bold">Get an Experience</h2>
+              <p class="lead">
+               Tandoori Nights flavors are the best to experience ever. Making everything in small batches allows us to be creative and rotate our menu constantly.
+               We hope to welcome you soon.
+              </p>
+            </div>
+                <div class="col-md-6">
+              <img src="@/assets/about2.jpg" alt="" />
             </div>
           </div>
         </div>
@@ -59,9 +67,8 @@
             <h5 class="text-muted">
               Book a table even right now or make an online order!
             </h5>
-            <a href="#" class="btn btn-outline-primary"
-              ><span>Order Online</span></a
-            >
+            <router-link class="btn btn-outline-primary" to="/menu">
+              <span>Order Online</span></router-link>
           </div>
         </div>
       </section>

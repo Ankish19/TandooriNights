@@ -7,56 +7,49 @@
         <div class="slide">
           <div class="bg-image zooming">
             <img
-              src="http://assets.suelo.pl/soup/img/photos/slider-burger_dark.jpg"
+              src="@/assets/01.jpg"
               alt=""
             />
           </div>
           <div class="container v-center">
-            <h1 class="display-2 mb-2">Get 10% off coupon</h1>
-            <h4 class="text-muted mb-5">and use it with your next order!</h4>
-            <a href="page-offers.html" class="btn btn-outline-primary btn-lg"
-              ><span>Get it now!</span></a
-            >
+            <h1 class="display-2 mb-2">Good Food Choices </h1>
+            <h4 class="text-muted mb-5">Are Good Investments!</h4>
+            <router-link to="/menu" class="btn btn-outline-primary btn-lg">
+              <span>Get it now!</span>
+              </router-link>
           </div>
         </div>
         <!-- Slide -->
         <div class="slide">
           <div class="bg-image zooming">
             <img
-              src="http://assets.suelo.pl/soup/img/photos/slider-dessert_dark.jpg"
+              src="@/assets/02.jpg"
               alt=""
             />
           </div>
           <div class="container v-center">
-            <h1 class="display-2 mb-2">Delicious Desserts</h1>
-            <h4 class="text-muted mb-5">Order it online even now!</h4>
-            <a
-              href="menu-list-collapse.html"
-              class="btn btn-outline-primary btn-lg"
-              ><span>Order now!</span></a
-            >
+            <h1 class="display-2 mb-2">Your Delicious</h1>
+            <h4 class="text-muted mb-5">Food Is Here!</h4>
+             <router-link to="/menu" class="btn btn-outline-primary btn-lg">
+              <span>Order Now</span>
+              </router-link>
           </div>
         </div>
         <!-- Slide -->
         <div class="slide">
           <div class="bg-image zooming">
             <img
-              src="http://assets.suelo.pl/soup/img/photos/slider-pasta_dark.jpg"
+              src="@/assets/03.jpg"
               alt=""
             />
           </div>
           <div class="container v-center">
-            <h4 class="text-muted">New product!</h4>
-            <h1 class="display-2">Boscaiola Pasta</h1>
+            <h1 class="display-2">Discover the New </h1>
+               <h4 class="text-muted">Way to Love Food!</h4>
             <div class="btn-group">
-              <button
-                class="btn btn-outline-primary btn-lg"
-                data-action="open-cart-modal"
-                data-id="1"
-              >
-                <span>Add to cart</span>
-              </button>
-              <span class="price price-lg">from $9.98</span>
+ <router-link to="/menu" class="btn btn-outline-primary btn-lg">
+              <span>Order Now</span>
+              </router-link>
             </div>
           </div>
         </div>
@@ -80,11 +73,10 @@
             ><i class="fa fa-star active"></i><i class="fa fa-star active"></i
             ><i class="fa fa-star"></i>
           </div>
-          <h1 class="display-2">Why <strong>our</strong> Burgers?</h1>
+          <h1 class="display-2">About Tandoori <strong style="color:#DDAE71;">Night</strong></h1>
           <p class="lead text-muted mb-5">
-            Donec a eros metus. Vivamus volutpat leo dictum risus ullamcorper
-            condimentum. Cras sollicitudin varius condimentum. Praesent a dolor
-            sem....
+            Tandoori Nights reimagine the wonders of Canadian fare in a space that evokes a bygone era of a boisterous yet
+            elegant Canada—all within the heart of Calgary City.
           </p>
           <!-- Feature -->
           <div class="feature feature-1">
@@ -92,9 +84,10 @@
               <i class="ti ti-desktop"></i>
             </div>
             <div class="feature-content">
-              <h4 class="mb-2">Online Order</h4>
+              <h4 class="mb-2"><b class="text-heading">The Best of Us</b></h4>
               <p class="text-muted mb-0">
-                Vivamus volutpat leo dictum risus ullamcorper condimentum.
+                At Tandoori Nights, we are dedicated to all things seasonal with a market-driven day-time menu that also offers
+                a variety of Veg Appetizers and Non - Veg Appetizers.
               </p>
             </div>
           </div>
@@ -104,9 +97,10 @@
               <i class="ti ti-heart"></i>
             </div>
             <div class="feature-content">
-              <h4 class="mb-2">Perfect Taste</h4>
+              <h4 class="mb-2"><b class="text-heading">The Dedication and Commitment</b></h4>
               <p class="text-muted mb-0">
-                Vivamus volutpat leo dictum risus ullamcorper condimentum.
+                Stock up on bread, pastries, and grab n' go salads and sandwiches. At Tandoori Nights, they continue their dedication to our specials
+                with come together to celebrate and savor beloved annual traditions, where each experience brims with culinary delights.
               </p>
             </div>
           </div>
@@ -145,66 +139,99 @@
         <div class="menu-sample slider-img">
           <a href="#">
             <img
-              src="http://assets.suelo.pl/soup/img/photos/menu-sample-burgers.jpg"
+              src="@/assets/non-veg.jpg"
               alt=""
               class="image"
             />
-            <h3 class="title">Burgers</h3>
+            <h3 class="title">Non-Veg</h3>
           </a>
         </div>
         <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
             <img
-              src="http://assets.suelo.pl/soup/img/photos/menu-sample-pizza.jpg"
+              src="@/assets/veg-appetizers.jpg"
               alt=""
               class="image"
             />
-            <h3 class="title">Pizza</h3>
+            <h3 class="title">Veg Appetizers</h3>
           </a>
         </div>
         <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
             <img
-              src="http://assets.suelo.pl/soup/img/photos/menu-sample-sushi.jpg"
+              src="@/assets/veg-main.jpg"
               alt=""
               class="image"
             />
-            <h3 class="title">Sushi</h3>
+            <h3 class="title">Veg Main</h3>
           </a>
         </div>
         <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
             <img
-              src="http://assets.suelo.pl/soup/img/photos/menu-sample-pasta.jpg"
+              src="@/assets/breads.jpg"
               alt=""
               class="image"
             />
-            <h3 class="title">Pasta</h3>
+            <h3 class="title">Breads</h3>
           </a>
         </div>
         <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
             <img
-              src="http://assets.suelo.pl/soup/img/photos/menu-sample-dessert.jpg"
+              src="@/assets/breavages.jpg"
               alt=""
               class="image"
             />
-            <h3 class="title">Desserts</h3>
+            <h3 class="title">Breavages</h3>
           </a>
         </div>
         <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
             <img
-              src="http://assets.suelo.pl/soup/img/photos/menu-sample-drinks.jpg"
+              src="@/assets/kids.jpg"
               alt=""
               class="image"
             />
-            <h3 class="title">Drinks</h3>
+            <h3 class="title">Kids</h3>
+          </a>
+        </div>
+        <!-- Menu Sample -->
+        <div class="menu-sample slider-img">
+          <a href="#">
+            <img
+              src="@/assets/rice.jpg"
+              alt=""
+              class="image"
+            />
+            <h3 class="title">Rice</h3>
+          </a>
+        </div>
+        <!-- Menu Sample -->
+        <div class="menu-sample slider-img">
+          <a href="#">
+            <img
+              src="@/assets/sides.jpg"
+              alt=""
+              class="image"
+            />
+            <h3 class="title">Sides</h3>
+          </a>
+        </div>
+         <!-- Menu Sample -->
+        <div class="menu-sample slider-img">
+          <a href="#">
+            <img
+              src="@/assets/sweets.jpg"
+              alt=""
+              class="image"
+            />
+            <h3 class="title">Sweets</h3>
           </a>
         </div>
       </div>
@@ -212,7 +239,7 @@
     <!-- Section - Steps -->
     <section class="section bg-dark dark">
       <div class="container text">
-        <div class="row">
+        <div class="row text-left">
           <div class="col-md-4">
             <!-- Step -->
             <div class="feature feature-1">
@@ -224,7 +251,7 @@
                   <a href="#">Pick a dish</a>
                 </h4>
                 <p class="text-muted mb-0">
-                  Vivamus volutpat leo dictum risus ullamcorper condimentum.
+                  Pick a dish from the most exotic flavors on our menu!
                 </p>
               </div>
             </div>
@@ -238,7 +265,7 @@
               <div class="feature-content">
                 <h4 class="mb-2 text-white font-weight-bold">Make a payment</h4>
                 <p class="text-muted mb-0">
-                  Vivamus volutpat leo dictum risus ullamcorper condimentum.
+                  Take the most sizzling flavors for a price that is perfect to pay!
                 </p>
               </div>
             </div>
@@ -254,7 +281,7 @@
                   Recieve your food!
                 </h4>
                 <p class="text-muted mb-3">
-                  Vivamus volutpat leo dictum risus ullamcorper condimentum.
+                  Get the enticing Indian-style dishes for you and your specials at Tandoori Nights!
                 </p>
               </div>
             </div>
@@ -262,134 +289,45 @@
         </div>
       </div>
     </section>
-    <!-- Section - Menu Sample -->
-    <section class="section right bg-light">
-      <div class="container">
-        <div class="row no-gutters justify-content-center">
-          <div class="col-md-8" role="tablist">
-            <h1 class="mb-6 text-center"><strong>Our</strong> Bestsellers</h1>
-            <!-- Menu Category / Burgers -->
-            <div id="Burgers" class="menu-category text-left">
-              <div class="menu-category-title" role="tab">
-                <div class="bg-image">
-                  <img
-                    src="http://assets.suelo.pl/soup/img/photos/menu-title-burgers.jpg"
-                    alt=""
-                  />
-                </div>
-                <h2 class="title">Burgers</h2>
-              </div>
-              <div id="menuBurgersContent" class="menu-category-content">
-                <!-- Menu Item -->
-                <div class="menu-item menu-list-item">
-                  <div class="row align-items-center">
-                    <div class="col-sm-6 mb-2 mb-sm-0">
-                      <h6 class="mb-0">Beef Burger</h6>
-                      <span class="text-muted text-sm"
-                        >Beef, cheese, potato, onion, fries</span
-                      >
-                    </div>
-                    <div class="col-sm-6 text-sm-right">
-                      <span class="text-md mr-4"
-                        ><span class="text-muted">from</span> $<span
-                          data-product-base-price
-                          >9.00</span
-                        ></span
-                      >
-                      <button
-                        class="btn btn-outline-secondary btn-sm"
-                        data-action="open-cart-modal"
-                        data-id="1"
-                      >
-                        <span>Add to cart</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <!-- Menu Item -->
-                <div class="menu-item menu-list-item">
-                  <div class="row align-items-center">
-                    <div class="col-sm-6 mb-2 mb-sm-0">
-                      <h6 class="mb-0">Broccoli</h6>
-                      <span class="text-muted text-sm"
-                        >Chicken, cheese, potato, onion, fries</span
-                      >
-                    </div>
-                    <div class="col-sm-6 text-sm-right">
-                      <span class="text-md mr-4"
-                        ><span class="text-muted">from</span> $<span
-                          data-product-base-price
-                          >9.00</span
-                        ></span
-                      >
-                      <button
-                        class="btn btn-outline-secondary btn-sm"
-                        data-action="open-cart-modal"
-                        data-id="1"
-                      >
-                        <span>Add to cart</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <!-- Menu Item -->
-                <div class="menu-item menu-list-item">
-                  <div class="row align-items-center">
-                    <div class="col-sm-6 mb-2 mb-sm-0">
-                      <h6 class="mb-0">Chicken Burger</h6>
-                      <span class="text-muted text-sm"
-                        >Chicken, cheese, potato, onion, fries</span
-                      >
-                    </div>
-                    <div class="col-sm-6 text-sm-right">
-                      <span class="text-md mr-4"
-                        ><span class="text-muted">from</span> $<span
-                          data-product-base-price
-                          >9.00</span
-                        ></span
-                      >
-                      <button
-                        class="btn btn-outline-secondary btn-sm"
-                        data-action="open-cart-modal"
-                        data-id="1"
-                      >
-                        <span>Add to cart</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <!-- Menu Item -->
-                <div class="menu-item menu-list-item">
-                  <div class="row align-items-center">
-                    <div class="col-sm-6 mb-2 mb-sm-0">
-                      <h6 class="mb-0">Creste di Galli</h6>
-                      <span class="text-muted text-sm"
-                        >Pasta, cheese, potato, onion, fries</span
-                      >
-                    </div>
-                    <div class="col-sm-6 text-sm-right">
-                      <span class="text-md mr-4"
-                        ><span class="text-muted">from</span> $<span
-                          data-product-base-price
-                          >9.00</span
-                        ></span
-                      >
-                      <button
-                        class="btn btn-outline-secondary btn-sm"
-                        data-action="open-cart-modal"
-                        data-id="1"
-                      >
-                        <span>Add to cart</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+     <!-- Section - About -->
+        <section class="section section-bg-edge">
+
+            <div class="image right col-md-6 offset-md-6">
+                <div class="bg-image"><img src="@/assets/bg-ts.jpg" alt=""></div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
+
+            <div class="container">
+                <div class="col-lg-5 col-md-9">
+                    <div class="rate mb-5 rate-lg"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i></div>
+                    <h1>The best food in Calgary!</h1>
+                    <div class="blockquotes">
+                        <!-- Blockquote -->
+                        <blockquote class="blockquote light animated" data-animation="fadeInLeft">
+                            <div class="blockquote-content">
+                                <div class="rate rate-sm mb-3"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i></div>
+                                <p>It’ was amazing feeling for my belly!</p>
+                            </div>
+                            <footer>
+                                <img src="http://assets.suelo.pl/soup/img/avatars/avatar02.jpg" alt="">
+                                <span class="name">Mark Johnson<span class="text-muted">, Google</span></span>
+                            </footer>
+                        </blockquote>
+                        <!-- Blockquote -->
+                        <blockquote class="blockquote animated" data-animation="fadeInRight" data-animation-delay="300">
+                            <div class="blockquote-content dark">
+                                <div class="rate rate-sm mb-3"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i></div>
+                                <p>Great food and great atmosphere!</p>
+                            </div>
+                            <footer>
+                                <img src="http://assets.suelo.pl/soup/img/avatars/avatar01.jpg" alt="">
+                                <span class="name">Kate Hudson<span class="text-muted">, LinkedIn</span></span>
+                            </footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+
+        </section>
 
     <Footer></Footer>
   </div>
@@ -521,5 +459,10 @@ a.panel-cart-action.btn.btn-secondary.btn-block.btn-lg {
 a.panel-cart-action.btn.btn-secondary.btn-block.btn-lg {
   padding: 22px;
   background: #343a40;
+}
+.text-heading{
+    color: #ddae71;
+    font-weight: 800;
+    font-size: 23px;
 }
 </style>

@@ -32,17 +32,21 @@
               class="mb-5"
               width="130"
             />
-            <h4 class="mb-0 font-weight-bold">Soup Restaurant</h4>
-            <span class="text-muted">Green Street 22, New York</span>
+            <h4 class="mb-0 font-weight-bold">Tandoori Night</h4>
+            <span class="text-muted">101- 4851 Westwinds Dr NE Calgary, AB T3J 4L4 Canada</span>
             <hr class="hr-md" />
             <div class="row">
-              <div class="col-sm-6 mb-3 mb-sm-0">
-                <h6 class="mb-1 text-muted font-weight-bold">Phone:</h6>
-                +48 21200 2122 221
+              <div class="col-sm-12 mb-3 mb-sm-0">
+                <h6 class="mb-1 text-muted font-weight-bold">Queries/Support:</h6>
+                +1-604-614-9324
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-12 mb-3 mb-sm-0">
+                <h6 class="mb-1 text-muted font-weight-bold">Booking:</h6>
+                +1-403-568-9858
+              </div>
+              <div class="col-sm-12">
                 <h6 class="mb-1 text-muted font-weight-bold">E-mail:</h6>
-                <a href="#">hello@example.com</a>
+                <a href="#">info@tandoorinights.ca</a>
               </div>
             </div>
             <hr class="hr-md" />
@@ -57,29 +61,12 @@
             ></a>
             <a
               href="#"
-              class="icon icon-social icon-circle icon-sm icon-twitter"
-              ><i class="fa fa-twitter"></i
-            ></a>
-            <a
-              href="#"
-              class="icon icon-social icon-circle icon-sm icon-youtube"
-              ><i class="fa fa-youtube"></i
-            ></a>
-            <a
-              href="#"
               class="icon icon-social icon-circle icon-sm icon-instagram"
               ><i class="fa fa-instagram"></i
             ></a>
           </div>
           <div class="col-lg-5 offset-lg-2 col-md-6">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18876468.2003077!2d-113.72221585646197!3d54.7227051740391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b0d03d337cc6ad9%3A0x9968b72aa2438fa5!2sCanada!5e0!3m2!1sen!2sin!4v1640349644586!5m2!1sen!2sin"
-              width="600"
-              height="450"
-              style="border: 0"
-              allowfullscreen=""
-              loading="lazy"
-            ></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.980454849165!2d-113.97040968401946!3d51.10882077957173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5371637ffd480cfb%3A0xbcc259dc49a97ae5!2s101%20Westwinds%20Dr%20NE%2C%20Calgary%2C%20AB%20T3J%205H3%2C%20Canada!5e0!3m2!1sen!2sin!4v1640782046742!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
           </div>
         </div>
       </div>

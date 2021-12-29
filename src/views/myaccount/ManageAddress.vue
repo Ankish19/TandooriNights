@@ -1,5 +1,5 @@
 <template>
-  <div id="checkout">
+  <div id="manage-address">
     <Headbar></Headbar>
     <!-- Page Title -->
     <div class="page-title">
@@ -91,87 +91,48 @@
                 Manage Address
               </h4>
               <div class="row mb-5">
-                <div class="col-md-6">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18876468.20030772!2d-113.72221585646197!3d54.7227051740391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b0d03d337cc6ad9%3A0x9968b72aa2438fa5!2sCanada!5e0!3m2!1sen!2sin!4v1640674008590!5m2!1sen!2sin"
-                    width="100%"
-                    height="450"
-                    style="border: 0"
-                    allowfullscreen=""
-                    loading="lazy"
-                  ></iframe>
-                </div>
-
-                <div class="col-md-6">
-                   <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Search for..."
-                    />
-                    <span class="input-group-btn">
-                      <button class="btn btn-primary" type="button">
-                        <span>Search</span>
-                      </button>
-                    </span>
-                  </div>
-                      <div class="display-list mt-1">
-                     <p><a href="#"><i class="fa fa-location-arrow" aria-hidden="true"></i> Use My Current Location</a></p>
-                  </div>
-                  <hr/>
-                <div class="row">
-                <div class="col-md-6"><p class="heading-text">Save Address</p></div>
-                <div class="col-md-6 text-right"><button class="btn btn-primary btn-sm"><span>Add Address</span></button></div>
-                </div>
-                <div class="row">
                 <div class="col-md-12">
-                    <div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small>3 days ago</small>
-    </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
-    <small>And some small print.</small>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
-    </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
-    <small class="text-muted">And some muted small print.</small>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
-    </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
-    <small class="text-muted">And some muted small print.</small>
-  </a>
-</div>
-                </div>
-                </div>
-                <div class="row">
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Full Address"
-                    />
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p class="heading-text">Save Address</p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <button class="btn btn-primary btn-sm">
+                        <span><router-link to='/addmanageaddress'>
+                        Add Address   </router-link></span>
+                      </button>
+                    </div>
                   </div>
-                  <div class="input-group mt-2">
-                   <select class="form-control form-select" aria-label="Default select example">
-                      <option selected>Save Favorites Address</option>
-                      <option value="1">Home</option>
-                      <option value="2">Work</option>
-                      <option value="3">Others</option>
-                  </select>
-                   </div>
-                  <div class="col-md-12 mt-2">
-                  <button class="btn btn-primary w-100"><span>Save Address</span></button>
-                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="list-group">
+                        <a
+                          href="#"
+                          class="list-group-item list-group-item-action active"
+                          aria-current="true"
+                        >
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1 font-weight-bold">Home</h5>
+                            <small style="font-size:20px; position: relative; top: 14px;" class="text-white"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
+                          </div>
+                          <p class="mb-1">
+                            860 Century St James Manitoba R3H 0M5
+                          </p>
+                        </a>
+                        <a
+                          href="#"
+                          class="list-group-item list-group-item-action"
+                        >
+                          <div class="d-flex w-100 justify-content-between">
+                             <h5 class="mb-1 font-weight-bold">Work</h5>
+                           <small style="font-size:20px; position: relative; top: 14px;" class="text-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
+                          </div>
+                          <p class="mb-1">
+                            Giersstrasse 23 Paderborn North Rhine-Westphalia
+                          </p>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                   <!-- /input-group -->
                 </div>
@@ -209,7 +170,7 @@ export default {
     // BFormInput
   },
 
-  name: 'checkout'
+  name: 'ManageAddress'
 }
 </script>
 <style>
@@ -232,8 +193,14 @@ a.text-left.active {
   font-weight: 600 !important;
 }
 .heading-text {
-    font-size: 18px;
-    font-weight: 700;
-    margin-top: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #ddae71;
+    border-color: #ddae71;
 }
 </style>

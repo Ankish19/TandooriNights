@@ -6,7 +6,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
-            <h1 class="mb-0">My Account</h1>
+            <h1 class="mb-0">My Orders</h1>
             <h4 class="text-muted mb-0">
               Some informations about our restaurant
             </h4>
@@ -27,11 +27,11 @@
                 <ul class="text-list">
                   <li class="text-link">
                     <i class="fa fa-home" aria-hidden="true"></i>
-                    <a href="#" class="text-left active">Manage Address</a>
+                    <a href="#" class="text-left">Manage Address</a>
                   </li>
                   <li class="text-link">
                     <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                    <a href="#" class="text-left">My Order</a>
+                    <a href="#" class="text-left active">My Order</a>
                   </li>
                   <li class="text-link">
                     <i class="fa fa-money" aria-hidden="true"></i>
@@ -88,94 +88,96 @@
                   class="fa fa-shopping-bag text-primary mr-3"
                   aria-hidden="true"
                 ></i>
-                Manage Address
+                My Orders
               </h4>
               <div class="row mb-5">
-                <div class="col-md-6">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18876468.20030772!2d-113.72221585646197!3d54.7227051740391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b0d03d337cc6ad9%3A0x9968b72aa2438fa5!2sCanada!5e0!3m2!1sen!2sin!4v1640674008590!5m2!1sen!2sin"
-                    width="100%"
-                    height="450"
-                    style="border: 0"
-                    allowfullscreen=""
-                    loading="lazy"
-                  ></iframe>
-                </div>
-
-                <div class="col-md-6">
-                   <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Search for..."
-                    />
-                    <span class="input-group-btn">
-                      <button class="btn btn-primary" type="button">
-                        <span>Search</span>
-                      </button>
-                    </span>
-                  </div>
-                      <div class="display-list mt-1">
-                     <p><a href="#"><i class="fa fa-location-arrow" aria-hidden="true"></i> Use My Current Location</a></p>
-                  </div>
-                  <hr/>
-                <div class="row">
-                <div class="col-md-6"><p class="heading-text">Save Address</p></div>
-                <div class="col-md-6 text-right"><button class="btn btn-primary btn-sm"><span>Add Address</span></button></div>
-                </div>
-                <div class="row">
-                <div class="col-md-12">
-                    <div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small>3 days ago</small>
-    </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
-    <small>And some small print.</small>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
-    </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
-    <small class="text-muted">And some muted small print.</small>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
-    </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
-    <small class="text-muted">And some muted small print.</small>
-  </a>
+<div class="container">
+<div class="row">
+<div class="col-md-12 mb-20">
+<div class="wishlist-table ">
+<table class="table table-bordered">
+<thead>
+<tr>
+<th scope="col">Order Id </th>
+<th scope="col">Description</th>
+<th scope="col">Status</th>
+<th scope="col">Total Price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="line">
+<td>
+<div class="wh-item-info">
+<a href="#" class="font-weight-bold">#1215451</a>
+<p>29-12-2021</p>
 </div>
-                </div>
-                </div>
-                <div class="row">
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Full Address"
-                    />
-                  </div>
-                  <div class="input-group mt-2">
-                   <select class="form-control form-select" aria-label="Default select example">
-                      <option selected>Save Favorites Address</option>
-                      <option value="1">Home</option>
-                      <option value="2">Work</option>
-                      <option value="3">Others</option>
-                  </select>
-                   </div>
-                  <div class="col-md-12 mt-2">
-                  <button class="btn btn-primary w-100"><span>Save Address</span></button>
-                  </div>
-                  </div>
-                  <!-- /input-group -->
-                </div>
-                <!-- /.col-lg-6 -->
+</td>
+<td>
+<div class="wh-item-info">
+<a href="#" class="font-weight-bold">AnkishD.</a>
+<p>Veg Momos x 1, Masala Chaap x1</p>
+</div>
+</td>
+<td>
+<span class="wh-tem-status text-success font-weight-bold"><router-link to="/orderdetails">Delivered &rsaquo;</router-link></span>
+<span class="wh-tem-status text-warning font-weight-bold hide"><router-link to="/orderdetails">Prepare &rsaquo;</router-link></span>
+<span class="wh-tem-status text-danger font-weight-bold hide"><router-link to="/orderdetails">Cancel &rsaquo;</router-link></span>
+</td>
+<td>
+<span class="wh-tem-price">$32.00</span>
+</td>
+</tr>
+<tr class="line">
+<td>
+<div class="wh-item-info">
+<a href="#" class="font-weight-bold">#1215451</a>
+<p>29-12-2021</p>
+</div>
+</td>
+<td>
+<div class="wh-item-info">
+<a href="#" class="font-weight-bold">AnkishD.</a>
+<p>Veg Momos x 1, Masala Chaap x1</p>
+</div>
+</td>
+<td>
+<span class="wh-tem-status text-success font-weight-bold hide"><router-link to="/orderdetails"> &rsaquo;</router-link></span>
+<span class="wh-tem-status text-warning font-weight-bold "><router-link to="/orderdetails"> Prepare &rsaquo;</router-link></span>
+<span class="wh-tem-status text-danger font-weight-bold hide"><router-link to="/orderdetails">Cancel &rsaquo;</router-link></span>
+</td>
+<td>
+<span class="wh-tem-price">$32.00</span>
+</td>
+</tr>
+
+<tr class="line">
+<td>
+<div class="wh-item-info">
+<a href="#" class="font-weight-bold">#1215451</a>
+<p>29-12-2021</p>
+</div>
+</td>
+<td>
+<div class="wh-item-info">
+<a href="#" class="font-weight-bold">AnkishD.</a>
+<p>Veg Momos x 1, Masala Chaap x1</p>
+</div>
+</td>
+<td>
+<span class="wh-tem-status text-success font-weight-bold hide">><router-link to="/orderdetails">Delivered &rsaquo;</router-link></span>
+<span class="wh-tem-status text-warning font-weight-bold hide">><router-link to="/orderdetails">Prepare &rsaquo;</router-link></span>
+<span class="wh-tem-status text-danger font-weight-bold "><router-link to="/orderdetails">Cancel &rsaquo;</router-link></span>
+</td>
+<td>
+<span class="wh-tem-price">$32.00</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
               </div>
             </div>
           </div>
@@ -232,8 +234,74 @@ a.text-left.active {
   font-weight: 600 !important;
 }
 .heading-text {
-    font-size: 18px;
-    font-weight: 700;
-    margin-top: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 8px;
 }
+.wishlist-table table tbody tr td .wh_item .wh-item-info a {
+    font-size: 22px;
+    font-weight: 700;
+}
+.wishlist-table {
+    margin: 0 0 25px;
+    -webkit-box-shadow: 0 0 15px rgb(0 0 0 / 10%);
+    box-shadow: 0 0 15px rgb(0 0 0 / 10%);
+}
+.wishlist-table table thead tr th {
+    border: none;
+    background: #f6f6f6;
+    color: #545454;
+    padding: 4px 21px;
+    font-family: nunito,sans-serif;
+    font-weight: 600;
+    text-align: left;
+    font-size: 13px;
+}
+p {
+    font-size: 12px;
+    line-height: 2;
+    color: #545454;
+}s
+.wishlist-table table tbody tr td .wh_item .wh-item-info span.wh-tem-price {
+    color: #f41f31;
+    font-weight: 600;
+}
+.wishlist-table table tbody tr td .wh_item img {
+    max-width:50px;
+    display: block;
+    border-radius: 5px;
+}
+.wishlist-table table tbody tr td {
+    padding: 18px 20px;
+    text-align: left;
+    border: none;
+}
+.product-quantity.style2 .qtySelector input {
+    left: 0;
+    border: none;
+    background-color: #efefef;
+    border-radius: 50px;
+    margin: 0 10px;
+    color: #f41f31;
+}
+
+span.wh-tem-price {
+    color: red;
+    font-weight: 500;
+    font-size: 15px;
+}
+tr.line {
+    border-bottom: 2px solid #f6f6f6;
+}
+.hide {
+  display:none !important;
+}
+tr.line:hover {
+    border-bottom: 2px solid #f6f6f6;
+    background: #dfdedd;
+}
+@media (max-width: 991px){
+.menu-sample .title {
+    font-size: 4rem;
+}}
 </style>

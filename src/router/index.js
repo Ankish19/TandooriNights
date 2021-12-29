@@ -54,6 +54,26 @@ const routes = [
     path: '/myaccount',
     name: 'MyAccount',
     component: () => import('../views/myaccount/MyAccount.vue')
+  },
+  {
+    path: '/manageaddress',
+    name: 'ManageAddress',
+    component: () => import('../views/myaccount/ManageAddress.vue')
+  },
+  {
+    path: '/addmanageaddress',
+    name: 'AddManageAddress',
+    component: () => import('../views/myaccount/AddManageAddress.vue')
+  },
+  {
+    path: '/myorder',
+    name: 'MyOrder',
+    component: () => import('../views/myaccount/MyOrder.vue')
+  },
+  {
+    path: '/orderdetails',
+    name: 'OrderDetails',
+    component: () => import('../views/myaccount/OrderDetails.vue')
   }
 ]
 
