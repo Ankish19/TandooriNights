@@ -23,9 +23,9 @@
           <b-form @submit.prevent="userLogin">
             <b-row>
               <b-col cols="6" class="mx-auto">
-                <b-col cols="12">
+                <!--<b-col cols="12">
                   <h2 class="font-weight-bold">Login Form</h2>
-                </b-col>
+                </b-col>-->
                 <b-col cols="12">
                   <b-form-group>
                     <b-form-group>
