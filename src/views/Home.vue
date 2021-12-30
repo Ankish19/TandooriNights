@@ -60,7 +60,7 @@
       <div class="image right col-md-6 offset-md-6">
         <div class="bg-image">
           <img
-            src="http://assets.suelo.pl/soup/img/photos/bg-burger.jpg"
+            src="@/assets/bg-burger.jpg"
             alt=""
           />
         </div>
@@ -290,7 +290,7 @@
       </div>
     </section>
      <!-- Section - About -->
-        <section class="section section-bg-edge">
+        <section class="section section-bg-edge ">
 
             <div class="image right col-md-6 offset-md-6">
                 <div class="bg-image"><img src="@/assets/bg-ts.jpg" alt=""></div>

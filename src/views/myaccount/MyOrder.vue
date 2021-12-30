@@ -18,36 +18,8 @@
     <section class="section bg-light">
       <div class="container text-left">
         <div class="row">
-          <div class="col-xl-4 col-lg-5">
-            <div class="cart-details shadow bg-white stick-to-content mb-4">
-              <div class="bg-dark dark p-4">
-                <h5 class="mb-0">My Account</h5>
-              </div>
-              <div class="cart-summary">
-                <ul class="text-list">
-                  <li class="text-link">
-                    <i class="fa fa-home" aria-hidden="true"></i>
-                    <a href="#" class="text-left">Manage Address</a>
-                  </li>
-                  <li class="text-link">
-                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                    <a href="#" class="text-left active">My Order</a>
-                  </li>
-                  <li class="text-link">
-                    <i class="fa fa-money" aria-hidden="true"></i>
-                    <a href="#" class="text-left">My Wallet</a>
-                  </li>
-                  <li class="text-link">
-                    <i class="fa fa-question-circle" aria-hidden="true"></i
-                    ><a href="#" class="text-left"> Help & FAQs</a>
-                  </li>
-                  <li class="text-link">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i
-                    ><a href="#" class="text-left"> Logout</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+           <div class="col-xl-4 col-lg-5">
+            <SildeBar></SildeBar>
           </div>
           <!-- <div class="col-xl-8 col-lg-7">
                         <div class="bg-white p-4 p-md-5 mb-4">
@@ -80,7 +52,6 @@
                             </div>
                         </div>
                     </div> -->
-
           <div class="col-xl-8 col-lg-7">
             <div class="bg-white p-4 p-md-5 mb-4">
               <h4 class="border-bottom pb-4">
@@ -191,6 +162,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
+import SildeBar from '@/views/myaccount/SildeBar.vue'
 import //   BContainer,
 //   BRow,
 //   BCol,
@@ -202,7 +174,8 @@ export default {
   created () {},
   components: {
     Headbar,
-    Footer
+    Footer,
+    SildeBar
     // BContainer,
     // BRow,
     // BCol,

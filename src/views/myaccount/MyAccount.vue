@@ -19,35 +19,7 @@
       <div class="container text-left">
         <div class="row">
           <div class="col-xl-4 col-lg-5">
-            <div class="cart-details shadow bg-white stick-to-content mb-4">
-              <div class="bg-dark dark p-4">
-                <h5 class="mb-0">My Account</h5>
-              </div>
-              <div class="cart-summary">
-                <ul class="text-list">
-                  <li class="text-link">
-                    <i class="fa fa-home" aria-hidden="true"></i>
-                    <a href="#" class="text-left active">Manage Address</a>
-                  </li>
-                  <li class="text-link">
-                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                    <a href="#" class="text-left">My Order</a>
-                  </li>
-                  <li class="text-link">
-                    <i class="fa fa-money" aria-hidden="true"></i>
-                    <a href="#" class="text-left">My Wallet</a>
-                  </li>
-                  <li class="text-link">
-                    <i class="fa fa-question-circle" aria-hidden="true"></i
-                    ><a href="#" class="text-left"> Help & FAQs</a>
-                  </li>
-                  <li class="text-link">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i
-                    ><a href="#" class="text-left"> Logout</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <SildeBar></SildeBar>
           </div>
           <!-- <div class="col-xl-8 col-lg-7">
                         <div class="bg-white p-4 p-md-5 mb-4">
@@ -84,97 +56,54 @@
           <div class="col-xl-8 col-lg-7">
             <div class="bg-white p-4 p-md-5 mb-4">
               <h4 class="border-bottom pb-4">
-                <i
-                  class="fa fa-shopping-bag text-primary mr-3"
-                  aria-hidden="true"
-                ></i>
-                Manage Address
+                <i class="fa fa-user" aria-hidden="true"></i>
+                My Profile
               </h4>
               <div class="row mb-5">
+              <div class="col-md-12">
+                 <div class="blog-details-wrap ptb-100">
+      <div class="container">
+        <div class="row gx-5">
+          <div class="col-lg-12 order-xl-2 order-lg-1 order-md-1 order-1">
+            <div class="card mb-4">
+              <div class="card-body text-center">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                  alt="avatar"
+                  class="rounded-circle img-fluid"
+                  style="width: 150px"
+                />
+                <h5 class="my-3 profile">User</h5>
+                <p class="text-muted mb-2">
+                  <i class="fa fa-map-marker" aria-hidden="true"></i> Bay Area, San
+                  Francisco, CA
+                </p>
+                <p class="text-muted mb-2">
+                  <a href="tel:4434567890"><i class="fa fa-phone" aria-hidden="true"></i> +44 345 678 90</a>
+                </p>
+                <p class="text-muted mb-4">
+                  <a href="mailto:User@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true"></i> User@gmail.com</a>
+                </p>
+                <div class="row">
                 <div class="col-md-6">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18876468.20030772!2d-113.72221585646197!3d54.7227051740391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b0d03d337cc6ad9%3A0x9968b72aa2438fa5!2sCanada!5e0!3m2!1sen!2sin!4v1640674008590!5m2!1sen!2sin"
-                    width="100%"
-                    height="450"
-                    style="border: 0"
-                    allowfullscreen=""
-                    loading="lazy"
-                  ></iframe>
+                    <div class="d-flex justify-content-center mb-2">
+                    <router-link to="/login" class="btn btn-primary w-100"><span><i class="fa fa-pencil" aria-hidden="true"></i>  Update</span></router-link>
+                </div>
+                </div>
+                <div class="col-md-6">
+                 <div class="d-flex justify-content-center mb-2">
+                  <router-link to="/login" class="btn btn-danger w-100"><span><i class="fa fa-pencil" aria-hidden="true"></i>  Password Changes</span></router-link>
+                </div>
+                </div>
                 </div>
 
-                <div class="col-md-6">
-                   <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Search for..."
-                    />
-                    <span class="input-group-btn">
-                      <button class="btn btn-primary" type="button">
-                        <span>Search</span>
-                      </button>
-                    </span>
-                  </div>
-                      <div class="display-list mt-1">
-                     <p><a href="#"><i class="fa fa-location-arrow" aria-hidden="true"></i> Use My Current Location</a></p>
-                  </div>
-                  <hr/>
-                <div class="row">
-                <div class="col-md-6"><p class="heading-text">Save Address</p></div>
-                <div class="col-md-6 text-right"><button class="btn btn-primary btn-sm"><span>Add Address</span></button></div>
-                </div>
-                <div class="row">
-                <div class="col-md-12">
-                    <div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small>3 days ago</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
-    <small>And some small print.</small>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
-    </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
-    <small class="text-muted">And some muted small print.</small>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
-    </div>
-    <p class="mb-1">Some placeholder content in a paragraph.</p>
-    <small class="text-muted">And some muted small print.</small>
-  </a>
-</div>
-                </div>
-                </div>
-                <div class="row">
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Full Address"
-                    />
-                  </div>
-                  <div class="input-group mt-2">
-                   <select class="form-control form-select" aria-label="Default select example">
-                      <option selected>Save Favorites Address</option>
-                      <option value="1">Home</option>
-                      <option value="2">Work</option>
-                      <option value="3">Others</option>
-                  </select>
-                   </div>
-                  <div class="col-md-12 mt-2">
-                  <button class="btn btn-primary w-100"><span>Save Address</span></button>
-                  </div>
-                  </div>
-                  <!-- /input-group -->
-                </div>
+              </div>
                 <!-- /.col-lg-6 -->
               </div>
             </div>
@@ -189,6 +118,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
+import SildeBar from '@/views/myaccount/SildeBar.vue'
 import //   BContainer,
 //   BRow,
 //   BCol,
@@ -200,7 +130,8 @@ export default {
   created () {},
   components: {
     Headbar,
-    Footer
+    Footer,
+    SildeBar
     // BContainer,
     // BRow,
     // BCol,
@@ -235,5 +166,10 @@ a.text-left.active {
     font-size: 18px;
     font-weight: 700;
     margin-top: 8px;
+}
+.profile{
+    font-weight: 700;
+    color: #ddae71;
+    font-family: 'Raleway';
 }
 </style>
