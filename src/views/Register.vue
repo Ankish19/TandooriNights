@@ -4,10 +4,15 @@
     <!-- Content -->
     <div id="content">
       <!-- Page Title -->
-      <div class="page-title bg-light">
+       <div class="page-title bg-light">
         <div class="container">
           <div class="row">
-            <div class="col-lg-7 offset-lg-5"></div>
+            <div class="col-lg-12">
+              <h1 class="mb-0">Register</h1>
+              <h4 class="text-muted mb-0">
+                Some informations about our restaurant
+              </h4>
+            </div>
           </div>
         </div>
       </div>
