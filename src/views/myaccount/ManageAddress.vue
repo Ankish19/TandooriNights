@@ -57,7 +57,7 @@
             <div class="bg-white p-4 p-md-5 mb-4">
               <h4 class="border-bottom pb-4">
                 <i
-                  class="fa fa-shopping-bag text-primary mr-3"
+                  class="fa fa-home text-primary mr-3"
                   aria-hidden="true"
                 ></i>
                 Manage Address
@@ -148,6 +148,13 @@ export default {
 }
 </script>
 <style>
+.card {
+    border: none;
+    border-radius: 10px;
+    width: 275px;
+    margin-top: 20%
+}
+
 ul.text-list li.text-link {
   list-style: none;
   font-size: 15px;

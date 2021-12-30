@@ -56,41 +56,28 @@
             <div class="bg-white p-4 p-md-5 mb-4">
               <h4 class="border-bottom pb-4">
                 <i
-                  class="fa fa-shopping-bag text-primary mr-3"
+                  class="fa fa-money text-primary mr-3"
                   aria-hidden="true"
                 ></i>
-                My Orders
+                My Wallet
               </h4>
               <div class="row mb-5">
-              <div class="card-2">
-  <div class="card__front card__part">
-    <img class="card__front-square card__square" src="https://image.ibb.co/cZeFjx/little_square.png">
-    <img class="card__front-logo card__logo" src="https://www.fireeye.com/partners/strategic-technology-partners/visa-fireeye-cyber-watch-program/_jcr_content/content-par/grid_20_80_full/grid-20-left/image.img.png/1505254557388.png">
-    <p class="card_numer">**** **** **** 6258</p>
-    <div class="card__space-75">
-      <span class="card__label">Card holder</span>
-      <p class="card__info">John Doe</p>
-    </div>
-    <div class="card__space-25">
-      <span class="card__label">Expires</span>
-            <p class="card__info">10/25</p>
-    </div>
-  </div>
-
-  <div class="card__back card__part">
-    <div class="card__black-line"></div>
-    <div class="card__back-content">
-      <div class="card__secret">
-        <p class="card__secret--last">420</p>
-      </div>
-      <img class="card__back-square card__square" src="https://image.ibb.co/cZeFjx/little_square.png">
-      <img class="card__back-logo card__logo" src="https://www.fireeye.com/partners/strategic-technology-partners/visa-fireeye-cyber-watch-program/_jcr_content/content-par/grid_20_80_full/grid-20-left/image.img.png/1505254557388.png">
-
-    </div>
-  </div>
-
-</div>
+                    <div class="card-bottom pt-3 px-3 mb-2">
+                      <div class="d-flex flex-row justify-content-between text-align-center">
+                          <div class="d-flex flex-column"><span>Balance amount</span>
+                              <p><i class="fa fa-usd" aria-hidden="true"></i> <span class="text-white">88,989</span></p>
+                          </div> <button class="btn btn-secondary"><i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                      </div>
+                      <div class="col-md-12"><img src="@/assets/logo.svg" alt="logo" width="80px" class="card-img"></div>
+                      <div class="col-md-12 card-text">XXXX-XXXX-XXXX-7888</div>
+                      <div class="row">
+                      <div class="col-md-6 card-sub">06 / 2025</div>
+                      <div class="col-md-6 card-sub">Prepaid Card By Tandoori Night</div>
+                      </div>
+                  </div>
               </div>
+              <!--  -->
+              <!--  -->
             </div>
           </div>
         </div>
@@ -129,4 +116,66 @@ export default {
 }
 </script>
 <style>
+.fa-ellipsis-v {
+    font-size: 10px;
+    color: #C2C2C4;
+    margin-top: 6px;
+    cursor: pointer
+}
+
+.text-dark {
+    font-weight: bold;
+    margin-top: 8px;
+    font-size: 13px;
+    letter-spacing: 0.5px
+}
+
+.card-bottom {
+    border-radius: 6px;
+    background: linear-gradient(
+89deg, #161615, #5aab39ed);
+}
+
+.flex-column {
+    color: #adb5bd;
+    font-size: 13px
+}
+
+.flex-column p {
+    letter-spacing: 1px;
+    font-size: 18px
+}
+
+.btn-secondary {
+    height: 40px !important;
+    margin-top: 3px
+}
+
+.btn-secondary:focus {
+    box-shadow: none
+}
+.card {
+    width: 390px;
+    background: #F06292;
+    border-radius: 15px;
+    border: none
+}
+.card-text {
+    font-size: 36px;
+    color: #ffffff;
+    position: relative;
+    bottom: 24px;
+}
+.col-md-6.card-sub {
+    color: #fff8f8;
+    margin-bottom: 17px;
+}
+.card-bottom.pt-3.px-3.mb-2 {
+    margin: auto;
+}
+.card-img{
+  position: relative;
+    top: -18px;
+    width: 80px;
+}
 </style>

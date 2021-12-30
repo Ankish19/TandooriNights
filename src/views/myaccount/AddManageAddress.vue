@@ -57,7 +57,7 @@
             <div class="bg-white p-4 p-md-5 mb-4">
               <h4 class="border-bottom pb-4">
                 <i
-                  class="fa fa-shopping-bag text-primary mr-3"
+                  class="fa fa fa-plus-square text-primary mr-3"
                   aria-hidden="true"
                 ></i>
                 Add Manage Address
