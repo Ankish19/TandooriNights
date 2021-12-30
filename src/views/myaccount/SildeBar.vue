@@ -16,7 +16,7 @@
                   </li>
                   <li class="text-link">
                     <i class="fa fa-money" aria-hidden="true"></i>
-                     <router-link to="/" class="text-left">My Wallet</router-link>
+                     <router-link to="/wallet" class="text-left">My Wallet</router-link>
                   </li>
                   <li class="text-link">
                     <i class="fa fa-question-circle" aria-hidden="true"></i

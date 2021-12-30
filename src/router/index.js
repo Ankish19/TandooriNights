@@ -46,6 +46,11 @@ const routes = [
     component: () => import('../views/Otp.vue')
   },
   {
+    path: '/otpverify',
+    name: 'OtpVerify',
+    component: () => import('../views/OtpVerify.vue')
+  },
+  {
     path: '/checkout',
     name: 'Checkout',
     component: () => import('../views/CheckOut.vue')
@@ -74,6 +79,11 @@ const routes = [
     path: '/orderdetails',
     name: 'OrderDetails',
     component: () => import('../views/myaccount/OrderDetails.vue')
+  },
+  {
+    path: '/wallet',
+    name: 'Wallet',
+    component: () => import('../views/myaccount/Wallet.vue')
   }
 ]
 

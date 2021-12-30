@@ -8,7 +8,7 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
-              <h1 class="mb-0">OTP With Login</h1>
+              <h1 class="mb-0">OTP Verify</h1>
               <h4 class="text-muted mb-0">
                 Some informations about our restaurant
               </h4>
@@ -27,27 +27,24 @@
                   <b-form-group>
                     <b-form-group>
                       <b-form-input
-                        v-model="email"
-                        placeholder="Email"
+                        v-model="text"
+                        placeholder="Enter OTP"
                       ></b-form-input>
                     </b-form-group>
                   </b-form-group>
                 </b-col>
                 <b-col cols="12">
                   <b-form-group>
-                    <b-form-group>
-                      <b-form-input
-                        v-model="text"
-                        placeholder="Phone"
-                      ></b-form-input>
-                    </b-form-group>
+                    <b-button class="w-100"><span>Verify OTP</span></b-button>
                   </b-form-group>
                 </b-col>
-                <b-col cols="12" class="mt-3">
-                  <b-form-group>
-                    <b-button class="w-100"><span>Send OTP</span></b-button>
-                  </b-form-group>
-                </b-col>
+                     <b-col cols="12" class="text-right">
+                    <p class="pd-a1">
+                      <router-link to="#"
+                        ><strong>Resend Code </strong></router-link
+                      >
+                    </p>
+                  </b-col>
               </b-col>
             </b-row>
           </b-form>
