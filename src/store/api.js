@@ -11,6 +11,11 @@ export const getMenu = () => {
 export const register = (data) => {
   return axios.post(`${apiUrl}register`, data)
 }
+
+export const verifyOtp = (data) => {
+  return axios.post(`${apiUrl}verify-otp`, data)
+}
+
 export const login = (data) => {
   return axios.post(`${apiUrl}login`, data)
 }

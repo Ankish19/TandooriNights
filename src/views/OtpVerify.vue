@@ -21,13 +21,14 @@
       <section class="sectionbg">
         <b-container>
           <b-form>
+            <form @submit.prevent="VerifyOtp">
             <b-row>
               <b-col cols="6" class="mx-auto">
                 <b-col cols="12">
                   <b-form-group>
                     <b-form-group>
                       <b-form-input
-                        v-model="text"
+                        v-model="form.otp"
                         placeholder="Enter OTP"
                       ></b-form-input>
                     </b-form-group>
@@ -47,6 +48,7 @@
                   </b-col>
               </b-col>
             </b-row>
+            </form>
           </b-form>
         </b-container>
       </section>
@@ -57,6 +59,8 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
+import { getLocalStorage } from '@/store/service'
+import { verifyOtp } from '@/store/api'
 import {
   BForm,
   BFormGroup,
@@ -78,6 +82,26 @@ export default {
     BRow,
     BCol,
     BContainer
+  },
+  data () {
+    return {
+      form: {
+        email: getLocalStorage('userData').email,
+        phone: getLocalStorage('userData').phone,
+        otp: ''
+      }
+    }
+  },
+  methods: {
+    VerifyOtp () {
+      verifyOtp(this.form).then(res => {
+        if (res.data.valid_otp === 'true') {
+          this.$router.push('/myaccount')
+        } else {
+          console.log('otp invalid')
+        }
+      })
+    }
   }
 }
 </script>

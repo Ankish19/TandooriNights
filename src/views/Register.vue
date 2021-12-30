@@ -90,6 +90,7 @@
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import { register } from '@/store/api'
+import { saveLocalStorage } from '@/store/service'
 import {
   BForm,
   BFormGroup,
@@ -125,7 +126,15 @@ export default {
   methods: {
     save () {
       register(this.form).then(res => {
-        console.log(res)
+        if (res.data.success === true) {
+          // localStorage.setItem('userData', res.data.data)
+          saveLocalStorage('userData', JSON.stringify(res.data.data))
+          this.$router.push('/otpverify?type=' + res.data.verification.type)
+        } else if (res.data.email_phone_already_used === true) {
+          console.log('Allready exists')
+        } else {
+          console.log('register failed')
+        }
       })
     }
   }
