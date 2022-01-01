@@ -19,3 +19,9 @@ export const verifyOtp = (data) => {
 export const login = (data) => {
   return axios.post(`${apiUrl}login`, data)
 }
+
+export const getGoogleApi = async () => {
+  return await axios.get(`${apiUrl}get-setting/googleApiKey`).then(res => {
+    return new Promise((resolve) => { resolve(res.data) })
+  })
+}
