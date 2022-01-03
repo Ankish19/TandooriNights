@@ -173,6 +173,7 @@ export default {
     const mapDiv = ref(null)
 
     onMounted(async () => {
+      console.log('load map')
       await loader.load()
       map.value = new window.google.maps.Map(mapDiv.value, {
         center: { lat: 54.78122724085885, lng: -125.01301671032266 },
