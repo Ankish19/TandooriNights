@@ -64,6 +64,7 @@
               </h4>
               <div class="row mb-5">
                 <div class="col-md-6">
+                  <div ref="mapDiv" style="width: 100%; height: 61vh" />
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18876468.20030772!2d-113.72221585646197!3d54.7227051740391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b0d03d337cc6ad9%3A0x9968b72aa2438fa5!2sCanada!5e0!3m2!1sen!2sin!4v1640674008590!5m2!1sen!2sin"
                     width="100%"
@@ -87,6 +88,15 @@
                       </button>
                     </span>
                   </div>
+                  <vue-google-autocomplete
+                    ref="endaddress"
+                    id="endmap"
+                    classname="form-control"
+                    placeholder="Search Location"
+                    country="ca"
+                    name="address"
+                >
+                </vue-google-autocomplete>
                   <div class="display-list mt-1">
                     <p>
                       <a href="#"
@@ -139,6 +149,9 @@
   </div>
 </template>
 <script>
+import { ref, onMounted } from 'vue'
+import VueGoogleAutocomplete from 'vue-google-autocomplete'
+import { Loader } from '@googlemaps/js-api-loader'
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
@@ -149,12 +162,36 @@ import //   BContainer,
 //   BFormGroup,
 //   BFormInput
 'bootstrap-vue'
+
+const GOOGLE_MAPS_API_KEY = 'AIzaSyBLVIcbGHiO0lFwfgZgKBx9UlSz_yrl_IU'
 export default {
+  setup () {
+    const loader = new Loader({ apiKey: GOOGLE_MAPS_API_KEY })
+    // const directionsService = new window.google.maps.DirectionsService();
+    const directionsRenderer = new window.google.maps.DirectionsRenderer()
+    const map = ref(null)
+    const mapDiv = ref(null)
+
+    onMounted(async () => {
+      console.log('load map')
+      await loader.load()
+      map.value = new window.google.maps.Map(mapDiv.value, {
+        center: { lat: 54.78122724085885, lng: -125.01301671032266 },
+        // center: { lat: 51.033332421752895, lng: -114.07961939718315 },
+        // center: currPos.value,
+        zoom: 10
+      })
+      directionsRenderer.setMap(map.value)
+    })
+
+    return { mapDiv }
+  },
   created () {},
   components: {
     Headbar,
     Footer,
-    SildeBar
+    SildeBar,
+    VueGoogleAutocomplete
     // BContainer,
     // BRow,
     // BCol,
