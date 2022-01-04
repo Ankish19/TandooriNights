@@ -52,7 +52,7 @@
     <!-- Header -->
     <header id="header-mobile" class="light">
         <div class="module module-nav-toggle">
-            <a href="#" id="nav-toggle" data-toggle="panel-mobile"><span></span><span></span><span></span><span></span></a>
+            <a href="#" id="nav-toggle" data-toggle="panel-mobile" ><span></span><span></span><span></span><span></span></a>
         </div>
 
         <div class="module module-logo">
@@ -69,7 +69,7 @@
     <!-- Header / End -->
 
     <!-- Panel Mobile -->
-    <nav id="panel-mobile">
+    <nav id="panel-mobile" class="">
         <div class="module module-logo bg-dark dark">
             <a href="#">
                 <img src="assets/img/logo-light.svg" alt="" width="88" />

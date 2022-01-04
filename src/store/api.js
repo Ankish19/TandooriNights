@@ -14,3 +14,9 @@ export const register = (data) => {
 export const login = (data) => {
   return axios.post(`${apiUrl}login`, data)
 }
+export const otp = (data) => {
+  return axios.post(`${apiUrl}otp`, data)
+}
+export const otpverify = (data) => {
+  return axios.post(`${apiUrl}otpverify`, data)
+}

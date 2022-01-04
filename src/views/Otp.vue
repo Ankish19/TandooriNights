@@ -20,7 +20,7 @@
       <!-- Section -->
       <section class="sectionbg">
         <b-container>
-          <b-form>
+          <b-form @submit.prevent="userOtp">
             <b-row>
               <b-col cols="6" class="mx-auto">
                 <b-col cols="12">
@@ -45,7 +45,7 @@
                 </b-col>
                 <b-col cols="12" class="mt-3">
                   <b-form-group>
-                    <b-button class="w-100"><span>Send OTP</span></b-button>
+                    <b-button type="submit" class="w-100"><span>Send OTP</span></b-button>
                   </b-form-group>
                 </b-col>
               </b-col>
@@ -60,6 +60,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
+import { otp } from '@/store/api'
 import {
   BForm,
   BFormGroup,
@@ -81,8 +82,18 @@ export default {
     BRow,
     BCol,
     BContainer
+  },
+  methods: {
+    userOtp () {
+      otp(this.form).then((res) => {
+        if (res.data.success === true) {
+          console.log(res.data)
+        }
+      })
+    }
   }
 }
+
 </script>
 <style>
 .pd-a1 {
