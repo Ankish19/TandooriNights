@@ -25,3 +25,15 @@ export const getGoogleApi = async () => {
     return new Promise((resolve) => { resolve(res.data) })
   })
 }
+
+export const getAddresses = (data) => {
+  return axios.post(`${apiUrl}get-addresses`, data)
+}
+
+export const deleteAddress = (addressId) => {
+  return axios.post(`${apiUrl}delete-address/${addressId}/`)
+}
+
+export const getOrders = (data) => {
+  return axios.post(`${apiUrl}get-orders`, data)
+}

@@ -155,6 +155,7 @@ import { Loader } from '@googlemaps/js-api-loader'
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
+import { getAddresses } from '@/store/api'
 import //   BContainer,
 //   BRow,
 //   BCol,
@@ -163,9 +164,9 @@ import //   BContainer,
 //   BFormInput
 'bootstrap-vue'
 
-const GOOGLE_MAPS_API_KEY = 'AIzaSyBLVIcbGHiO0lFwfgZgKBx9UlSz_yrl_IU'
 export default {
   setup () {
+    const GOOGLE_MAPS_API_KEY = 'AIzaSyBLVIcbGHiO0lFwfgZgKBx9UlSz_yrl_IU'
     const loader = new Loader({ apiKey: GOOGLE_MAPS_API_KEY })
     // const directionsService = new window.google.maps.DirectionsService();
     const directionsRenderer = new window.google.maps.DirectionsRenderer()
@@ -199,7 +200,13 @@ export default {
     // BFormGroup,
     // BFormInput
   },
-
+  methods: {
+    addresses () {
+      getAddresses().then(res => {
+        console.log(res)
+      })
+    }
+  },
   name: 'checkout'
 }
 </script>
