@@ -1,5 +1,6 @@
 <template>
   <div class="menu">
+    <div id="dogra"></div>
     <Headbar></Headbar>
     <!-- Content -->
     <div id="content">
@@ -26,11 +27,7 @@
           <div class="row no-gutters">
             <div class="col-md-3 left-bar-fixed text-left">
               <!-- Menu Navigation -->
-              <nav
-                id="menu-navigation"
-                class="stick-to-content"
-                data-local-scroll
-              >
+              <nav id="menu-navigation" class="stick-to-content"  @scroll="data-local-scroll">
                 <ul class="nav nav-menu bg-dark dark">
                   <li v-for="(item, value, index) in Items" :key="index">
                     <a :href="`#${value}`" class="menu-link">{{ value }}</a>
@@ -41,7 +38,7 @@
                 </ul>
               </nav>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 box-line">
               <!-- Menu Category / Burgers -->
               <MenuComp :items="Items"></MenuComp>
             </div>
@@ -60,7 +57,10 @@ import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import { getMenu } from '@/store/api'
 import MenuComp from '@/views/layouts/MenuComp.vue'
+import $ from 'jquery'
 export default {
+  props: {
+  },
   name: 'Menu',
   components: {
     Headbar,
@@ -73,6 +73,8 @@ export default {
     }
   },
   mounted () {
+    this.menuFixed()
+    // eslint-disable-next-line no-unused-expressions
     getMenu().then((res) => {
       // console.log(res.data['items']['Fast food'])
       let arr = []
@@ -88,17 +90,44 @@ export default {
 
       console.log(arr)
       this.Items = res.data.items
+    // eslint-disable-next-line no-sequences
     })
   },
   methods: {
-    cardModalClose () {}
+    menuFixed () {
+      var top = ''
+      $(document).scroll(function () {
+        top = $(window).scrollTop()
+        if (top > 434) {
+          $('.left-bar-fixed').addClass('fixed')
+        } else {
+          $('.left-bar-fixed').removeClass('fixed')
+        }
+      })
+    }
   }
 }
+
 </script>
+
 <style lang="scss" scoped>
 .bg-image img {
   width: 100% !important;
   height: 100% !important;
   display: block;
 }
+.fixed {
+  width: 350px;
+  position: fixed;
+  top: 0px;
+  z-index: 999;
+}
+.box-line {
+    float: right;
+    position: relative;
+    left:350px;
+}
+.menu{
+ scroll-behavior: smooth;
+ }
 </style>

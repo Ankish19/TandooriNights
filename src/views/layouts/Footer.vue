@@ -371,6 +371,6 @@ button.btn.btn-footer.btn-submit {
   border-radius: 0px;
 }
 .footer-logo {
-  width: 120px;
+  width: 220px;
 }
 </style>
