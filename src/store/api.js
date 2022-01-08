@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { apiHeaders } from './service'
 
 const apiUrl = 'https://tandoorinights.ca/rest/api/'
 
@@ -9,21 +10,21 @@ export const getMenu = () => {
 }
 
 export const register = (data) => {
-  return axios.post(`${apiUrl}register`, data)
+  return axios.post(`${apiUrl}register`, data, { headers: apiHeaders() })
 }
 
 export const verifyOtp = (data) => {
-  return axios.post(`${apiUrl}verify-otp`, data)
+  return axios.post(`${apiUrl}verify-otp`, data, { headers: apiHeaders() })
 }
 
 export const login = (data) => {
-  return axios.post(`${apiUrl}login`, data)
+  return axios.post(`${apiUrl}login`, data, { headers: apiHeaders() })
 }
 export const otp = (data) => {
-  return axios.post(`${apiUrl}otp`, data)
+  return axios.post(`${apiUrl}otp`, data, { headers: apiHeaders() })
 }
 export const otpverify = (data) => {
-  return axios.post(`${apiUrl}otpverify`, data)
+  return axios.post(`${apiUrl}otpverify`, data, { headers: apiHeaders() })
 }
 
 export const getGoogleApi = async () => {
@@ -31,15 +32,18 @@ export const getGoogleApi = async () => {
     return new Promise((resolve) => { resolve(res.data) })
   })
 }
-
-export const getAddresses = (data) => {
-  return axios.post(`${apiUrl}get-addresses`, data)
+export const saveAddress = (data) => {
+  return axios.post(`${apiUrl}save-address`, data, { headers: apiHeaders() })
 }
 
-export const deleteAddress = (addressId) => {
-  return axios.post(`${apiUrl}delete-address/${addressId}/`)
+export const getAddresses = (data) => {
+  return axios.post(`${apiUrl}get-addresses`, data, { headers: apiHeaders() })
+}
+
+export const deleteAddress = (data) => {
+  return axios.post(`${apiUrl}delete-address`, data, { headers: apiHeaders() })
 }
 
 export const getOrders = (data) => {
-  return axios.post(`${apiUrl}get-orders`, data)
+  return axios.post(`${apiUrl}get-orders`, data, { headers: apiHeaders() })
 }

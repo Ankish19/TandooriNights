@@ -19,7 +19,7 @@ export default {
       required: true
     },
     selected: {
-      type: string,
+      type: String,
       required: true
     }
   },

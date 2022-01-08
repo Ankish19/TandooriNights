@@ -78,31 +78,35 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="list-group">
-                        <a
-                          href="#"
-                          class="list-group-item list-group-item-action active"
-                          aria-current="true"
-                        >
-                          <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1 font-weight-bold">Home</h5>
-                            <small style="font-size:20px; position: relative; top: 14px;" class="text-white"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
+                        <div v-for="(address, index) in addresses" :key="index">
+                          <div v-if="index % 2 == 0">
+                            <div
+                              class="list-group-item list-group-item-action active"
+                              aria-current="true"
+                            >
+                              <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1 font-weight-bold">{{ address.tag }}</h5>
+                                <small style="font-size:20px; position: relative; top: 14px;" class="text-white" @click="delAddress(address.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
+                              </div>
+                              <p class="mb-1">
+                                {{ address.address }}
+                              </p>
+                            </div>
+                        </div>
+                        <div v-else>
+                          <div
+                            class="list-group-item list-group-item-action"
+                          >
+                            <div class="d-flex w-100 justify-content-between">
+                              <h5 class="mb-1 font-weight-bold">{{ address.tag }}</h5>
+                            <small style="font-size:20px; position: relative; top: 14px;" class="text-danger" @click="delAddress(address.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
+                            </div>
+                            <p class="mb-1">
+                              {{ address.address }}
+                            </p>
                           </div>
-                          <p class="mb-1">
-                            860 Century St James Manitoba R3H 0M5
-                          </p>
-                        </a>
-                        <a
-                          href="#"
-                          class="list-group-item list-group-item-action"
-                        >
-                          <div class="d-flex w-100 justify-content-between">
-                             <h5 class="mb-1 font-weight-bold">Work</h5>
-                           <small style="font-size:20px; position: relative; top: 14px;" class="text-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
-                          </div>
-                          <p class="mb-1">
-                            Giersstrasse 23 Paderborn North Rhine-Westphalia
-                          </p>
-                        </a>
+                        </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -123,6 +127,7 @@
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
+import { getAddresses, deleteAddress } from '@/store/api'
 import //   BContainer,
 //   BRow,
 //   BCol,
@@ -143,7 +148,33 @@ export default {
     // BFormGroup,
     // BFormInput
   },
-
+  data () {
+    return {
+      addresses: [],
+      form: {
+        address_name: '',
+        address_id: 0
+      }
+    }
+  },
+  mounted () {
+    this.getAddr()
+  },
+  methods: {
+    getAddr () {
+      getAddresses().then(res => {
+        console.log(res.data)
+        this.addresses = res.data
+      })
+    },
+    delAddress (address) {
+      this.form.address_id = address
+      deleteAddress(this.form).then(res => {
+        console.log(res.data)
+        this.getAddr()
+      })
+    }
+  },
   name: 'ManageAddress'
 }
 </script>

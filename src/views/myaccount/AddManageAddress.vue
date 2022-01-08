@@ -8,7 +8,7 @@
           <div class="col-lg-12">
             <h1 class="mb-0">My Account</h1>
             <h4 class="text-muted mb-0">
-              Some informations about our restaurant
+              Some information about our restaurant
             </h4>
           </div>
         </div>
@@ -74,11 +74,13 @@
                     loading="lazy"
                   ></iframe>
                 </div>
-
                 <div class="col-md-6">
+                <validation-observer>
+                  <b-form @submit.prevent="address">
                   <div class="input-group">
-                    <input
+                    <b-form-input
                       type="text"
+                      v-model="form.search"
                       class="form-control"
                       placeholder="Search for..."
                     />
@@ -88,23 +90,36 @@
                       </button>
                     </span>
                   </div>
-                  <vue-google-autocomplete
-                    ref="endaddress"
-                    id="endmap"
-                    classname="form-control"
-                    placeholder="Search Location"
-                    country="ca"
-                    name="address"
-                >
-                </vue-google-autocomplete>
-                  <div class="display-list mt-1">
-                    <p>
-                      <a href="#"
-                        ><i class="fa fa-location-arrow" aria-hidden="true"></i>
-                        Use My Current Location</a
+                  <b-form-group
+                      label="Address"
+                      label-for="address" >
+                      <validation-provider
+                          #default="{ errors }"
+                          name="Address"
+                          rules="required"
                       >
-                    </p>
-                  </div>
+                          <vue-google-autocomplete
+                            ref="address"
+                            id="map"
+                            classname="form-control"
+                            placeholder="Search Location"
+                            v-on:placechanged="getAddressData"
+                            country="ca"
+                            name="address"
+                        >
+                        </vue-google-autocomplete>
+                        <small class="text-danger">{{ errors[0] }}</small>
+                      </validation-provider>
+                  </b-form-group>
+                        <div class="display-list mt-1">
+                          <p>
+                            <a href="#"
+                              ><i class="fa fa-location-arrow" aria-hidden="true"></i>
+                              Use My Current Location</a
+                            >
+                          </p>
+                        </div>
+
                   <hr />
                   <div class="row">
                     <div class="col-md-12">
@@ -112,31 +127,46 @@
                         <i class="fa fa-map-marker" aria-hidden="true"></i>  New Address
                       </h2>
                     </div>
-                    <div class="input-group">
-                      <input
+                    <b-form-group
+                      label="House"
+                      label-for="house" >
+                      <validation-provider
+                          #default="{ errors }"
+                          name="House"
+                          rules="required"
+                      >
+                      <b-form-input
                         type="text"
+                        id="house"
                         class="form-control"
+                        v-model="form.house"
                         placeholder="Full Address"
                       />
-                    </div>
+                      <small class="text-danger">{{ errors[0] }}</small>
+                      </validation-provider>
+                    </b-form-group>
                     <div class="input-group mt-2">
                       <select
                         class="form-control form-select"
                         aria-label="Default select example"
+                        v-model="form.tag"
                       >
                         <option selected>Save Favorites Address</option>
-                        <option value="1">Home</option>
-                        <option value="2">Work</option>
+                        <option value="Home">Home</option>
+                        <option value="Work">Work</option>
                       </select>
                     </div>
                     <div class="col-md-12 mt-2">
-                      <button class="btn btn-primary w-100">
+                      <button class="btn btn-primary w-100" type="submit">
                         <span>Save Address</span>
                       </button>
                     </div>
                   </div>
                   <!-- /input-group -->
+                  </b-form>
+                  </validation-observer>
                 </div>
+
                 <!-- /.col-lg-6 -->
               </div>
             </div>
@@ -151,18 +181,17 @@
 <script>
 import { ref, onMounted } from 'vue'
 import VueGoogleAutocomplete from 'vue-google-autocomplete'
+import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import { Loader } from '@googlemaps/js-api-loader'
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
-import { getAddresses } from '@/store/api'
-import //   BContainer,
-//   BRow,
-//   BCol,
-//   BForm,
-//   BFormGroup,
-//   BFormInput
-'bootstrap-vue'
+import { saveAddress } from '@/store/api'
+import {
+  BForm,
+  BFormGroup,
+  BFormInput
+} from 'bootstrap-vue'
 
 export default {
   setup () {
@@ -187,23 +216,40 @@ export default {
 
     return { mapDiv }
   },
+  data () {
+    return {
+      form: {
+        house: '',
+        address: '',
+        search: '',
+        tag: ''
+      }
+    }
+  },
   created () {},
   components: {
     Headbar,
     Footer,
     SildeBar,
-    VueGoogleAutocomplete
+    VueGoogleAutocomplete,
     // BContainer,
-    // BRow,
-    // BCol,
-    // BForm,
-    // BFormGroup,
-    // BFormInput
+    BForm,
+    BFormGroup,
+    BFormInput,
+    ValidationProvider,
+    ValidationObserver
   },
   methods: {
-    addresses () {
-      getAddresses().then(res => {
-        console.log(res)
+    getAddressData (addressData, placeResultData) {
+      this.form.address = placeResultData.formatted_address
+      this.form.longitude = addressData.longitude
+      this.form.latitude = addressData.latitude
+    },
+    address () {
+      saveAddress(this.form).then(res => {
+        console.log(res.data)
+      }).catch((err) => {
+        console.log(err)
       })
     }
   },

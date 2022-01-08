@@ -20,7 +20,9 @@
       <!-- Section -->
       <section class="sectionbg">
         <b-container>
-            <b-form @submit.prevent="verOtp">
+          <b-form @submit.prevent="userotpverify">
+          <b-form>
+            <form @submit.prevent="VerifyOtp">
             <b-row>
               <b-col cols="6" class="mx-auto">
                 <b-col cols="12">
@@ -47,6 +49,7 @@
                 </b-col>
               </b-col>
             </b-row>
+            </form>
           </b-form>
         </b-container>
       </section>
@@ -57,6 +60,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
+import { otpverify } from '@/store/api'
 import { getLocalStorage } from '@/store/service'
 import { verifyOtp } from '@/store/api'
 import {
@@ -91,7 +95,14 @@ export default {
     }
   },
   methods: {
-    verOtp () {
+    userotpverify () {
+      otpverify(this.form).then((res) => {
+        if (res.data.success === true) {
+          console.log(res.data)
+        }
+      }
+    },
+    VerifyOtp () {
       verifyOtp(this.form).then(res => {
         if (res.data.valid_otp === 'true') {
           this.$router.push('/myaccount')

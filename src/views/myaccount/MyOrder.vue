@@ -163,6 +163,7 @@
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
+import { getOrders } from '@/store/api'
 import //   BContainer,
 //   BRow,
 //   BCol,
@@ -182,6 +183,23 @@ export default {
     // BForm,
     // BFormGroup,
     // BFormInput
+  },
+  data () {
+    return {
+      form: {
+        value: ''
+      }
+    }
+  },
+  mounted () {
+    this.orders()
+  },
+  methods: {
+    orders () {
+      getOrders(this.form).then(res => {
+        console.log(res.data)
+      })
+    }
   },
 
   name: 'checkout'
