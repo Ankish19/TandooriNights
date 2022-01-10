@@ -75,7 +75,7 @@
                   ></iframe>
                 </div>
                 <div class="col-md-6">
-                <validation-observer>
+                <validation-observer ref="addressValidate">
                   <b-form @submit.prevent="address">
                   <div class="input-group">
                     <b-form-input
@@ -127,14 +127,6 @@
                         <i class="fa fa-map-marker" aria-hidden="true"></i>  New Address
                       </h2>
                     </div>
-                    <b-form-group
-                      label="House"
-                      label-for="house" >
-                      <validation-provider
-                          #default="{ errors }"
-                          name="House"
-                          rules="required"
-                      >
                       <b-form-input
                         type="text"
                         id="house"
@@ -142,9 +134,6 @@
                         v-model="form.house"
                         placeholder="Full Address"
                       />
-                      <small class="text-danger">{{ errors[0] }}</small>
-                      </validation-provider>
-                    </b-form-group>
                     <div class="input-group mt-2">
                       <select
                         class="form-control form-select"
@@ -166,7 +155,6 @@
                   </b-form>
                   </validation-observer>
                 </div>
-
                 <!-- /.col-lg-6 -->
               </div>
             </div>
@@ -187,6 +175,7 @@ import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
 import { saveAddress } from '@/store/api'
+import { required } from 'validations'
 import {
   BForm,
   BFormGroup,
@@ -222,7 +211,8 @@ export default {
         house: '',
         address: '',
         search: '',
-        tag: ''
+        tag: '',
+        required
       }
     }
   },
@@ -246,10 +236,14 @@ export default {
       this.form.latitude = addressData.latitude
     },
     address () {
-      saveAddress(this.form).then(res => {
-        console.log(res.data)
-      }).catch((err) => {
-        console.log(err)
+      this.$refs.addressValidate.validate().then(success => {
+        if (success) {
+          saveAddress(this.form).then(res => {
+            console.log(res.data)
+          }).catch((err) => {
+            console.log(err)
+          })
+        }
       })
     }
   },
