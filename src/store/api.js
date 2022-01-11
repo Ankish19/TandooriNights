@@ -36,6 +36,10 @@ export const saveAddress = (data) => {
   return axios.post(`${apiUrl}save-address`, data, { headers: apiHeaders() })
 }
 
+export const setDefaultAddress = (data) => {
+  return axios.post(`${apiUrl}set-default-address`, data, { headers: apiHeaders() })
+}
+
 export const getAddresses = (data) => {
   return axios.post(`${apiUrl}get-addresses`, data, { headers: apiHeaders() })
 }

@@ -77,19 +77,6 @@
                 <div class="col-md-6">
                 <validation-observer ref="addressValidate">
                   <b-form @submit.prevent="address">
-                  <div class="input-group">
-                    <b-form-input
-                      type="text"
-                      v-model="form.search"
-                      class="form-control"
-                      placeholder="Search for..."
-                    />
-                    <span class="input-group-btn">
-                      <button class="btn btn-primary" type="button">
-                        <span>Search</span>
-                      </button>
-                    </span>
-                  </div>
                   <b-form-group
                       label="Address"
                       label-for="address" >
@@ -106,9 +93,9 @@
                             v-on:placechanged="getAddressData"
                             country="ca"
                             name="address"
-                        >
-                        </vue-google-autocomplete>
-                        <small class="text-danger">{{ errors[0] }}</small>
+                          >
+                          </vue-google-autocomplete>
+                          <small class="text-danger">{{ errors[0] }}</small>
                       </validation-provider>
                   </b-form-group>
                         <div class="display-list mt-1">
@@ -119,7 +106,6 @@
                             >
                           </p>
                         </div>
-
                   <hr />
                   <div class="row">
                     <div class="col-md-12">

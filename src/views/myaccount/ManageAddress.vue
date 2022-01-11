@@ -85,8 +85,11 @@
                               aria-current="true"
                             >
                               <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1 font-weight-bold">{{ address.tag }}</h5>
-                                <small style="font-size:20px; position: relative; top: 14px;" class="text-white" @click="delAddress(address.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
+                                <h5 class="mb-1 font-weight-bold">{{ address.tag }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
+                                <div>
+                                  <small style="font-size:20px; position: relative; top: 14px;" class="text-white mr-2" @click="delAddress(address.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
+                                  <small style="font-size:20px; position: relative; top: 14px;" class="text-white" @click="defaultAddress(address.id)"><i class="fa fa-star-o" aria-hidden="true"></i></small>
+                                </div>
                               </div>
                               <p class="mb-1">
                                 {{ address.address }}
@@ -98,8 +101,11 @@
                             class="list-group-item list-group-item-action"
                           >
                             <div class="d-flex w-100 justify-content-between">
-                              <h5 class="mb-1 font-weight-bold">{{ address.tag }}</h5>
-                            <small style="font-size:20px; position: relative; top: 14px;" class="text-danger" @click="delAddress(address.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
+                              <h5 class="mb-1 font-weight-bold">{{ address.tag }}<i class="fa fa-star text-primary ml-1" aria-hidden="true"></i></h5>
+                              <div>
+                                <small style="font-size:20px; position: relative; top: 14px;" class="text-danger mr-2" @click="delAddress(address.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
+                                <small style="font-size:20px; position: relative; top: 14px;" class="text-danger" @click="defaultAddress(address.id)"><i class="fa fa-star-o" aria-hidden="true"></i></small>
+                              </div>
                             </div>
                             <p class="mb-1">
                               {{ address.address }}
@@ -127,7 +133,7 @@
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
-import { getAddresses, deleteAddress } from '@/store/api'
+import { getAddresses, deleteAddress, setDefaultAddress } from '@/store/api'
 import //   BContainer,
 //   BRow,
 //   BCol,
@@ -165,6 +171,14 @@ export default {
       getAddresses().then(res => {
         console.log(res.data)
         this.addresses = res.data
+      })
+    },
+    defaultAddress (address) {
+      this.form.address_id = address
+      setDefaultAddress(this.form).then(res => {
+        console.log(res.data)
+      }).catch((err) => {
+        console.log(err)
       })
     },
     delAddress (address) {
