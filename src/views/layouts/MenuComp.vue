@@ -36,6 +36,14 @@
                 data-toggle="modal"
                 data-target="#myModal"
                 @click="openModal(item1)"
+                v-if="item1.addon_categories.length > 0"
+              >
+                <span>Add to cart</span>
+              </button>
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                @click="openModal(item1)"
+                v-else
               >
                 <span>Add to cart</span>
               </button>
@@ -222,6 +230,7 @@ export default {
   methods: {
     openModal (item) {
       this.selectItem = item
+      console.log(item.addon_categories.length)
       item.addon_categories.map((data) => {
         if (data.type === 'SINGLE') {
           this.options.push(data)
