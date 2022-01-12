@@ -28,7 +28,7 @@
             <div class="col-sm-6 text-sm-right">
               <span class="text-md mr-4"
                 ><span class="text-muted">from</span>
-                <strike class="text-danger">${{ item1.old_price }}</strike>
+                <strike class="text-danger" v-if="item1.old_price > 0">${{ item1.old_price }}</strike>
                 $<span data-product-base-price>{{ item1.price }}</span></span
               >
               <button
@@ -190,7 +190,7 @@
             type="button"
             class="modal-btn btn btn-secondary btn-block btn-lg"
             data-action="add-to-cart"
-            @click="cardModalClose()"
+            @click="cardModalClose(selectItem.id)"
           >
             <span>Add to Cart</span>
           </button>
@@ -229,6 +229,9 @@ export default {
           this.addons.push(data)
         }
       })
+    },
+    cardModalClose (item) {
+      console.log(item)
     }
   }
 }

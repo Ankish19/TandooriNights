@@ -119,6 +119,7 @@
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
+import { getSettings } from '@/store/api'
 import //   BContainer,
 //   BRow,
 //   BCol,
@@ -138,6 +139,23 @@ export default {
     // BForm,
     // BFormGroup,
     // BFormInput
+  },
+  data () {
+    return {
+      tips: {},
+      taxPercentage: {}
+    }
+  },
+  mounted () {
+    this.getSetting()
+  },
+  methods: {
+    getSetting () {
+      getSettings().then(res => {
+        this.taxPercentage = res.data[45]
+        this.tips = res.data[109]
+      })
+    }
   },
 
   name: 'checkout'
