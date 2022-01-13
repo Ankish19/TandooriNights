@@ -230,7 +230,6 @@ export default {
   methods: {
     openModal (item) {
       this.selectItem = item
-      console.log(item.addon_categories.length)
       item.addon_categories.map((data) => {
         if (data.type === 'SINGLE') {
           this.options.push(data)
