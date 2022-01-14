@@ -102,19 +102,16 @@
                 <table class="cart-table">
                     <tr>
                         <td class="title">
-                            <span class="name"><a href="#product-modal" data-toggle="modal">{{ item.name }}</a></span>
-                            <!-- <span class="caption text-muted">Large (500g)</span> -->
+                            <span class="name"><a href="#product-modal" data-toggle="modal">Beef Burger</a></span>
+                            <span class="caption text-muted">Large (500g)</span>
                         </td>
-                        <td class="price">
-                          <strike class="text-danger" v-if="item.old_price != 0">${{ item.old_price }}</strike>
-                          ${{ item.price }}
-                        </td>
+                        <td class="price">$9.00</td>
                         <td class="actions">
                             <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
                             <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
                         </td>
                     </tr>
-                    <!-- <tr>
+                    <tr>
                         <td class="title">
                             <span class="name"><a href="#product-modal" data-toggle="modal">Extra Burger</a></span>
                             <span class="caption text-muted">Small (200g)</span>
@@ -124,45 +121,26 @@
                             <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
                             <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
                         </td>
-                    </tr> -->
+                    </tr>
                 </table>
                 <div class="cart-summary">
                     <div class="row">
                         <div class="col-7 text-right text-muted">Order total:</div>
                         <div class="col-5">
-                            <strike class="text-danger" v-if="item.old_price != 0">${{ item.old_price }}</strike>
-                            <strong> $<span class="cart-products-total">{{ item.price }}</span></strong>
+                            <strong>$<span class="cart-products-total">0.00</span></strong>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-7 text-right text-muted">Delivery total:</div>
+                        <div class="col-7 text-right text-muted">Devliery:</div>
                         <div class="col-5">
-                            <strong>+$<span class="cart-products-total">0.00</span></strong>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-7 text-right text-muted">Total Tax({{ tipTax.taxPercentage.value }}%):</div>
-                        <div class="col-5">
-                            <strong>+$<span class="cart-delivery">{{ taxTotal }}</span></strong>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-7 text-right text-muted">Driver's Tip:</div>
-                        <div class="col-5">
-                            <strong>+$<span class="cart-delivery">0.00</span></strong>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-7 text-right text-muted">Coupon:</div>
-                        <div class="col-5">
-                            <strong>-$<span class="cart-delivery">0.00</span></strong>
+                            <strong>$<span class="cart-delivery">0.00</span></strong>
                         </div>
                     </div>
                     <hr class="hr-sm" />
                     <div class="row text-lg">
                         <div class="col-7 text-right text-muted">Total:</div>
                         <div class="col-5">
-                            <strong>$<span class="cart-total">{{ totalAmount }}</span></strong>
+                            <strong>$<span class="cart-total">0.00</span></strong>
                         </div>
                     </div>
                 </div>
@@ -180,44 +158,20 @@
 </template>
 
 <script>
-import { getSettings } from '@/store/api'
-import { getLocalStorage, tipTax } from '@/store/service'
 export default {
   name: 'header',
   data () {
     return {
-      classSlider: 'hide',
-      item: [],
-      tipTax: {
-        tips: {},
-        taxPercentage: {}
-      },
-      taxes: [],
-      taxTotal: 0,
-      totalAmount: 0
+      classSlider: 'hide'
     }
-  },
-  mounted () {
-    this.getSetting()
   },
   methods: {
     slideMinicart (event) {
       if (event === 'hide') {
         this.classSlider = 'show'
-        this.item = getLocalStorage('cart')
-        this.taxes = getLocalStorage('taxes')
-        this.taxTotal = parseInt(this.taxes.taxPercentage.value) / 100
-        this.totalAmount = parseFloat(this.item.price) + parseFloat(this.taxTotal)
       } else {
         this.classSlider = 'hide'
       }
-    },
-    getSetting () {
-      getSettings().then(res => {
-        this.tipTax.taxPercentage = res.data[45]
-        this.tipTax.tips = res.data[109]
-        tipTax('taxes', JSON.stringify(this.tipTax))
-      })
     }
   }
 }

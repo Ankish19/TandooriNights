@@ -198,7 +198,7 @@
             type="button"
             class="modal-btn btn btn-secondary btn-block btn-lg"
             data-action="add-to-cart"
-            @click="cardModalClose(selectItem.id)"
+            @click="cardModalClose(selectItem)"
           >
             <span>Add to Cart</span>
           </button>
@@ -215,6 +215,7 @@
   </div>
 </template>
 <script>
+import { addCart } from '@/store/service'
 export default {
   setup () {},
   props: ['items'],
@@ -223,6 +224,7 @@ export default {
       siteLogo: require('../../assets/burges.jpg'),
       selectItem: '',
       options: [],
+      cart: [],
       addons: []
     }
   },
@@ -230,16 +232,24 @@ export default {
   methods: {
     openModal (item) {
       this.selectItem = item
-      item.addon_categories.map((data) => {
-        if (data.type === 'SINGLE') {
-          this.options.push(data)
-        } else {
-          this.addons.push(data)
-        }
-      })
+      console.log(item)
+      if (item.addon_categories.length > 0) {
+        item.addon_categories.map((data) => {
+          if (data.type === 'SINGLE') {
+            this.options.push(data)
+          } else {
+            this.addons.push(data)
+          }
+        })
+      } else {
+        this.cart = item
+        addCart('cart', JSON.stringify(this.cart))
+      }
     },
     cardModalClose (item) {
       console.log(item)
+      this.cart = item
+      addCart('cart', JSON.stringify(this.cart))
     }
   }
 }

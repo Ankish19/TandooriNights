@@ -17,3 +17,12 @@ export const apiHeaders = () => {
   }
   return headers
 }
+
+export const addCart = (type, data) => {
+  return localStorage.setItem(type, data)
+}
+
+export const tipTax = (type, data) => {
+  console.log(data)
+  return localStorage.setItem(type, data)
+}
