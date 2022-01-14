@@ -200,7 +200,6 @@ export default {
   mounted () {
     this.getSetting()
     this.item = getLocalStorage('cart')
-    console.log(this.item)
   },
   methods: {
     slideMinicart (event) {
