@@ -39,7 +39,7 @@
                     <a href="#" class="module module-cart right" data-toggle="panel-cart" @click="slideMinicart(classSlider)">
                         <span class="cart-icon">
                             <i class="ti ti-shopping-cart"></i>
-                            <span class="notification">0</span>
+                            <span class="notification">{{ item.length }}</span>
                         </span>
                         <span class="cart-value">$<span class="value">0.00</span></span>
                     </a>
@@ -199,12 +199,13 @@ export default {
   },
   mounted () {
     this.getSetting()
+    this.item = getLocalStorage('cart')
+    console.log(this.item)
   },
   methods: {
     slideMinicart (event) {
       if (event === 'hide') {
         this.classSlider = 'show'
-        this.item = getLocalStorage('cart')
         this.taxes = getLocalStorage('taxes')
         this.taxTotal = parseInt(this.taxes.taxPercentage.value) / 100
         this.totalAmount = parseFloat(this.item.price) + parseFloat(this.taxTotal)
