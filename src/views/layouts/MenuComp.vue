@@ -215,7 +215,7 @@
   </div>
 </template>
 <script>
-import { addCart } from '@/store/service'
+import { addCart, getCart } from '@/store/service'
 export default {
   setup () {},
   props: ['items'],
@@ -224,7 +224,7 @@ export default {
       siteLogo: require('../../assets/burges.jpg'),
       selectItem: '',
       options: [],
-      cart: [],
+      cart: [''],
       addons: []
     }
   },
@@ -242,7 +242,12 @@ export default {
           }
         })
       } else {
-        this.cart = item
+        if (getCart('cart')) {
+          this.cart = getCart('cart')
+          this.cart.push(item)
+        } else {
+          this.cart = [item]
+        }
         addCart('cart', JSON.stringify(this.cart))
       }
     },
