@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import { getAccessToken } from '../store/service'
 
 Vue.use(VueRouter)
 
@@ -93,4 +94,16 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, _, next) => {
+  const userData = getAccessToken('userData')
+
+  if (userData) {
+    if (to.path === '/login' || to.path === '/register' || to.path === '') {
+      return next('/')
+    }
+  } else {
+    return next()
+  }
+  return next()
+})
 export default router
