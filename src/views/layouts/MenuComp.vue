@@ -253,7 +253,9 @@ export default {
     },
     cardModalClose (item) {
       console.log(item)
-      this.cart = item
+      this.cart = getCart('cart')
+      this.cart.push(item)
+      // this.cart = item
       addCart('cart', JSON.stringify(this.cart))
     }
   }

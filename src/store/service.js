@@ -11,7 +11,7 @@ export const getAccessToken = (type) => {
 }
 
 export const apiHeaders = () => {
-  const key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3RhbmRvb3JpbmlnaHRzLmNhL3Jlc3QvYXBpL2xvZ2luIiwiaWF0IjoxNjQxNTI4NDQxLCJuYmYiOjE2NDE1Mjg0NDEsImp0aSI6Im05S0g3UWZwcmdFcU5hcGEiLCJzdWIiOjExLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.SV-53aO9gKN9MgvyQkOJBUi0ij8tIh7m5JACt_zhH2I'
+  const key = JSON.parse(localStorage.getItem('userData')).auth_token
   const headers = {
     Authorization: `Bearer ${key}`
   }

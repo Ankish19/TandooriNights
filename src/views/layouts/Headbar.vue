@@ -41,7 +41,7 @@
                             <i class="ti ti-shopping-cart"></i>
                             <span class="notification">{{ item.length }}</span>
                         </span>
-                        <span class="cart-value">$<span class="value">0.00</span></span>
+                        <span class="cart-value">$<span class="value">{{ totalAmount.toFixed(2) }}</span></span>
                     </a>
                 </div>
             </div>
@@ -100,14 +100,14 @@
             </div>
             <div class="panel-cart-content cart-details">
                 <table class="cart-table">
-                    <tr>
+                    <tr v-for="(it, index) in item" :key="index">
                         <td class="title">
-                            <span class="name"><a href="#product-modal" data-toggle="modal">{{ item.name }}</a></span>
+                            <span class="name"><a href="#product-modal" data-toggle="modal">{{ it.name }}</a></span>
                             <!-- <span class="caption text-muted">Large (500g)</span> -->
                         </td>
                         <td class="price">
-                          <strike class="text-danger" v-if="item.old_price != 0">${{ item.old_price }}</strike>
-                          ${{ item.price }}
+                          <strike class="text-danger" v-if="it.old_price != 0">${{ it.old_price }}</strike>
+                          ${{ it.price }}
                         </td>
                         <td class="actions">
                             <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
@@ -130,12 +130,11 @@
                     <div class="row">
                         <div class="col-7 text-right text-muted">Order total:</div>
                         <div class="col-5">
-                            <strike class="text-danger" v-if="item.old_price != 0">${{ item.old_price }}</strike>
-                            <strong> $<span class="cart-products-total">{{ item.price }}</span></strong>
+                            <strong> $<span class="cart-products-total">{{ orderTotal }}</span></strong>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-7 text-right text-muted">Delivery total:</div>
+                        <div class="col-7 text-right text-muted">Delivery Charges:</div>
                         <div class="col-5">
                             <strong>+$<span class="cart-products-total">0.00</span></strong>
                         </div>
@@ -146,23 +145,11 @@
                             <strong>+$<span class="cart-delivery">{{ taxTotal }}</span></strong>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-7 text-right text-muted">Driver's Tip:</div>
-                        <div class="col-5">
-                            <strong>+$<span class="cart-delivery">0.00</span></strong>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-7 text-right text-muted">Coupon:</div>
-                        <div class="col-5">
-                            <strong>-$<span class="cart-delivery">0.00</span></strong>
-                        </div>
-                    </div>
                     <hr class="hr-sm" />
                     <div class="row text-lg">
                         <div class="col-7 text-right text-muted">Total:</div>
                         <div class="col-5">
-                            <strong>$<span class="cart-total">{{ totalAmount }}</span></strong>
+                            <strong>$<span class="cart-total">{{ totalAmount.toFixed(2) }}</span></strong>
                         </div>
                     </div>
                 </div>
@@ -172,7 +159,7 @@
                 </div>
             </div>
         </div>
-        <a href="checkout.html" class="panel-cart-action btn btn-secondary btn-block btn-lg"><span>Go to checkout</span></a>
+        <router-link to="/checkout" class="panel-cart-action btn btn-secondary btn-block btn-lg"><span>Go to checkout</span></router-link>
     </div>
     <!-- Body Overlay -->
     <div id="body-overlay"></div>
@@ -192,6 +179,7 @@ export default {
         tips: {},
         taxPercentage: {}
       },
+      orderTotal: 0,
       taxes: [],
       taxTotal: 0,
       totalAmount: 0
@@ -205,9 +193,6 @@ export default {
     slideMinicart (event) {
       if (event === 'hide') {
         this.classSlider = 'show'
-        this.taxes = getLocalStorage('taxes')
-        this.taxTotal = parseInt(this.taxes.taxPercentage.value) / 100
-        this.totalAmount = parseFloat(this.item.price) + parseFloat(this.taxTotal)
       } else {
         this.classSlider = 'hide'
       }
@@ -217,6 +202,12 @@ export default {
         this.tipTax.taxPercentage = res.data[45]
         this.tipTax.tips = res.data[109]
         tipTax('taxes', JSON.stringify(this.tipTax))
+        this.taxes = getLocalStorage('taxes')
+        for (var i = 0; i < this.item.length; i++) {
+          this.orderTotal += parseFloat(this.item[i].price)
+        }
+        this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
+        this.totalAmount = Math.round(parseFloat(this.orderTotal)) + parseFloat(this.taxTotal)
       })
     }
   }

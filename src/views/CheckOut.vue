@@ -21,60 +21,44 @@
                         <div class="cart-details shadow bg-white stick-to-content mb-4">
                             <div class="bg-dark dark p-4"><h5 class="mb-0">You order</h5></div>
                             <table class="cart-table">
-                                <tr>
+                                <tr v-for="(it, index) in item" :key="index">
                                     <td class="title">
-                                        <span class="name"><a href="#product-modal" data-toggle="modal">Pizza Chicked BBQ</a></span>
-                                        <span class="caption text-muted">26”, deep-pan, thin-crust</span>
+                                        <span class="name"><a href="#product-modal" data-toggle="modal">{{ it.name }}</a></span>
+                                        <!--<span class="caption text-muted">26”, deep-pan, thin-crust</span>-->
                                     </td>
-                                    <td class="price">$9.82</td>
-                                    <td class="actions">
+                                    <td class="price">${{ it.price }}</td>
+                                    <!--<td class="actions">
                                         <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
                                         <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
-                                    </td>
+                                    </td>-->
                                 </tr>
-                                <tr>
-                                    <td class="title">
-                                        <span class="name"><a href="#product-modal" data-toggle="modal">Beef Burger</a></span>
-                                        <span class="caption text-muted">Large (500g)</span>
-                                    </td>
-                                    <td class="price">$9.82</td>
-                                    <td class="actions">
-                                        <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
-                                        <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="title">
-                                        <span class="name"><a href="#product-modal" data-toggle="modal">Extra Burger</a></span>
-                                        <span class="caption text-muted">Small (200g)</span>
-                                    </td>
-                                    <td class="price text-success">$0.00</td>
-                                    <td class="actions">
-                                        <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
-                                        <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
+                                <!--<tr>
                                     <td class="title">
                                         <span class="name">Weekend 20% OFF</span>
                                     </td>
                                     <td class="price text-success">-$8.22</td>
                                     <td class="actions"></td>
-                                </tr>
+                                </tr>-->
                             </table>
                             <div class="cart-summary">
                                 <div class="row">
                                     <div class="col-7 text-right text-muted">Order total:</div>
-                                    <div class="col-5"><strong>$<span class="cart-products-total">0.00</span></strong></div>
+                                    <div class="col-5"><strong>+$<span class="cart-products-total">{{ orderTotal }}</span></strong></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-7 text-right text-muted">Devliery:</div>
-                                    <div class="col-5"><strong>$<span class="cart-delivery">0.00</span></strong></div>
+                                    <div class="col-5"><strong>+$<span class="cart-delivery">0.00</span></strong></div>
+                                </div>
+                               <div class="row">
+                                    <div class="col-7 text-right text-muted">Total Tax({{ tipTax.taxPercentage.value }}%):</div>
+                                    <div class="col-5">
+                                        <strong>+$<span class="cart-delivery">{{ taxTotal }}</span></strong>
+                                    </div>
                                 </div>
                                 <hr class="hr-sm">
                                 <div class="row text-lg">
                                     <div class="col-7 text-right text-muted">Total:</div>
-                                    <div class="col-5"><strong>$<span class="cart-total">0.00</span></strong></div>
+                                    <div class="col-5"><strong>$<span class="cart-total">{{ totalAmount.toFixed(2) }}</span></strong></div>
                                 </div>
                             </div>
                             <div class="cart-empty">
@@ -113,18 +97,18 @@
                                 </div>
                             </div>
 
-                            <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Delivery</h4>
+                            <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Pickup Address</h4>
                             <div class="row mb-5">
-                                <div class="form-group col-sm-6">
-                                    <label>Delivery time:</label>
+                                <!--<div class="form-group col-sm-6">
+                                    <label>Select way</label>
                                     <div class="select-container">
                                         <select class="form-control">
-                                            <option>As fast as possible</option>
+                                            <option>Pickup</option>
                                             <option>In one hour</option>
                                             <option>In two hours</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
 
                             <h4 class="border-bottom pb-4"><i class="ti ti-wallet mr-3 text-primary"></i>Payment</h4>
@@ -167,8 +151,43 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
+import { getSettings } from '@/store/api'
+import { getLocalStorage, tipTax } from '@/store/service'
+
 export default {
   components: { Headbar, Footer },
-  name: 'checkout'
+  name: 'checkout',
+  data () {
+    return {
+      item: [],
+      tipTax: {
+        tips: {},
+        taxPercentage: {}
+      },
+      orderTotal: 0,
+      taxes: [],
+      taxTotal: 0,
+      totalAmount: 0
+    }
+  },
+  mounted () {
+    this.getSetting()
+    this.item = getLocalStorage('cart')
+  },
+  methods: {
+    getSetting () {
+      getSettings().then(res => {
+        this.tipTax.taxPercentage = res.data[45]
+        this.tipTax.tips = res.data[109]
+        tipTax('taxes', JSON.stringify(this.tipTax))
+        this.taxes = getLocalStorage('taxes')
+        for (var i = 0; i < this.item.length; i++) {
+          this.orderTotal += parseFloat(this.item[i].price)
+        }
+        this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
+        this.totalAmount = Math.round(parseFloat(this.orderTotal)) + parseFloat(this.taxTotal)
+      })
+    }
+  }
 }
 </script>
