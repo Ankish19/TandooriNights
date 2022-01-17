@@ -11,15 +11,15 @@ export const getMenu = () => {
 }
 
 export const register = (data) => {
-  return axios.post(`${apiUrl}register`, data, { headers: apiHeaders() })
+  return axios.post(`${apiUrl}register`, data)
 }
 
 export const verifyOtp = (data) => {
-  return axios.post(`${apiUrl}verify-otp`, data, { headers: apiHeaders() })
+  return axios.post(`${apiUrl}verify-otp`, data)
 }
 
 export const login = (data) => {
-  return axios.post(`${apiUrl}login`, data, { headers: apiHeaders() })
+  return axios.post(`${apiUrl}login`, data)
 }
 export const otp = (data) => {
   return axios.post(`${apiUrl}otp`, data, { headers: apiHeaders() })
