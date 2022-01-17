@@ -151,7 +151,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { getSettings } from '@/store/api'
+import { getSettings, getRestaurantInfo } from '@/store/api'
 import { getLocalStorage, tipTax } from '@/store/service'
 
 export default {
@@ -172,9 +172,15 @@ export default {
   },
   mounted () {
     this.getSetting()
+    this.getRestaurantInfo()
     this.item = getLocalStorage('cart')
   },
   methods: {
+    getRestaurantInfo () {
+      getRestaurantInfo().then(res => {
+        console.log(res.data)
+      })
+    },
     getSetting () {
       getSettings().then(res => {
         this.tipTax.taxPercentage = res.data[45]

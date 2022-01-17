@@ -2,10 +2,11 @@ import axios from 'axios'
 import { apiHeaders } from './service'
 
 const apiUrl = 'https://tandoorinights.ca/rest/api/'
+const storeSlug = 'tandoori-nights-6rvkykyawv4cyzr'
 
 export const getMenu = () => {
   return axios.post(
-    `${apiUrl}get-restaurant-items/tandoori-nights-6rvkykyawv4cyzr`
+    `${apiUrl}get-restaurant-items/${storeSlug}`
   )
 }
 
@@ -56,6 +57,6 @@ export const getSettings = (data) => {
   return axios.post(`${apiUrl}get-settings`, data, { headers: apiHeaders() })
 }
 
-export const getRestaurantInfo = (data) => {
-  return axios.post(`${apiUrl}get-restaurant-info`, data, { headers: apiHeaders() })
+export const getRestaurantInfo = () => {
+  return axios.post(`${apiUrl}get-restaurant-info/${storeSlug}`)
 }
