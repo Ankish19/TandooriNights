@@ -25,7 +25,7 @@ export const otp = (data) => {
   return axios.post(`${apiUrl}otp`, data)
 }
 export const otpverify = (data) => {
-  return axios.post(`${apiUrl}otpverify`, data, { headers: apiHeaders() })
+  return axios.post(`${apiUrl}otpverify`, data)
 }
 
 export const getGoogleApi = async () => {
