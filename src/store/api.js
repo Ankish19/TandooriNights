@@ -15,7 +15,7 @@ export const register = (data) => {
 }
 
 export const verifyOtp = (data) => {
-  return axios.post(`${apiUrl}verify-otp`, data, { headers: apiHeaders() })
+  return axios.post(`${apiUrl}verify-otp`, data)
 }
 
 export const login = (data) => {
