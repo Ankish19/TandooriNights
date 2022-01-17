@@ -188,6 +188,7 @@ export default {
   mounted () {
     this.getSetting()
     this.showItem()
+    this.getCalc()
   },
   methods: {
     showItem () {
@@ -214,22 +215,22 @@ export default {
       localStorage.setItem('cart', JSON.stringify(name))
       this.showItem()
       this.orderTotal = 0
-      for (var i = 0; i < this.item.length; i++) {
-        this.orderTotal += parseFloat(this.item[i].price)
-      }
+      this.getCalc()
     },
     getSetting () {
       getSettings().then(res => {
         this.tipTax.taxPercentage = res.data[45]
         this.tipTax.tips = res.data[109]
         tipTax('taxes', JSON.stringify(this.tipTax))
-        this.taxes = getLocalStorage('taxes')
-        for (var i = 0; i < this.item.length; i++) {
-          this.orderTotal += parseFloat(this.item[i].price)
-        }
-        this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
-        this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
       })
+    },
+    getCalc () {
+      this.taxes = getLocalStorage('taxes')
+      for (var i = 0; i < this.item.length; i++) {
+        this.orderTotal += parseFloat(this.item[i].price)
+      }
+      this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
+      this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
     }
   }
 }
