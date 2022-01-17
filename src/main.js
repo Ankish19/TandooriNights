@@ -5,7 +5,7 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import { getGoogleApi } from './store/api'
-import VueToast from 'vue-toast-notification'
+// import VueToast from 'vue-toast-notification'
 
 Vue.config.productionTip = false
 
@@ -22,6 +22,6 @@ script.src = 'https://maps.googleapis.com/maps/api/js?key=' + getGoogleApi().val
 new Vue({
   router,
   store,
-  VueToast,
+  // VueToast,
   render: h => h(App)
 }).$mount('#app')

@@ -216,7 +216,7 @@
 </template>
 <script>
 import { addCart, getCart } from '@/store/service'
-import VueToast from 'vue-toast-notification'
+// import VueToast from 'vue-toast-notification'
 export default {
   setup () {},
   props: ['items'],
@@ -229,7 +229,6 @@ export default {
       addons: []
     }
   },
-
   methods: {
     openModal (item) {
       this.selectItem = item
@@ -249,10 +248,13 @@ export default {
           this.cart = [item]
         }
         addCart('cart', JSON.stringify(this.cart))
+        // this.$VueToast.success('An item added to cart.', {
+        //   // override the global option
+        //   position: 'bottom'
+        // })
       }
     },
     cardModalClose (item) {
-      console.log(item)
       this.cart = getCart('cart')
       this.cart.push(item)
       // this.cart = item
