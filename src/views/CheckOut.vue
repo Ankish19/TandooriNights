@@ -111,22 +111,27 @@
                                 <div class="form-group col-sm-6">
                                     <label>Select way</label>
                                     <div class="select-container">
-                                        <select class="form-control" v-model="restAddress">
-                                            <option selected disabled>-- Select Pickup Address --</option>
-                                            <option
-                                              v-for="(restaurant, index) in restaurants"
-                                              :key="index"
-                                            >
-                                              {{ restaurant.name }}
+                                        <select class="form-control" v-model="submitOrder.delivery_type">
+                                            <option selected disabled>-- Select Way --</option>
+                                            <option value="2" v-if="storeInfo.delivery_type === 3 || storeInfo.delivery_type === 2">
+                                             Self PickUp
+                                            </option>
+                                            <option value="1" v-if="storeInfo.delivery_type === 3 || storeInfo.delivery_type === 1">
+                                              Delivery
                                             </option>
                                         </select>
                                     </div>
+                                </div>
+
+                                <div class="mt-2" v-if="delivery_type == 2">
+                                  <h4>PickUp your order from restaurant adress</h4>
+                                  <span>{{ storeInfo.address }}</span>
                                 </div>
                             </div>
 
                             <h4 class="border-bottom pb-4"><i class="ti ti-wallet mr-3 text-primary"></i>Payment</h4>
                             <div class="row text-lg">
-                                <div class="col-md-4 col-sm-6 form-group">
+                                <!-- <div class="col-md-4 col-sm-6 form-group">
                                     <label class="custom-control custom-radio">
                                         <input type="radio" name="payment_type" class="custom-control-input">
                                         <span class="custom-control-indicator"></span>
@@ -139,12 +144,12 @@
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Credit Card</span>
                                     </label>
-                                </div>
+                                </div> -->
                                 <div class="col-md-4 col-sm-6 form-group">
                                     <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" class="custom-control-input">
+                                        <input type="radio" name="payment_type" class="custom-control-input" value="COD" v-model="submitOrder.method">
                                         <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">Cash</span>
+                                        <span class="custom-control-description">COD</span>
                                     </label>
                                 </div>
                             </div>
@@ -164,7 +169,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { getSettings, getRestaurantInfo } from '@/store/api'
+import { getSettings, getRestaurantInfo, placeOrder } from '@/store/api'
 import { getLocalStorage, tipTax } from '@/store/service'
 
 export default {
@@ -177,26 +182,48 @@ export default {
         tips: {},
         taxPercentage: {}
       },
-      restAddress: '',
       user: {},
       orderTotal: 0,
       taxes: [],
-      restaurants: [],
       taxTotal: 0,
-      totalAmount: 0
+      totalAmount: 0,
+      storeInfo: '',
+      delivery_type: '',
+      submitOrder: {
+        order: [],
+        coupon: '',
+        location: {
+          lat: '',
+          lng: '',
+          address: '',
+          house: null,
+          tag: null
+        },
+        order_comment: null,
+        total: {
+          productQuantity: '',
+          totalPrice: '',
+          tip_to_driver: ''
+        },
+        method: 'COD',
+        payment_token: '',
+        delivery_type: '',
+        partial_wallet: '',
+        dis: '',
+        pending_payment: ''
+      }
     }
   },
   mounted () {
     this.getSetting()
     this.getRestaurantInfo()
     this.item = getLocalStorage('cart')
-    this.userData()
-    this.restaurantInfo()
   },
   methods: {
     getRestaurantInfo () {
       getRestaurantInfo().then(res => {
         console.log(res.data)
+        this.storeInfo = res.data
       })
     },
     getSetting () {
@@ -210,6 +237,12 @@ export default {
         }
         this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
         this.totalAmount = Math.round(parseFloat(this.orderTotal)) + parseFloat(this.taxTotal)
+      })
+    },
+    placeOrder () {
+      console.log(this.submitOrder)
+      placeOrder(this.submitOrder).then(res => {
+        console.log(res.data)
       })
     }
   }

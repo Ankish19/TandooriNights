@@ -216,7 +216,6 @@
 </template>
 <script>
 import { addCart, getCart } from '@/store/service'
-import VueToast from 'vue-toast-notification'
 export default {
   setup () {},
   props: ['items'],
