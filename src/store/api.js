@@ -56,6 +56,10 @@ export const getSettings = (data) => {
   return axios.post(`${apiUrl}get-settings`, data, { headers: apiHeaders() })
 }
 
-export const getRestaurantInfo = (data) => {
-  return axios.post(`${apiUrl}get-restaurant-info`, data, { headers: apiHeaders() })
+export const getRestaurantInfo = (slug, data) => {
+  return axios.post(`${apiUrl}get-restaurant-info/${slug}`, data, { headers: apiHeaders() })
+}
+
+export const getRestaurantInfoById = (id, data) => {
+  return axios.post(`${apiUrl}get-restaurant-info-by-id/${id}`, data, { headers: apiHeaders() })
 }

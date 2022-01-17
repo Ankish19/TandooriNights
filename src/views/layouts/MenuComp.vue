@@ -216,6 +216,7 @@
 </template>
 <script>
 import { addCart, getCart } from '@/store/service'
+import ToastificationContent from '@/components/toastification/ToastificationContent.vue'
 export default {
   setup () {},
   props: ['items'],
@@ -232,7 +233,6 @@ export default {
   methods: {
     openModal (item) {
       this.selectItem = item
-      console.log(item)
       if (item.addon_categories.length > 0) {
         item.addon_categories.map((data) => {
           if (data.type === 'SINGLE') {
@@ -249,6 +249,16 @@ export default {
           this.cart = [item]
         }
         addCart('cart', JSON.stringify(this.cart))
+        this.$toast({
+          component: ToastificationContent,
+          position: 'top-right',
+          props: {
+            title: 'Success',
+            icon: 'BellIcon',
+            variant: 'success',
+            text: 'Updated Bus info successfully'
+          }
+        })
       }
     },
     cardModalClose (item) {
