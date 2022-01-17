@@ -164,7 +164,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { getSettings, getRestaurantInfoById } from '@/store/api'
+import { getSettings, getRestaurantInfo } from '@/store/api'
 import { getLocalStorage, tipTax } from '@/store/service'
 
 export default {
@@ -188,13 +188,16 @@ export default {
   },
   mounted () {
     this.getSetting()
+    this.getRestaurantInfo()
     this.item = getLocalStorage('cart')
     this.userData()
     this.restaurantInfo()
   },
   methods: {
-    userData () {
-      this.user = getLocalStorage('userData')
+    getRestaurantInfo () {
+      getRestaurantInfo().then(res => {
+        console.log(res.data)
+      })
     },
     getSetting () {
       getSettings().then(res => {
@@ -208,14 +211,6 @@ export default {
         this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
         this.totalAmount = Math.round(parseFloat(this.orderTotal)) + parseFloat(this.taxTotal)
       })
-    },
-    restaurantInfo () {
-      for (var j = 0; j < this.item.length; j++) {
-        getRestaurantInfoById(this.item[j].restaurant_id).then(res => {
-          this.restaurants.push(res.data)
-          console.log(this.restaurants)
-        })
-      }
     }
   }
 }
