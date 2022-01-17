@@ -41,7 +41,7 @@
                             <i class="ti ti-shopping-cart"></i>
                             <span class="notification">{{ item.length }}</span>
                         </span>
-                        <span class="cart-value">$<span class="value">{{ totalAmount.toFixed(2) }}</span></span>
+                        <span class="cart-value">$<span class="value">{{ orderTotal.toFixed(2) }}</span></span>
                     </a>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                     <div class="row">
                         <div class="col-7 text-right text-muted">Order total:</div>
                         <div class="col-5">
-                            <strong> $<span class="cart-products-total">{{ orderTotal }}</span></strong>
+                            <strong> $<span class="cart-products-total">{{ orderTotal.toFixed(2) }}</span></strong>
                         </div>
                     </div>
                     <div class="row">
@@ -142,7 +142,7 @@
                     <div class="row">
                         <div class="col-7 text-right text-muted">Total Tax({{ tipTax.taxPercentage.value }}%):</div>
                         <div class="col-5">
-                            <strong>+$<span class="cart-delivery">{{ taxTotal }}</span></strong>
+                            <strong>+$<span class="cart-delivery">{{ taxTotal.toFixed(2) }}</span></strong>
                         </div>
                     </div>
                     <hr class="hr-sm" />
@@ -207,7 +207,7 @@ export default {
           this.orderTotal += parseFloat(this.item[i].price)
         }
         this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
-        this.totalAmount = Math.round(parseFloat(this.orderTotal)) + parseFloat(this.taxTotal)
+        this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
       })
     }
   }

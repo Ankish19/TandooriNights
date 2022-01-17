@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="mb-0">Checkout</h1>
-                        <h4 class="text-muted mb-0">Some informations about our restaurant</h4>
+                        <h4 class="text-muted mb-0">Some information about our restaurant</h4>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                                <div class="row">
                                     <div class="col-7 text-right text-muted">Total Tax({{ tipTax.taxPercentage.value }}%):</div>
                                     <div class="col-5">
-                                        <strong>+$<span class="cart-delivery">{{ taxTotal }}</span></strong>
+                                        <strong>+$<span class="cart-delivery">{{ taxTotal.toFixed(2) }}</span></strong>
                                     </div>
                                 </div>
                                 <hr class="hr-sm">
@@ -69,14 +69,14 @@
                     </div>
                     <div class="col-xl-8 col-lg-7 order-lg-first">
                         <div class="bg-white p-4 p-md-5 mb-4">
-                            <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>Basic informations</h4>
+                            <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>Basic information</h4>
                             <div class="row mb-5">
                                 <div class="form-group col-sm-6">
                                     <label>Name:</label>
                                     <input type="text" class="form-control">
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label>Surename:</label>
+                                    <label>Surname:</label>
                                     <input type="text" class="form-control">
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -99,16 +99,29 @@
 
                             <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Pickup Address</h4>
                             <div class="row mb-5">
-                                <!--<div class="form-group col-sm-6">
+                              <!-- <div v-for="(rest, index) in restaurants" :key="index">
+                                <div class="jumbotron">{{ rest.name }}
+                                    <div class="d-flex w-100 justify-content-between">
+                                      <h5 class="mb-1 font-weight-bold">{{ rest.address }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
+                                    </div>
+                                    <p class="mb-1">
+                                    </p>
+                                </div>
+                              </div> -->
+                                <div class="form-group col-sm-6">
                                     <label>Select way</label>
                                     <div class="select-container">
-                                        <select class="form-control">
-                                            <option>Pickup</option>
-                                            <option>In one hour</option>
-                                            <option>In two hours</option>
+                                        <select class="form-control" v-model="restAddress">
+                                            <option selected disabled>-- Select Pickup Address --</option>
+                                            <option
+                                              v-for="(restaurant, index) in restaurants"
+                                              :key="index"
+                                            >
+                                              {{ restaurant.name }}
+                                            </option>
                                         </select>
                                     </div>
-                                </div>-->
+                                </div>
                             </div>
 
                             <h4 class="border-bottom pb-4"><i class="ti ti-wallet mr-3 text-primary"></i>Payment</h4>
@@ -164,8 +177,11 @@ export default {
         tips: {},
         taxPercentage: {}
       },
+      restAddress: '',
+      user: {},
       orderTotal: 0,
       taxes: [],
+      restaurants: [],
       taxTotal: 0,
       totalAmount: 0
     }
@@ -174,6 +190,8 @@ export default {
     this.getSetting()
     this.getRestaurantInfo()
     this.item = getLocalStorage('cart')
+    this.userData()
+    this.restaurantInfo()
   },
   methods: {
     getRestaurantInfo () {
