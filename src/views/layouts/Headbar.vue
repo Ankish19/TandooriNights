@@ -111,7 +111,7 @@
                         </td>
                         <td class="actions">
                             <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
-                            <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
+                            <a href="#" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
                         </td>
                     </tr>
                     <!-- <tr>
@@ -187,9 +187,13 @@ export default {
   },
   mounted () {
     this.getSetting()
-    this.item = getLocalStorage('cart')
+    this.showItem()
+    this.getCalc()
   },
   methods: {
+    showItem () {
+      this.item = getLocalStorage('cart')
+    },
     slideMinicart (event) {
       if (event === 'hide') {
         this.classSlider = 'show'
@@ -197,18 +201,36 @@ export default {
         this.classSlider = 'hide'
       }
     },
+    deleteItem (index) {
+      var storedNames = JSON.parse(localStorage.getItem('cart'))
+      var name = []
+      // var name = storedNames.slice(index, 1)
+      // localStorage.setItem('cart', JSON.stringify(name))
+      for (var j = 0; j < storedNames.length; j++) {
+        if (j !== index) {
+          name.push(storedNames[j])
+        }
+      }
+      localStorage.removeItem('cart')
+      localStorage.setItem('cart', JSON.stringify(name))
+      this.showItem()
+      this.orderTotal = 0
+      this.getCalc()
+    },
     getSetting () {
       getSettings().then(res => {
         this.tipTax.taxPercentage = res.data[45]
         this.tipTax.tips = res.data[109]
         tipTax('taxes', JSON.stringify(this.tipTax))
-        this.taxes = getLocalStorage('taxes')
-        for (var i = 0; i < this.item.length; i++) {
-          this.orderTotal += parseFloat(this.item[i].price)
-        }
-        this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
-        this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
       })
+    },
+    getCalc () {
+      this.taxes = getLocalStorage('taxes')
+      for (var i = 0; i < this.item.length; i++) {
+        this.orderTotal += parseFloat(this.item[i].price)
+      }
+      this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
+      this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
     }
   }
 }
