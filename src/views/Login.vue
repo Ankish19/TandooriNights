@@ -21,10 +21,10 @@
         <b-container>
           <b-form @submit.prevent="userLogin">
             <b-row>
-               <b-form-input
+               <!-- <b-form-input
                   v-model="form.email"
                   placeholder="Email"
-                ></b-form-input>
+                ></b-form-input> -->
               <b-col cols="6" class="mx-auto">
                 <!--<b-col cols="12">
                   <h2 class="font-weight-bold">Login Form</h2>
