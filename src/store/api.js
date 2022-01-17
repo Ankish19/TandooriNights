@@ -22,7 +22,7 @@ export const login = (data) => {
   return axios.post(`${apiUrl}login`, data)
 }
 export const otp = (data) => {
-  return axios.post(`${apiUrl}otp`, data, { headers: apiHeaders() })
+  return axios.post(`${apiUrl}otp`, data)
 }
 export const otpverify = (data) => {
   return axios.post(`${apiUrl}otpverify`, data, { headers: apiHeaders() })
@@ -50,11 +50,11 @@ export const deleteAddress = (data) => {
 }
 
 export const getOrders = (data) => {
-  return axios.post(`${apiUrl}get-orders`, data, { headers: apiHeaders() })
+  return axios.post(`${apiUrl}get-orders`, data)
 }
 
 export const getSettings = (data) => {
-  return axios.post(`${apiUrl}get-settings`, data, { headers: apiHeaders() })
+  return axios.post(`${apiUrl}get-settings`, data)
 }
 
 export const getRestaurantInfo = () => {
