@@ -228,6 +228,8 @@ export default {
       addons: []
     }
   },
+  mounted () {
+  },
   methods: {
     openModal (item) {
       this.selectItem = item
