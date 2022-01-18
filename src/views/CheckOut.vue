@@ -69,45 +69,9 @@
                     </div>
                     <div class="col-xl-8 col-lg-7 order-lg-first">
                         <div class="bg-white p-4 p-md-5 mb-4">
-                            <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>Basic information</h4>
-                            <div class="row mb-5">
-                                <div class="form-group col-sm-6">
-                                    <label>Name:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Surname:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Street and number:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>City:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Phone number:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>E-mail address:</label>
-                                    <input type="email" class="form-control">
-                                </div>
-                            </div>
 
-                            <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Pickup Address</h4>
+                          <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Pickup Address</h4>
                             <div class="row mb-5">
-                              <!-- <div v-for="(rest, index) in restaurants" :key="index">
-                                <div class="jumbotron">{{ rest.name }}
-                                    <div class="d-flex w-100 justify-content-between">
-                                      <h5 class="mb-1 font-weight-bold">{{ rest.address }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
-                                    </div>
-                                    <p class="mb-1">
-                                    </p>
-                                </div>
-                              </div> -->
                                 <div class="form-group col-sm-6">
                                     <label>Select way</label>
                                     <div class="select-container">
@@ -123,10 +87,41 @@
                                     </div>
                                 </div>
 
-                                <div class="mt-2" v-if="delivery_type == 2">
+                                <div class="mt-2" v-if="submitOrder.delivery_type == 2">
                                   <h4>PickUp your order from restaurant adress</h4>
                                   <span>{{ storeInfo.address }}</span>
                                 </div>
+                            </div>
+
+                            <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>Basic information</h4>
+                            <div class="row mb-5">
+                                <div class="form-group col-sm-6">
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" :value="user.name">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label>Street and number:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label>Phone number:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label>E-mail address:</label>
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+
+                            <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Tip/ Coupon</h4>
+                            <div class="row mb-5">
+                                <div class="form-group col-sm-6">
+                                    <label>Coupon Code</label>
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Enter coupon code" class="form-control">
+                                    </div>
+                                </div>
+
                             </div>
 
                             <h4 class="border-bottom pb-4"><i class="ti ti-wallet mr-3 text-primary"></i>Payment</h4>
@@ -218,6 +213,7 @@ export default {
     this.getSetting()
     this.getRestaurantInfo()
     this.item = getLocalStorage('cart')
+    this.user = getLocalStorage('userData')
     this.submitOrder.order = getLocalStorage('cart')
   },
   methods: {
