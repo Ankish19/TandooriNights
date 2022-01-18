@@ -102,12 +102,12 @@
                 <table class="cart-table">
                     <tr v-for="(it, index) in item" :key="index">
                         <td class="title">
-                            <span class="name"><a href="#product-modal" data-toggle="modal">{{ it.name }}</a></span>
+                            <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span>
                             <!-- <span class="caption text-muted">Large (500g)</span> -->
                         </td>
                         <td class="price">
-                          <strike class="text-danger" v-if="it.old_price != 0">${{ it.old_price }}</strike>
-                          ${{ it.price }}
+                          <strike class="text-danger" v-if="it.old_price != 0">${{ it?it.old_price:'' }}</strike>
+                          ${{ it?it.price:'' }}
                         </td>
                         <td class="actions">
                             <!-- <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a> -->
