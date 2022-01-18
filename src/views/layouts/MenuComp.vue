@@ -228,8 +228,6 @@ export default {
       addons: []
     }
   },
-  mounted () {
-  },
   methods: {
     openModal (item) {
       this.selectItem = item
@@ -260,6 +258,7 @@ export default {
       this.cart.push(item)
       // this.cart = item
       addCart('cart', JSON.stringify(this.cart))
+      this.cartFlag()
     }
   }
 }
