@@ -94,12 +94,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mt-3" v-if="showAddress == 1">
+                                <div class="mt-3">
                                   <h4>PickUp your order from restaurant address</h4>
                                 </div>
                                 <div
                                   class="list-group-item list-group-item-action active bg-primary"
-                                  aria-current="true" v-if="showAddress == 1 && storeInfo.delivery_type == 2"
+                                  aria-current="true" v-if="storeInfo.delivery_type == 2"
                                 >
                                   <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 font-weight-bold">{{ storeInfo.name }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
@@ -135,6 +135,17 @@
                                     <label>E-mail address:</label>
                                     <input type="email" class="form-control" v-model="form.email" disabled>
                                 </div>
+                            </div>
+
+                            <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Tip/ Coupon</h4>
+                            <div class="row mb-5">
+                                <div class="form-group col-sm-6">
+                                    <label>Coupon Code</label>
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Enter coupon code" class="form-control">
+                                    </div>
+                                </div>
+
                             </div>
 
                             <h4 class="border-bottom pb-4"><i class="ti ti-wallet mr-3 text-primary"></i>Payment</h4>
