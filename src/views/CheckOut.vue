@@ -21,7 +21,7 @@
                         <div class="cart-details shadow bg-white stick-to-content mb-4">
                             <div class="bg-dark dark p-4"><h5 class="mb-0">You order</h5></div>
                             <table class="cart-table">
-                                <tr v-for="(it, index) in item" :key="index">
+                                <tr v-for="(it, index) in submitOrder.order" :key="index">
                                     <td class="title">
                                         <span class="name"><a href="#product-modal" data-toggle="modal">{{ it.name }}</a></span>
                                         <!--<span class="caption text-muted">26”, deep-pan, thin-crust</span>-->
@@ -155,7 +155,7 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-primary btn-lg"><span>Order now!</span></button>
+                            <button class="btn btn-primary btn-lg" @click="placeOrder"><span>Order now!</span></button>
                         </div>
                     </div>
                 </div>
@@ -218,6 +218,7 @@ export default {
     this.getSetting()
     this.getRestaurantInfo()
     this.item = getLocalStorage('cart')
+    this.submitOrder.order = getLocalStorage('cart')
   },
   methods: {
     getRestaurantInfo () {
