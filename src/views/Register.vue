@@ -23,7 +23,7 @@
           <b-form @submit.prevent="save">
             <b-row>
               <b-col cols="6" class="mx-auto">
-                <!--<b-col cols="12">
+                <b-col cols="12">
                   <h2 class="font-weight-bold">Register Form</h2>
                 </b-col>
                 <b-col cols="12">
@@ -33,7 +33,7 @@
                       placeholder="Name"
                     ></b-form-input>
                   </b-form-group>
-                </b-col>-->
+                </b-col>
                 <b-col cols="12">
                   <b-form-group>
                     <b-form-group>
@@ -126,6 +126,7 @@ export default {
   methods: {
     save () {
       register(this.form).then(res => {
+        console.log(res.data)
         if (res.data.success === true) {
           // localStorage.setItem('userData', res.data.data)
           saveLocalStorage('userData', JSON.stringify(res.data.data))
