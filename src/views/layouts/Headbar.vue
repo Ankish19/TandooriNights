@@ -94,8 +94,8 @@
         <div class="panel-cart-container">
             <div class="panel-cart-title">
                 <h5 class="title">Your Cart</h5>
-                <button class="close" data-toggle="panel-cart">
-                    <i class="ti ti-close"></i>
+                <button class="close" data-toggle="panel-cart" @click="slideMinicart(classSlider)">
+                    <i class="ti ti-close text-danger"></i>
                 </button>
             </div>
             <div class="panel-cart-content cart-details">
@@ -110,7 +110,7 @@
                           ${{ it.price }}
                         </td>
                         <td class="actions">
-                            <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
+                            <!-- <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a> -->
                             <a href="#" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
                         </td>
                     </tr>
