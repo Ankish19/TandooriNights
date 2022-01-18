@@ -237,7 +237,7 @@ export default {
           this.orderTotal += parseFloat(this.item[i].price)
         }
         this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
-        this.totalAmount = Math.round(parseFloat(this.orderTotal)) + parseFloat(this.taxTotal)
+        this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
       })
     },
     placeOrder () {
