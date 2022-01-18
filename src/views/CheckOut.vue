@@ -69,34 +69,6 @@
                     </div>
                     <div class="col-xl-8 col-lg-7 order-lg-first">
                         <div class="bg-white p-4 p-md-5 mb-4">
-                            <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>Basic information</h4>
-                            <div class="row mb-5">
-                                <div class="form-group col-sm-6">
-                                    <label>Name:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Surname:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Street and number:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>City:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Phone number:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>E-mail address:</label>
-                                    <input type="email" class="form-control">
-                                </div>
-                            </div>
-
                             <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Pickup Address</h4>
                             <div class="row mb-5">
                               <!-- <div v-for="(rest, index) in restaurants" :key="index">
@@ -111,7 +83,7 @@
                                 <div class="form-group col-sm-6">
                                     <label>Select way</label>
                                     <div class="select-container">
-                                        <select class="form-control" v-model="submitOrder.delivery_type">
+                                        <select class="form-control" v-model="submitOrder.delivery_type" @change="getRestaurant($event)">
                                             <option selected disabled>-- Select Way --</option>
                                             <option value="2" v-if="storeInfo.delivery_type === 3 || storeInfo.delivery_type === 2">
                                              Self PickUp
@@ -122,10 +94,46 @@
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="mt-2" v-if="delivery_type == 2">
-                                  <h4>PickUp your order from restaurant adress</h4>
-                                  <span>{{ storeInfo.address }}</span>
+                                <div class="mt-3" v-if="showAddress == 1">
+                                  <h4>PickUp your order from restaurant address</h4>
+                                </div>
+                                <div
+                                  class="list-group-item list-group-item-action active bg-primary"
+                                  aria-current="true" v-if="showAddress == 1 && storeInfo.delivery_type == 2"
+                                >
+                                  <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1 font-weight-bold">{{ storeInfo.name }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
+                                  </div>
+                                  <p class="mb-1">
+                                    {{ storeInfo.address }}
+                                  </p>
+                                </div>
+                            </div>
+                            <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>Basic information</h4>
+                            <div class="row mb-5">
+                                <div class="form-group col-sm-6">
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" v-model="form.name" disabled>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label>Surname:</label>
+                                    <input type="text" class="form-control" v-model="form.lastName" disabled>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label>Street and number:</label>
+                                    <input type="text" class="form-control" v-model="form.street" disabled>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label>Address:</label>
+                                    <input type="text" class="form-control" v-model="form.address" disabled>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label>Phone number:</label>
+                                    <input type="text" class="form-control" v-model="form.phone" disabled>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label>E-mail address:</label>
+                                    <input type="email" class="form-control" v-model="form.email" disabled>
                                 </div>
                             </div>
 
@@ -177,6 +185,15 @@ export default {
   name: 'checkout',
   data () {
     return {
+      showAddress: 0,
+      form: {
+        name: '',
+        lastName: '',
+        address: '',
+        email: '',
+        phone: '',
+        street: ''
+      },
       item: [],
       tipTax: {
         tips: {},
@@ -192,6 +209,7 @@ export default {
       submitOrder: {
         order: [],
         coupon: '',
+        quantity: 0,
         location: {
           lat: '',
           lng: '',
@@ -216,12 +234,28 @@ export default {
   },
   mounted () {
     this.getSetting()
-    this.getRestaurantInfo()
+    this.getRestaurant()
     this.item = getLocalStorage('cart')
     this.submitOrder.order = getLocalStorage('cart')
+    this.getUserData()
   },
   methods: {
-    getRestaurantInfo () {
+    getUserData () {
+      this.form.name = getLocalStorage('userData').name
+      this.form.street = getLocalStorage('userData').default_address.house
+      this.form.email = getLocalStorage('userData').email
+      this.form.phone = getLocalStorage('userData').phone
+      this.form.address = getLocalStorage('userData').default_address.address
+      this.delivery_type = getLocalStorage('userData').delivery_type
+      this.submitOrder.delivery_type = getLocalStorage('userData').delivery_type
+      this.submitOrder.total.productQuantity = this.item.length
+    },
+    selectAddress (event) {
+      if (event.target.value === 2) {
+        this.showAddress = 1
+      }
+    },
+    getRestaurant () {
       getRestaurantInfo().then(res => {
         console.log(res.data)
         this.storeInfo = res.data
@@ -238,6 +272,7 @@ export default {
         }
         this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
         this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
+        this.submitOrder.total.totalPrice = this.totalAmount
       })
     },
     placeOrder () {

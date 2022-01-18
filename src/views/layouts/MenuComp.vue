@@ -242,11 +242,14 @@ export default {
       } else {
         if (getCart('cart')) {
           this.cart = getCart('cart')
+          console.log(item)
+          // console.log(this.cart)
           this.cart.push(item)
         } else {
           this.cart = [item]
         }
         addCart('cart', JSON.stringify(this.cart))
+
         // this.$VueToast.success('An item added to cart.', {
         //   // override the global option
         //   position: 'bottom'
@@ -258,7 +261,6 @@ export default {
       this.cart.push(item)
       // this.cart = item
       addCart('cart', JSON.stringify(this.cart))
-      this.cartFlag()
     }
   }
 }
