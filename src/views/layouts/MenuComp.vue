@@ -242,7 +242,6 @@ export default {
       } else {
         if (getCart('cart')) {
           this.cart = getCart('cart')
-          console.log(item)
           // console.log(this.cart)
           this.cart.push(item)
         } else {

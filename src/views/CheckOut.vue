@@ -23,10 +23,10 @@
                             <table class="cart-table">
                                 <tr v-for="(it, index) in submitOrder.order" :key="index">
                                     <td class="title">
-                                        <span class="name"><a href="#product-modal" data-toggle="modal">{{ it.name }}</a></span>
+                                        <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span>
                                         <!--<span class="caption text-muted">26”, deep-pan, thin-crust</span>-->
                                     </td>
-                                    <td class="price">${{ it.price }}</td>
+                                    <td class="price">${{ it?it.price:'' }}</td>
                                     <!--<td class="actions">
                                         <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
                                         <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
@@ -50,15 +50,15 @@
                                     <div class="col-5"><strong>+$<span class="cart-delivery">0.00</span></strong></div>
                                 </div>
                                <div class="row">
-                                    <div class="col-7 text-right text-muted">Total Tax({{ tipTax.taxPercentage.value }}%):</div>
+                                    <div class="col-7 text-right text-muted">Total Tax({{ tipTax?tipTax.taxPercentage.value:'' }}%):</div>
                                     <div class="col-5">
-                                        <strong>+$<span class="cart-delivery">{{ taxTotal.toFixed(2) }}</span></strong>
+                                        <strong>+$<span class="cart-delivery">{{ taxTotal?taxTotal.toFixed(2):0 }}</span></strong>
                                     </div>
                                 </div>
                                 <hr class="hr-sm">
                                 <div class="row text-lg">
                                     <div class="col-7 text-right text-muted">Total:</div>
-                                    <div class="col-5"><strong>$<span class="cart-total">{{ totalAmount.toFixed(2) }}</span></strong></div>
+                                    <div class="col-5"><strong>$<span class="cart-total">{{ totalAmount?totalAmount.toFixed(2):0 }}</span></strong></div>
                                 </div>
                             </div>
                             <div class="cart-empty">
@@ -85,10 +85,10 @@
                                     <div class="select-container">
                                         <select class="form-control" v-model="submitOrder.delivery_type" @change="getRestaurant($event)">
                                             <option selected disabled>-- Select Way --</option>
-                                            <option value="2" v-if="storeInfo.delivery_type === 3 || storeInfo.delivery_type === 2">
+                                            <option value="2" v-if="storeInfo && storeInfo.delivery_type === 3 || storeInfo.delivery_type === 2">
                                              Self PickUp
                                             </option>
-                                            <option value="1" v-if="storeInfo.delivery_type === 3 || storeInfo.delivery_type === 1">
+                                            <option value="1" v-if="storeInfo && storeInfo.delivery_type === 3 || storeInfo.delivery_type === 1">
                                               Delivery
                                             </option>
                                         </select>
@@ -99,13 +99,13 @@
                                 </div>
                                 <div
                                   class="list-group-item list-group-item-action active bg-primary"
-                                  aria-current="true" v-if="storeInfo.delivery_type == 2"
+                                  aria-current="true" v-if="storeInfo && storeInfo.delivery_type == 2"
                                 >
                                   <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1 font-weight-bold">{{ storeInfo.name }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
+                                    <h5 class="mb-1 font-weight-bold">{{ storeInfo?storeInfo.name:'' }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
                                   </div>
                                   <p class="mb-1">
-                                    {{ storeInfo.address }}
+                                    {{ storeInfo?storeInfo.address:'' }}
                                   </p>
                                 </div>
                             </div>
@@ -244,11 +244,15 @@ export default {
     }
   },
   mounted () {
-    this.getSetting()
-    this.getRestaurant()
-    this.item = getLocalStorage('cart')
-    this.submitOrder.order = getLocalStorage('cart')
-    this.getUserData()
+    if (getLocalStorage('userData')) {
+      this.getSetting()
+      this.getRestaurant()
+      this.item = getLocalStorage('cart')
+      this.submitOrder.order = getLocalStorage('cart')
+      this.getUserData()
+    } else {
+      this.$router.push('/login')
+    }
   },
   methods: {
     getUserData () {

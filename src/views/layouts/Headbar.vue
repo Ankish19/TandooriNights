@@ -106,7 +106,7 @@
                             <!-- <span class="caption text-muted">Large (500g)</span> -->
                         </td>
                         <td class="price">
-                          <strike class="text-danger" v-if="it.old_price != 0">${{ it?it.old_price:'' }}</strike>
+                          <strike class="text-danger" v-if="it && it.old_price != 0">${{ it?it.old_price:'' }}</strike>
                           ${{ it?it.price:'' }}
                         </td>
                         <td class="actions">
