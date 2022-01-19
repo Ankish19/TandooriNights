@@ -244,6 +244,7 @@ export default {
     }
   },
   mounted () {
+    this.$toast.open('Howdy!')
     if (getLocalStorage('userData')) {
       this.getSetting()
       this.getRestaurant()
