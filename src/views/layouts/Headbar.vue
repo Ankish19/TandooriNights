@@ -33,6 +33,8 @@
                     <div class="module left">
                         <router-link class="btn btn-outline-secondary" to="/login">
                             <span class="order">Login</span></router-link>
+                        <router-link class="btn btn-outline-secondary" to="/logout">
+                            <span class="order">Logout</span></router-link>
                     </div>
                 </div>
                 <div class="col-md-2">

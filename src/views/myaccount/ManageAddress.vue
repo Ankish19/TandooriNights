@@ -85,10 +85,14 @@
                               aria-current="true"
                             >
                               <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1 font-weight-bold">{{ address.tag }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
+                                <h5 class="mb-1 font-weight-bold">{{ address.tag }}
+                                  <i class="fa fa-star text-white ml-1" aria-hidden="true" v-if="address.address == userData.default_address.address"></i>
+                                </h5>
                                 <div>
                                   <small style="font-size:20px; position: relative; top: 14px;" class="text-white mr-2" @click="delAddress(address.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
-                                  <small style="font-size:20px; position: relative; top: 14px;" class="text-white" @click="defaultAddress(address.id)"><i class="fa fa-star-o" aria-hidden="true"></i></small>
+                                  <small style="font-size:20px; position: relative; top: 14px;" class="text-white" @click="defaultAddress(address.id)" v-if="address.address != userData.default_address.address">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                  </small>
                                 </div>
                               </div>
                               <p class="mb-1">
@@ -101,10 +105,14 @@
                             class="list-group-item list-group-item-action"
                           >
                             <div class="d-flex w-100 justify-content-between">
-                              <h5 class="mb-1 font-weight-bold">{{ address.tag }}<i class="fa fa-star text-primary ml-1" aria-hidden="true"></i></h5>
+                              <h5 class="mb-1 font-weight-bold">{{ address.tag }}
+                                <i class="fa fa-star text-primary ml-1" aria-hidden="true" v-if="address.address == userData.default_address.address"></i>
+                              </h5>
                               <div>
                                 <small style="font-size:20px; position: relative; top: 14px;" class="text-danger mr-2" @click="delAddress(address.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
-                                <small style="font-size:20px; position: relative; top: 14px;" class="text-danger" @click="defaultAddress(address.id)"><i class="fa fa-star-o" aria-hidden="true"></i></small>
+                                <small style="font-size:20px; position: relative; top: 14px;" class="text-danger" @click="defaultAddress(address.id)" v-if="address.address != userData.default_address.address">
+                                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </small>
                               </div>
                             </div>
                             <p class="mb-1">
@@ -133,6 +141,7 @@
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
+import { getLocalStorage } from '@/store/service'
 import { getAddresses, deleteAddress, setDefaultAddress } from '@/store/api'
 import //   BContainer,
 //   BRow,
@@ -157,6 +166,7 @@ export default {
   data () {
     return {
       addresses: [],
+      userData: [],
       form: {
         address_name: '',
         address_id: 0
@@ -165,8 +175,12 @@ export default {
   },
   mounted () {
     this.getAddr()
+    this.userDat()
   },
   methods: {
+    userDat () {
+      this.userData = getLocalStorage('userData')
+    },
     getAddr () {
       getAddresses().then(res => {
         console.log(res.data)
