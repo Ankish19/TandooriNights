@@ -26,7 +26,7 @@
                                         <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span>
                                         <!--<span class="caption text-muted">26”, deep-pan, thin-crust</span>-->
                                     </td>
-                                    <td class="price">${{ it?it.price:'' }}</td>
+                                    <td class="price">{{ it.quantity }}x ${{ it?it.price:'' }}</td>
                                     <!--<td class="actions">
                                         <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
                                         <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
@@ -283,7 +283,7 @@ export default {
         tipTax('taxes', JSON.stringify(this.tipTax))
         this.taxes = getLocalStorage('taxes')
         for (var i = 0; i < this.item.length; i++) {
-          this.orderTotal += parseFloat(this.item[i].price)
+          this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
         }
         this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
         this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)

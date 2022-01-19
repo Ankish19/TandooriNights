@@ -106,8 +106,8 @@
                             <!-- <span class="caption text-muted">Large (500g)</span> -->
                         </td>
                         <td class="price">
+                          {{ it?it.quantity:'' }}x ${{ it?it.price:'' }}
                           <strike class="text-danger" v-if="it && it.old_price != 0">${{ it?it.old_price:'' }}</strike>
-                          ${{ it?it.price:'' }}
                         </td>
                         <td class="actions">
                             <!-- <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a> -->
@@ -227,7 +227,7 @@ export default {
     getCalc () {
       this.taxes = getLocalStorage('taxes')
       for (var i = 0; i < this.item.length; i++) {
-        this.orderTotal += parseFloat(this.item[i].price)
+        this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
       }
       this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
       this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
