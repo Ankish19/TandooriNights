@@ -37,6 +37,7 @@ export default {
     logOut () {
       localStorage.removeItem('userData')
       localStorage.removeItem('accessToken')
+      this.$router.push('/login')
     }
   },
   name: 'slidebar'
