@@ -83,7 +83,7 @@
                                 <div class="form-group col-sm-6">
                                     <label>Select way</label>
                                     <div class="select-container">
-                                        <select class="form-control" v-model="submitOrder.delivery_type" @change="getRestaurant($event)">
+                                        <select class="form-control" v-model="submitOrder.delivery_type" @change="selectAdd($event)">
                                             <option selected disabled>-- Select Way --</option>
                                             <option value="2" v-if="storeInfo && storeInfo.delivery_type === 3 || storeInfo.delivery_type === 2">
                                              Self PickUp
@@ -94,12 +94,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mt-3">
+                                <div class="mt-3" v-if="showAddress === 1">
                                   <h4>PickUp your order from restaurant address</h4>
                                 </div>
                                 <div
                                   class="list-group-item list-group-item-action active bg-primary"
-                                  aria-current="true" v-if="storeInfo && storeInfo.delivery_type == 2"
+                                  aria-current="true" v-if="storeInfo && storeInfo.delivery_type == 2 && showAddress === 1"
                                 >
                                   <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 font-weight-bold">{{ storeInfo?storeInfo.name:'' }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
@@ -262,11 +262,18 @@ export default {
       this.form.phone = getLocalStorage('userData').phone
       this.form.address = getLocalStorage('userData').default_address.address
       this.delivery_type = getLocalStorage('userData').delivery_type
+
       this.submitOrder.delivery_type = getLocalStorage('userData').delivery_type
       this.submitOrder.total.productQuantity = this.item.length
+      this.submitOrder.location.address = getLocalStorage('userData').default_address.address
+      this.submitOrder.location.house = getLocalStorage('userData').default_address.house
+      this.submitOrder.location.lat = getLocalStorage('userData').default_address.latitude
+      this.submitOrder.location.lng = getLocalStorage('userData').default_address.longitude
+      this.submitOrder.location.tag = getLocalStorage('userData').default_address.tag
     },
-    selectAddress (event) {
-      if (event.target.value === 2) {
+    selectAdd (event) {
+      console.log(this.showAddress)
+      if (event.target.value === '2') {
         this.showAddress = 1
       }
     },
