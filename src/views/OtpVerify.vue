@@ -93,7 +93,9 @@ export default {
   methods: {
     verOtp () {
       verifyOtp(this.form).then(res => {
-        if (res.data.valid_otp === 'true') {
+        console.log(res.data)
+        console.log(res.data.valid_otp)
+        if (res.data.valid_otp === true) {
           this.$router.push('/myaccount')
         } else {
           console.log('otp invalid')
