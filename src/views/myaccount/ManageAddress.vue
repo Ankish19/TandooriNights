@@ -86,11 +86,11 @@
                             >
                               <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1 font-weight-bold">{{ address.tag }}
-                                  <i class="fa fa-star text-white ml-1" aria-hidden="true" v-if="address.address == userData.default_address.address"></i>
+                                  <i class="fa fa-star text-white ml-1" aria-hidden="true"></i>
                                 </h5>
                                 <div>
                                   <small style="font-size:20px; position: relative; top: 14px;" class="text-white mr-2" @click="delAddress(address.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
-                                  <small style="font-size:20px; position: relative; top: 14px;" class="text-white" @click="defaultAddress(address.id)" v-if="address.address != userData.default_address.address">
+                                  <small style="font-size:20px; position: relative; top: 14px;" class="text-white" @click="defaultAddress(address.id)">
                                     <i class="fa fa-star-o" aria-hidden="true"></i>
                                   </small>
                                 </div>
@@ -106,11 +106,11 @@
                           >
                             <div class="d-flex w-100 justify-content-between">
                               <h5 class="mb-1 font-weight-bold">{{ address.tag }}
-                                <i class="fa fa-star text-primary ml-1" aria-hidden="true" v-if="address.address == userData.default_address.address"></i>
+                                <i class="fa fa-star text-primary ml-1" aria-hidden="true"></i>
                               </h5>
                               <div>
                                 <small style="font-size:20px; position: relative; top: 14px;" class="text-danger mr-2" @click="delAddress(address.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
-                                <small style="font-size:20px; position: relative; top: 14px;" class="text-danger" @click="defaultAddress(address.id)" v-if="address.address != userData.default_address.address">
+                                <small style="font-size:20px; position: relative; top: 14px;" class="text-danger" @click="defaultAddress(address.id)">
                                   <i class="fa fa-star-o" aria-hidden="true"></i>
                                 </small>
                               </div>

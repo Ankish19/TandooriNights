@@ -193,13 +193,10 @@ export default {
     this.getSetting()
     this.showItem()
     this.getCalc()
-    this.userData()
   },
   methods: {
-    userData () {
-      this.user = getLocalStorage('userData')
-    },
     showItem () {
+      this.user = getLocalStorage('userData')
       this.item = getLocalStorage('cart')
     },
     slideMinicart (event) {
