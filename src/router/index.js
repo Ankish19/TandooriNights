@@ -101,6 +101,10 @@ router.beforeEach((to, _, next) => {
     if (to.path === '/login' || to.path === '/register' || to.path === '') {
       return next('/')
     }
+  } if (!userData) {
+    if (to.path === '/myaccount' || to.path === '/checkout') {
+      return next('/login')
+    }
   } else {
     return next()
   }

@@ -73,16 +73,15 @@
                   class="rounded-circle img-fluid"
                   style="width: 150px"
                 />
-                <h5 class="my-3 profile">User</h5>
+                <h5 class="my-3 profile">{{ user?user.name:'' }}</h5>
                 <p class="text-muted mb-2">
-                  <i class="fa fa-map-marker" aria-hidden="true"></i> Bay Area, San
-                  Francisco, CA
+                  <i class="fa fa-map-marker" aria-hidden="true"></i> {{ user.default_address?user.default_address.address:'' }}
                 </p>
                 <p class="text-muted mb-2">
-                  <a href="tel:4434567890"><i class="fa fa-phone" aria-hidden="true"></i> +44 345 678 90</a>
+                  <a href="tel:4434567890"><i class="fa fa-phone" aria-hidden="true"></i> {{ user?user.phone:'' }}</a>
                 </p>
                 <p class="text-muted mb-4">
-                  <a href="mailto:User@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true"></i> User@gmail.com</a>
+                  <a href="mailto:User@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ user?user.email:'' }}</a>
                 </p>
                 <div class="row">
                 <div class="col-md-6">
@@ -119,6 +118,7 @@
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
+import { getLocalStorage } from '@/store/service'
 import //   BContainer,
 //   BRow,
 //   BCol,
@@ -127,7 +127,6 @@ import //   BContainer,
 //   BFormInput
 'bootstrap-vue'
 export default {
-  created () {},
   components: {
     Headbar,
     Footer,
@@ -138,6 +137,19 @@ export default {
     // BForm,
     // BFormGroup,
     // BFormInput
+  },
+  data () {
+    return {
+      user: []
+    }
+  },
+  mounted () {
+    this.userData()
+  },
+  methods: {
+    userData () {
+      this.user = getLocalStorage('userData')
+    }
   },
   name: 'checkout'
 }

@@ -30,3 +30,8 @@ export const tipTax = (type, data) => {
   console.log(data)
   return localStorage.setItem(type, data)
 }
+
+export const logout = () => {
+  localStorage.removeItem('userData')
+  localStorage.removeItem('accessToken')
+}

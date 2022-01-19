@@ -230,6 +230,8 @@ export default {
   },
   methods: {
     openModal (item) {
+      this.cart = getCart('cart')
+
       this.selectItem = item
       if (item.addon_categories.length > 0) {
         item.addon_categories.map((data) => {
@@ -240,15 +242,24 @@ export default {
           }
         })
       } else {
-        if (getCart('cart')) {
-          this.cart = getCart('cart')
-          // console.log(this.cart)
-          this.cart.push(item)
+        if (this.cart !== null && this.cart.length > 0) {
+          for (var j = 0; j < this.cart.length; j++) {
+            if (this.cart[j].id === item.id) {
+              this.cart[j].quantity++
+              console.log('for-if')
+              break
+            } else if (item.id !== this.cart[j].id && j === this.cart.length - 1) {
+              item.quantity = 1
+              this.cart.push(item)
+              console.log('for-else')
+              break
+            }
+          }
         } else {
+          item.quantity = 1
           this.cart = [item]
         }
         addCart('cart', JSON.stringify(this.cart))
-
         // this.$VueToast.success('An item added to cart.', {
         //   // override the global option
         //   position: 'bottom'

@@ -31,8 +31,10 @@
                         </ul>
                     </nav>
                     <div class="module left">
-                        <router-link class="btn btn-outline-secondary" to="/login">
+                        <router-link class="btn btn-outline-secondary" to="/login" v-if="!user">
                             <span class="order">Login</span></router-link>
+                        <router-link class="btn btn-outline-secondary" to="/myaccount" v-if="user">
+                            <span class="order">My Account</span></router-link>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -102,12 +104,13 @@
                 <table class="cart-table">
                     <tr v-for="(it, index) in item" :key="index">
                         <td class="title">
-                            <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span>
+                            <span class="name"><a>{{ it?it.name:'' }}</a></span>
+                            <!-- <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span> -->
                             <!-- <span class="caption text-muted">Large (500g)</span> -->
                         </td>
                         <td class="price">
+                          {{ it?it.quantity:'' }}x ${{ it?it.price:'' }}
                           <strike class="text-danger" v-if="it && it.old_price != 0">${{ it?it.old_price:'' }}</strike>
-                          ${{ it?it.price:'' }}
                         </td>
                         <td class="actions">
                             <!-- <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a> -->
@@ -173,6 +176,7 @@ export default {
   name: 'header',
   data () {
     return {
+      user: [],
       classSlider: 'hide',
       item: [],
       tipTax: {
@@ -192,6 +196,7 @@ export default {
   },
   methods: {
     showItem () {
+      this.user = getLocalStorage('userData')
       this.item = getLocalStorage('cart')
     },
     slideMinicart (event) {
@@ -227,7 +232,7 @@ export default {
     getCalc () {
       this.taxes = getLocalStorage('taxes')
       for (var i = 0; i < this.item.length; i++) {
-        this.orderTotal += parseFloat(this.item[i].price)
+        this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
       }
       this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
       this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
