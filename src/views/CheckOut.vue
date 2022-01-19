@@ -111,22 +111,12 @@
                             </div>
                             <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>Basic information</h4>
                             <div class="row mb-5">
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-12">
                                     <label>Name:</label>
-                                    <input type="text" class="form-control" v-model="form.name" disabled>
+                                    <input type="text" class="form-control" :value="form.name" disabled>
                                 </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Surname:</label>
-                                    <input type="text" class="form-control" v-model="form.lastName" disabled>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Street and number:</label>
-                                    <input type="text" class="form-control" v-model="form.street" disabled>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Address:</label>
-                                    <input type="text" class="form-control" v-model="form.address" disabled>
-                                </div>
+                            </div>
+                            <div class="row mb-5">
                                 <div class="form-group col-sm-6">
                                     <label>Phone number:</label>
                                     <input type="text" class="form-control" v-model="form.phone" disabled>
@@ -244,7 +234,6 @@ export default {
     }
   },
   mounted () {
-    this.$toast.open('Howdy!')
     if (getLocalStorage('userData')) {
       this.getSetting()
       this.getRestaurant()
@@ -258,19 +247,19 @@ export default {
   methods: {
     getUserData () {
       this.form.name = getLocalStorage('userData').name
-      this.form.street = getLocalStorage('userData').default_address.house
+      // this.form.street = getLocalStorage('userData').default_address.house
       this.form.email = getLocalStorage('userData').email
       this.form.phone = getLocalStorage('userData').phone
-      this.form.address = getLocalStorage('userData').default_address.address
+      // this.form.address = getLocalStorage('userData').default_address.address
       this.delivery_type = getLocalStorage('userData').delivery_type
 
-      this.submitOrder.delivery_type = getLocalStorage('userData').delivery_type
+      // this.submitOrder.delivery_type = getLocalStorage('userData').delivery_type
       this.submitOrder.total.productQuantity = this.item.length
-      this.submitOrder.location.address = getLocalStorage('userData').default_address.address
-      this.submitOrder.location.house = getLocalStorage('userData').default_address.house
-      this.submitOrder.location.lat = getLocalStorage('userData').default_address.latitude
-      this.submitOrder.location.lng = getLocalStorage('userData').default_address.longitude
-      this.submitOrder.location.tag = getLocalStorage('userData').default_address.tag
+      // this.submitOrder.location.address = getLocalStorage('userData').default_address.address
+      // this.submitOrder.location.house = getLocalStorage('userData').default_address.house
+      // this.submitOrder.location.lat = getLocalStorage('userData').default_address.latitude
+      // this.submitOrder.location.lng = getLocalStorage('userData').default_address.longitude
+      // this.submitOrder.location.tag = getLocalStorage('userData').default_address.tag
     },
     selectAdd (event) {
       console.log(this.showAddress)

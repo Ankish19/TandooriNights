@@ -5,7 +5,8 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import { getGoogleApi } from './store/api'
-import VueToast from 'vue-toast-notification'
+import Toast from 'vue-toastification'
+import 'vue-toastification/dist/index.css'
 
 Vue.config.productionTip = false
 
@@ -16,12 +17,13 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
+Vue.use(Toast)
+
 const script = document.createElement('script')
 script.src = 'https://maps.googleapis.com/maps/api/js?key=' + getGoogleApi().value + '&libraries=places'
 
 new Vue({
   router,
   store,
-  VueToast,
   render: h => h(App)
 }).$mount('#app')
