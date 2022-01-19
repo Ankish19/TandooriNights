@@ -260,10 +260,7 @@ export default {
           this.cart = [item]
         }
         addCart('cart', JSON.stringify(this.cart))
-        this.$toast.success('An item added to cart.', {
-          // override the global option
-          position: 'bottom'
-        })
+        this.$toast.success('An item added to cart.')
       }
     },
     cardModalClose (item) {

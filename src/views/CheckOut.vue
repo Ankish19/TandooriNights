@@ -291,6 +291,8 @@ export default {
       console.log(this.submitOrder)
       placeOrder(this.submitOrder).then(res => {
         console.log(res.data)
+        this.$toast.success('Order place successfully')
+        this.$router.push('/myorder')
       })
     }
   }
