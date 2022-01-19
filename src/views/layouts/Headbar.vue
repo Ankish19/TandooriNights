@@ -31,10 +31,10 @@
                         </ul>
                     </nav>
                     <div class="module left">
-                        <router-link class="btn btn-outline-secondary" to="/login">
+                        <router-link class="btn btn-outline-secondary" to="/login" v-if="!user">
                             <span class="order">Login</span></router-link>
-                        <router-link class="btn btn-outline-secondary" to="/logout">
-                            <span class="order">Logout</span></router-link>
+                        <router-link class="btn btn-outline-secondary" to="/myaccount" v-if="user">
+                            <span class="order">My Account</span></router-link>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -104,7 +104,8 @@
                 <table class="cart-table">
                     <tr v-for="(it, index) in item" :key="index">
                         <td class="title">
-                            <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span>
+                            <span class="name"><a>{{ it?it.name:'' }}</a></span>
+                            <!-- <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span> -->
                             <!-- <span class="caption text-muted">Large (500g)</span> -->
                         </td>
                         <td class="price">
@@ -175,6 +176,7 @@ export default {
   name: 'header',
   data () {
     return {
+      user: [],
       classSlider: 'hide',
       item: [],
       tipTax: {
@@ -191,8 +193,12 @@ export default {
     this.getSetting()
     this.showItem()
     this.getCalc()
+    this.userData()
   },
   methods: {
+    userData () {
+      this.user = getLocalStorage('userData')
+    },
     showItem () {
       this.item = getLocalStorage('cart')
     },

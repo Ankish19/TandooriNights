@@ -24,7 +24,7 @@
                   </li>
                   <li class="text-link">
                     <i class="fa fa-sign-out" aria-hidden="true"></i
-                    > <router-link to="/" class="text-left"> Logout</router-link>
+                    > <a href="#" class="text-left" @click="logOut"> Logout</a>
                   </li>
                 </ul>
               </div>
@@ -33,6 +33,12 @@
 </template>
 <script>
 export default {
+  methods: {
+    logOut () {
+      localStorage.removeItem('userData')
+      localStorage.removeItem('accessToken')
+    }
+  },
   name: 'slidebar'
 }
 </script>
