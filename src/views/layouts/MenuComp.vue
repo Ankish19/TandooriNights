@@ -126,11 +126,11 @@
                           >
                             <div class="form-group text-left">
                               <label for="email">{{ option.name }}</label>
-                              <select class="form-control" id="sel1">
+                              <select class="form-control" id="sel1" @change="selectAddon($event, option)">
                                 <option
                                   v-for="(optionItem, i) in option.addons"
                                   :key="i"
-                                  :value="optionItem.id"
+                                  :value="JSON.stringify(optionItem)"
                                 >
                                   {{
                                     `${optionItem.name}($${optionItem.price})`
@@ -181,7 +181,8 @@
                             <input
                               type="checkbox"
                               class="form-check-input"
-                              value=""
+                              :value="JSON.stringify(addonItem)"
+                              @change="selectAddon($event, addon)"
                             />
                             {{ addonItem.name }} (${{ addonItem.price }})
                           </label>
@@ -225,7 +226,8 @@ export default {
       selectItem: '',
       options: [],
       cart: [''],
-      addons: []
+      addons: [],
+      selectedaddons: []
     }
   },
   methods: {
@@ -234,6 +236,8 @@ export default {
 
       this.selectItem = item
       if (item.addon_categories.length > 0) {
+        this.options = []
+        this.addons = []
         item.addon_categories.map((data) => {
           if (data.type === 'SINGLE') {
             this.options.push(data)
@@ -267,6 +271,22 @@ export default {
       this.cart.push(item)
       // this.cart = item
       addCart('cart', JSON.stringify(this.cart))
+    },
+    selectAddon (event, category) {
+      console.log(event)
+      var addon = JSON.parse(event.target.value)
+      var select = {
+        addon_category_name: category.name,
+        addon_id: addon.id,
+        addon_name: addon.name,
+        price: addon.price
+      }
+      console.log(select)
+      if (this.selectedaddons.length > 0) {
+        this.selectedaddons.push(select)
+      } else {
+        this.selectedaddons = [select]
+      }
     }
   }
 }
