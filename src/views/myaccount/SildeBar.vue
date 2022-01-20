@@ -36,7 +36,7 @@ export default {
   methods: {
     logOut () {
       localStorage.removeItem('userData')
-      this.$router.push('/login')
+      this.$router.push('/')
     }
   },
   name: 'slidebar'
