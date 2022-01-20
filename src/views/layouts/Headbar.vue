@@ -41,9 +41,9 @@
                     <a href="#" class="module module-cart right" data-toggle="panel-cart" @click="slideMinicart(classSlider)">
                         <span class="cart-icon">
                             <i class="ti ti-shopping-cart"></i>
-                            <span class="notification">{{ item.length }}</span>
+                            <span class="notification d-block">{{ item?item.length:0 }}</span>
                         </span>
-                        <span class="cart-value">$<span class="value">{{ orderTotal.toFixed(2) }}</span></span>
+                        <span class="cart-value">$<span>{{ orderTotal.toFixed(2) }}</span></span>
                     </a>
                 </div>
             </div>
@@ -92,7 +92,7 @@
     </nav>
 
     <!-- Panel Cart -->
-    <div id="panel-cart" :class="classSlider">
+    <div id="panel-cart" :class="classSlider" class="">
         <div class="panel-cart-container">
             <div class="panel-cart-title">
                 <h5 class="title">Your Cart</h5>
@@ -100,8 +100,8 @@
                     <i class="ti ti-close text-danger"></i>
                 </button>
             </div>
-            <div class="panel-cart-content cart-details">
-                <table class="cart-table">
+            <div class="panel-cart-content cart-details" v-if="item && item.length != 0">
+                <table class="cart-table d-block">
                     <tr v-for="(it, index) in item" :key="index">
                         <td class="title">
                             <span class="name"><a>{{ it?it.name:'' }}</a></span>
@@ -129,11 +129,11 @@
                         </td>
                     </tr> -->
                 </table>
-                <div class="cart-summary">
+                <div class="cart-summary d-block">
                     <div class="row">
                         <div class="col-7 text-right text-muted">Order total:</div>
                         <div class="col-5">
-                            <strong> $<span class="cart-products-total">{{ orderTotal.toFixed(2) }}</span></strong>
+                            <strong> $<span class="cart-products-total1">{{ orderTotal.toFixed(2) }}</span></strong>
                         </div>
                     </div>
                     <div class="row">
@@ -145,24 +145,24 @@
                     <div class="row">
                         <div class="col-7 text-right text-muted">Total Tax({{ tipTax.taxPercentage.value }}%):</div>
                         <div class="col-5">
-                            <strong>+$<span class="cart-delivery">{{ taxTotal.toFixed(2) }}</span></strong>
+                            <strong>+$<span class="cart-delivery1">{{ taxTotal.toFixed(2) }}</span></strong>
                         </div>
                     </div>
                     <hr class="hr-sm" />
                     <div class="row text-lg">
                         <div class="col-7 text-right text-muted">Total:</div>
                         <div class="col-5">
-                            <strong>$<span class="cart-total">{{ totalAmount.toFixed(2) }}</span></strong>
+                            <strong>$<span class="cart-total1">{{ totalAmount.toFixed(2) }}</span></strong>
                         </div>
                     </div>
                 </div>
-                <div class="cart-empty">
-                    <i class="ti ti-shopping-cart"></i>
-                    <p>Your cart is empty...</p>
-                </div>
+            </div>
+            <div class="mt-5" v-else>
+                <h2><i class="ti ti-shopping-cart"></i></h2>
+                <h4>Your cart is empty...</h4>
             </div>
         </div>
-        <router-link to="/checkout" class="panel-cart-action btn btn-secondary btn-block btn-lg"><span>Go to checkout</span></router-link>
+        <router-link to="/checkout" class="panel-cart-action btn btn-secondary btn-block btn-lg" v-if="item && item.length != 0"><span>Go to checkout</span></router-link>
     </div>
     <!-- Body Overlay -->
     <div id="body-overlay"></div>
@@ -192,8 +192,10 @@ export default {
   },
   watch: {
     newCart () {
-      this.item = this.newCart
-      this.getCalc()
+      if (this.newCart) {
+        this.item = this.newCart
+        this.getCalc()
+      }
     }
   },
   mounted () {
@@ -238,8 +240,10 @@ export default {
     },
     getCalc () {
       this.taxes = getLocalStorage('taxes')
-      for (var i = 0; i < this.item.length; i++) {
-        this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
+      if (this.item) {
+        for (var i = 0; i < this.item.length; i++) {
+          this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
+        }
       }
       this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
       this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)

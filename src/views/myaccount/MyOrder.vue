@@ -125,13 +125,7 @@ import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
 import { getOrders } from '@/store/api'
-import //   BContainer,
-//   BRow,
-//   BCol,
-//   BForm,
-//   BFormGroup,
-//   BFormInput
-'bootstrap-vue'
+
 export default {
   created () {},
   components: {
@@ -154,7 +148,8 @@ export default {
     }
   },
   mounted () {
-    this.getOrder()
+    setTimeout(this.getOrder(), 3000)
+    setTimeout(function () { console.log('1') }, 1000)
   },
   methods: {
     getOrder () {

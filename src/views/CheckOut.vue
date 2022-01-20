@@ -94,12 +94,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mt-3" v-if="showAddress === 1">
+                                <div class="mt-3" v-if="submitOrder.delivery_type == 2">
                                   <h4>PickUp your order from restaurant address</h4>
                                 </div>
                                 <div
                                   class="list-group-item list-group-item-action active bg-primary"
-                                  aria-current="true" v-if="storeInfo && storeInfo.delivery_type == 2 && showAddress === 1"
+                                  aria-current="true" v-if="submitOrder.delivery_type == 2"
                                 >
                                   <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 font-weight-bold">{{ storeInfo?storeInfo.name:'' }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
@@ -234,14 +234,14 @@ export default {
     }
   },
   mounted () {
-    if (getLocalStorage('userData')) {
+    if (getLocalStorage('cart')) {
       this.getSetting()
       this.getRestaurant()
       this.item = getLocalStorage('cart')
       this.submitOrder.order = getLocalStorage('cart')
       this.getUserData()
     } else {
-      this.$router.push('/login')
+      this.$router.push('/menu')
     }
   },
   methods: {
@@ -290,7 +290,9 @@ export default {
     placeOrder () {
       console.log(this.submitOrder)
       placeOrder(this.submitOrder).then(res => {
-        console.log(res.data)
+        if (res.data.success === true) {
+          localStorage.removeItem('cart')
+        }
         this.$toast.success('Order place successfully')
         this.$router.push('/myorder')
       })
