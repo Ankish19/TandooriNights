@@ -174,7 +174,7 @@ import { getSettings } from '@/store/api'
 import { getLocalStorage, tipTax } from '@/store/service'
 export default {
   name: 'header',
-  props: ['newCart'],
+  props: ['newCart', 'cartshow'],
   data () {
     return {
       user: [],
@@ -196,6 +196,10 @@ export default {
         this.item = this.newCart
         this.getCalc()
       }
+    },
+    cartshow () {
+      console.log(this.cartshow)
+      this.slideMinicart(this.cartshow ? 'show' : 'hide')
     }
   },
   mounted () {

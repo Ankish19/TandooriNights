@@ -347,16 +347,46 @@
         ></a>
       </div>
     </nav>
-    <div class="footer_cart">
+    <div class="footer_cart" @click="openCart()">
       <div class="footer_cart_icon">
-        <span class="notification d-block">1</span>
+        <span class="notification d-block">{{ item?item.length:0 }}</span>
           <i class="ti ti-shopping-cart"></i>
       </div>
   </div>
   </div>
 </template>
 <script>
-export default {}
+import { getLocalStorage } from '@/store/service'
+export default {
+  props: ['newCart'],
+  data () {
+    return {
+      item: []
+    }
+  },
+  watch: {
+    newCart () {
+      if (this.newCart) {
+        this.item = this.newCart
+        this.getCalc()
+      }
+    }
+  },
+  mounted () {
+    this.showItem()
+  },
+  methods: {
+    showItem () {
+      this.user = getLocalStorage('userData')
+      this.item = getLocalStorage('cart')
+    },
+    openCart () {
+      var data = 'show'
+      console.log(data)
+      this.$emit('opencartpopup', data)
+    }
+  }
+}
 </script>
 <style>
 .footer_cart {
