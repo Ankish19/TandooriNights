@@ -347,12 +347,31 @@
         ></a>
       </div>
     </nav>
+    <div class="footer_cart">
+      <div class="footer_cart_icon">
+        <span class="notification d-block">1</span>
+          <i class="ti ti-shopping-cart"></i>
+      </div>
+  </div>
   </div>
 </template>
 <script>
 export default {}
 </script>
 <style>
+.footer_cart {
+  position: fixed;
+    bottom: 40px;
+    left: 80px;
+    padding: 10px 17px;
+    border: 2px solid #e26f2f;
+    border-radius: 50px;
+    background: #606467;
+}
+.footer_cart_icon{
+  color: #fff;
+  font-size: 20px;
+}
 ul.list-posts li a {
   color: white;
 }
