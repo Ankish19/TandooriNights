@@ -349,7 +349,7 @@
     </nav>
     <div class="footer_cart" @click="openCart()">
       <div class="footer_cart_icon">
-        <span class="notification d-block">{{ item?item.length:0 }}</span>
+        <span class="notification d-block" v-if="item">{{ item?item.length:0 }}</span>
           <i class="ti ti-shopping-cart"></i>
       </div>
   </div>
@@ -381,9 +381,9 @@ export default {
       this.item = getLocalStorage('cart')
     },
     openCart () {
-      var data = 'show'
-      console.log(data)
-      this.$emit('opencartpopup', data)
+      if (this.item.length > 0) {
+        this.$router.push('/checkout')
+      }
     }
   }
 }
@@ -397,6 +397,7 @@ export default {
     border: 2px solid #e26f2f;
     border-radius: 50px;
     background: #606467;
+    cursor: pointer;
 }
 .footer_cart_icon{
   color: #fff;
