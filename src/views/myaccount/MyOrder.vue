@@ -8,7 +8,7 @@
           <div class="col-lg-12">
             <h1 class="mb-0">My Orders</h1>
             <h4 class="text-muted mb-0">
-              Some informations about our restaurant
+              Some information about our restaurant
             </h4>
           </div>
         </div>
@@ -148,8 +148,10 @@ export default {
     }
   },
   mounted () {
-    setTimeout(this.getOrder(), 3000)
-    setTimeout(function () { console.log('1') }, 1000)
+    this.getOrder()
+    setInterval(() => {
+      this.getOrder()
+    }, 10000)
   },
   methods: {
     getOrder () {
