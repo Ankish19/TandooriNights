@@ -192,7 +192,8 @@ export default {
   },
   watch: {
     newCart () {
-      console.log(this.newCart)
+      this.item = this.newCart
+      this.getCalc()
     }
   },
   mounted () {
