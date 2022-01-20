@@ -156,9 +156,9 @@
                                 </div> -->
                                 <div class="col-md-4 col-sm-6 form-group">
                                     <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" class="custom-control-input" value="COD" v-model="submitOrder.method">
+                                        <input type="radio" name="payment_type" checked  value="COD" v-model="submitOrder.method">
                                         <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">COD</span>
+                                        <span class="custom-control-description ml-2">COD</span>
                                     </label>
                                 </div>
                             </div>
