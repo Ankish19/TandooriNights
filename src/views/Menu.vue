@@ -1,7 +1,7 @@
 <template>
   <div class="menu">
     <div id="dogra"></div>
-    <Headbar :newCart="newCart"></Headbar>
+    <Headbar :newCart="newCart" :cartshow="cartshow"></Headbar>
     <!-- Content -->
     <div id="content">
       <!-- Page Title -->
@@ -48,7 +48,7 @@
     </div>
     <!-- Content / End -->
 
-    <Footer></Footer>
+    <Footer :newCart="newCart" v-on:opencartpopup="opencartpopup($event)"></Footer>
     <!-- Modal / Product -->
   </div>
 </template>
@@ -69,7 +69,8 @@ export default {
   data () {
     return {
       Items: [],
-      newCart: []
+      newCart: [],
+      cartshow: false
     }
   },
   mounted () {
@@ -95,6 +96,10 @@ export default {
   methods: {
     addItem (event) {
       this.newCart = event
+    },
+    opencartpopup (event) {
+      // this.cartshow = !this.cartshow
+      console.log(event)
     }
   }
 }
