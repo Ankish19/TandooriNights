@@ -36,7 +36,6 @@ export default {
   methods: {
     logOut () {
       localStorage.removeItem('userData')
-      localStorage.removeItem('accessToken')
       this.$router.push('/login')
     }
   },

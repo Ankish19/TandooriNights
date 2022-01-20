@@ -102,7 +102,7 @@ router.beforeEach((to, _, next) => {
       return next('/')
     }
   } else if (!userData) {
-    if (to.path === '/myaccount' || to.path === '/checkout') {
+    if (to.path === '/myaccount' || to.path === '/checkout' || to.path === '/ManageAddress' || to.path === '/addmanageaddress' || to.path === '/myorder' || to.path === '/wallet') {
       return next('/login')
     }
   } else {
