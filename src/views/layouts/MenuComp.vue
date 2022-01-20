@@ -273,7 +273,7 @@ export default {
       addCart('cart', JSON.stringify(this.cart))
     },
     selectAddon (event, category) {
-      console.log(event)
+      // console.log(event)
       var addon = JSON.parse(event.target.value)
       var select = {
         addon_category_name: category.name,
@@ -283,9 +283,22 @@ export default {
       }
       console.log(select)
       if (this.selectedaddons.length > 0) {
-        this.selectedaddons.push(select)
+        for (var j = 0; j < this.selectedaddons.length; j++) {
+          console.log(this.selectedaddons[j].addon_category_name)
+          if (this.selectedaddons[j].addon_category_name === select.addon_category_name && select.addon_category_name === 'Portion') {
+            console.log('for-if')
+            this.selectedaddons.push(select)
+            this.selectedaddons.splice(0, 1)
+            break
+          } else {
+            this.selectedaddons.push(select)
+            break
+          }
+        }
+        console.log(this.selectedaddons)
       } else {
         this.selectedaddons = [select]
+        console.log(this.selectedaddons)
       }
     }
   }
