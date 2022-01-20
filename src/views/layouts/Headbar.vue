@@ -174,6 +174,7 @@ import { getSettings } from '@/store/api'
 import { getLocalStorage, tipTax } from '@/store/service'
 export default {
   name: 'header',
+  props: ['newCart'],
   data () {
     return {
       user: [],
@@ -187,6 +188,11 @@ export default {
       taxes: [],
       taxTotal: 0,
       totalAmount: 0
+    }
+  },
+  watch: {
+    newCart () {
+      console.log(this.newCart)
     }
   },
   mounted () {

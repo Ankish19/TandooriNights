@@ -246,12 +246,10 @@ export default {
           for (var j = 0; j < this.cart.length; j++) {
             if (this.cart[j].id === item.id) {
               this.cart[j].quantity++
-              console.log('for-if')
               break
             } else if (item.id !== this.cart[j].id && j === this.cart.length - 1) {
               item.quantity = 1
               this.cart.push(item)
-              console.log('for-else')
               break
             }
           }
@@ -259,8 +257,9 @@ export default {
           item.quantity = 1
           this.cart = [item]
         }
-        addCart('cart', JSON.stringify(this.cart))
         this.$toast.success('An item added to cart.')
+        this.$emit('addItem', this.cart)
+        addCart('cart', JSON.stringify(this.cart))
       }
     },
     cardModalClose (item) {

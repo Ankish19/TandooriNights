@@ -1,7 +1,7 @@
 <template>
   <div class="menu">
     <div id="dogra"></div>
-    <Headbar></Headbar>
+    <Headbar :newCart="newCart"></Headbar>
     <!-- Content -->
     <div id="content">
       <!-- Page Title -->
@@ -40,7 +40,7 @@
             </div>
             <div class="col-md-9 box-line">
               <!-- Menu Category / Burgers -->
-              <MenuComp :items="Items"></MenuComp>
+              <MenuComp :items="Items" v-on:addItem="addItem($event)"></MenuComp>
             </div>
           </div>
         </div>
@@ -68,7 +68,8 @@ export default {
   },
   data () {
     return {
-      Items: []
+      Items: [],
+      newCart: []
     }
   },
   mounted () {
@@ -90,6 +91,11 @@ export default {
       this.Items = res.data.items
     // eslint-disable-next-line no-sequences
     })
+  },
+  methods: {
+    addItem (event) {
+      this.newCart = event
+    }
   }
 }
 
