@@ -142,7 +142,7 @@
                     <div class="row">
                         <div class="col-7 text-right text-muted">Total Tax({{ tipTax.taxPercentage.value }}%):</div>
                         <div class="col-5">
-                            <strong>+$<span class="cart-delivery">{{ taxTotal }}</span></strong>
+                            <strong>+$<span class="cart-delivery">{{ taxTotal.toFixed(2) }}</span></strong>
                         </div>
                     </div>
                     <hr class="hr-sm" />
