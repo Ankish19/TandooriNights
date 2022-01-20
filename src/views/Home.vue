@@ -187,7 +187,7 @@
               alt=""
               class="image"
             />
-            <h3 class="title">Breavages</h3>
+            <h3 class="title">Beverages</h3>
           </a>
         </div>
         <!-- Menu Sample -->
