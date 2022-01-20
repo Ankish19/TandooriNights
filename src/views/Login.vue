@@ -21,11 +21,10 @@
         <b-container>
           <b-form @submit.prevent="userLogin">
             <b-row>
-               <Field
-                        v-model="form.email"
-                        placeholder="Email"
-                        :rules="required"
-                      />
+               <!-- <b-form-input
+                  v-model="form.email"
+                  placeholder="Email"
+                ></b-form-input> -->
               <b-col cols="6" class="mx-auto">
                 <!--<b-col cols="12">
                   <h2 class="font-weight-bold">Login Form</h2>
@@ -99,6 +98,7 @@ import Footer from '@/views/layouts/Footer.vue'
 import { login } from '@/store/api'
 import { saveLocalStorage } from '@/store/service'
 import {
+  BForm,
   BFormGroup,
   BButton,
   BRow,
@@ -119,6 +119,7 @@ export default {
     }
   },
   components: {
+    BForm,
     Headbar,
     Footer,
     BFormGroup,

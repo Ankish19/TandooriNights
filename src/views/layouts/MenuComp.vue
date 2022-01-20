@@ -228,11 +228,11 @@ export default {
       addons: []
     }
   },
-
   methods: {
     openModal (item) {
+      this.cart = getCart('cart')
+
       this.selectItem = item
-      console.log(item)
       if (item.addon_categories.length > 0) {
         item.addon_categories.map((data) => {
           if (data.type === 'SINGLE') {
@@ -242,17 +242,28 @@ export default {
           }
         })
       } else {
-        if (getCart('cart')) {
-          this.cart = getCart('cart')
-          this.cart.push(item)
+        if (this.cart !== null && this.cart.length > 0) {
+          for (var j = 0; j < this.cart.length; j++) {
+            if (this.cart[j].id === item.id) {
+              this.cart[j].quantity++
+              console.log('for-if')
+              break
+            } else if (item.id !== this.cart[j].id && j === this.cart.length - 1) {
+              item.quantity = 1
+              this.cart.push(item)
+              console.log('for-else')
+              break
+            }
+          }
         } else {
+          item.quantity = 1
           this.cart = [item]
         }
         addCart('cart', JSON.stringify(this.cart))
+        this.$toast.success('An item added to cart.')
       }
     },
     cardModalClose (item) {
-      console.log(item)
       this.cart = getCart('cart')
       this.cart.push(item)
       // this.cart = item

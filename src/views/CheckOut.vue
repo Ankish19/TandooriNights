@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="mb-0">Checkout</h1>
-                        <h4 class="text-muted mb-0">Some informations about our restaurant</h4>
+                        <h4 class="text-muted mb-0">Some information about our restaurant</h4>
                     </div>
                 </div>
             </div>
@@ -21,12 +21,12 @@
                         <div class="cart-details shadow bg-white stick-to-content mb-4">
                             <div class="bg-dark dark p-4"><h5 class="mb-0">You order</h5></div>
                             <table class="cart-table">
-                                <tr v-for="(it, index) in item" :key="index">
+                                <tr v-for="(it, index) in submitOrder.order" :key="index">
                                     <td class="title">
-                                        <span class="name"><a href="#product-modal" data-toggle="modal">{{ it.name }}</a></span>
+                                        <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span>
                                         <!--<span class="caption text-muted">26”, deep-pan, thin-crust</span>-->
                                     </td>
-                                    <td class="price">${{ it.price }}</td>
+                                    <td class="price">{{ it.quantity }}x ${{ it?it.price:'' }}</td>
                                     <!--<td class="actions">
                                         <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
                                         <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
@@ -50,15 +50,15 @@
                                     <div class="col-5"><strong>+$<span class="cart-delivery">0.00</span></strong></div>
                                 </div>
                                <div class="row">
-                                    <div class="col-7 text-right text-muted">Total Tax({{ tipTax.taxPercentage.value }}%):</div>
+                                    <div class="col-7 text-right text-muted">Total Tax({{ tipTax?tipTax.taxPercentage.value:'' }}%):</div>
                                     <div class="col-5">
-                                        <strong>+$<span class="cart-delivery">{{ taxTotal }}</span></strong>
+                                        <strong>+$<span class="cart-delivery">{{ taxTotal?taxTotal.toFixed(2):0 }}</span></strong>
                                     </div>
                                 </div>
                                 <hr class="hr-sm">
                                 <div class="row text-lg">
                                     <div class="col-7 text-right text-muted">Total:</div>
-                                    <div class="col-5"><strong>$<span class="cart-total">{{ totalAmount.toFixed(2) }}</span></strong></div>
+                                    <div class="col-5"><strong>$<span class="cart-total">{{ totalAmount?totalAmount.toFixed(2):0 }}</span></strong></div>
                                 </div>
                             </div>
                             <div class="cart-empty">
@@ -69,51 +69,78 @@
                     </div>
                     <div class="col-xl-8 col-lg-7 order-lg-first">
                         <div class="bg-white p-4 p-md-5 mb-4">
-                            <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>Basic informations</h4>
+                            <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Pickup Address</h4>
+                            <div class="row mb-5">
+                              <!-- <div v-for="(rest, index) in restaurants" :key="index">
+                                <div class="jumbotron">{{ rest.name }}
+                                    <div class="d-flex w-100 justify-content-between">
+                                      <h5 class="mb-1 font-weight-bold">{{ rest.address }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
+                                    </div>
+                                    <p class="mb-1">
+                                    </p>
+                                </div>
+                              </div> -->
+                                <div class="form-group col-sm-6">
+                                    <label>Select way</label>
+                                    <div class="select-container">
+                                        <select class="form-control" v-model="submitOrder.delivery_type" @change="selectAdd($event)">
+                                            <option selected disabled>-- Select Way --</option>
+                                            <option value="2" v-if="storeInfo && storeInfo.delivery_type === 3 || storeInfo.delivery_type === 2">
+                                             Self PickUp
+                                            </option>
+                                            <option value="1" v-if="storeInfo && storeInfo.delivery_type === 3 || storeInfo.delivery_type === 1">
+                                              Delivery
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mt-3" v-if="showAddress === 1">
+                                  <h4>PickUp your order from restaurant address</h4>
+                                </div>
+                                <div
+                                  class="list-group-item list-group-item-action active bg-primary"
+                                  aria-current="true" v-if="storeInfo && storeInfo.delivery_type == 2 && showAddress === 1"
+                                >
+                                  <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1 font-weight-bold">{{ storeInfo?storeInfo.name:'' }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
+                                  </div>
+                                  <p class="mb-1">
+                                    {{ storeInfo?storeInfo.address:'' }}
+                                  </p>
+                                </div>
+                            </div>
+                            <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>Basic information</h4>
+                            <div class="row mb-5">
+                                <div class="form-group col-sm-12">
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" :value="form.name" disabled>
+                                </div>
+                            </div>
                             <div class="row mb-5">
                                 <div class="form-group col-sm-6">
-                                    <label>Name:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Surename:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Street and number:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>City:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
                                     <label>Phone number:</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" v-model="form.phone" disabled>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label>E-mail address:</label>
-                                    <input type="email" class="form-control">
+                                    <input type="email" class="form-control" v-model="form.email" disabled>
                                 </div>
                             </div>
 
-                            <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Pickup Address</h4>
+                            <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Tip/ Coupon</h4>
                             <div class="row mb-5">
-                                <!--<div class="form-group col-sm-6">
-                                    <label>Select way</label>
-                                    <div class="select-container">
-                                        <select class="form-control">
-                                            <option>Pickup</option>
-                                            <option>In one hour</option>
-                                            <option>In two hours</option>
-                                        </select>
+                                <div class="form-group col-sm-6">
+                                    <label>Coupon Code</label>
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Enter coupon code" class="form-control">
                                     </div>
-                                </div>-->
+                                </div>
+
                             </div>
 
                             <h4 class="border-bottom pb-4"><i class="ti ti-wallet mr-3 text-primary"></i>Payment</h4>
                             <div class="row text-lg">
-                                <div class="col-md-4 col-sm-6 form-group">
+                                <!-- <div class="col-md-4 col-sm-6 form-group">
                                     <label class="custom-control custom-radio">
                                         <input type="radio" name="payment_type" class="custom-control-input">
                                         <span class="custom-control-indicator"></span>
@@ -126,18 +153,18 @@
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Credit Card</span>
                                     </label>
-                                </div>
+                                </div> -->
                                 <div class="col-md-4 col-sm-6 form-group">
                                     <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" class="custom-control-input">
+                                        <input type="radio" name="payment_type" class="custom-control-input" value="COD" v-model="submitOrder.method">
                                         <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">Cash</span>
+                                        <span class="custom-control-description">COD</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-primary btn-lg"><span>Order now!</span></button>
+                            <button class="btn btn-primary btn-lg" @click="placeOrder"><span>Order now!</span></button>
                         </div>
                     </div>
                 </div>
@@ -151,7 +178,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { getSettings } from '@/store/api'
+import { getSettings, getRestaurantInfo, placeOrder } from '@/store/api'
 import { getLocalStorage, tipTax } from '@/store/service'
 
 export default {
@@ -159,22 +186,93 @@ export default {
   name: 'checkout',
   data () {
     return {
+      showAddress: 0,
+      form: {
+        name: '',
+        lastName: '',
+        address: '',
+        email: '',
+        phone: '',
+        street: ''
+      },
       item: [],
       tipTax: {
         tips: {},
         taxPercentage: {}
       },
+      user: {},
       orderTotal: 0,
       taxes: [],
       taxTotal: 0,
-      totalAmount: 0
+      totalAmount: 0,
+      storeInfo: '',
+      delivery_type: '',
+      submitOrder: {
+        order: [],
+        coupon: '',
+        quantity: 0,
+        location: {
+          lat: '',
+          lng: '',
+          address: '',
+          house: null,
+          tag: null
+        },
+        order_comment: null,
+        total: {
+          productQuantity: '',
+          totalPrice: '',
+          tip_to_driver: ''
+        },
+        method: 'COD',
+        payment_token: '',
+        delivery_type: '',
+        partial_wallet: '',
+        dis: '',
+        pending_payment: ''
+      }
     }
   },
   mounted () {
-    this.getSetting()
-    this.item = getLocalStorage('cart')
+    if (getLocalStorage('userData')) {
+      this.getSetting()
+      this.getRestaurant()
+      this.item = getLocalStorage('cart')
+      this.submitOrder.order = getLocalStorage('cart')
+      this.getUserData()
+    } else {
+      this.$router.push('/login')
+    }
   },
   methods: {
+    getUserData () {
+      this.form.name = getLocalStorage('userData').name
+      // this.form.street = getLocalStorage('userData').default_address.house
+      this.form.email = getLocalStorage('userData').email
+      this.form.phone = getLocalStorage('userData').phone
+      // this.form.address = getLocalStorage('userData').default_address.address
+      this.delivery_type = getLocalStorage('userData').delivery_type
+
+      // this.submitOrder.delivery_type = getLocalStorage('userData').delivery_type
+      this.submitOrder.total.productQuantity = this.item.length
+      // this.submitOrder.location.address = getLocalStorage('userData').default_address.address
+      // this.submitOrder.location.house = getLocalStorage('userData').default_address.house
+      // this.submitOrder.location.lat = getLocalStorage('userData').default_address.latitude
+      // this.submitOrder.location.lng = getLocalStorage('userData').default_address.longitude
+      // this.submitOrder.location.tag = getLocalStorage('userData').default_address.tag
+    },
+    selectAdd (event) {
+      console.log(this.showAddress)
+      if (event.target.value === '2') {
+        this.showAddress = 1
+      }
+    },
+    getRestaurant () {
+      getRestaurantInfo().then(res => {
+        console.log(res.data)
+        this.storeInfo = res.data
+      })
+    },
     getSetting () {
       getSettings().then(res => {
         this.tipTax.taxPercentage = res.data[45]
@@ -182,10 +280,19 @@ export default {
         tipTax('taxes', JSON.stringify(this.tipTax))
         this.taxes = getLocalStorage('taxes')
         for (var i = 0; i < this.item.length; i++) {
-          this.orderTotal += parseFloat(this.item[i].price)
+          this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
         }
         this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
-        this.totalAmount = Math.round(parseFloat(this.orderTotal)) + parseFloat(this.taxTotal)
+        this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
+        this.submitOrder.total.totalPrice = this.totalAmount
+      })
+    },
+    placeOrder () {
+      console.log(this.submitOrder)
+      placeOrder(this.submitOrder).then(res => {
+        console.log(res.data)
+        this.$toast.success('Order place successfully')
+        this.$router.push('/myorder')
       })
     }
   }
