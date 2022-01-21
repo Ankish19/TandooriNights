@@ -1,36 +1,27 @@
 <template>
   <div>
     <!-- Menu Category / Burgers -->
-    <div
-      :id="`${value}`"
-      class="menu-category"
-      v-for="(item, value, index) in items"
-      :key="index"
-    >
+    <div :id="`${value}`" class="menu-category" v-for="(item, value, index) in items" :key="index">
       <div class="menu-category-title">
         <div class="bg-image">
-          <img :src="siteLogo" alt="" />
+          <img :src="siteLogo" alt />
         </div>
         <h2 class="title">{{ value }}</h2>
       </div>
       <div class="menu-category-content text-left">
         <!-- Menu Item -->
-        <div
-          class="menu-item menu-list-item"
-          v-for="(item1, index1) in items[value]"
-          :key="index1"
-        >
+        <div class="menu-item menu-list-item" v-for="(item1, index1) in items[value]" :key="index1">
           <div class="row align-items-center">
             <div class="col-sm-6 mb-2 mb-sm-0">
               <h6 class="mb-0 font-weight-bold">{{ item1.name }}</h6>
               <span class="text-muted text-sm" v-html="item1.desc"></span>
             </div>
             <div class="col-sm-6 text-sm-right">
-              <span class="text-md mr-4"
-                ><span class="text-muted">from</span>
-                <strike class="text-danger" v-if="item1.old_price > 0">${{ item1.old_price }}</strike>
-                $<span data-product-base-price>{{ item1.price }}</span></span
-              >
+              <span class="text-md mr-4">
+                <span class="text-muted">from</span>
+                <strike class="text-danger" v-if="item1.old_price > 0">${{ item1.old_price }}</strike>$
+                <span data-product-base-price>{{ item1.price }}</span>
+              </span>
               <button
                 class="btn btn-outline-secondary btn-sm"
                 data-toggle="modal"
@@ -40,11 +31,7 @@
               >
                 <span>Add to cart</span>
               </button>
-              <button
-                class="btn btn-outline-secondary btn-sm"
-                @click="openModal(item1)"
-                v-else
-              >
+              <button class="btn btn-outline-secondary btn-sm" @click="openModal(item1)" v-else>
                 <span>Add to cart</span>
               </button>
             </div>
@@ -59,18 +46,10 @@
         <div class="modal-content">
           <div class="modal-header modal-header-lg dark bg-dark">
             <div class="bg-image">
-              <img
-                src="http://assets.suelo.pl/soup/img/photos/modal-add.jpg"
-                alt=""
-              />
+              <img src="http://assets.suelo.pl/soup/img/photos/modal-add.jpg" alt />
             </div>
             <h4 class="modal-title">{{ selectItem.name }}</h4>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <i class="ti ti-close"></i>
             </button>
           </div>
@@ -78,15 +57,12 @@
             <div class="row align-items-center text-left">
               <div class="col-8">
                 <!-- <h6 class="mb-1 product-modal-name">Boscaiola Pasta</h6> -->
-                <span
-                  class="text-muted product-modal-ingredients"
-                  v-html="selectItem.desc"
-                ></span>
+                <span class="text-muted product-modal-ingredients" v-html="selectItem.desc"></span>
               </div>
               <div class="col-4 text-md text-right">
-                <strike class="text-danger">${{ selectItem.old_price }}</strike>
-                $<span data-product-base-price>{{ selectItem.price }}</span
-                ><span class="product-modal-price"></span>
+                <strike class="text-danger">${{ selectItem.old_price }}</strike>$
+                <span data-product-base-price>{{ selectItem.price }}</span>
+                <span class="product-modal-price"></span>
               </div>
             </div>
           </div>
@@ -104,9 +80,7 @@
                         data-target="#collapseOne"
                         aria-expanded="true"
                         aria-controls="collapseOne"
-                      >
-                        Options
-                      </a>
+                      >Options</a>
                     </h5>
                   </div>
 
@@ -119,14 +93,15 @@
                     <div class="card-body">
                       <form action="#">
                         <div class="row">
-                          <div
-                            class="col-md-6"
-                            v-for="(option, i) in options"
-                            :key="i"
-                          >
+                          <div class="col-md-6" v-for="(option, i) in options" :key="i">
                             <div class="form-group text-left">
                               <label for="email">{{ option.name }}</label>
-                              <select class="form-control" id="sel1" @change="selectAddon($event, option)">
+                              <select
+                                class="form-control"
+                                id="sel1"
+                                @change="selectAddon($event, option)"
+                              >
+                                <option selected disabled>--Select option--</option>
                                 <option
                                   v-for="(optionItem, i) in option.addons"
                                   :key="i"
@@ -154,9 +129,7 @@
                         data-target="#collapseTwo"
                         aria-expanded="true"
                         aria-controls="collapseOne"
-                      >
-                        Additions
-                      </a>
+                      >Additions</a>
                     </h5>
                   </div>
                   <div
@@ -166,17 +139,9 @@
                     data-parent="#accordionExample"
                   >
                     <div class="card-body">
-                      <div
-                        class="row text-left ml-2"
-                        v-for="(addon, j) in addons"
-                        :key="j"
-                      >
+                      <div class="row text-left ml-2" v-for="(addon, j) in addons" :key="j">
                         <div class="col-md-12">{{ addon.name }}</div>
-                        <div
-                          class="col-md-6"
-                          v-for="(addonItem, j) in addon.addons"
-                          :key="j"
-                        >
+                        <div class="col-md-6" v-for="(addonItem, j) in addon.addons" :key="j">
                           <label class="form-check-label">
                             <input
                               type="checkbox"
@@ -218,7 +183,7 @@
 <script>
 import { addCart, getCart } from '@/store/service'
 export default {
-  setup () {},
+  setup () { },
   props: ['items'],
   data () {
     return {
@@ -226,6 +191,8 @@ export default {
       selectItem: '',
       options: [],
       cart: [''],
+      single: [],
+      multi: [],
       addons: [],
       selectedaddons: []
     }
@@ -251,7 +218,10 @@ export default {
             if (this.cart[j].id === item.id) {
               this.cart[j].quantity++
               break
-            } else if (item.id !== this.cart[j].id && j === this.cart.length - 1) {
+            } else if (
+              item.id !== this.cart[j].id &&
+              j === this.cart.length - 1
+            ) {
               item.quantity = 1
               this.cart.push(item)
               break
@@ -282,17 +252,34 @@ export default {
         price: addon.price
       }
       console.log(select)
-      if (this.selectedaddons.length > 0) {
-        for (var j = 0; j < this.selectedaddons.length; j++) {
-          console.log('for-if')
-          this.selectedaddons.push(select)
-          this.selectedaddons.splice(j, 1)
+      if (category.type === 'SINGLE') {
+        console.log('SINGLE')
+        this.single = [select]
+      } else if (category.type === 'MULTI') {
+        if (this.multi.length > 0) {
+          for (var j = 0; j < this.multi.length; j++) {
+            if (select.addon_id === this.multi[j].addon_id) {
+              console.log('if')
+              this.multi.splice(j, 1)
+              break
+            } else if (select.addon_id !== this.multi[j].addon_id && j === this.multi.length - 1) {
+              console.log('else-if')
+              this.multi.push(select)
+              break
+            }
+          }
+        } else {
+          console.log('else')
+          this.multi = [select]
         }
-        console.log(this.selectedaddons)
-      } else {
-        this.selectedaddons = [select]
-        console.log(this.selectedaddons)
       }
+      // if (this.single.length) {
+      //   this.selectedaddons.push(this.single)
+      // }
+      // if (this.multi.length) {
+      //   this.selectedaddons.push(this.multi)
+      // }
+      console.log(this.selectedaddons)
     }
   }
 }

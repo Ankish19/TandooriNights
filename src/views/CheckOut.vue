@@ -132,12 +132,12 @@
                                 <div class="form-group col-sm-6">
                                     <label>Coupon Code</label>
                                     <div class="form-group">
-                                    <div class="input-group mb-3">
-                                        <input type="text" placeholder="Enter coupon code" class="form-control">
-                                        <div class="input-group-append">
-                                          <button class="input-group-text bg-primary text-white" @click="couponVerify">Verify</button>
-                                        </div>
-                                    </div>
+                                      <div class="input-group mb-3">
+                                          <input type="text" placeholder="Enter coupon code" class="form-control">
+                                          <div class="input-group-append">
+                                            <button class="input-group-text bg-primary text-white" @click="couponVerify">Verify</button>
+                                          </div>
+                                      </div>
                                     </div>
                                 </div>
 
