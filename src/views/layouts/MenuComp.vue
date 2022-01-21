@@ -284,16 +284,9 @@ export default {
       console.log(select)
       if (this.selectedaddons.length > 0) {
         for (var j = 0; j < this.selectedaddons.length; j++) {
-          console.log(this.selectedaddons[j].addon_category_name)
-          if (this.selectedaddons[j].addon_category_name === select.addon_category_name && select.addon_category_name === 'Portion') {
-            console.log('for-if')
-            this.selectedaddons.push(select)
-            this.selectedaddons.splice(0, 1)
-            break
-          } else {
-            this.selectedaddons.push(select)
-            break
-          }
+          console.log('for-if')
+          this.selectedaddons.push(select)
+          this.selectedaddons.splice(j, 1)
         }
         console.log(this.selectedaddons)
       } else {
