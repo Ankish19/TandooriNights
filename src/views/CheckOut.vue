@@ -132,8 +132,8 @@
                                 <div class="form-group col-sm-6">
                                     <label>Coupon Code</label>
                                     <div class="form-group">
-                                      <div class="input-group mb-3">
-                                          <input type="text" placeholder="Enter coupon code" class="form-control">
+                                       <div class="input-group mb-3">
+                                          <input type="text" placeholder="Enter coupon code" class="form-control" v-model="form.coupon">
                                           <div class="input-group-append">
                                             <button class="input-group-text bg-primary text-white" @click="couponVerify">Verify</button>
                                           </div>
@@ -183,7 +183,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { getSettings, getRestaurantInfo, placeOrder } from '@/store/api'
+import { getSettings, getRestaurantInfo, placeOrder, checkCoupon } from '@/store/api'
 import { getLocalStorage, tipTax } from '@/store/service'
 
 export default {
@@ -198,8 +198,10 @@ export default {
         address: '',
         email: '',
         phone: '',
-        street: ''
+        street: '',
+        coupon: ''
       },
+      couponDetail: '',
       item: [],
       tipTax: {
         tips: {},
@@ -250,9 +252,6 @@ export default {
     }
   },
   methods: {
-    couponVerify () {
-      console.log(1)
-    },
     getUserData () {
       this.form.name = getLocalStorage('userData').name
       // this.form.street = getLocalStorage('userData').default_address.house
@@ -293,6 +292,23 @@ export default {
         this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
         this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
         this.submitOrder.total.totalPrice = this.totalAmount
+      })
+    },
+    couponVerify () {
+      const data = {
+        coupon: this.form.coupon,
+        subTotal: '100.00'
+      }
+      checkCoupon(data).then(res => {
+        console.log(res.data)
+        if (res.data.success === false) {
+          console.log('invalid Coupon')
+        } else {
+          this.couponDetail = res.data
+          this.submitOrder.coupon = {
+            code: res.data.code
+          }
+        }
       })
     },
     placeOrder () {
