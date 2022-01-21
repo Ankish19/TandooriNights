@@ -46,6 +46,10 @@
                                     <div class="col-5"><strong>+$<span class="cart-products-total">{{ orderTotal }}</span></strong></div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-7 text-right text-muted">Discount:</div>
+                                    <div class="col-5"><strong>-$<span class="cart-products-total">{{ discountPrice }}</span></strong></div>
+                                </div>
+                                <div class="row">
                                     <div class="col-7 text-right text-muted">Delivery:</div>
                                     <div class="col-5"><strong>+$<span class="cart-delivery">0.00</span></strong></div>
                                 </div>
@@ -202,6 +206,8 @@ export default {
         coupon: ''
       },
       couponDetail: '',
+      discountPrice: 0,
+      discountPercent: 0,
       item: [],
       tipTax: {
         tips: {},
@@ -297,7 +303,7 @@ export default {
     couponVerify () {
       const data = {
         coupon: this.form.coupon,
-        subTotal: '100.00'
+        subTotal: this.orderTotal
       }
       checkCoupon(data).then(res => {
         console.log(res.data)
@@ -307,6 +313,11 @@ export default {
           this.couponDetail = res.data
           this.submitOrder.coupon = {
             code: res.data.code
+          }
+          if (res.data.discount_type === 'AMOUNT') {
+            this.discountPrice = res.data.discount
+          } else if (res.data.discount_type === 'PERCENTAGE') {
+            this.discountPercent = res.data.discount
           }
         }
       })
