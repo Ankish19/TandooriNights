@@ -45,7 +45,7 @@
                                     <div class="col-7 text-right text-muted">Order total:</div>
                                     <div class="col-5"><strong>+$<span class="cart-products-total">{{ orderTotal }}</span></strong></div>
                                 </div>
-                                <div class="row">
+                                <div class="row" v-if="orderTotal >= 10 && discountPrice > 0">
                                     <div class="col-7 text-right text-muted">Discount:</div>
                                     <div class="col-5"><strong>-$<span class="cart-products-total">{{ discountPrice }}</span></strong></div>
                                 </div>
@@ -295,8 +295,8 @@ export default {
         for (var i = 0; i < this.item.length; i++) {
           this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
         }
-        this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
-        this.totalAmount = parseFloat(this.orderTotal) - parseFloat(this.discountPrice) + parseFloat(this.taxTotal)
+        this.taxTotal = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
+        this.totalAmount = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) + parseFloat(this.taxTotal)
         this.submitOrder.total.totalPrice = this.totalAmount
       })
     },
@@ -319,6 +319,10 @@ export default {
           } else if (res.data.discount_type === 'PERCENTAGE') {
             this.discountPercent = res.data.discount
           }
+          this.taxTotal = 0
+          this.totalAmount = 0
+          this.orderTotal = 0
+          this.getSetting()
         }
       })
     },
