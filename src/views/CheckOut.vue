@@ -278,7 +278,6 @@ export default {
       localStorage.removeItem('cart')
       localStorage.setItem('cart', JSON.stringify(name))
       this.showItem()
-      console.log(this.item)
       this.orderTotal = 0
       this.taxTotal = 0
       this.totalAmount = 0
