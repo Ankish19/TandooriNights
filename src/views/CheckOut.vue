@@ -31,6 +31,10 @@
                                         <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
                                         <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
                                     </td>-->
+                                    <td class="actions">
+                                        <!-- <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a> -->
+                                        <a href="#" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
+                                    </td>
                                 </tr>
                                 <!--<tr>
                                     <td class="title">
@@ -250,7 +254,7 @@ export default {
     if (getLocalStorage('cart')) {
       this.getSetting()
       this.getRestaurant()
-      this.item = getLocalStorage('cart')
+      this.showItem()
       this.submitOrder.order = getLocalStorage('cart')
       this.getUserData()
     } else {
@@ -258,6 +262,28 @@ export default {
     }
   },
   methods: {
+    showItem () {
+      this.item = getLocalStorage('cart')
+    },
+    deleteItem (index) {
+      var storedNames = JSON.parse(localStorage.getItem('cart'))
+      var name = []
+      // var name = storedNames.slice(index, 1)
+      // localStorage.setItem('cart', JSON.stringify(name))
+      for (var j = 0; j < storedNames.length; j++) {
+        if (j !== index) {
+          name.push(storedNames[j])
+        }
+      }
+      localStorage.removeItem('cart')
+      localStorage.setItem('cart', JSON.stringify(name))
+      this.showItem()
+      console.log(this.item)
+      this.orderTotal = 0
+      this.taxTotal = 0
+      this.totalAmount = 0
+      this.getSetting()
+    },
     getUserData () {
       this.form.name = getLocalStorage('userData').name
       // this.form.street = getLocalStorage('userData').default_address.house
