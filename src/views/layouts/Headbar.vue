@@ -194,6 +194,9 @@ export default {
     newCart () {
       if (this.newCart) {
         this.item = this.newCart
+        this.orderTotal = 0
+        this.taxTotal = 0
+        this.totalAmount = 0
         this.getCalc()
       }
     },
@@ -251,7 +254,7 @@ export default {
       }
       this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
       this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
-      console.log(this.taxes.taxPercentage.value)
+      console.log(this.taxTotal)
     }
   }
 }

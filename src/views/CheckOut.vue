@@ -296,7 +296,7 @@ export default {
           this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
         }
         this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
-        this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
+        this.totalAmount = parseFloat(this.orderTotal) - parseFloat(this.discountPrice) + parseFloat(this.taxTotal)
         this.submitOrder.total.totalPrice = this.totalAmount
       })
     },
