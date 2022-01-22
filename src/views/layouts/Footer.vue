@@ -368,7 +368,6 @@ export default {
     newCart () {
       if (this.newCart) {
         this.item = this.newCart
-        this.getCalc()
       }
     }
   },
