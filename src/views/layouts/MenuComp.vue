@@ -240,11 +240,18 @@ export default {
       }
     },
     cardModalClose (item) {
-      console.log(item + 'item')
-      // this.cart = getCart('cart')
-      // this.cart.push(item)
+      item.options = this.single
+      item.additionals = this.multi
+      if (this.cart != null) {
+        console.log('cart-if')
+        this.cart = getCart('cart')
+        this.cart.push(item)
+      } else {
+        this.cart = [item]
+      }
+      console.log(this.cart)
       // this.cart = item
-      // addCart('cart', JSON.stringify(this.cart))
+      addCart('cart', JSON.stringify(this.cart))
     },
     selectAddon (event, category) {
       // console.log(event)
