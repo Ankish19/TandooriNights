@@ -32,8 +32,8 @@
                                         <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
                                     </td>-->
                                     <td class="actions">
-                                        <!-- <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a> -->
-                                        <a href="#" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
+                                        <a href="#/" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
+                                        <a href="#/" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
                                     </td>
                                 </tr>
                                 <!--<tr>
@@ -47,7 +47,7 @@
                             <div class="cart-summary">
                                 <div class="row">
                                     <div class="col-7 text-right text-muted">Order total:</div>
-                                    <div class="col-5"><strong>+$<span class="cart-products-total">{{ orderTotal }}</span></strong></div>
+                                    <div class="col-5"><strong>+$<span class="cart-products-total">{{ orderTotal.toFixed(2) }}</span></strong></div>
                                 </div>
                                 <div class="row" v-if="orderTotal >= 10 && discountPrice > 0">
                                     <div class="col-7 text-right text-muted">Discount:</div>
@@ -267,6 +267,7 @@ export default {
   methods: {
     showItem () {
       this.item = getLocalStorage('cart')
+      this.submitOrder.order = getLocalStorage('cart')
     },
     deleteItem (index) {
       var storedNames = JSON.parse(localStorage.getItem('cart'))
