@@ -49,7 +49,7 @@
               <img src="http://assets.suelo.pl/soup/img/photos/modal-add.jpg" alt />
             </div>
             <h4 class="modal-title">{{ selectItem.name }}</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" :class="close?close:'close'" data-dismiss="modal" aria-label="Close">
               <i class="ti ti-close"></i>
             </button>
           </div>
@@ -191,6 +191,7 @@ export default {
       selectItem: '',
       options: [],
       cart: [''],
+      close: '',
       single: [],
       multi: [],
       addons: [],
@@ -242,6 +243,8 @@ export default {
     cardModalClose (item) {
       item.options = this.single
       item.additionals = this.multi
+      item.price = this.addOnTotal
+      item.quantity = 1
       if (this.cart != null) {
         console.log('cart-if')
         this.cart = getCart('cart')
@@ -251,7 +254,10 @@ export default {
       }
       console.log(this.cart)
       // this.cart = item
+      this.$toast.success('An item added to cart.')
+      this.$emit('addItem', this.cart)
       addCart('cart', JSON.stringify(this.cart))
+      this.close = 'close'
     },
     selectAddon (event, category) {
       // console.log(event)
