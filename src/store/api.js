@@ -29,7 +29,7 @@ export const otpverify = (data) => {
   return axios.post(`${apiUrl}otpverify`, data)
 }
 
-export const resend_verify_otp = (data) => {
+export const resendVerifyOtp = (data) => {
   return axios.post(`${apiUrl}resend_verify_otp`, data)
 }
 
