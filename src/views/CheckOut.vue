@@ -45,7 +45,7 @@
                                     <div class="col-7 text-right text-muted">Order total:</div>
                                     <div class="col-5"><strong>+$<span class="cart-products-total">{{ orderTotal }}</span></strong></div>
                                 </div>
-                                <div class="row">
+                                <div class="row" v-if="orderTotal >= 10 && discount > 0">
                                     <div class="col-7 text-right text-muted">Discount:</div>
                                     <div class="col-5"><strong>-$<span class="cart-products-total">{{ discountPrice }}</span></strong></div>
                                 </div>
@@ -142,6 +142,7 @@
                                             <button class="input-group-text bg-primary text-white" @click="couponVerify">Verify</button>
                                           </div>
                                       </div>
+                                      <span class="text-danger" v-if="discountLimit">{{ discountLimit }}</span>
                                     </div>
                                 </div>
 
@@ -196,6 +197,7 @@ export default {
   data () {
     return {
       showAddress: 0,
+      amount: 0,
       form: {
         name: '',
         lastName: '',
@@ -208,6 +210,7 @@ export default {
       couponDetail: '',
       discountPrice: 0,
       discountPercent: 0,
+      discountLimit: '',
       item: [],
       tipTax: {
         tips: {},
@@ -295,8 +298,9 @@ export default {
         for (var i = 0; i < this.item.length; i++) {
           this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
         }
-        this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
-        this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
+        this.taxTotal = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
+        this.totalAmount = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) + parseFloat(this.taxTotal)
+        console.log(this.totalAmount)
         this.submitOrder.total.totalPrice = this.totalAmount
       })
     },
@@ -314,10 +318,13 @@ export default {
           this.submitOrder.coupon = {
             code: res.data.code
           }
-          if (res.data.discount_type === 'AMOUNT') {
+          if (res.data.discount_type === 'AMOUNT' && this.orderTotal >= 10) {
             this.discountPrice = res.data.discount
-          } else if (res.data.discount_type === 'PERCENTAGE') {
+          } else if (res.data.discount_type === 'PERCENTAGE' && this.orderTotal >= 10) {
             this.discountPercent = res.data.discount
+            this.discountPrice = ((this.discountPercent / 100) * this.orderTotal)
+          } else if (this.orderTotal < 10) {
+            this.discountLimit = res.data.subtotal_message
           }
         }
       })
