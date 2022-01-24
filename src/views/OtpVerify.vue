@@ -41,7 +41,7 @@
                 <b-col cols="12" class="text-right">
                   <p class="pd-a1">
                     <router-link to="#"
-                      ><strong>Resend Code </strong></router-link
+                      @click="resend_otp"><strong>Resend Code </strong></router-link
                     >
                   </p>
                 </b-col>
@@ -58,7 +58,7 @@
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import { getLocalStorage } from '@/store/service'
-import { verifyOtp } from '@/store/api'
+import { verifyOtp, resendVerifyOtp } from '@/store/api'
 import {
   BForm,
   BFormGroup,
@@ -98,6 +98,11 @@ export default {
         } else {
           console.log('otp invalid')
         }
+      })
+    },
+    resend_otp () {
+      resendVerifyOtp(this.form).then(res => {
+        console.log(res.dat)
       })
     }
   }

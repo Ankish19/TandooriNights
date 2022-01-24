@@ -31,6 +31,10 @@
                                         <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
                                         <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
                                     </td>-->
+                                    <td class="actions">
+                                        <!-- <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a> -->
+                                        <a href="#" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
+                                    </td>
                                 </tr>
                                 <!--<tr>
                                     <td class="title">
@@ -45,7 +49,7 @@
                                     <div class="col-7 text-right text-muted">Order total:</div>
                                     <div class="col-5"><strong>+$<span class="cart-products-total">{{ orderTotal }}</span></strong></div>
                                 </div>
-                                <div class="row" v-if="orderTotal >= 10 && discount > 0">
+                                <div class="row" v-if="orderTotal >= 10 && discountPrice > 0">
                                     <div class="col-7 text-right text-muted">Discount:</div>
                                     <div class="col-5"><strong>-$<span class="cart-products-total">{{ discountPrice }}</span></strong></div>
                                 </div>
@@ -253,7 +257,7 @@ export default {
     if (getLocalStorage('cart')) {
       this.getSetting()
       this.getRestaurant()
-      this.item = getLocalStorage('cart')
+      this.showItem()
       this.submitOrder.order = getLocalStorage('cart')
       this.getUserData()
     } else {
@@ -261,6 +265,27 @@ export default {
     }
   },
   methods: {
+    showItem () {
+      this.item = getLocalStorage('cart')
+    },
+    deleteItem (index) {
+      var storedNames = JSON.parse(localStorage.getItem('cart'))
+      var name = []
+      // var name = storedNames.slice(index, 1)
+      // localStorage.setItem('cart', JSON.stringify(name))
+      for (var j = 0; j < storedNames.length; j++) {
+        if (j !== index) {
+          name.push(storedNames[j])
+        }
+      }
+      localStorage.removeItem('cart')
+      localStorage.setItem('cart', JSON.stringify(name))
+      this.showItem()
+      this.orderTotal = 0
+      this.taxTotal = 0
+      this.totalAmount = 0
+      this.getSetting()
+    },
     getUserData () {
       this.form.name = getLocalStorage('userData').name
       // this.form.street = getLocalStorage('userData').default_address.house
@@ -300,7 +325,6 @@ export default {
         }
         this.taxTotal = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
         this.totalAmount = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) + parseFloat(this.taxTotal)
-        console.log(this.totalAmount)
         this.submitOrder.total.totalPrice = this.totalAmount
       })
     },
@@ -326,6 +350,10 @@ export default {
           } else if (this.orderTotal < 10) {
             this.discountLimit = res.data.subtotal_message
           }
+          this.taxTotal = 0
+          this.totalAmount = 0
+          this.orderTotal = 0
+          this.getSetting()
         }
       })
     },
