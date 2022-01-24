@@ -355,6 +355,7 @@ export default {
           this.totalAmount = 0
           this.orderTotal = 0
           this.getSetting()
+          this.showItem()
         }
       })
     },
