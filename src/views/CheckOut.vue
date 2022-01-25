@@ -26,13 +26,17 @@
                                         <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span>
                                         <!--<span class="caption text-muted">26”, deep-pan, thin-crust</span>-->
                                     </td>
+                                    <td>
+                                        <span class="fa fa-plus" @click="addQuantity(index)"></span>
+                                          {{ it.quantity }}
+                                        <span class="fa fa-minus" @click="minusQuantity(it, index)"></span>
+                                    </td>
                                     <td class="price">{{ it.quantity }}x ${{ it?it.price:'' }}</td>
                                     <!--<td class="actions">
                                         <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
                                         <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
                                     </td>-->
                                     <td class="actions">
-                                        <a href="#/" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
                                         <a href="#/" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
                                     </td>
                                 </tr>
@@ -265,6 +269,48 @@ export default {
     }
   },
   methods: {
+    addQuantity (index) {
+      var storedNames = JSON.parse(localStorage.getItem('cart'))
+      var name = []
+      for (var j = 0; j < storedNames.length; j++) {
+        if (j === index) {
+          storedNames[index].quantity++
+          name.push(storedNames[j])
+        } else {
+          name.push(storedNames[j])
+        }
+      }
+      localStorage.removeItem('cart')
+      localStorage.setItem('cart', JSON.stringify(name))
+      this.showItem()
+      this.orderTotal = 0
+      this.taxTotal = 0
+      this.totalAmount = 0
+      this.getSetting()
+    },
+    minusQuantity (item, index) {
+      if (item.quantity > 0) {
+        var storedNames = JSON.parse(localStorage.getItem('cart'))
+        var name = []
+        // var name = storedNames.slice(index, 1)
+        // localStorage.setItem('cart', JSON.stringify(name))
+        for (var j = 0; j < storedNames.length; j++) {
+          if (j === index) {
+            storedNames[index].quantity--
+            name.push(storedNames[j])
+          } else {
+            name.push(storedNames[j])
+          }
+        }
+        localStorage.removeItem('cart')
+        localStorage.setItem('cart', JSON.stringify(name))
+        this.showItem()
+        this.orderTotal = 0
+        this.taxTotal = 0
+        this.totalAmount = 0
+        this.getSetting()
+      }
+    },
     showItem () {
       this.item = getLocalStorage('cart')
       this.submitOrder.order = getLocalStorage('cart')
@@ -355,7 +401,6 @@ export default {
           this.totalAmount = 0
           this.orderTotal = 0
           this.getSetting()
-          this.showItem()
         }
       })
     },

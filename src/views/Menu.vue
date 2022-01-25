@@ -21,7 +21,6 @@
       <!-- Page Content -->
 
       <!-- Page Content -->
-      <!-- Page Content -->
       <div class="page-content">
         <div class="container">
           <div class="row no-gutters">
