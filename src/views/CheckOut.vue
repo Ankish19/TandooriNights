@@ -154,7 +154,8 @@
                             </div>
 
                             <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Tip/ Coupon</h4>
-                            <div class="row mb-5">
+                            <div class="mb-5">
+                              <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label>Coupon Code</label>
                                     <div class="form-group">
@@ -167,6 +168,21 @@
                                       <span class="text-danger" v-if="discountLimit">{{ discountLimit }}</span>
                                     </div>
                                 </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <label>Tips</label>
+                                    <ul class="p-0">
+                                    <li class="tipValue" v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)">{{ tip }}</li>
+                                    <li class="tipValue" @click="selectTip('custom')">Custom</li>
+                                    </ul>
+
+                                    <div class="form-group" v-if="customTip">
+                                      <input type="text" v-model="submitOrder.tipAmount" class="form-control">
+                                    </div>
+                                </div>
+                             </div>
 
                             </div>
 
@@ -239,6 +255,7 @@ export default {
         taxPercentage: {},
         tipsvalue: []
       },
+      customTip: false,
       user: {},
       orderTotal: 0,
       taxes: [],
@@ -436,7 +453,29 @@ export default {
         this.$toast.success('Order place successfully')
         this.$router.push('/myorder')
       })
+    },
+    selectTip (tip) {
+      if (tip !== 'custom') {
+        this.submitOrder.tipAmount = tip
+        this.customTip = false
+      } else {
+        this.customTip = !this.customTip
+      }
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#checkout{
+  li.tipValue {
+    list-style: none;
+    display: inline-block;
+    padding: 5px 20px;
+    border: 1px solid #ccc;
+    margin: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+}
+</style>
