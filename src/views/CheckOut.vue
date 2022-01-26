@@ -62,6 +62,10 @@
                                     <div class="col-7 text-right text-muted">Delivery:</div>
                                     <div class="col-5"><strong>+$<span class="cart-delivery">0.00</span></strong></div>
                                 </div>
+                                <div class="row" v-if="submitOrder.tipAmount">
+                                    <div class="col-7 text-right text-muted">Tip:</div>
+                                    <div class="col-5"><strong>+$<span class="cart-delivery">{{ submitOrder.tipAmount }}</span></strong></div>
+                                </div>
                                <div class="row">
                                     <div class="col-7 text-right text-muted">Total Tax({{ tipTax?tipTax.taxPercentage.value:'' }}%):</div>
                                     <div class="col-5">
@@ -248,7 +252,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center" v-if="showAddress == 1">
+                        <div class="text-center">
                             <button class="btn btn-primary btn-lg" @click="placeOrder"><span>Order now!</span></button>
                         </div>
                     </div>
@@ -438,7 +442,9 @@ export default {
     },
     selectAdd (event) {
       console.log(this.showAddress)
-      if (event.target.value === '2') {
+      if (event.target.value === 2) {
+        this.showAddress = 1
+      } else if (event.target.value === '3') {
         this.showAddress = 1
       }
     },
@@ -464,6 +470,9 @@ export default {
         }
         this.taxTotal = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
         this.totalAmount = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) + parseFloat(this.taxTotal)
+        if (this.submitOrder.tipAmount) {
+          this.totalAmount += parseFloat(this.submitOrder.tipAmount)
+        }
         this.submitOrder.total.totalPrice = this.totalAmount
       })
     },
