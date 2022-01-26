@@ -120,6 +120,19 @@
                                     {{ storeInfo?storeInfo.address:'' }}
                                   </p>
                                 </div>
+
+                                <div
+                                  class="list-group-item list-group-item-action mt-4"
+                                  aria-current="true" v-if="submitOrder.delivery_type == 1"
+                                >
+                                <span class="float-right"><a href="#/" class="text-primary">Change address</a></span>
+                                  <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1 font-weight-bold">Your default address<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
+                                  </div>
+                                  <p class="mb-1">
+                                    {{ submitOrder.location?submitOrder.location.address:'' }}
+                                  </p>
+                                </div>
                             </div>
                             <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>Basic information</h4>
                             <div class="row mb-5">
@@ -232,6 +245,9 @@ export default {
       storeInfo: '',
       delivery_type: '',
       submitOrder: {
+        user: {
+          data: ''
+        },
         order: [],
         coupon: '',
         quantity: 0,
@@ -334,20 +350,19 @@ export default {
       this.getSetting()
     },
     getUserData () {
+      this.submitOrder.user.data = getLocalStorage('userData')
       this.form.name = getLocalStorage('userData').name
-      // this.form.street = getLocalStorage('userData').default_address.house
       this.form.email = getLocalStorage('userData').email
       this.form.phone = getLocalStorage('userData').phone
-      // this.form.address = getLocalStorage('userData').default_address.address
       this.delivery_type = getLocalStorage('userData').delivery_type
 
       // this.submitOrder.delivery_type = getLocalStorage('userData').delivery_type
       this.submitOrder.total.productQuantity = this.item.length
-      // this.submitOrder.location.address = getLocalStorage('userData').default_address.address
-      // this.submitOrder.location.house = getLocalStorage('userData').default_address.house
-      // this.submitOrder.location.lat = getLocalStorage('userData').default_address.latitude
-      // this.submitOrder.location.lng = getLocalStorage('userData').default_address.longitude
-      // this.submitOrder.location.tag = getLocalStorage('userData').default_address.tag
+      this.submitOrder.location.address = getLocalStorage('userData').default_address.address
+      this.submitOrder.location.house = getLocalStorage('userData').default_address.house
+      this.submitOrder.location.lat = getLocalStorage('userData').default_address.latitude
+      this.submitOrder.location.lng = getLocalStorage('userData').default_address.longitude
+      this.submitOrder.location.tag = getLocalStorage('userData').default_address.tag
     },
     selectAdd (event) {
       console.log(this.showAddress)
