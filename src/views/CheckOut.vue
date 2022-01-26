@@ -126,7 +126,7 @@
                                   class="list-group-item list-group-item-action mt-4"
                                   aria-current="true" v-if="submitOrder.delivery_type == 1"
                                 >
-                                <span class="float-right"><a href="#/" class="text-primary">Change address</a></span>
+                                <span class="float-right"><a href="#/" data-toggle="modal" data-target="#exampleModal" class="text-primary">Change address</a></span>
                                   <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 font-weight-bold">Your default address<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
                                   </div>
@@ -134,6 +134,43 @@
                                     {{ submitOrder.location?submitOrder.location.address:'' }}
                                   </p>
                                 </div>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Change Address</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="list-group overflow">
+                                          <div v-for="(address, index) in addresses" :key="index">
+                                              <div
+                                                class="list-group-item list-group-item-action 1"
+                                                aria-current="true" @click="selectAddress(address)"
+                                              >
+                                                <div class="d-flex w-100 justify-content-between">
+                                                  <h5 class="mb-1 font-weight-bold">
+                                                  <a href="#/" >{{ address.tag }}</a>
+                                                  </h5>
+                                                </div>
+                                                <p class="mb-1">
+                                                  {{ address.address }}
+                                                </p>
+                                              </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                             <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>Basic information</h4>
                             <div class="row mb-5">
@@ -210,7 +247,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { getSettings, getRestaurantInfo, placeOrder, checkCoupon } from '@/store/api'
+import { getSettings, getRestaurantInfo, placeOrder, checkCoupon, getAddresses } from '@/store/api'
 import { getLocalStorage, tipTax } from '@/store/service'
 
 export default {
@@ -219,6 +256,7 @@ export default {
   data () {
     return {
       showAddress: 0,
+      addresses: [],
       amount: 0,
       form: {
         name: '',
@@ -281,11 +319,25 @@ export default {
       this.showItem()
       this.submitOrder.order = getLocalStorage('cart')
       this.getUserData()
+      this.getAddress()
     } else {
       this.$router.push('/menu')
     }
   },
   methods: {
+    selectAddress (address) {
+      this.submitOrder.location.address = address.address
+      this.submitOrder.location.house = address.house
+      this.submitOrder.location.lat = address.latitude
+      this.submitOrder.location.lng = address.longitude
+      this.submitOrder.location.tag = address.tag
+    },
+    getAddress () {
+      getAddresses().then(res => {
+        console.log(res.data)
+        this.addresses = res.data
+      })
+    },
     addQuantity (index) {
       var storedNames = JSON.parse(localStorage.getItem('cart'))
       var name = []
