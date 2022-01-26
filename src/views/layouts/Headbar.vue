@@ -108,7 +108,10 @@
                             <!-- <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span> -->
                             <!-- <span class="caption text-muted">Large (500g)</span> -->
                         </td>
-                        <td class="price">
+                        <td class="price" v-if="it.addOnTotal">
+                          {{ it?it.quantity:'' }}x ${{ it?it.addOnTotal:'' }}
+                        </td>
+                        <td class="price" v-else>
                           {{ it?it.quantity:'' }}x ${{ it?it.price:'' }}
                           <strike class="text-danger" v-if="it && it.old_price != 0">${{ it?it.old_price:'' }}</strike>
                         </td>
@@ -249,7 +252,11 @@ export default {
       this.taxes = getLocalStorage('taxes')
       if (this.item) {
         for (var i = 0; i < this.item.length; i++) {
-          this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
+          if (this.item[i].addOnTotal) {
+            this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].addOnTotal)
+          } else {
+            this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
+          }
         }
       }
       this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100

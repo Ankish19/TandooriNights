@@ -144,14 +144,18 @@ export default {
       form: {
         value: ''
       },
+      interval: '',
       orders: []
     }
   },
   mounted () {
     this.getOrder()
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.getOrder()
     }, 10000)
+  },
+  unmounted () {
+    clearInterval(this.interval)
   },
   methods: {
     getOrder () {

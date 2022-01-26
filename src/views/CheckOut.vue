@@ -31,7 +31,8 @@
                                           {{ it.quantity }}
                                         <span class="fa fa-minus" @click="minusQuantity(it, index)"></span>
                                     </td>
-                                    <td class="price">{{ it.quantity }}x ${{ it?it.price:'' }}</td>
+                                    <td class="price" v-if="it.addOnTotal">{{ it.quantity }}x ${{ it?it.addOnTotal:'' }}</td>
+                                    <td class="price" v-else>{{ it.quantity }}x ${{ it?it.price:'' }}</td>
                                     <!--<td class="actions">
                                         <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
                                         <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
@@ -181,7 +182,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center">
+                        <div class="text-center" v-if="showAddress == 1">
                             <button class="btn btn-primary btn-lg" @click="placeOrder"><span>Order now!</span></button>
                         </div>
                     </div>
@@ -368,7 +369,11 @@ export default {
         tipTax('taxes', JSON.stringify(this.tipTax))
         this.taxes = getLocalStorage('taxes')
         for (var i = 0; i < this.item.length; i++) {
-          this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
+          if (this.item[i].addOnTotal) {
+            this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].addOnTotal)
+          } else {
+            this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
+          }
         }
         this.taxTotal = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
         this.totalAmount = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) + parseFloat(this.taxTotal)

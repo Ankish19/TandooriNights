@@ -241,10 +241,10 @@ export default {
       }
     },
     cardModalClose (item) {
-      item.options = this.single
-      item.selectedaddons = this.multi
-      item.price = this.addOnTotal
+      item.selectedaddons = this.single.concat(this.multi)
+      item.price = 0
       item.quantity = 1
+      item.addOnTotal = this.addOnTotal
       if (this.cart != null) {
         console.log('cart-if')
         this.cart = getCart('cart')
