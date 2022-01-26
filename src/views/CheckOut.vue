@@ -236,7 +236,8 @@ export default {
       item: [],
       tipTax: {
         tips: {},
-        taxPercentage: {}
+        taxPercentage: {},
+        tipsvalue: []
       },
       user: {},
       orderTotal: 0,
@@ -270,7 +271,8 @@ export default {
         delivery_type: '',
         partial_wallet: '',
         dis: '',
-        pending_payment: ''
+        pending_payment: '',
+        tipAmount: ''
       }
     }
   },
@@ -381,6 +383,7 @@ export default {
       getSettings().then(res => {
         this.tipTax.taxPercentage = res.data[45]
         this.tipTax.tips = res.data[109]
+        this.tipTax.tipsvalue = res.data[109].value.split(',')
         tipTax('taxes', JSON.stringify(this.tipTax))
         this.taxes = getLocalStorage('taxes')
         for (var i = 0; i < this.item.length; i++) {
