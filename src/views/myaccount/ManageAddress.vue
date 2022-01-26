@@ -8,7 +8,7 @@
           <div class="col-lg-12">
             <h1 class="mb-0">My Account</h1>
             <h4 class="text-muted mb-0">
-              Some informations about our restaurant
+              Some information about our restaurant
             </h4>
           </div>
         </div>
