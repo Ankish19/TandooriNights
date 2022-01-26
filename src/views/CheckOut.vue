@@ -75,7 +75,7 @@
                                 <hr class="hr-sm">
                                 <div class="row text-lg">
                                     <div class="col-7 text-right text-muted">Total:</div>
-                                    <div class="col-5"><strong>$<span class="cart-total">{{ totalAmount?totalAmount.toFixed(2):0 }}</span></strong></div>
+                                    <div class="col-5"><strong>$<span class="cart-total">{{ totalAmount?parseFloat(totalAmount.toFixed(2))+parseFloat(submitOrder.tipAmount):0 }}</span></strong></div>
                                 </div>
                             </div>
                             <div class="cart-empty">
@@ -252,7 +252,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center">
+                        <div class="text-center" v-if="showAddress == 1">
                             <button class="btn btn-primary btn-lg" @click="placeOrder"><span>Order now!</span></button>
                         </div>
                     </div>
@@ -331,7 +331,7 @@ export default {
         partial_wallet: '',
         dis: '6',
         pending_payment: '',
-        tipAmount: ''
+        tipAmount: 0
       }
     }
   },
@@ -441,10 +441,11 @@ export default {
       this.submitOrder.location.tag = getLocalStorage('userData').default_address.tag
     },
     selectAdd (event) {
-      console.log(this.showAddress)
-      if (event.target.value === 2) {
+      console.log(event.target.value)
+      if (event.target.value === '2') {
         this.showAddress = 1
-      } else if (event.target.value === '3') {
+        console.log(this.showAddress)
+      } else if (event.target.value === '1') {
         this.showAddress = 1
       }
     },
@@ -470,9 +471,6 @@ export default {
         }
         this.taxTotal = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
         this.totalAmount = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) + parseFloat(this.taxTotal)
-        if (this.submitOrder.tipAmount) {
-          this.totalAmount += parseFloat(this.submitOrder.tipAmount)
-        }
         this.submitOrder.total.totalPrice = this.totalAmount
       })
     },
@@ -522,6 +520,10 @@ export default {
       } else {
         this.customTip = !this.customTip
       }
+      this.orderTotal = 0
+      this.taxTotal = 0
+      this.totalAmount = 0
+      this.getSetting()
     }
   }
 }
