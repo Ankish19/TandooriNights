@@ -327,7 +327,7 @@ export default {
         payment_token: '',
         delivery_type: '',
         partial_wallet: '',
-        dis: '6',
+        dis: '',
         pending_payment: '',
         tipAmount: 0
       }
@@ -355,7 +355,6 @@ export default {
     },
     getAddress () {
       getAddresses().then(res => {
-        console.log(res.data)
         this.addresses = res.data
       })
     },
@@ -449,7 +448,6 @@ export default {
     },
     getRestaurant () {
       getRestaurantInfo().then(res => {
-        console.log(res.data)
         this.storeInfo = res.data
         this.getDistance(res.data.latitude, res.data.longitude)
       })
@@ -479,9 +477,7 @@ export default {
         subTotal: this.orderTotal
       }
       checkCoupon(data).then(res => {
-        console.log(res.data)
         if (res.data.success === false) {
-          console.log('invalid Coupon')
         } else {
           this.couponDetail = res.data
           this.submitOrder.coupon = {
@@ -537,7 +533,7 @@ export default {
       }
       service.getDistanceMatrix(request).then((response) => {
       // put response
-        console.log(response)
+        this.submitOrder.dis = response.rows[0].elements[0].distance.text.split(' ')[0]
       })
     }
   }
