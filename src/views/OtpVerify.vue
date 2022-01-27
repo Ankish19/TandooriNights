@@ -102,7 +102,7 @@ export default {
     },
     resend_otp () {
       resendVerifyOtp(this.form).then(res => {
-        console.log(res.dat)
+        console.log(res.data)
       })
     }
   }
