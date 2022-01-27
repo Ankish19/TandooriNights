@@ -75,10 +75,10 @@
                                     <div class="col-5">
                                       <strong>$
                                         <span class="cart-total" v-if="deliveryCharges == 1">
-                                          {{ totalAmount?parseFloat(totalAmount.toFixed(2))+parseFloat(submitOrder.tipAmount)+parseFloat(delivery_amount.toFixed(2)):0 }}
+                                         {{ totalAmount?(parseFloat(totalAmount.toFixed(2))+parseFloat(submitOrder.tipAmount)+parseFloat(delivery_amount.toFixed(2))).toFixed(2):0 }}
                                         </span>
                                         <span class="cart-total" v-else>
-                                          {{ totalAmount?parseFloat(totalAmount.toFixed(2))+parseFloat(submitOrder.tipAmount):0 }}
+                                          {{ totalAmount?parseFloat(totalAmount.toFixed(2))+parseFloat(submitOrder.tipAmount.toFixed(2)):0 }}
                                         </span>
                                       </strong>
                                     </div>
