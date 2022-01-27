@@ -55,9 +55,9 @@
                                     <div class="col-7 text-right text-muted">Discount:</div>
                                     <div class="col-5"><strong>-$<span class="cart-products-total">{{ discountPrice }}</span></strong></div>
                                 </div>
-                                <div class="row">
+                                <div class="row" v-if="deliveryCharges == 1">
                                     <div class="col-7 text-right text-muted">Delivery:</div>
-                                    <div class="col-5"><strong>+$<span class="cart-delivery">0.00</span></strong></div>
+                                    <div class="col-5"><strong>+$<span class="cart-delivery">{{ delivery_amount }}</span></strong></div>
                                 </div>
                                 <div class="row" v-if="submitOrder.tipAmount">
                                     <div class="col-7 text-right text-muted">Tip:</div>
@@ -72,7 +72,16 @@
                                 <hr class="hr-sm">
                                 <div class="row text-lg">
                                     <div class="col-7 text-right text-muted">Total:</div>
-                                    <div class="col-5"><strong>$<span class="cart-total">{{ totalAmount?parseFloat(totalAmount.toFixed(2))+parseFloat(submitOrder.tipAmount):0 }}</span></strong></div>
+                                    <div class="col-5">
+                                      <strong>$
+                                        <span class="cart-total" v-if="deliveryCharges == 1">
+                                          {{ totalAmount?parseFloat(totalAmount.toFixed(2))+parseFloat(submitOrder.tipAmount)+parseFloat(delivery_amount.toFixed(2)):0 }}
+                                        </span>
+                                        <span class="cart-total" v-else>
+                                          {{ totalAmount?parseFloat(totalAmount.toFixed(2))+parseFloat(submitOrder.tipAmount):0 }}
+                                        </span>
+                                      </strong>
+                                    </div>
                                 </div>
                             </div>
                             <div class="cart-empty">
@@ -208,7 +217,7 @@
                                 </div>
                                 </div>
 
-                                <div class="row" v-if="tipBox == 1">
+                                <div class="row" v-if="submitOrder.delivery_type == 1">
                                   <div class="col-md-12">
                                     <label>Tips</label>
                                     <ul class="p-0">
@@ -216,11 +225,11 @@
                                     <li class="tipValue" @click="selectTip('custom')">Custom</li>
                                     </ul>
 
-                                    <div class="form-group" v-if="customTip">
-                                      <input type="text" v-model="submitOrder.tipAmount" class="form-control">
+                                        <div class="form-group" v-if="customTip">
+                                          <input type="text" v-model="submitOrder.tipAmount" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
-                             </div>
 
                             </div>
 
@@ -272,6 +281,7 @@ export default {
   name: 'checkout',
   data () {
     return {
+      deliveryCharges: 0,
       tipBox: 0,
       showAddress: 0,
       addresses: [],
@@ -445,10 +455,13 @@ export default {
       if (event.target.value === '2') {
         this.showAddress = 1
         this.submitOrder.tipAmount = 0
+        this.deliveryCharges = 0
+        this.delivery_amount = 0
       } else if (event.target.value === '1') {
         this.showAddress = 1
         this.tipBox = 1
         this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
+        this.deliveryCharges = 1
       }
     },
     getSetting () {
@@ -537,7 +550,6 @@ export default {
       })
     },
     delivery_charges_calculate (dis) {
-      console.log(dis)
       if (this.storeInfo.free_delivery_subtotal !== 0 && this.orderTotal.toFixed(2) <= this.storeInfo.free_delivery_subtotal) {
         this.delivery_amount = 0
       } else if (this.storeInfo.delivery_charge_type === 'DYNAMIC') {
@@ -547,10 +559,10 @@ export default {
           var dynamicDeliveryCharge = parseFloat(this.storeInfo.base_delivery_charge) + parseFloat(extraCharge)
           this.delivery_amount = Math.ceil(dynamicDeliveryCharge)
         } else {
-          this.delivery_amount = this.storeInfo.base_delivery_distance.round('2')
+          this.delivery_amount = Math.round(this.storeInfo.base_delivery_distance)
         }
       } else {
-        this.delivery_amount = this.storeInfo.delivery_charges.round('2')
+        this.delivery_amount = Math.round(this.storeInfo.delivery_charges)
       }
     }
   }
