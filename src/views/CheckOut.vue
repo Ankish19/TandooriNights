@@ -524,11 +524,12 @@ export default {
       this.getSetting()
     },
     getDistance (latitude, longitude) {
+      var origin = new window.google.maps.LatLng(latitude, longitude)
+      var destination = new window.google.maps.LatLng(this.submitOrder.location.lat, this.submitOrder.location.lng)
       const service = new window.google.maps.DistanceMatrixService()
-      const location = [latitude, longitude]
       const request = {
-        origins: location,
-        destinations: [this.submitOrder.location.lat, this.submitOrder.location.lng],
+        origins: [origin],
+        destinations: [destination],
         travelMode: window.google.maps.TravelMode.DRIVING,
         unitSystem: window.google.maps.UnitSystem.METRIC,
         avoidHighways: false,
