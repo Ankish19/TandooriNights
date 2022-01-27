@@ -34,7 +34,9 @@
                     <b-form-group>
                       <b-form-input
                         v-model="form.email"
+                        type="email"
                         placeholder="Email"
+                        :class="[error !== ''?'border-danger':'']"
                       ></b-form-input>
                     </b-form-group>
                   </b-form-group>
@@ -46,10 +48,16 @@
                         v-model="form.password"
                         placeholder="Password"
                         type="password"
+                        :class="[error !== ''?'border-danger':'']"
                       ></b-form-input>
                     </b-form-group>
                   </b-form-group>
                 </b-col>
+                <div class="text-danger text-left">
+                  <span v-if="error">
+                  {{ error }}
+                </span>
+                </div>
                 <b-col cols="12" class="mt-3">
                   <b-form-group>
                     <b-button class="w-100" type="submit"
@@ -115,7 +123,8 @@ export default {
       form: {
         email: '',
         password: ''
-      }
+      },
+      error: ''
     }
   },
   components: {
@@ -131,11 +140,15 @@ export default {
   },
   methods: {
     userLogin () {
+      this.error = ''
       login(this.form).then((res) => {
         if (res.data.success === true) {
           // localStorage.setItem('userData', res.data.data)
           saveLocalStorage('userData', JSON.stringify(res.data.data))
           this.$router.push('/myaccount')
+        } else {
+          this.error = 'Invalid email/ password'
+          this.$toast.error('Invalid email/ password')
         }
       })
     }
