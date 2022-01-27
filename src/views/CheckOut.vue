@@ -295,6 +295,7 @@ export default {
         taxPercentage: {},
         tipsvalue: []
       },
+      delivery_amount: 0,
       customTip: false,
       user: {},
       orderTotal: 0,
@@ -342,6 +343,7 @@ export default {
       this.getUserData()
       this.getAddress()
       this.getDistance()
+      this.delivery_charges_calculate('9')
     } else {
       this.$router.push('/menu')
     }
@@ -526,6 +528,7 @@ export default {
     getDistance () {
       var origin = new window.google.maps.LatLng(51.1088148846334, -113.96806691363373)
       var destination = new window.google.maps.LatLng(51.04920140000001, -114.0838495)
+
       const service = new window.google.maps.DistanceMatrixService()
       const request = {
         origins: [origin],
@@ -539,6 +542,20 @@ export default {
       // put response
         console.log(response)
       })
+    },
+    delivery_charges_calculate (dis) {
+      console.log('die' + this.storeInfo)
+      if (this.storeInfo.free_delivery_subtotal > 0 && this.orderTotal.toFixed(2) <= this.storeInfo.free_delivery_subtotal) {
+        this.delivery_amount = 0
+        console.log('if')
+      } else if (dis > this.storeInfo.base_delivery_distance) {
+        var extraDistance = dis - this.storeInfo.base_delivery_distance
+        var extraCharge = (extraDistance / this.storeInfo.extra_delivery_distance) * this.storeInfo.extra_delivery_charge
+        var dynamicDeliveryCharge = this.storeInfo.base_delivery_charge + extraCharge
+
+        this.delivery_amount = dynamicDeliveryCharge
+        console.log('else')
+      }
     }
   }
 }
