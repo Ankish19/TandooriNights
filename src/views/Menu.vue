@@ -86,8 +86,6 @@ export default {
       // Object.keys(res.data.items).map((item) => (
       //     console.log(item)
       // ));
-
-      console.log(arr)
       this.Items = res.data.items
     // eslint-disable-next-line no-sequences
     })

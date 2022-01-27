@@ -204,7 +204,6 @@ export default {
       }
     },
     cartshow () {
-      console.log(this.cartshow)
       this.slideMinicart(this.cartshow ? 'show' : 'hide')
     }
   },
@@ -261,7 +260,6 @@ export default {
       }
       this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
       this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
-      console.log(this.taxTotal)
     }
   }
 }

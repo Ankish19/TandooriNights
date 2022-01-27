@@ -328,7 +328,7 @@ export default {
         payment_token: '',
         delivery_type: '',
         partial_wallet: '',
-        dis: '6',
+        dis: '',
         pending_payment: '',
         tipAmount: 0
       }
@@ -342,7 +342,6 @@ export default {
       this.submitOrder.order = getLocalStorage('cart')
       this.getUserData()
       this.getAddress()
-      this.getDistance()
       this.delivery_charges_calculate('9')
     } else {
       this.$router.push('/menu')
@@ -358,7 +357,6 @@ export default {
     },
     getAddress () {
       getAddresses().then(res => {
-        console.log(res.data)
         this.addresses = res.data
       })
     },
@@ -452,8 +450,8 @@ export default {
     },
     getRestaurant () {
       getRestaurantInfo().then(res => {
-        console.log(res.data)
         this.storeInfo = res.data
+        this.getDistance(res.data.latitude, res.data.longitude)
       })
     },
     getSetting () {
@@ -481,9 +479,7 @@ export default {
         subTotal: this.orderTotal
       }
       checkCoupon(data).then(res => {
-        console.log(res.data)
         if (res.data.success === false) {
-          console.log('invalid Coupon')
         } else {
           this.couponDetail = res.data
           this.submitOrder.coupon = {
@@ -525,10 +521,9 @@ export default {
       this.totalAmount = 0
       this.getSetting()
     },
-    getDistance () {
-      var origin = new window.google.maps.LatLng(51.1088148846334, -113.96806691363373)
-      var destination = new window.google.maps.LatLng(51.04920140000001, -114.0838495)
-
+    getDistance (latitude, longitude) {
+      var origin = new window.google.maps.LatLng(latitude, longitude)
+      var destination = new window.google.maps.LatLng(this.submitOrder.location.lat, this.submitOrder.location.lng)
       const service = new window.google.maps.DistanceMatrixService()
       const request = {
         origins: [origin],
@@ -540,7 +535,7 @@ export default {
       }
       service.getDistanceMatrix(request).then((response) => {
       // put response
-        console.log(response)
+        this.submitOrder.dis = response.rows[0].elements[0].distance.text.split(' ')[0]
       })
     },
     delivery_charges_calculate (dis) {
