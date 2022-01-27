@@ -328,16 +328,18 @@ export default {
         payment_token: '',
         delivery_type: '',
         partial_wallet: '',
-        dis: '',
+        dis: 0,
         pending_payment: '',
         tipAmount: 0
       }
     }
   },
   mounted () {
+    getRestaurantInfo().then(res => {
+      this.storeInfo = res.data
+    })
     if (getLocalStorage('cart')) {
       this.getSetting()
-      this.getRestaurant()
       this.showItem()
       this.submitOrder.order = getLocalStorage('cart')
       this.getUserData()
@@ -446,13 +448,8 @@ export default {
       } else if (event.target.value === '1') {
         this.showAddress = 1
         this.tipBox = 1
+        this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
       }
-    },
-    getRestaurant () {
-      getRestaurantInfo().then(res => {
-        this.storeInfo = res.data
-        this.getDistance(res.data.latitude, res.data.longitude)
-      })
     },
     getSetting () {
       getSettings().then(res => {
@@ -536,20 +533,24 @@ export default {
       service.getDistanceMatrix(request).then((response) => {
       // put response
         this.submitOrder.dis = response.rows[0].elements[0].distance.text.split(' ')[0]
+        this.delivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]))
       })
     },
     delivery_charges_calculate (dis) {
-      console.log('die' + this.storeInfo)
-      if (this.storeInfo.free_delivery_subtotal > 0 && this.orderTotal.toFixed(2) <= this.storeInfo.free_delivery_subtotal) {
+      console.log(dis)
+      if (this.storeInfo.free_delivery_subtotal !== 0 && this.orderTotal.toFixed(2) <= this.storeInfo.free_delivery_subtotal) {
         this.delivery_amount = 0
-        console.log('if')
-      } else if (dis > this.storeInfo.base_delivery_distance) {
-        var extraDistance = dis - this.storeInfo.base_delivery_distance
-        var extraCharge = (extraDistance / this.storeInfo.extra_delivery_distance) * this.storeInfo.extra_delivery_charge
-        var dynamicDeliveryCharge = this.storeInfo.base_delivery_charge + extraCharge
-
-        this.delivery_amount = dynamicDeliveryCharge
-        console.log('else')
+      } else if (this.storeInfo.delivery_charge_type === 'DYNAMIC') {
+        if (dis > this.storeInfo.base_delivery_distance) {
+          var extraDistance = parseFloat(dis) - parseFloat(this.storeInfo.base_delivery_distance)
+          var extraCharge = (parseFloat(extraDistance) / parseFloat(this.storeInfo.extra_delivery_distance)) * parseFloat(this.storeInfo.extra_delivery_charge)
+          var dynamicDeliveryCharge = parseFloat(this.storeInfo.base_delivery_charge) + parseFloat(extraCharge)
+          this.delivery_amount = Math.ceil(dynamicDeliveryCharge)
+        } else {
+          this.delivery_amount = this.storeInfo.base_delivery_distance.round('2')
+        }
+      } else {
+        this.delivery_amount = this.storeInfo.delivery_charges.round('2')
       }
     }
   }
