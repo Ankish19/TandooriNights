@@ -33,11 +33,8 @@
                                     </td>
                                     <td class="price" v-if="it.addOnTotal">{{ it.quantity }}x ${{ it?it.addOnTotal:'' }}</td>
                                     <td class="price" v-else>{{ it.quantity }}x ${{ it?it.price:'' }}</td>
-                                    <!--<td class="actions">
-                                        <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
-                                        <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
-                                    </td>-->
                                     <td class="actions">
+                                        <a href="#" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
                                         <a href="#/" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
                                     </td>
                                 </tr>
@@ -211,7 +208,7 @@
                                 </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row" v-if="tipBox == 1">
                                   <div class="col-md-12">
                                     <label>Tips</label>
                                     <ul class="p-0">
@@ -275,6 +272,7 @@ export default {
   name: 'checkout',
   data () {
     return {
+      tipBox: 0,
       showAddress: 0,
       addresses: [],
       amount: 0,
@@ -441,12 +439,12 @@ export default {
       this.submitOrder.location.tag = getLocalStorage('userData').default_address.tag
     },
     selectAdd (event) {
-      console.log(event.target.value)
       if (event.target.value === '2') {
         this.showAddress = 1
-        console.log(this.showAddress)
+        this.submitOrder.tipAmount = 0
       } else if (event.target.value === '1') {
         this.showAddress = 1
+        this.tipBox = 1
       }
     },
     getRestaurant () {
@@ -504,7 +502,6 @@ export default {
       })
     },
     placeOrder () {
-      console.log(this.submitOrder)
       placeOrder(this.submitOrder).then(res => {
         if (res.data.success === true) {
           localStorage.removeItem('cart')
