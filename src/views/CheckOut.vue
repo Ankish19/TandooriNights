@@ -327,7 +327,7 @@ export default {
         payment_token: '',
         delivery_type: '',
         partial_wallet: '',
-        dis: '',
+        dis: '6',
         pending_payment: '',
         tipAmount: 0
       }
