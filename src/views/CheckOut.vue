@@ -341,7 +341,6 @@ export default {
       this.submitOrder.order = getLocalStorage('cart')
       this.getUserData()
       this.getAddress()
-      this.getDistance()
     } else {
       this.$router.push('/menu')
     }
@@ -452,6 +451,7 @@ export default {
       getRestaurantInfo().then(res => {
         console.log(res.data)
         this.storeInfo = res.data
+        this.getDistance(res.data.latitude, res.data.longitude)
       })
     },
     getSetting () {
@@ -523,10 +523,11 @@ export default {
       this.totalAmount = 0
       this.getSetting()
     },
-    getDistance () {
+    getDistance (latitude, longitude) {
       const service = new window.google.maps.DistanceMatrixService()
+      const location = [latitude, longitude]
       const request = {
-        origins: [this.storeInfo.latitude, this.storeInfo.longitude],
+        origins: location,
         destinations: [this.submitOrder.location.lat, this.submitOrder.location.lng],
         travelMode: window.google.maps.TravelMode.DRIVING,
         unitSystem: window.google.maps.UnitSystem.METRIC,
