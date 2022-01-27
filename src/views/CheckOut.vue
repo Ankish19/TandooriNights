@@ -343,6 +343,7 @@ export default {
       this.submitOrder.order = getLocalStorage('cart')
       this.getUserData()
       this.getAddress()
+      this.getDistance()
     } else {
       this.$router.push('/menu')
     }
@@ -524,6 +525,21 @@ export default {
       this.taxTotal = 0
       this.totalAmount = 0
       this.getSetting()
+    },
+    getDistance () {
+      const service = new window.google.maps.DistanceMatrixService()
+      const request = {
+        origins: [this.storeInfo.latitude, this.storeInfo.longitude],
+        destinations: [this.submitOrder.location.lat, this.submitOrder.location.lng],
+        travelMode: window.google.maps.TravelMode.DRIVING,
+        unitSystem: window.google.maps.UnitSystem.METRIC,
+        avoidHighways: false,
+        avoidTolls: false
+      }
+      service.getDistanceMatrix(request).then((response) => {
+      // put response
+        console.log(response)
+      })
     }
   }
 }

@@ -78,3 +78,11 @@ export const checkCoupon = (data) => {
   }
   return axios.post(`${apiUrl}apply-coupon`, datanew, { headers: apiHeaders() })
 }
+
+export const getDistance = (data) => {
+  return axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?origins=30.9011567, 75.8341017&destinations=30.908157248500096, 75.85943022947927&key=AIzaSyBLVIcbGHiO0lFwfgZgKBx9UlSz_yrl_IU', {
+    headers: {
+      'Content-type': 'application/json'
+    }
+  })
+}
