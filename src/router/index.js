@@ -89,7 +89,12 @@ const routes = [
   {
     path: '/editcart',
     name: 'EditCart',
-    component: () => import('../views/editCart.vue')
+    component: () => import('../views/EditCart.vue')
+  },
+  {
+    path: '/updateprofile',
+    name: 'UpdateProfile',
+    component: () => import('../views/myaccount/UpdateProfile.vue')
   }
 ]
 

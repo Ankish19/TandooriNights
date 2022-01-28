@@ -79,7 +79,7 @@
                 <tr class="line" v-for="order in orders" :key="order.id">
                   <td>
                     <div class="wh-item-info">
-                      <a href="#" class="font-weight-bold">{{ order.unique_order_id }}</a>
+                      <router-link to="/orderdetails" class="font-weight-bold">{{ order.unique_order_id }}</router-link>
                       <p>{{ order.created_at }}</p>
                     </div>
                   </td>
