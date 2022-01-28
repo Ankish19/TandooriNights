@@ -96,7 +96,7 @@ export default {
         if (res.data.valid_otp === true) {
           this.$router.push('/myaccount')
         } else {
-          console.log('otp invalid')
+          this.$toast.error('Invalid Otp')
         }
       })
     },
