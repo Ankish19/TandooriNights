@@ -85,6 +85,11 @@ const routes = [
     path: '/wallet',
     name: 'Wallet',
     component: () => import('../views/myaccount/Wallet.vue')
+  },
+  {
+    path: '/editcart',
+    name: 'EditCart',
+    component: () => import('../views/editCart.vue')
   }
 ]
 

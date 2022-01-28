@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="mb-0">Checkout</h1>
+                        <h1 class="mb-0">Edit Cart</h1>
                         <h4 class="text-muted mb-0">Some information about our restaurant</h4>
                     </div>
                 </div>
@@ -17,29 +17,36 @@
 
             <div class="container text-left">
                 <div class="row">
-                    <div class="col-xl-4 col-lg-5">
+                    <div class="col-xl-12 col-lg-5">
                         <div class="cart-details shadow bg-white stick-to-content mb-4">
-                            <div class="bg-dark dark p-4">
-                              <div class="col-md-8">
-                                <h5 class="mb-0">You order<a href="#" data-toggle="modal" class="action-icon" @click="editCart"><i class="ti ti-pencil"></i></a></h5>
-                              </div>
-                            </div>
+                            <div class="bg-dark dark p-4"><h5 class="mb-0">You order</h5></div>
                             <table class="cart-table">
                                 <tr v-for="(it, index) in submitOrder.order" :key="index">
                                     <td class="title">
                                         <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span>
                                         <!--<span class="caption text-muted">26”, deep-pan, thin-crust</span>-->
                                     </td>
+                                    <td align="right">
+                                      <span class="fa fa-plus" @click="addQuantity(index)"></span>
+                                    </td>
+                                    <td><input type="text" v-model="add_quantity[index]" class="form-control" /></td>
                                     <td>
-                                        <span class="fa fa-plus" @click="addQuantity(index)"></span>
-                                          {{ it.quantity }}
-                                        <span class="fa fa-minus" @click="minusQuantity(it, index)"></span>
+                                      <span class="fa fa-minus" @click="minusQuantity(it, index)"></span>
                                     </td>
                                     <td class="price" v-if="it.addOnTotal">{{ it.quantity }}x ${{ it?it.addOnTotal:'' }}</td>
                                     <td class="price" v-else>{{ it.quantity }}x ${{ it?it.price:'' }}</td>
                                     <td class="actions">
                                         <a href="#/" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
                                     </td>
+                                </tr>
+                                <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td>
+                                      <button class="btn btn-primary" @click="cartUpdate">
+                                      Update
+                                      </button>
+                                  </td>
                                 </tr>
                                 <!--<tr>
                                     <td class="title">
@@ -49,7 +56,7 @@
                                     <td class="actions"></td>
                                 </tr>-->
                             </table>
-                            <div class="cart-summary">
+                            <!-- <div class="cart-summary">
                                 <div class="row">
                                     <div class="col-7 text-right text-muted">Order total:</div>
                                     <div class="col-5"><strong>+$<span class="cart-products-total">{{ orderTotal.toFixed(2) }}</span></strong></div>
@@ -86,183 +93,11 @@
                                       </strong>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="cart-empty">
                                 <i class="ti ti-shopping-cart"></i>
                                 <p>Your cart is empty...</p>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-8 col-lg-7 order-lg-first">
-                        <div class="bg-white p-4 p-md-5 mb-4">
-                            <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Pickup Address</h4>
-                            <div class="row mb-5">
-                              <!-- <div v-for="(rest, index) in restaurants" :key="index">
-                                <div class="jumbotron">{{ rest.name }}
-                                    <div class="d-flex w-100 justify-content-between">
-                                      <h5 class="mb-1 font-weight-bold">{{ rest.address }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
-                                    </div>
-                                    <p class="mb-1">
-                                    </p>
-                                </div>
-                              </div> -->
-                                <div class="form-group col-sm-6">
-                                    <label>Select way</label>
-                                    <div class="select-container">
-                                        <select class="form-control" v-model="submitOrder.delivery_type" @change="selectAdd($event)">
-                                            <option selected disabled>-- Select Way --</option>
-                                            <option value="2" v-if="storeInfo && storeInfo.delivery_type === 3 || storeInfo.delivery_type === 2">
-                                             Self PickUp
-                                            </option>
-                                            <option value="1" v-if="storeInfo && storeInfo.delivery_type === 3 || storeInfo.delivery_type === 1">
-                                              Delivery
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="mt-3" v-if="submitOrder.delivery_type == 2">
-                                  <h4>PickUp your order from restaurant address</h4>
-                                </div>
-                                <div
-                                  class="list-group-item list-group-item-action active bg-primary"
-                                  aria-current="true" v-if="submitOrder.delivery_type == 2"
-                                >
-                                  <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1 font-weight-bold">{{ storeInfo?storeInfo.name:'' }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
-                                  </div>
-                                  <p class="mb-1">
-                                    {{ storeInfo?storeInfo.address:'' }}
-                                  </p>
-                                </div>
-
-                                <div
-                                  class="list-group-item list-group-item-action mt-4"
-                                  aria-current="true" v-if="submitOrder.delivery_type == 1"
-                                >
-                                <span class="float-right"><a href="#/" data-toggle="modal" data-target="#exampleModal" class="text-primary">Change address</a></span>
-                                  <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1 font-weight-bold">Your default address<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
-                                  </div>
-                                  <p class="mb-1">
-                                    {{ submitOrder.location?submitOrder.location.address:'' }}
-                                  </p>
-                                </div>
-                            </div>
-
-                            <!-- Modal -->
-                            <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Change Address</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div class="row">
-                                      <div class="col-md-12">
-                                        <div class="list-group overflow">
-                                          <div v-for="(address, index) in addresses" :key="index">
-                                              <div
-                                                class="list-group-item list-group-item-action 1"
-                                                aria-current="true" @click="selectAddress(address)"
-                                              >
-                                                <div class="d-flex w-100 justify-content-between">
-                                                  <h5 class="mb-1 font-weight-bold">
-                                                  <a href="#/" >{{ address.tag }}</a>
-                                                  </h5>
-                                                </div>
-                                                <p class="mb-1">
-                                                  {{ address.address }}
-                                                </p>
-                                              </div>
-                                            </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>Basic information</h4>
-                            <div class="row mb-5">
-                                <div class="form-group col-sm-12">
-                                    <label>Name:</label>
-                                    <input type="text" class="form-control" :value="form.name" disabled>
-                                </div>
-                            </div>
-                            <div class="row mb-5">
-                                <div class="form-group col-sm-6">
-                                    <label>Phone number:</label>
-                                    <input type="text" class="form-control" v-model="form.phone" disabled>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>E-mail address:</label>
-                                    <input type="email" class="form-control" v-model="form.email" disabled>
-                                </div>
-                            </div>
-
-                            <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Tip/ Coupon</h4>
-                            <div class="mb-5">
-                              <div class="row">
-                                <div class="form-group col-sm-6">
-                                    <label>Coupon Code</label>
-                                    <div class="form-group">
-                                       <div class="input-group mb-3">
-                                          <input type="text" placeholder="Enter coupon code" class="form-control" v-model="form.coupon">
-                                          <div class="input-group-append">
-                                            <button class="input-group-text bg-primary text-white" @click="couponVerify">Verify</button>
-                                          </div>
-                                      </div>
-                                      <span class="text-danger" v-if="discountLimit">{{ discountLimit }}</span>
-                                    </div>
-                                </div>
-                              </div>
-
-                                <div class="row" v-if="submitOrder.delivery_type == 1">
-                                  <div class="col-md-12">
-                                    <label>Tips</label>
-                                    <ul class="p-0">
-                                    <li class="tipValue" v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)">{{ tip }}</li>
-                                    <li class="tipValue" @click="selectTip('custom')">Custom</li>
-                                    </ul>
-
-                                        <div class="form-group" v-if="customTip">
-                                          <input type="text" v-model="submitOrder.tipAmount" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <h4 class="border-bottom pb-4"><i class="ti ti-wallet mr-3 text-primary"></i>Payment</h4>
-                            <div class="row text-lg">
-                                <!-- <div class="col-md-4 col-sm-6 form-group">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" class="custom-control-input">
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">PayPal</span>
-                                    </label>
-                                </div>
-                                <div class="col-md-4 col-sm-6 form-group">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" class="custom-control-input">
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">Credit Card</span>
-                                    </label>
-                                </div> -->
-                                <div class="col-md-4 col-sm-6 form-group">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" checked  value="COD" v-model="submitOrder.method">
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description ml-2">COD</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-center" v-if="showAddress == 1">
-                            <button class="btn btn-primary btn-lg" @click="placeOrder"><span>Order now!</span></button>
                         </div>
                     </div>
                 </div>
@@ -284,6 +119,7 @@ export default {
   name: 'checkout',
   data () {
     return {
+      add_quantity: [],
       deliveryCharges: 0,
       tipBox: 0,
       showAddress: 0,
@@ -363,8 +199,8 @@ export default {
     }
   },
   methods: {
-    editCart () {
-      this.$router.push('/editCart')
+    cartUpdate () {
+      console.log(1)
     },
     selectAddress (address) {
       this.submitOrder.location.address = address.address
@@ -384,6 +220,7 @@ export default {
       for (var j = 0; j < storedNames.length; j++) {
         if (j === index) {
           storedNames[index].quantity++
+          this.add_quantity[index] = storedNames[index].quantity
           name.push(storedNames[j])
         } else {
           name.push(storedNames[j])
@@ -406,6 +243,7 @@ export default {
         for (var j = 0; j < storedNames.length; j++) {
           if (j === index) {
             storedNames[index].quantity--
+            this.add_quantity[index] = storedNames[index].quantity
             name.push(storedNames[j])
           } else {
             name.push(storedNames[j])
