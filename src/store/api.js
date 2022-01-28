@@ -70,6 +70,10 @@ export const placeOrder = (data) => {
   return axios.post(`${apiUrl}place-order`, data, { headers: apiHeaders() })
 }
 
+export const getOrderItems = (data) => {
+  return axios.post(`${apiUrl}get-order-items`, data, { headers: apiHeaders() })
+}
+
 export const checkCoupon = (data) => {
   var datanew = {
     coupon: data.coupon,
