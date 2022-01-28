@@ -20,26 +20,24 @@
                     <div class="col-xl-4 col-lg-5">
                         <div class="cart-details shadow bg-white stick-to-content mb-4">
                             <div class="bg-dark dark p-4">
-                              <div class="col-md-8">
-                                <h5 class="mb-0">You order<a href="#" data-toggle="modal" class="action-icon" @click="editCart"><i class="ti ti-pencil"></i></a></h5>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <h5 class="mb-0">You order</h5>
+                              </div>
+                              <div class="col-md-6 float-right">
+                                <a href="#" data-toggle="modal" class="action-icon ml-5" @click="editCart"><i class="ti ti-pencil"></i> Edit order</a>
+                              </div>
                               </div>
                             </div>
                             <table class="cart-table">
                                 <tr v-for="(it, index) in submitOrder.order" :key="index">
                                     <td class="title">
-                                        <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span>
+                                        <span class="name"><a href="#" data-toggle="modal">{{ it?it.name:'' }}</a></span>
                                         <!--<span class="caption text-muted">26”, deep-pan, thin-crust</span>-->
                                     </td>
-                                    <td>
-                                        <span class="fa fa-plus" @click="addQuantity(index)"></span>
-                                          {{ it.quantity }}
-                                        <span class="fa fa-minus" @click="minusQuantity(it, index)"></span>
-                                    </td>
-                                    <td class="price" v-if="it.addOnTotal">{{ it.quantity }}x ${{ it?it.addOnTotal:'' }}</td>
-                                    <td class="price" v-else>{{ it.quantity }}x ${{ it?it.price:'' }}</td>
-                                    <td class="actions">
-                                        <a href="#/" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
-                                    </td>
+                                    <td>{{ it.quantity }}x</td>
+                                    <td class="price" v-if="it.addOnTotal"> ${{ it?it.addOnTotal:'' }}</td>
+                                    <td class="price" v-else> ${{ it?it.price:'' }}</td>
                                 </tr>
                                 <!--<tr>
                                     <td class="title">
