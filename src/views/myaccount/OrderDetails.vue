@@ -173,7 +173,7 @@ export default {
     // BFormInput
   },
 
-  name: 'checkout'
+  name: 'order detail'
 }
 </script>
 <style>

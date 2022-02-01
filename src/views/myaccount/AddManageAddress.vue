@@ -161,7 +161,7 @@ import {
 } from 'bootstrap-vue'
 
 export default {
-  name: 'checkout',
+  name: 'Add Address',
   components: {
     Headbar,
     Footer,

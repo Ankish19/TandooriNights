@@ -166,7 +166,7 @@ export default {
     }
   },
 
-  name: 'checkout'
+  name: 'My Orders'
 }
 </script>
 <style>
