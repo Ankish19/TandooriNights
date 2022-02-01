@@ -166,7 +166,7 @@ export default {
     }
   },
 
-  name: 'My Orders'
+  name: 'MyOrder'
 }
 </script>
 <style>
