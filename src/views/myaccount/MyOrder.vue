@@ -79,7 +79,7 @@
                     <tr class="line" v-for="order in orders" :key="order.id">
                       <td>
                         <div class="wh-item-info">
-                          <router-link :to="`/orderdetails`" class="font-weight-bold">{{ order.unique_order_id }}</router-link>
+                          <router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`" class="font-weight-bold">{{ order.unique_order_id }}</router-link>
                           <p>{{ order.created_at }}</p>
                         </div>
                       </td>
@@ -90,15 +90,15 @@
                         </div>
                       </td>
                       <td>
-                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 1"><router-link :to="`/orderdetails/${order.unique_order_id}`"> Order Placed  &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 2"><router-link :to="`/orderdetails`"> Order Accepted &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 3"><router-link :to="`/orderdetails`"> Delivery Assigned &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 4"><router-link :to="`/orderdetails`"> Picked Up &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-success font-weight-bold" v-if="order.orderstatus_id === 5"><router-link :to="`/orderdetails`">Completed &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-danger font-weight-bold" v-if="order.orderstatus_id === 6"><router-link :to="`/orderdetails`">Cancelled &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 7"><router-link :to="`/orderdetails`"> Ready for Pickup  &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-warning font-weight-bold hide" v-if="order.orderstatus_id === 8"><router-link :to="`/orderdetails`">Awaiting Payment &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-danger font-weight-bold hide" v-if="order.orderstatus_id === 9"><router-link :to="`/orderdetails`">Payment Failed &rsaquo;</router-link></span>
+                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 1"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Order Placed  &rsaquo;</router-link></span>
+                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 2"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Order Accepted &rsaquo;</router-link></span>
+                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 3"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Delivery Assigned &rsaquo;</router-link></span>
+                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 4"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Picked Up &rsaquo;</router-link></span>
+                        <span class="wh-tem-status text-success font-weight-bold" v-if="order.orderstatus_id === 5"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`">Completed &rsaquo;</router-link></span>
+                        <span class="wh-tem-status text-danger font-weight-bold" v-if="order.orderstatus_id === 6"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`">Cancelled &rsaquo;</router-link></span>
+                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 7"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Ready for Pickup  &rsaquo;</router-link></span>
+                        <span class="wh-tem-status text-warning font-weight-bold hide" v-if="order.orderstatus_id === 8"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`">Awaiting Payment &rsaquo;</router-link></span>
+                        <span class="wh-tem-status text-danger font-weight-bold hide" v-if="order.orderstatus_id === 9"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`">Payment Failed &rsaquo;</router-link></span>
                       </td>
                       <td>
                         <span class="wh-tem-price">${{ order.total }}</span>
