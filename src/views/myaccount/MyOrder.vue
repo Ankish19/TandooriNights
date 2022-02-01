@@ -90,7 +90,7 @@
                         </div>
                       </td>
                       <td>
-                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 1"><router-link :to="`/orderdetails`"> Order Placed  &rsaquo;</router-link></span>
+                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 1"><router-link :to="`/orderdetails/${order.unique_order_id}`"> Order Placed  &rsaquo;</router-link></span>
                         <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 2"><router-link :to="`/orderdetails`"> Order Accepted &rsaquo;</router-link></span>
                         <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 3"><router-link :to="`/orderdetails`"> Delivery Assigned &rsaquo;</router-link></span>
                         <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 4"><router-link :to="`/orderdetails`"> Picked Up &rsaquo;</router-link></span>
