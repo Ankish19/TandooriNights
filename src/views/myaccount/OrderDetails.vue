@@ -61,7 +61,7 @@
                   class="fa fa-shopping-bag text-primary mr-3"
                   aria-hidden="true"
                 ></i>
-                Orders #1215451<br/>
+                Orders #{{ data.unique_order_id }}<br/>
                    <span class="middle-price">Delivered, 2 Items, $269</span>
               </h4>
               <div class="row mb-5">
@@ -88,9 +88,9 @@
                       </div>
                     </div>
                 </div>
-                <div class="col-md-12 text-center mb-3">
-                <p class="text-success font-weight-bold"><i class="fa fa-check" ></i> Order Delivered on 29 December 29, 11:00 AM By John</p>
-                </div>
+                <!--<div class="col-md-12 text-center mb-3">
+                  <p class="text-success font-weight-bold"><i class="fa fa-check" ></i> Order Delivered on 29 December 29, 11:00 AM By John</p>
+                </div>-->
                  <div class="col-md-12 text-center mb-3">
                   <h4 class="border-bottom pb-4">
                 Bill Details
@@ -98,42 +98,18 @@
                  </div>
                  <div class="col-md-12">
                  <table class="table table-hover">
-                <tbody>
-                  <tr>
-                    <td>Veg Momos x 1</td>
-                    <td class="text-right">$115</td>
-                  </tr>
-                  <tr>
-                    <td>Masala Chaap x 1</td>
-                    <td class="text-right">$220</td>
-                  </tr>
+                  <tbody>
+                    <tr v-for="item in items" :key="item.id">
+                      <td>{{ item.name }} x {{ item.quantity }}</td>
+                      <td class="text-right">${{ item.price }}</td>
+                    </tr>
                   </tbody>
                  </table>
                 <table class="table table-bordered" style="font-size:12px;">
                 <tbody>
-                   <tr>
-                    <td>Order Packing Charges</td>
-                    <td class="text-right">$14</td>
-                  </tr>
-                  <tr>
-                    <td>Delivery Partner fee</td>
-                    <td class="text-right">$14</td>
-                  </tr>
-                  <tr>
-                    <td>Discount Applied (FreeTest)</td>
-                    <td class="text-right">-$74</td>
-                  </tr>
-                  <tr>
-                    <td>Taxes</td>
-                    <td class="text-right">$13</td>
-                  </tr>
                   <tr>
                     <td>Item Total</td>
-                    <td class="text-right">$261</td>
-                  </tr>
-                  <tr>
-                    <td>Paid Via Card</td>
-                    <td class="text-right">$261</td>
+                    <td class="text-right">${{ this.orderTotal }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -159,6 +135,7 @@ import //   BContainer,
 //   BFormGroup,
 //   BFormInput
 'bootstrap-vue'
+import { getOrderItems, getSettings } from '../../store/api'
 export default {
   created () {},
   components: {
@@ -171,6 +148,37 @@ export default {
     // BForm,
     // BFormGroup,
     // BFormInput
+  },
+  data () {
+    return {
+      data: {
+        order_id: 0,
+        unique_order_id: ''
+      },
+      items: [],
+      orderTotal: 0
+    }
+  },
+  mounted () {
+    this.orderItems()
+  },
+  methods: {
+    orderItems () {
+      this.data.order_id = this.$route.params.id
+      this.data.unique_order_id = this.$route.params.uniqueId
+      getOrderItems(this.data).then(res => {
+        this.items = res.data
+        this.getSetting()
+        console.log(res.data)
+      })
+    },
+    getSetting () {
+      getSettings().then(res => {
+        for (var i = 0; i < this.items.length; i++) {
+          this.orderTotal += parseInt(this.items[i].quantity) * parseFloat(this.items[i].price)
+        }
+      })
+    }
   },
 
   name: 'checkout'

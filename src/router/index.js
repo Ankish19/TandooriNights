@@ -77,7 +77,7 @@ const routes = [
     component: () => import('../views/myaccount/MyOrder.vue')
   },
   {
-    path: '/orderdetails',
+    path: '/orderdetails/:id/:uniqueId',
     name: 'OrderDetails',
     component: () => import('../views/myaccount/OrderDetails.vue')
   },
