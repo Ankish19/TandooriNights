@@ -62,27 +62,25 @@
                   aria-hidden="true"
                 ></i>
                 Orders #{{ data.unique_order_id }}<br/>
-                   <span class="middle-price">Delivered, 2 Items, $269</span>
+                  <span class="middle-price" v-if="item.orderstatus_id === 1">Order Placed, {{ item.orderitems.length }} Items, ${{ item.total }}</span>
+                  <span class="middle-price" v-if="item.orderstatus_id === 2">Order Accepted,  {{ item.orderitems.length }} Items, ${{ item.total }}</span>
+                  <span class="middle-price" v-if="item.orderstatus_id === 3">Delivery Assigned,  {{ item.orderitems.length }} Items, ${{ item.total }}</span>
+                  <span class="middle-price" v-if="item.orderstatus_id === 4">Picked Up,  {{ item.orderitems.length }} Items, ${{ item.total }}</span>
+                  <span class="middle-price" v-if="item.orderstatus_id === 5">Completed,  {{ item.orderitems.length }} Items, ${{ item.total }}</span>
+                  <span class="middle-price" v-if="item.orderstatus_id === 6">Cancelled,  {{ item.orderitems.length }} Items, ${{ item.total }}</span>
+                  <span class="middle-price" v-if="item.orderstatus_id === 7">Ready for Pickup,  {{ item.orderitems.length }} Items, ${{ item.total }}</span>
+                  <span class="middle-price" v-if="item.orderstatus_id === 8">Awaiting Payment,  {{ item.orderitems.length }} Items, ${{ item.total }}</span>
+                  <span class="middle-price" v-if="item.orderstatus_id === 9">Payment Failed,  {{ item.orderitems.length }} Items, ${{ item.total }}</span>
               </h4>
               <div class="row mb-5">
                 <div class="col-md-12">
                     <div class="md-stepper-horizontal orange">
                       <div class="md-step active done">
                         <div class="md-step-circle"><span>1</span></div>
-                        <div class="md-step-title">Order</div>
-                        <div class="md-step-bar-left"></div>
-                        <div class="md-step-bar-right"></div>
-                      </div>
-                      <div class="md-step active editable">
-                        <div class="md-step-circle"><span>2</span></div>
-                        <div class="md-step-title">Prepare Food</div>
-                        <!-- <div class="md-step-optional">Optional</div> -->
-                        <div class="md-step-bar-left"></div>
-                        <div class="md-step-bar-right"></div>
-                      </div>
-                      <div class="md-step active done">
-                        <div class="md-step-circle"><span>4</span></div>
-                        <div class="md-step-title">Delivered</div>
+                        <div class="md-step-title" v-if="item.orderstatus_id === 1">Order Placed</div>
+                        <div class="md-step-title" v-else-if="item.orderstatus_id === 2">Order Accepted</div>
+                        <div class="md-step-title" v-else-if="item.orderstatus_id === 1 || item.orderstatus_id !== 2">Order Accepted</div>
+                        <div class="md-step-title" v-else>Order</div>
                         <div class="md-step-bar-left"></div>
                         <div class="md-step-bar-right"></div>
                       </div>
@@ -93,26 +91,55 @@
                 </div>-->
                  <div class="col-md-12 text-center mb-3">
                   <h4 class="border-bottom pb-4">
-                Bill Details
-              </h4>
+                    Bill Details
+                  </h4>
                  </div>
                  <div class="col-md-12">
-                 <table class="table table-hover">
-                  <tbody>
-                    <tr v-for="item in items" :key="item.id">
-                      <td>{{ item.name }} x {{ item.quantity }}</td>
-                      <td class="text-right">${{ item.price }}</td>
-                    </tr>
-                  </tbody>
-                 </table>
-                <table class="table table-bordered" style="font-size:12px;">
-                <tbody>
-                  <tr>
-                    <td>Item Total</td>
-                    <td class="text-right">${{ this.orderTotal }}</td>
-                  </tr>
-                </tbody>
-              </table>
+                 <div class="d-flex mb-1 align-items-start" style="font-size: 1.2rem;" v-for="orderItem in item.orderitems" :key="orderItem.id">
+                    <strong class="mr-1" style="width: 100%;">{{ orderItem.name }}</strong>
+                    <span class="border-grey-800 text-default">{{ orderItem.quantity }}x ${{ orderItem.price }}</span><br>
+                    <div class="table-responsive" v-if="orderItem.order_item_addons.length > 0">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Addon</th>
+                            <th>Price</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="addon in orderItem.order_item_addons" :key="addon.id">
+                            <td>{{ addon.addon_name }}</td>
+                            <td>${{ addon.addon_price }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                 </div>
+                  <table class="table table-bordered" style="font-size:12px;">
+                      <tbody>
+                        <tr>
+                          <td>Item Total</td>
+                          <td class="text-right">${{ item.sub_total }}</td>
+                        </tr>
+                        <tr v-if="item.delivery_charge">
+                          <td>Delivery Charges</td>
+                          <td class="text-right">${{ item.delivery_charge }}</td>
+                        </tr>
+                        <tr>
+                          <td>Tax</td>
+                          <td class="text-right">${{ item.tax_amount }}</td>
+                        </tr>
+                        <tr v-if="item.tip_amount">
+                          <td>Tip Amount</td>
+                          <td class="text-right">${{ item.tip_amount }}</td>
+                        </tr>
+                        <tr>
+                          <td>Total Amount</td>
+                          <td class="text-right">${{ item.total }}</td>
+                        </tr>
+                      </tbody>
+                  </table>
                  </div>
               </div>
             </div>
@@ -135,7 +162,7 @@ import //   BContainer,
 //   BFormGroup,
 //   BFormInput
 'bootstrap-vue'
-import { getOrderItems, getSettings } from '../../store/api'
+import { getOrderDetail } from '../../store/api'
 export default {
   created () {},
   components: {
@@ -155,28 +182,20 @@ export default {
         order_id: 0,
         unique_order_id: ''
       },
-      items: [],
-      orderTotal: 0
+      item: [],
+      order_items: []
     }
   },
   mounted () {
-    this.orderItems()
+    this.orderDetail()
   },
   methods: {
-    orderItems () {
-      this.data.order_id = this.$route.params.id
+    orderDetail () {
       this.data.unique_order_id = this.$route.params.uniqueId
-      getOrderItems(this.data).then(res => {
-        this.items = res.data
-        this.getSetting()
-        console.log(res.data)
-      })
-    },
-    getSetting () {
-      getSettings().then(res => {
-        for (var i = 0; i < this.items.length; i++) {
-          this.orderTotal += parseInt(this.items[i].quantity) * parseFloat(this.items[i].price)
-        }
+      this.data.order_id = this.$route.params.id
+      getOrderDetail(this.data).then(res => {
+        this.item = res.data
+        console.log(this.item)
       })
     }
   },
