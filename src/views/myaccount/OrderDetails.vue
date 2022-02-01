@@ -95,29 +95,38 @@
                   </h4>
                  </div>
                  <div class="col-md-12">
-                 <div class="d-flex mb-1 align-items-start" style="font-size: 1.2rem;" v-for="orderItem in item.orderitems" :key="orderItem.id">
-                    <strong class="mr-1" style="width: 100%;">{{ orderItem.name }}</strong>
-                    <span class="border-grey-800 text-default">{{ orderItem.quantity }}x ${{ orderItem.price }}</span><br>
-                    <div class="table-responsive" v-if="orderItem.order_item_addons.length > 0">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th>Addon</th>
-                            <th>Price</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="addon in orderItem.order_item_addons" :key="addon.id">
-                            <td>{{ addon.addon_name }}</td>
-                            <td>${{ addon.addon_price }}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <div class="row" v-for="orderItem in item.orderitems" :key="orderItem.id">
+                      <div class="col-md-12 mt-3">
+                        <div class="d-flex mb-1 align-items-start" style="font-size: 1.2rem;">
+                            <strong class="mr-1" style="width: 100%;">{{ orderItem.name }}</strong>
+                            <span class="border-grey-800 text-default">{{ orderItem.quantity }}x ${{ orderItem.price }}</span><br>
+                        </div>
+                      </div>
+                      <div class="col-md-12" v-if="orderItem.order_item_addons.length > 0">
+                        <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>Addon</th>
+                                  <th>Price</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr v-for="addon in orderItem.order_item_addons" :key="addon.id">
+                                  <td>{{ addon.addon_name }}</td>
+                                  <td>${{ addon.addon_price }}</td>
+                                </tr>
+                              </tbody>
+                        </table>
+                      </div>
                     </div>
-                 </div>
+                </div>
+                 <div class="col-md-12">
                   <table class="table table-bordered" style="font-size:12px;">
                       <tbody>
+                      <tr>
+                          <td>Payment method</td>
+                          <td class="text-right">{{ item.payment_mode }}</td>
+                        </tr>
                         <tr>
                           <td>Item Total</td>
                           <td class="text-right">${{ item.sub_total }}</td>
@@ -129,6 +138,10 @@
                         <tr>
                           <td>Tax</td>
                           <td class="text-right">${{ item.tax_amount }}</td>
+                        </tr>
+                        <tr v-if="item.coupon_amount">
+                          <td>Discount</td>
+                          <td class="text-right">${{ item.coupon_amount }}</td>
                         </tr>
                         <tr v-if="item.tip_amount">
                           <td>Tip Amount</td>
