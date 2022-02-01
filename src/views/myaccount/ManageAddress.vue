@@ -79,18 +79,17 @@
                     <div class="col-md-12">
                       <div class="list-group">
                         <div v-for="(address, index) in addresses" :key="index">
-                          <div v-if="index % 2 == 0">
                             <div
-                              class="list-group-item list-group-item-action active"
-                              aria-current="true"
+                              :class="index % 2 == 0?`list-group-item list-group-item-action active`:`list-group-item list-group-item-action`"
+                              :aria-current="index % 2 == 0?`true`:`false`"
                             >
                               <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1 font-weight-bold">{{ address.tag }}
-                                  <i class="fa fa-star text-white ml-1" aria-hidden="true"></i>
+                                  <i :class="index % 2 == 0?`fa fa-star text-white ml-1`:`fa fa-star text-primary ml-1`" aria-hidden="true" v-if="userData.default_address_id == address.id"></i>
                                 </h5>
                                 <div>
-                                  <small style="font-size:20px; position: relative; top: 14px;" class="text-white mr-2" @click="delAddress(address.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
-                                  <small style="font-size:20px; position: relative; top: 14px;" class="text-white" @click="defaultAddress(address.id)">
+                                  <small style="font-size:20px; position: relative; top: 14px;" :class="index % 2 == 0?`text-white mr-2`:`text-primary mr-2`" @click="delAddress(address.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
+                                  <small style="font-size:20px; position: relative; top: 14px;" :class="index % 2 == 0?`text-white`:`text-primary`" @click="defaultAddress(address.id)" v-if="userData.default_address_id != address.id">
                                     <i class="fa fa-star-o" aria-hidden="true"></i>
                                   </small>
                                 </div>
@@ -99,27 +98,6 @@
                                 {{ address.address }}
                               </p>
                             </div>
-                        </div>
-                        <div v-else>
-                          <div
-                            class="list-group-item list-group-item-action"
-                          >
-                            <div class="d-flex w-100 justify-content-between">
-                              <h5 class="mb-1 font-weight-bold">{{ address.tag }}
-                                <i class="fa fa-star text-primary ml-1" aria-hidden="true"></i>
-                              </h5>
-                              <div>
-                                <small style="font-size:20px; position: relative; top: 14px;" class="text-danger mr-2" @click="delAddress(address.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
-                                <small style="font-size:20px; position: relative; top: 14px;" class="text-danger" @click="defaultAddress(address.id)">
-                                  <i class="fa fa-star-o" aria-hidden="true"></i>
-                                </small>
-                              </div>
-                            </div>
-                            <p class="mb-1">
-                              {{ address.address }}
-                            </p>
-                          </div>
-                        </div>
                         </div>
                       </div>
                     </div>
@@ -193,6 +171,7 @@ export default {
         console.log(res.data)
         getUpdateInfo().then(res => {
           saveLocalStorage('userData', JSON.stringify(res.data.data))
+          this.userDat()
         })
       }).catch((err) => {
         console.log(err)
