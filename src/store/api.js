@@ -51,7 +51,8 @@ export const getAddresses = (data) => {
 }
 
 export const getUpdateInfo = () => {
-  return axios.post(`${apiUrl}update-user-info`, { headers: apiHeaders() })
+  var data = ''
+  return axios.post(`${apiUrl}update-user-info`, data, { headers: apiHeaders() })
 }
 
 export const deleteAddress = (data) => {
