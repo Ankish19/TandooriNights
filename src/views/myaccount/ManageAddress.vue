@@ -141,8 +141,8 @@
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
-import { getLocalStorage } from '@/store/service'
-import { getAddresses, deleteAddress, setDefaultAddress } from '@/store/api'
+import { getLocalStorage, saveLocalStorage } from '@/store/service'
+import { getAddresses, deleteAddress, setDefaultAddress, getUpdateInfo } from '@/store/api'
 import //   BContainer,
 //   BRow,
 //   BCol,
@@ -191,6 +191,9 @@ export default {
       this.form.address_id = address
       setDefaultAddress(this.form).then(res => {
         console.log(res.data)
+        getUpdateInfo().then(res => {
+          saveLocalStorage('userData', JSON.stringify(res.data.data))
+        })
       }).catch((err) => {
         console.log(err)
       })
