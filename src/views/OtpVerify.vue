@@ -69,7 +69,7 @@ import {
   BContainer
 } from 'bootstrap-vue'
 export default {
-  name: 'Login',
+  name: 'OtpVerify',
   components: {
     Headbar,
     Footer,

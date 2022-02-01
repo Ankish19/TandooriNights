@@ -203,7 +203,7 @@ export default {
       })
     }
   },
-  name: 'Manage Address'
+  name: 'ManageAddress'
 }
 </script>
 <style lang="scss" scoped>

@@ -71,7 +71,7 @@ import { getLocalStorage } from '@/store/service'
 
 export default {
   components: { Headbar, Footer },
-  name: 'checkout',
+  name: 'Editcart',
   data () {
     return {
       add_quantity: [],

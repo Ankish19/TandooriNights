@@ -109,7 +109,7 @@ export default {
       this.form.phone = this.user.phone
     }
   },
-  name: 'update Profile'
+  name: 'UpdateProfile'
 }
 </script>
 <style>
