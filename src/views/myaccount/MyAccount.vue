@@ -151,7 +151,7 @@ export default {
       this.user = getLocalStorage('userData')
     }
   },
-  name: 'My account'
+  name: 'MyAccount'
 }
 </script>
 <style>

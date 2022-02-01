@@ -154,7 +154,7 @@ export default {
       this.getOrder()
     }, 10000)
   },
-  unmounted () {
+  destroyed () {
     clearInterval(this.interval)
   },
   methods: {

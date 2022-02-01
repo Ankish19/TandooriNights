@@ -64,7 +64,7 @@
               </h4>
               <div class="row mb-5">
                 <div class="col-md-6">
-                  <div ref="mapDiv" style="width: 100%; height: 120vh" />
+                  <div ref="mapDiv" style="width: 100%; height: 400px" />
 
                 </div>
                 <div class="col-md-6">
@@ -108,11 +108,20 @@
                     </div>
                       <b-form-input
                         type="text"
+                        id="location"
+                        class="form-control"
+                        v-model="form.address"
+                        placeholder="Location"
+                      />
+                      <div class="input-group mt-2">
+                      <b-form-input
+                        type="text"
                         id="house"
                         class="form-control"
                         v-model="form.house"
                         placeholder="Full Address"
                       />
+                      </div>
                     <div class="input-group mt-2">
                       <select
                         class="form-control form-select"
@@ -153,6 +162,7 @@ import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
 import { saveAddress } from '@/store/api'
+import axios from 'axios'
 import { required } from 'validations'
 import {
   BForm,
@@ -161,7 +171,7 @@ import {
 } from 'bootstrap-vue'
 
 export default {
-  name: 'Add Address',
+  name: 'AddManageAddress',
   components: {
     Headbar,
     Footer,
@@ -205,10 +215,11 @@ export default {
       this.form.longitude = position.coords.longitude
 
       const marker = new window.google.maps.Marker({
-        position: { lat: this.form.latitude, lng: this.form.longitude },
-        title: 'Hello World!'
+        position: { lat: this.form.latitude, lng: this.form.longitude }
       })
       marker.setMap(this.map)
+
+      this.getCurrentLoc(this.form.latitude, this.form.longitude)
     },
     async showMap () {
       const directionsRenderer = new window.google.maps.DirectionsRenderer()
@@ -222,6 +233,18 @@ export default {
         zoom: 10
       })
       directionsRenderer.setMap(this.map)
+    },
+    getCurrentLoc (lat, lng) {
+      axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyBLVIcbGHiO0lFwfgZgKBx9UlSz_yrl_IU`).then(res => {
+        let loc = ''
+        res.data.results.filter(function (item) {
+          if (item.types[0] === 'route') {
+            loc = item.formatted_address
+          }
+        })
+        // document.getElementById('currentLocation').innerHTML = loc;
+        this.form.address = loc
+      })
     },
     getAddressData (addressData, placeResultData) {
       this.form.address = placeResultData.formatted_address
