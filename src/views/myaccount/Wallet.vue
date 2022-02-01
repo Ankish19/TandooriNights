@@ -116,6 +116,24 @@ export default {
 }
 </script>
 <style>
+ul.text-list li.text-link {
+  list-style: none;
+  font-size: 15px;
+  line-height: 3;
+}
+ul.text-list {
+  padding-left: 7px;
+}
+li.text-link i {
+  color: #ddae71;
+}
+a.text-left {
+  margin-left: 15px;
+}
+a.text-left.active {
+  color: #ddae71;
+  font-weight: 600 !important;
+}
 .fa-ellipsis-v {
     font-size: 10px;
     color: #C2C2C4;

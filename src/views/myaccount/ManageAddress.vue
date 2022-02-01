@@ -206,8 +206,8 @@ export default {
   name: 'ManageAddress'
 }
 </script>
-<style lang="scss" scoped>
-#manage-address {
+<style>
+
 .card {
     border: none;
     border-radius: 10px;
@@ -244,5 +244,5 @@ a.text-left.active {
     background-color: #ddae71;
     border-color: #ddae71;
 }
-}
+
 </style>

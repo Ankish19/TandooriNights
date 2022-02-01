@@ -154,7 +154,7 @@ export default {
       this.getOrder()
     }, 10000)
   },
-  unmounted () {
+  destroyed () {
     clearInterval(this.interval)
   },
   methods: {
@@ -166,7 +166,7 @@ export default {
     }
   },
 
-  name: 'My Orders'
+  name: 'MyOrders'
 }
 </script>
 <style>

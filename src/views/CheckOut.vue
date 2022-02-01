@@ -563,7 +563,7 @@ export default {
           var dynamicDeliveryCharge = parseFloat(this.storeInfo.base_delivery_charge) + parseFloat(extraCharge)
           this.delivery_amount = Math.ceil(dynamicDeliveryCharge)
         } else {
-          this.delivery_amount = Math.round(this.storeInfo.base_delivery_distance)
+          this.delivery_amount = Math.round(this.storeInfo.base_delivery_charge)
         }
       } else {
         this.delivery_amount = Math.round(this.storeInfo.delivery_charges)
