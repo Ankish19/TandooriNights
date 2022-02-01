@@ -181,7 +181,7 @@ export default {
     }
   },
 
-  name: 'checkout'
+  name: 'order detail'
 }
 </script>
 <style>
