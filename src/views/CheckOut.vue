@@ -259,7 +259,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center" v-if="showAddress == 1">
+                        <div class="text-center" v-if="showAddress == 1 && radiusError == null">
                             <button class="btn btn-primary btn-lg" @click="placeOrder"><span>Order now!</span></button>
                         </div>
                     </div>
@@ -463,6 +463,7 @@ export default {
         this.submitOrder.tipAmount = 0
         this.deliveryCharges = 0
         this.delivery_amount = 0
+        this.radiusError = null
       } else if (event.target.value === '1') {
         this.showAddress = 1
         this.tipBox = 1
@@ -551,11 +552,15 @@ export default {
       }
       service.getDistanceMatrix(request).then((response) => {
       // put response
-        // if (this.submitOrder.dis <= 20) {
-
-        // }
-        this.submitOrder.dis = response.rows[0].elements[0].distance.text.split(' ')[0]
-        this.delivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]))
+        if (parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]) >= parseFloat(this.storeInfo.delivery_radius)) {
+          this.radiusError = 'Please change address or select pickup way'
+          this.submitOrder.dis = response.rows[0].elements[0].distance.text.split(' ')[0]
+          this.delivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]))
+        } else {
+          this.radiusError = null
+          this.submitOrder.dis = 0
+          this.delivery_amount = 0
+        }
       })
     },
     delivery_charges_calculate (dis) {
