@@ -137,9 +137,6 @@
                                   class="list-group-item list-group-item-action mt-4"
                                   aria-current="true" v-if="submitOrder.delivery_type == 1"
                                 >
-                                <div class="alert alert-danger" v-if="radiusError">
-                                  {{  radiusError }}
-                                </div>
                                 <span class="float-right"><a href="#/" data-toggle="modal" data-target="#exampleModal" class="text-primary">Change address</a></span>
                                   <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 font-weight-bold">{{ submitOrder.location?'Your default address':'No default address' }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
@@ -554,11 +551,9 @@ export default {
       }
       service.getDistanceMatrix(request).then((response) => {
       // put response
-        if (this.submitOrder.dis <= this.storeInfo.delivery_radius) {
-          this.radiusError = 'Please change address or select pickup way'
-        } else {
-          this.radiusError = null
-        }
+        // if (this.submitOrder.dis <= 20) {
+
+        // }
         this.submitOrder.dis = response.rows[0].elements[0].distance.text.split(' ')[0]
         this.delivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]))
       })

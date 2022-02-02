@@ -169,6 +169,7 @@ export default {
       this.form.address_id = address
       setDefaultAddress(this.form).then(res => {
         console.log(res.data)
+        this.$toast.success('Default address changed successfully')
         getUpdateInfo().then(res => {
           saveLocalStorage('userData', JSON.stringify(res.data.data))
           this.userDat()

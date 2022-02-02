@@ -256,6 +256,7 @@ export default {
         if (success) {
           saveAddress(this.form).then(res => {
             console.log(res.data)
+            this.$toast.success('New address successfully')
           }).catch((err) => {
             console.log(err)
           })
