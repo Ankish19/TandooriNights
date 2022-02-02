@@ -86,7 +86,7 @@
                       <td>
                         <div class="wh-item-info">
                           <a href="#" class="font-weight-bold">{{ order.restaurant.name }}</a>
-                          <p> <span v-for="orderItems in order.orderitems" :key="orderItems.id">{{ orderItems.name }}, </span></p>
+                          <p><span v-for="orderItems in order.orderitems" :key="orderItems.id">{{ orderItems.name }}, </span></p>
                         </div>
                       </td>
                       <td>

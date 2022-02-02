@@ -76,17 +76,17 @@
                 <div class="col-md-12">
                     <div class="md-stepper-horizontal orange">
                       <div class="md-step active done">
-                        <div class="md-step-circle"><span>1</span></div>
-                        <div class="md-step-title" v-if="item.orderstatus_id === 1">Order Placed</div>
-                        <div class="md-step-title" v-else-if="item.orderstatus_id === 2">Order Accepted</div>
-                        <div class="md-step-title" v-else-if="item.orderstatus_id === 3">Delivery Assigned</div>
-                        <div class="md-step-title" v-else-if="item.orderstatus_id === 4">Picked Up</div>
-                        <div class="md-step-title" v-else-if="item.orderstatus_id === 5">Completed</div>
-                        <div class="md-step-title" v-else-if="item.orderstatus_id === 6">Cancelled</div>
-                        <div class="md-step-title" v-else-if="item.orderstatus_id === 7">Ready for Pickup</div>
-                        <div class="md-step-title" v-else-if="item.orderstatus_id === 8">Awaiting Payment</div>
-                        <div class="md-step-title" v-else-if="item.orderstatus_id === 9">Payment Failed</div>
-                        <div class="md-step-title" v-else>Order</div>
+                        <!-- <div class="md-step-circle"><span>1</span></div> -->
+                        <div class="text-center" v-if="item.orderstatus_id === 1"><h5><span class="fa fa-circle text-danger"></span> Order Placed</h5></div>
+                        <div class="text-center" v-else-if="item.orderstatus_id === 2"><h5><span class="fa fa-circle text-warning"></span> Order Accepted</h5></div>
+                        <div class="text-center" v-else-if="item.orderstatus_id === 3"><h5><span class="fa fa-circle text-warning"></span> Delivery Assigned</h5></div>
+                        <div class="text-center" v-else-if="item.orderstatus_id === 4"><h5><span class="fa fa-circle text-warning"></span> Picked Up</h5></div>
+                        <div class="text-center" v-else-if="item.orderstatus_id === 5"><h5><span class="fa fa-circle text-success"></span> Completed</h5></div>
+                        <div class="text-center" v-else-if="item.orderstatus_id === 6"><h5><span class="fa fa-circle text-danger"></span> Cancelled</h5></div>
+                        <div class="text-center" v-else-if="item.orderstatus_id === 7"><h5><span class="fa fa-circle text-warning"></span> Ready for Pickup</h5></div>
+                        <div class="text-center" v-else-if="item.orderstatus_id === 8"><h5><span class="fa fa-circle text-warning"></span> Awaiting Payment</h5></div>
+                        <div class="text-center" v-else-if="item.orderstatus_id === 9"><h5><span class="fa fa-circle text-danger"></span> Payment Failed</h5></div>
+                        <div class="text-center" v-else>Order</div>
                         <div class="md-step-bar-left"></div>
                         <div class="md-step-bar-right"></div>
                       </div>
@@ -105,7 +105,7 @@
                       <div class="col-md-12 mt-3">
                         <div class="d-flex mb-1 align-items-start" style="font-size: 1.2rem;">
                             <strong class="mr-1" style="width: 100%;">{{ orderItem.name }}</strong>
-                            <span class="border-grey-800 text-default">{{ orderItem.quantity }}x ${{ orderItem.price }}</span><br>
+                            <span class="border-grey-800 text-default">{{ orderItem.quantity }}x ${{ orderItem.price }}</span>
                         </div>
                       </div>
                       <div class="col-md-12" v-if="orderItem.order_item_addons.length > 0">

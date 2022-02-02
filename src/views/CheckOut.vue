@@ -39,13 +39,6 @@
                                     <td class="price" v-if="it.addOnTotal"> ${{ it?it.addOnTotal:'' }}</td>
                                     <td class="price" v-else> ${{ it?it.price:'' }}</td>
                                 </tr>
-                                <!--<tr>
-                                    <td class="title">
-                                        <span class="name">Weekend 20% OFF</span>
-                                    </td>
-                                    <td class="price text-success">-$8.22</td>
-                                    <td class="actions"></td>
-                                </tr>-->
                             </table>
                             <div class="cart-summary">
                                 <div class="row">
@@ -153,9 +146,8 @@
                                 <div class="modal-content">
                                   <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Change Address</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
+                                    <span type="button" class="fa fa-close" data-dismiss="modal" aria-label="Close">
+                                    </span>
                                   </div>
                                   <div class="modal-body">
                                     <div class="row">
@@ -225,7 +217,6 @@
                                     <li class="tipValue" v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)">{{ tip }}</li>
                                     <li class="tipValue" @click="selectTip('custom')">Custom</li>
                                     </ul>
-
                                         <div class="form-group" v-if="customTip">
                                           <input type="text" v-model="submitOrder.tipAmount" class="form-control">
                                         </div>
@@ -371,6 +362,7 @@ export default {
       this.submitOrder.location.lat = address.latitude
       this.submitOrder.location.lng = address.longitude
       this.submitOrder.location.tag = address.tag
+      this.$toast.success('New address selected successfully.')
       this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
     },
     getAddress () {
@@ -552,14 +544,16 @@ export default {
       }
       service.getDistanceMatrix(request).then((response) => {
       // put response
-        if (parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]) >= parseFloat(this.storeInfo.delivery_radius)) {
-          this.radiusError = 'Please change address or select pickup way'
-          this.submitOrder.dis = response.rows[0].elements[0].distance.text.split(' ')[0]
-          this.delivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]))
-        } else {
-          this.radiusError = null
-          this.submitOrder.dis = 0
-          this.delivery_amount = 0
+        if (response.rows[0].elements[0].distance) {
+          if (parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]) >= parseFloat(this.storeInfo.delivery_radius)) {
+            this.radiusError = 'Please change address or select pickup way'
+            this.submitOrder.dis = response.rows[0].elements[0].distance.text.split(' ')[0]
+            this.delivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]))
+          } else {
+            this.radiusError = null
+            this.submitOrder.dis = 0
+            this.delivery_amount = 0
+          }
         }
       })
     },
