@@ -79,7 +79,13 @@
                         <div class="md-step-circle"><span>1</span></div>
                         <div class="md-step-title" v-if="item.orderstatus_id === 1">Order Placed</div>
                         <div class="md-step-title" v-else-if="item.orderstatus_id === 2">Order Accepted</div>
-                        <div class="md-step-title" v-else-if="item.orderstatus_id === 1 || item.orderstatus_id !== 2">Order Accepted</div>
+                        <div class="md-step-title" v-else-if="item.orderstatus_id === 3">Delivery Assigned</div>
+                        <div class="md-step-title" v-else-if="item.orderstatus_id === 4">Picked Up</div>
+                        <div class="md-step-title" v-else-if="item.orderstatus_id === 5">Completed</div>
+                        <div class="md-step-title" v-else-if="item.orderstatus_id === 6">Cancelled</div>
+                        <div class="md-step-title" v-else-if="item.orderstatus_id === 7">Ready for Pickup</div>
+                        <div class="md-step-title" v-else-if="item.orderstatus_id === 8">Awaiting Payment</div>
+                        <div class="md-step-title" v-else-if="item.orderstatus_id === 9">Payment Failed</div>
                         <div class="md-step-title" v-else>Order</div>
                         <div class="md-step-bar-left"></div>
                         <div class="md-step-bar-right"></div>
