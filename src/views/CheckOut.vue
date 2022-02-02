@@ -139,7 +139,7 @@
                                 >
                                 <span class="float-right"><a href="#/" data-toggle="modal" data-target="#exampleModal" class="text-primary">Change address</a></span>
                                   <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1 font-weight-bold">Your default address<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
+                                    <h5 class="mb-1 font-weight-bold">{{ submitOrder.location?'Your default address':'No default address' }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
                                   </div>
                                   <p class="mb-1">
                                     {{ submitOrder.location?submitOrder.location.address:'' }}
@@ -148,7 +148,7 @@
                             </div>
 
                             <!-- Modal -->
-                            <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
@@ -175,7 +175,7 @@
                                                   {{ address.address }}
                                                 </p>
                                               </div>
-                                            </div>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -282,6 +282,7 @@ export default {
   name: 'checkout',
   data () {
     return {
+      radiusError: '',
       deliveryCharges: 0,
       tipBox: 0,
       showAddress: 0,
@@ -370,6 +371,7 @@ export default {
       this.submitOrder.location.lat = address.latitude
       this.submitOrder.location.lng = address.longitude
       this.submitOrder.location.tag = address.tag
+      this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
     },
     getAddress () {
       getAddresses().then(res => {
@@ -549,6 +551,9 @@ export default {
       }
       service.getDistanceMatrix(request).then((response) => {
       // put response
+        if (this.submitOrder.dis <= 20) {
+
+        }
         this.submitOrder.dis = response.rows[0].elements[0].distance.text.split(' ')[0]
         this.delivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]))
       })
