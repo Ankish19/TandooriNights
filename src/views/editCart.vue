@@ -27,11 +27,11 @@
                                         <!--<span class="caption text-muted">26”, deep-pan, thin-crust</span>-->
                                     </td>
                                     <td align="right">
-                                      <span class="fa fa-plus" @click="addQuantity(index)"></span>
+                                      <span class="fa fa-minus" @click="minusQuantity(it, index)"></span>
                                     </td>
                                     <td><input type="number"  class="form-control" v-model="add_quantity[index]" /></td>
                                     <td>
-                                      <span class="fa fa-minus" @click="minusQuantity(it, index)"></span>
+                                      <span class="fa fa-plus" @click="addQuantity(index)"></span>
                                     </td>
                                     <td class="price" v-if="it.addOnTotal">${{ it?it.addOnTotal:'' }}</td>
                                     <td class="price" v-else>${{ it?it.price:'' }}</td>

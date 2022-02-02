@@ -182,6 +182,7 @@ export default {
       this.form.address_id = address
       deleteAddress(this.form).then(res => {
         console.log(res.data)
+        this.$toast.success('Address deleted successfully')
         this.getAddr()
       })
     }
