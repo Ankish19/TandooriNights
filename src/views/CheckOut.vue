@@ -460,7 +460,7 @@ export default {
       } else if (event.target.value === '1') {
         this.showAddress = 1
         this.tipBox = 1
-        this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
+        this.jGetDistance(this.storeInfo.latitude, this.storeInfo.longitude)
         this.deliveryCharges = 1
       }
     },
