@@ -22,8 +22,18 @@
                             <div class="bg-dark dark p-4"><h5 class="mb-0">You order</h5></div>
                             <table class="cart-table">
                                 <tr v-for="(it, index) in submitOrder.order" :key="index">
-                                    <td class="title">
-                                        <span class="name"><a href="#" data-toggle="modal">{{ it?it.name:'' }}</a></span>
+                                    <td class="title text-center">
+                                        <span class="name"><a href="#" data-toggle="modal">{{ it?it.name:'' }}</a></span><br>
+                                        <table v-if="it.selectedaddons && it.selectedaddons.length >0" align="center">
+                                          <tr>
+                                            <th>Addon</th>
+                                            <th>Price</th>
+                                          </tr>
+                                          <tr v-for="addon in it.selectedaddons" :key="addon.id">
+                                            <td>{{ addon.addon_name }}</td>
+                                            <td>{{ addon.price }}</td>
+                                          </tr>
+                                        </table>
                                         <!--<span class="caption text-muted">26”, deep-pan, thin-crust</span>-->
                                     </td>
                                     <td align="right">
@@ -144,6 +154,7 @@ export default {
     })
     if (getLocalStorage('cart')) {
       this.showItem()
+      console.log(this.submitOrder.order)
     } else {
       this.$router.push('/menu')
     }

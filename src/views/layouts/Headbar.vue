@@ -38,13 +38,20 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <a href="#" class="module module-cart right" data-toggle="panel-cart" @click="slideMinicart(classSlider)">
+                    <!--<a href="#" class="module module-cart right" data-toggle="panel-cart" @click="slideMinicart(classSlider)">
                         <span class="cart-icon">
                             <i class="ti ti-shopping-cart"></i>
                             <span class="notification d-block">{{ item?item.length:0 }}</span>
                         </span>
                         <span class="cart-value">$<span>{{ orderTotal.toFixed(2) }}</span></span>
-                    </a>
+                    </a>-->
+                    <router-link to="/checkout" class="module module-cart right">
+                        <span class="cart-icon">
+                            <i class="ti ti-shopping-cart"></i>
+                            <span class="notification d-block">{{ item?item.length:0 }}</span>
+                        </span>
+                        <span class="cart-value">$<span>{{ orderTotal.toFixed(2) }}</span></span>
+                    </router-link>
                 </div>
             </div>
         </div>

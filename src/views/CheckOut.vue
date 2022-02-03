@@ -49,7 +49,7 @@
                                     <div class="col-7 text-right text-muted">Discount:</div>
                                     <div class="col-5"><strong>-$<span class="cart-products-total">{{ discountPrice }}</span></strong></div>
                                 </div>
-                                <div class="row" v-if="deliveryCharges == 1">
+                                <div class="row" v-if="deliveryCharges == 1 && delivery_amount > 0">
                                     <div class="col-7 text-right text-muted">Delivery:</div>
                                     <div class="col-5"><strong>+$<span class="cart-delivery">{{ delivery_amount }}</span></strong></div>
                                 </div>
@@ -68,7 +68,7 @@
                                     <div class="col-7 text-right text-muted">Total:</div>
                                     <div class="col-5">
                                       <strong>$
-                                        <span class="cart-total" v-if="deliveryCharges == 1">
+                                        <span class="cart-total" v-if="deliveryCharges == 1 && delivery_amount > 0">
                                          {{ totalAmount?(parseFloat(totalAmount.toFixed(2))+parseFloat(submitOrder.tipAmount)+parseFloat(delivery_amount.toFixed(2))).toFixed(2):0 }}
                                         </span>
                                         <span class="cart-total" v-else>
@@ -125,11 +125,11 @@
                                     {{ storeInfo?storeInfo.address:'' }}
                                   </p>
                                 </div>
-
                                 <div
                                   class="list-group-item list-group-item-action mt-4"
                                   aria-current="true" v-if="submitOrder.delivery_type == 1"
                                 >
+                                <span class="text-danger" v-if="radiusError && radiusError != 0">{{ 'Delivery address is out of range.' }}</span>
                                 <span class="float-right"><a href="#/" data-toggle="modal" data-target="#exampleModal" class="text-primary">Change address</a></span>
                                   <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 font-weight-bold">{{ submitOrder.location?'Your default address':'No default address' }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
@@ -363,7 +363,8 @@ export default {
       this.submitOrder.location.lng = address.longitude
       this.submitOrder.location.tag = address.tag
       this.$toast.success('New address selected successfully.')
-      this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
+      // this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
+      this.jGetDistance(this.storeInfo.latitude, this.storeInfo.longitude)
     },
     getAddress () {
       getAddresses().then(res => {
@@ -544,12 +545,16 @@ export default {
       }
       service.getDistanceMatrix(request).then((response) => {
       // put response
+        console.log(response.rows[0].elements[0])
+        console.log(this.storeInfo.delivery_radius)
         if (response.rows[0].elements[0].distance) {
-          if (parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]) >= parseFloat(this.storeInfo.delivery_radius)) {
+          if (parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]) > parseFloat(this.storeInfo.delivery_radius)) {
+            console.log('if')
             this.radiusError = 'Please change address or select pickup way'
             this.submitOrder.dis = response.rows[0].elements[0].distance.text.split(' ')[0]
             this.delivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]))
           } else {
+            console.log('else')
             this.radiusError = null
             this.submitOrder.dis = 0
             this.delivery_amount = 0
@@ -557,7 +562,63 @@ export default {
         }
       })
     },
+    jGetDistance (latitude, longitude) {
+      var origin = new window.google.maps.LatLng(latitude, longitude)
+      var destination = new window.google.maps.LatLng(this.submitOrder.location.lat, this.submitOrder.location.lng)
+      const service = new window.google.maps.DistanceMatrixService()
+      const request = {
+        origins: [origin],
+        destinations: [destination],
+        travelMode: window.google.maps.TravelMode.DRIVING,
+        unitSystem: window.google.maps.UnitSystem.METRIC,
+        avoidHighways: false,
+        avoidTolls: false
+      }
+      service.getDistanceMatrix(request).then((response) => {
+      // put response
+        if (response.rows[0].elements[0].distance) {
+          console.log(response.rows[0].elements[0].distance.text.split(' ')[0].replace(',', ''))
+          // console.log(this.storeInfo.delivery_radius)
+          this.jDelivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0].replace(',', '')))
+        } else {
+          this.radiusError = 'Kindly select another address'
+          this.delivery_amount = 0
+        }
+      })
+    },
+    jDelivery_charges_calculate (dis) {
+      if (dis > parseFloat(this.storeInfo.delivery_radius)) {
+        console.log('main-if')
+        this.radiusError = 'Kindly select another address'
+        this.delivery_amount = 0
+      } else {
+        if (this.storeInfo.free_delivery_subtotal !== 0 && this.orderTotal.toFixed(2) <= this.storeInfo.free_delivery_subtotal) {
+          console.log('else { if')
+          this.delivery_amount = 0
+        } else if (this.storeInfo.delivery_charge_type === 'DYNAMIC') {
+          if (dis > this.storeInfo.base_delivery_distance) {
+            console.log('else-if if')
+            this.radiusError = null
+            var extraDistance = parseFloat(dis) - parseFloat(this.storeInfo.base_delivery_distance)
+            var extraCharge = (parseFloat(extraDistance) / parseFloat(this.storeInfo.extra_delivery_distance)) * parseFloat(this.storeInfo.extra_delivery_charge)
+            var dynamicDeliveryCharge = parseFloat(this.storeInfo.base_delivery_charge) + parseFloat(extraCharge)
+            console.log('before ceil' + dynamicDeliveryCharge)
+            this.delivery_amount = Math.ceil(dynamicDeliveryCharge)
+          } else {
+            console.log('roundbase_delivery')
+            this.radiusError = 0
+            this.delivery_amount = Math.round(this.storeInfo.base_delivery_charge)
+          }
+        } else {
+          console.log('rounddelivery_charges')
+          this.delivery_amount = Math.round(this.storeInfo.delivery_charges)
+        }
+      }
+      console.log(this.delivery_amount)
+    },
     delivery_charges_calculate (dis) {
+      console.log(this.storeInfo.free_delivery_subtotal)
+      console.log(this.orderTotal)
       if (this.storeInfo.free_delivery_subtotal !== 0 && this.orderTotal.toFixed(2) <= this.storeInfo.free_delivery_subtotal) {
         this.delivery_amount = 0
       } else if (this.storeInfo.delivery_charge_type === 'DYNAMIC') {
