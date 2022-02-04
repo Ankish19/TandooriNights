@@ -171,6 +171,7 @@ export default {
         console.log(res.data)
         getUpdateInfo().then(res => {
           saveLocalStorage('userData', JSON.stringify(res.data.data))
+          this.$toast.success('Default address selected successfully')
           this.userDat()
         })
       }).catch((err) => {
@@ -181,6 +182,7 @@ export default {
       this.form.address_id = address
       deleteAddress(this.form).then(res => {
         console.log(res.data)
+        this.$toast.success('Address deleted successfully')
         this.getAddr()
       })
     }

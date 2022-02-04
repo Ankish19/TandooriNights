@@ -29,7 +29,7 @@
               <nav id="menu-navigation" class="stick-to-content"  @scroll="data-local-scroll">
                 <ul class="nav nav-menu bg-dark dark">
                   <li v-for="(item, value, index) in Items" :key="index">
-                    <a :href="`#${value}`" class="menu-link">{{ value }}</a>
+                    <a :href="`menu#${value}`" class="menu-link">{{ value }}</a>
                     <!-- <span v-for="(item1, index1) in Items[value]" :key="index1">
                         {{ item1.name }}
                       </span> -->

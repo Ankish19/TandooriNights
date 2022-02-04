@@ -257,6 +257,7 @@ export default {
           saveAddress(this.form).then(res => {
             console.log(res.data)
             this.$toast.success('New address successfully')
+            this.router.push('/manageaddress')
           }).catch((err) => {
             console.log(err)
           })

@@ -129,7 +129,7 @@
                                   class="list-group-item list-group-item-action mt-4"
                                   aria-current="true" v-if="submitOrder.delivery_type == 1"
                                 >
-                                <span class="text-danger" v-if="radiusError && radiusError != 0">{{ 'Delivery address is out of range.' }}</span>
+                                <span class="text-danger" v-if="radiusError && radiusError != 0">{{ 'Kindly select another address.' }}</span>
                                 <span class="float-right"><a href="#/" data-toggle="modal" data-target="#exampleModal" class="text-primary">Change address</a></span>
                                   <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 font-weight-bold">{{ submitOrder.location?'Your default address':'No default address' }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
@@ -315,8 +315,8 @@ export default {
         coupon: '',
         quantity: 0,
         location: {
-          lat: '',
-          lng: '',
+          latitude: '',
+          longitude: '',
           address: '',
           house: null,
           tag: null
@@ -347,7 +347,7 @@ export default {
       this.submitOrder.order = getLocalStorage('cart')
       this.getUserData()
       this.getAddress()
-      this.delivery_charges_calculate('9')
+      this.jDelivery_charges_calculate('9')
     } else {
       this.$router.push('/menu')
     }
@@ -359,9 +359,11 @@ export default {
     selectAddress (address) {
       this.submitOrder.location.address = address.address
       this.submitOrder.location.house = address.house
-      this.submitOrder.location.lat = address.latitude
-      this.submitOrder.location.lng = address.longitude
+      this.submitOrder.location.latitude = address.latitude
+      this.submitOrder.location.longitude = address.longitude
       this.submitOrder.location.tag = address.tag
+
+      this.submitOrder.user.data.default_address = this.submitOrder.location
       this.$toast.success('New address selected successfully.')
       // this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
       this.jGetDistance(this.storeInfo.latitude, this.storeInfo.longitude)
@@ -446,8 +448,8 @@ export default {
       this.submitOrder.total.productQuantity = this.item.length
       this.submitOrder.location.address = getLocalStorage('userData').default_address.address
       this.submitOrder.location.house = getLocalStorage('userData').default_address.house
-      this.submitOrder.location.lat = getLocalStorage('userData').default_address.latitude
-      this.submitOrder.location.lng = getLocalStorage('userData').default_address.longitude
+      this.submitOrder.location.latitude = getLocalStorage('userData').default_address.latitude
+      this.submitOrder.location.longitude = getLocalStorage('userData').default_address.longitude
       this.submitOrder.location.tag = getLocalStorage('userData').default_address.tag
     },
     selectAdd (event) {
@@ -531,40 +533,10 @@ export default {
       this.totalAmount = 0
       this.getSetting()
     },
-    getDistance (latitude, longitude) {
-      var origin = new window.google.maps.LatLng(latitude, longitude)
-      var destination = new window.google.maps.LatLng(this.submitOrder.location.lat, this.submitOrder.location.lng)
-      const service = new window.google.maps.DistanceMatrixService()
-      const request = {
-        origins: [origin],
-        destinations: [destination],
-        travelMode: window.google.maps.TravelMode.DRIVING,
-        unitSystem: window.google.maps.UnitSystem.METRIC,
-        avoidHighways: false,
-        avoidTolls: false
-      }
-      service.getDistanceMatrix(request).then((response) => {
-      // put response
-        console.log(response.rows[0].elements[0])
-        console.log(this.storeInfo.delivery_radius)
-        if (response.rows[0].elements[0].distance) {
-          if (parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]) > parseFloat(this.storeInfo.delivery_radius)) {
-            console.log('if')
-            this.radiusError = 'Please change address or select pickup way'
-            this.submitOrder.dis = response.rows[0].elements[0].distance.text.split(' ')[0]
-            this.delivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]))
-          } else {
-            console.log('else')
-            this.radiusError = null
-            this.submitOrder.dis = 0
-            this.delivery_amount = 0
-          }
-        }
-      })
-    },
     jGetDistance (latitude, longitude) {
+      console.log(latitude)
       var origin = new window.google.maps.LatLng(latitude, longitude)
-      var destination = new window.google.maps.LatLng(this.submitOrder.location.lat, this.submitOrder.location.lng)
+      var destination = new window.google.maps.LatLng(this.submitOrder.location.latitude, this.submitOrder.location.longitude)
       const service = new window.google.maps.DistanceMatrixService()
       const request = {
         origins: [origin],
@@ -576,9 +548,12 @@ export default {
       }
       service.getDistanceMatrix(request).then((response) => {
       // put response
+        console.log(response)
         if (response.rows[0].elements[0].distance) {
           console.log(response.rows[0].elements[0].distance.text.split(' ')[0].replace(',', ''))
           // console.log(this.storeInfo.delivery_radius)
+          console.log(response)
+          this.submitOrder.dis = parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0].replace(',', ''))
           this.jDelivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0].replace(',', '')))
         } else {
           this.radiusError = 'Kindly select another address'
@@ -588,50 +563,25 @@ export default {
     },
     jDelivery_charges_calculate (dis) {
       if (dis > parseFloat(this.storeInfo.delivery_radius)) {
-        console.log('main-if')
         this.radiusError = 'Kindly select another address'
         this.delivery_amount = 0
       } else {
         if (this.storeInfo.free_delivery_subtotal !== 0 && this.orderTotal.toFixed(2) <= this.storeInfo.free_delivery_subtotal) {
-          console.log('else { if')
           this.delivery_amount = 0
         } else if (this.storeInfo.delivery_charge_type === 'DYNAMIC') {
           if (dis > this.storeInfo.base_delivery_distance) {
-            console.log('else-if if')
             this.radiusError = null
             var extraDistance = parseFloat(dis) - parseFloat(this.storeInfo.base_delivery_distance)
             var extraCharge = (parseFloat(extraDistance) / parseFloat(this.storeInfo.extra_delivery_distance)) * parseFloat(this.storeInfo.extra_delivery_charge)
             var dynamicDeliveryCharge = parseFloat(this.storeInfo.base_delivery_charge) + parseFloat(extraCharge)
-            console.log('before ceil' + dynamicDeliveryCharge)
             this.delivery_amount = Math.ceil(dynamicDeliveryCharge)
           } else {
-            console.log('roundbase_delivery')
             this.radiusError = 0
             this.delivery_amount = Math.round(this.storeInfo.base_delivery_charge)
           }
         } else {
-          console.log('rounddelivery_charges')
           this.delivery_amount = Math.round(this.storeInfo.delivery_charges)
         }
-      }
-      console.log(this.delivery_amount)
-    },
-    delivery_charges_calculate (dis) {
-      console.log(this.storeInfo.free_delivery_subtotal)
-      console.log(this.orderTotal)
-      if (this.storeInfo.free_delivery_subtotal !== 0 && this.orderTotal.toFixed(2) <= this.storeInfo.free_delivery_subtotal) {
-        this.delivery_amount = 0
-      } else if (this.storeInfo.delivery_charge_type === 'DYNAMIC') {
-        if (dis > this.storeInfo.base_delivery_distance) {
-          var extraDistance = parseFloat(dis) - parseFloat(this.storeInfo.base_delivery_distance)
-          var extraCharge = (parseFloat(extraDistance) / parseFloat(this.storeInfo.extra_delivery_distance)) * parseFloat(this.storeInfo.extra_delivery_charge)
-          var dynamicDeliveryCharge = parseFloat(this.storeInfo.base_delivery_charge) + parseFloat(extraCharge)
-          this.delivery_amount = Math.ceil(dynamicDeliveryCharge)
-        } else {
-          this.delivery_amount = Math.round(this.storeInfo.base_delivery_charge)
-        }
-      } else {
-        this.delivery_amount = Math.round(this.storeInfo.delivery_charges)
       }
     }
   }
