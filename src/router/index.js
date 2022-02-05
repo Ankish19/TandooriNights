@@ -77,7 +77,7 @@ const routes = [
     component: () => import('../views/myaccount/MyOrder.vue')
   },
   {
-    path: '/orderdetails',
+    path: '/orderdetails/:id/:uniqueId',
     name: 'OrderDetails',
     component: () => import('../views/myaccount/OrderDetails.vue')
   },
@@ -85,6 +85,16 @@ const routes = [
     path: '/wallet',
     name: 'Wallet',
     component: () => import('../views/myaccount/Wallet.vue')
+  },
+  {
+    path: '/editcart',
+    name: 'EditCart',
+    component: () => import('../views/EditCart.vue')
+  },
+  {
+    path: '/updateprofile',
+    name: 'UpdateProfile',
+    component: () => import('../views/myaccount/UpdateProfile.vue')
   }
 ]
 
@@ -102,7 +112,7 @@ router.beforeEach((to, _, next) => {
       return next('/')
     }
   } else if (!userData) {
-    if (to.path === '/myaccount' || to.path === '/checkout' || to.path === '/ManageAddress' || to.path === '/addmanageaddress' || to.path === '/myorder' || to.path === '/wallet') {
+    if (to.path === '/myaccount' || to.path === '/checkout' || to.path === '/editcart' || to.path === '/ManageAddress' || to.path === '/addmanageaddress' || to.path === '/myorder' || to.path === '/wallet') {
       return next('/login')
     }
   } else {

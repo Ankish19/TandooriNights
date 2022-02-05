@@ -38,13 +38,20 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <a href="#" class="module module-cart right" data-toggle="panel-cart" @click="slideMinicart(classSlider)">
+                    <!--<a href="#" class="module module-cart right" data-toggle="panel-cart" @click="slideMinicart(classSlider)">
                         <span class="cart-icon">
                             <i class="ti ti-shopping-cart"></i>
                             <span class="notification d-block">{{ item?item.length:0 }}</span>
                         </span>
                         <span class="cart-value">$<span>{{ orderTotal.toFixed(2) }}</span></span>
-                    </a>
+                    </a>-->
+                    <router-link to="/checkout" class="module module-cart right">
+                        <span class="cart-icon">
+                            <i class="ti ti-shopping-cart"></i>
+                            <span class="notification d-block">{{ item?item.length:0 }}</span>
+                        </span>
+                        <span class="cart-value">$<span>{{ orderTotal.toFixed(2) }}</span></span>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -108,7 +115,10 @@
                             <!-- <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span> -->
                             <!-- <span class="caption text-muted">Large (500g)</span> -->
                         </td>
-                        <td class="price">
+                        <td class="price" v-if="it.addOnTotal">
+                          {{ it?it.quantity:'' }}x ${{ it?it.addOnTotal:'' }}
+                        </td>
+                        <td class="price" v-else>
                           {{ it?it.quantity:'' }}x ${{ it?it.price:'' }}
                           <strike class="text-danger" v-if="it && it.old_price != 0">${{ it?it.old_price:'' }}</strike>
                         </td>
@@ -201,7 +211,6 @@ export default {
       }
     },
     cartshow () {
-      console.log(this.cartshow)
       this.slideMinicart(this.cartshow ? 'show' : 'hide')
     }
   },
@@ -249,12 +258,15 @@ export default {
       this.taxes = getLocalStorage('taxes')
       if (this.item) {
         for (var i = 0; i < this.item.length; i++) {
-          this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
+          if (this.item[i].addOnTotal) {
+            this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].addOnTotal)
+          } else {
+            this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
+          }
         }
       }
       this.taxTotal = parseFloat(this.orderTotal) * parseInt(this.taxes.taxPercentage.value) / 100
       this.totalAmount = parseFloat(this.orderTotal) + parseFloat(this.taxTotal)
-      console.log(this.taxTotal)
     }
   }
 }

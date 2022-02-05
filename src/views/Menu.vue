@@ -21,7 +21,6 @@
       <!-- Page Content -->
 
       <!-- Page Content -->
-      <!-- Page Content -->
       <div class="page-content">
         <div class="container">
           <div class="row no-gutters">
@@ -30,7 +29,7 @@
               <nav id="menu-navigation" class="stick-to-content"  @scroll="data-local-scroll">
                 <ul class="nav nav-menu bg-dark dark">
                   <li v-for="(item, value, index) in Items" :key="index">
-                    <a :href="`#${value}`" class="menu-link">{{ value }}</a>
+                    <a :href="`menu#${value}`" class="menu-link">{{ value }}</a>
                     <!-- <span v-for="(item1, index1) in Items[value]" :key="index1">
                         {{ item1.name }}
                       </span> -->
@@ -87,8 +86,6 @@ export default {
       // Object.keys(res.data.items).map((item) => (
       //     console.log(item)
       // ));
-
-      console.log(arr)
       this.Items = res.data.items
     // eslint-disable-next-line no-sequences
     })

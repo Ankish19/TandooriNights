@@ -10,7 +10,7 @@
             <div class="col-lg-12">
               <h1 class="mb-0">Register</h1>
               <h4 class="text-muted mb-0">
-                Some informations about our restaurant
+                Some information about our restaurant
               </h4>
             </div>
           </div>
@@ -40,6 +40,7 @@
                       <b-form-input
                         v-model="form.phone"
                         placeholder="Phone"
+                        :class="[error !== ''?'border-danger':'']"
                       ></b-form-input>
                     </b-form-group>
                   </b-form-group>
@@ -50,6 +51,8 @@
                       <b-form-input
                         v-model="form.email"
                         placeholder="Email"
+                        type="email"
+                        :class="[error !== ''?'border-danger':'']"
                       ></b-form-input>
                     </b-form-group>
                   </b-form-group>
@@ -65,6 +68,11 @@
                     </b-form-group>
                   </b-form-group>
                 </b-col>
+                <div class="text-danger text-left">
+                  <span v-if="error">
+                  {{ error }}
+                </span>
+                </div>
                 <b-col cols="12" class="mt-3">
                   <b-form-group>
                     <b-button class="w-100" type="submit"><span>Submit</span></b-button>
@@ -109,7 +117,8 @@ export default {
         email: '',
         phone: '',
         password: ''
-      }
+      },
+      error: ''
     }
   },
   components: {
@@ -125,6 +134,7 @@ export default {
   },
   methods: {
     save () {
+      this.error = ''
       register(this.form).then(res => {
         console.log(res.data)
         if (res.data.success === true) {
@@ -132,9 +142,11 @@ export default {
           saveLocalStorage('userData', JSON.stringify(res.data.data))
           this.$router.push('/otpverify?type=' + res.data.verification.type)
         } else if (res.data.email_phone_already_used === true) {
-          console.log('Already exists')
+          this.error = 'this email/ phone already exists'
+          this.$toast.error('this email/ phone already exists')
         } else {
-          console.log('Register failed')
+          this.error = 'Registration failed'
+          this.$toast.error('Registration failed')
         }
       })
     }

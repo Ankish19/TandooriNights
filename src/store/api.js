@@ -29,6 +29,10 @@ export const otpverify = (data) => {
   return axios.post(`${apiUrl}otpverify`, data)
 }
 
+export const resendVerifyOtp = (data) => {
+  return axios.post(`${apiUrl}resend_verify_otp`, data)
+}
+
 export const getGoogleApi = async () => {
   return await axios.get(`${apiUrl}get-setting/googleApiKey`).then(res => {
     return new Promise((resolve) => { resolve(res.data) })
@@ -44,6 +48,11 @@ export const setDefaultAddress = (data) => {
 
 export const getAddresses = (data) => {
   return axios.post(`${apiUrl}get-addresses`, data, { headers: apiHeaders() })
+}
+
+export const getUpdateInfo = () => {
+  var data = ''
+  return axios.post(`${apiUrl}update-user-info`, data, { headers: apiHeaders() })
 }
 
 export const deleteAddress = (data) => {
@@ -64,6 +73,10 @@ export const getRestaurantInfo = () => {
 
 export const placeOrder = (data) => {
   return axios.post(`${apiUrl}place-order`, data, { headers: apiHeaders() })
+}
+
+export const getOrderDetail = (data) => {
+  return axios.post(`${apiUrl}get-order-detail`, data, { headers: apiHeaders() })
 }
 
 export const checkCoupon = (data) => {

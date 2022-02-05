@@ -8,7 +8,7 @@
           <div class="col-lg-12">
             <h1 class="mb-0">My Account</h1>
             <h4 class="text-muted mb-0">
-              Some informations about our restaurant
+              Some information about our restaurant
             </h4>
           </div>
         </div>
@@ -78,22 +78,22 @@
                   <i class="fa fa-map-marker" aria-hidden="true"></i> {{ user.default_address?user.default_address.address:'' }}
                 </p>
                 <p class="text-muted mb-2">
-                  <a href="tel:4434567890"><i class="fa fa-phone" aria-hidden="true"></i> {{ user?user.phone:'' }}</a>
+                  <a href="#"><i class="fa fa-phone" aria-hidden="true"></i> {{ user?user.phone:'' }}</a>
                 </p>
                 <p class="text-muted mb-4">
-                  <a href="mailto:User@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ user?user.email:'' }}</a>
+                  <a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ user?user.email:'' }}</a>
                 </p>
                 <div class="row">
-                <div class="col-md-6">
+                  <div class="col-md-6">
                     <div class="d-flex justify-content-center mb-2">
-                    <router-link to="/login" class="btn btn-primary w-100"><span><i class="fa fa-pencil" aria-hidden="true"></i>  Update</span></router-link>
-                </div>
-                </div>
-                <div class="col-md-6">
-                 <div class="d-flex justify-content-center mb-2">
-                  <router-link to="/login" class="btn btn-danger w-100"><span><i class="fa fa-pencil" aria-hidden="true"></i>  Password Changes</span></router-link>
-                </div>
-                </div>
+                      <router-link to="/updateprofile" class="btn btn-primary w-100"><span><i class="fa fa-pencil" aria-hidden="true"></i>  Update</span></router-link>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="d-flex justify-content-center mb-2">
+                      <router-link to="/login" class="btn btn-danger w-100"><span><i class="fa fa-pencil" aria-hidden="true"></i>  Password Changes</span></router-link>
+                    </div>
+                  </div>
                 </div>
 
               </div>
@@ -151,7 +151,7 @@ export default {
       this.user = getLocalStorage('userData')
     }
   },
-  name: 'checkout'
+  name: 'MyAccount'
 }
 </script>
 <style>

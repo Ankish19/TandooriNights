@@ -49,7 +49,7 @@
               <img src="http://assets.suelo.pl/soup/img/photos/modal-add.jpg" alt />
             </div>
             <h4 class="modal-title">{{ selectItem.name }}</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" :class="close?close:'close'" data-dismiss="modal" aria-label="Close">
               <i class="ti ti-close"></i>
             </button>
           </div>
@@ -191,6 +191,7 @@ export default {
       selectItem: '',
       options: [],
       cart: [''],
+      close: '',
       single: [],
       multi: [],
       addons: [],
@@ -240,12 +241,11 @@ export default {
       }
     },
     cardModalClose (item) {
-      item.options = this.single
-      item.additionals = this.multi
-      item.price = this.addOnTotal
+      item.selectedaddons = this.single.concat(this.multi)
+      item.price = 0
       item.quantity = 1
+      item.addOnTotal = this.addOnTotal
       if (this.cart != null) {
-        console.log('cart-if')
         this.cart = getCart('cart')
         this.cart.push(item)
       } else {
@@ -253,7 +253,10 @@ export default {
       }
       console.log(this.cart)
       // this.cart = item
+      this.$toast.success('An item added to cart.')
+      this.$emit('addItem', this.cart)
       addCart('cart', JSON.stringify(this.cart))
+      this.close = 'close'
     },
     selectAddon (event, category) {
       // console.log(event)
@@ -266,7 +269,6 @@ export default {
       }
       console.log(select)
       if (category.type === 'SINGLE') {
-        console.log('SINGLE')
         this.single = [select]
         this.singleAddOnTotal = parseFloat(this.single[0].price)
         this.addOnTotal = this.singleAddOnTotal + this.multiAddOnTotal
@@ -274,14 +276,12 @@ export default {
         if (this.multi.length > 0) {
           for (var j = 0; j < this.multi.length; j++) {
             if (select.addon_id === this.multi[j].addon_id) {
-              console.log('if')
               this.multiAddOnTotal -= parseFloat(this.multi[j].price)
               // console.log(this.addOnTotal + 'if')
               this.multi.splice(j, 1)
               this.addOnTotal = this.singleAddOnTotal + this.multiAddOnTotal
               break
             } else if (select.addon_id !== this.multi[j].addon_id && j === this.multi.length - 1) {
-              console.log('else-if')
               this.multi.push(select)
               this.multiAddOnTotal += parseFloat(select.price)
               // console.log(this.addOnTotal + 'else-if')
@@ -290,20 +290,12 @@ export default {
             }
           }
         } else {
-          console.log('else')
           this.multi = [select]
           this.multiAddOnTotal += parseFloat(this.multi[0].price)
           this.addOnTotal = this.singleAddOnTotal + this.multiAddOnTotal
           // console.log(this.addOnTotal + 'else')
         }
       }
-      // if (this.single.length) {
-      //   this.selectedaddons.push(this.single)
-      // }
-      // if (this.multi.length) {
-      //   this.selectedaddons.push(this.multi)
-      // }
-      console.log(this.selectedaddons)
     }
   }
 }
