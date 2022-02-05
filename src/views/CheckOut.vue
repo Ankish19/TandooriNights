@@ -26,14 +26,22 @@
                                         <span class="name"><a href="#product-modal" data-toggle="modal">{{ it?it.name:'' }}</a></span>
                                         <!--<span class="caption text-muted">26”, deep-pan, thin-crust</span>-->
                                     </td>
+                                    <!-- <td class="price" v-if="edit == 1">
+                                      <div>
+                                        <span class="fa fa-minus" @click="minusQuantity(it)"></span>
+                                          <input type="text" class="col-md-1" v-model="it.quantity" />
+                                        <span class="fa fa-plus" @click="addQuantity(it)"></span>
+                                        x ${{ it?it.price.toFixed(2):'' }}
+                                      </div>
+                                    </td> -->
                                     <td class="price">{{ it.quantity }}x ${{ it?it.price:'' }}</td>
                                     <!--<td class="actions">
                                         <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a>
                                         <a href="#" class="action-icon"><i class="ti ti-close"></i></a>
                                     </td>-->
                                     <td class="actions">
-                                        <!-- <a href="#product-modal" data-toggle="modal" class="action-icon"><i class="ti ti-pencil"></i></a> -->
-                                        <a href="#" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
+                                        <!-- <a href="#/" class="action-icon" @click="editQuantity"><i class="ti ti-pencil"></i></a> -->
+                                        <a href="#/" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
                                     </td>
                                 </tr>
                                 <!--<tr>
@@ -199,6 +207,7 @@ export default {
   name: 'checkout',
   data () {
     return {
+      edit: 0,
       showAddress: 0,
       form: {
         name: '',
@@ -262,7 +271,12 @@ export default {
     }
   },
   methods: {
+    editQuantity () {
+      this.edit = 1
+    },
     showItem () {
+      this.item.splice(0)
+      console.log('showItem')
       this.item = getLocalStorage('cart')
     },
     deleteItem (index) {

@@ -242,6 +242,8 @@ export default {
     cardModalClose (item) {
       item.options = this.single
       item.additionals = this.multi
+      item.price = this.addOnTotal
+      item.quantity = 1
       if (this.cart != null) {
         console.log('cart-if')
         this.cart = getCart('cart')
