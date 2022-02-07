@@ -161,7 +161,6 @@ export default {
     },
     getAddr () {
       getAddresses().then(res => {
-        console.log(res.data)
         this.addresses = res.data
       })
     },

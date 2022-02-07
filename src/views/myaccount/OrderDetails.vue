@@ -176,6 +176,12 @@ export default {
   },
   mounted () {
     this.orderDetail()
+    this.interval = setInterval(() => {
+      this.orderDetail()
+    }, 10000)
+  },
+  destroyed () {
+    clearInterval(this.interval)
   },
   methods: {
     orderDetail () {

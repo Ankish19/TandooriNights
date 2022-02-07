@@ -130,7 +130,8 @@
                                   aria-current="true" v-if="submitOrder.delivery_type == 1"
                                 >
                                 <span class="text-danger" v-if="radiusError && radiusError != 0">{{ 'Kindly select another address.' }}</span>
-                                <span class="float-right"><a href="#/" data-toggle="modal" data-target="#exampleModal" class="text-primary">Change address</a></span>
+                                <span class="float-right" v-if="submitOrder.location.address"><a href="#/" data-toggle="modal" data-target="#exampleModal" class="text-primary">Change address</a></span>
+                                <span class="float-right" v-else><a class="text-primary" @click="changeAdd('checkout')">Add or select address</a></span>
                                   <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 font-weight-bold">{{ submitOrder.location?'Your default address':'No default address' }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
                                   </div>
@@ -342,17 +343,21 @@ export default {
       this.storeInfo = res.data
     })
     if (getLocalStorage('cart')) {
+      this.getAddress()
       this.getSetting()
       this.showItem()
       this.submitOrder.order = getLocalStorage('cart')
       this.getUserData()
-      this.getAddress()
       this.jDelivery_charges_calculate('9')
     } else {
       this.$router.push('/menu')
     }
   },
   methods: {
+    changeAdd (page) {
+      localStorage.setItem('page', page)
+      this.$router.push('/addmanageaddress')
+    },
     editCart () {
       this.$router.push('/editCart')
     },
@@ -371,6 +376,14 @@ export default {
     getAddress () {
       getAddresses().then(res => {
         this.addresses = res.data
+        if (this.addresses.length === 1) {
+          this.submitOrder.location.address = this.addresses[0].address
+          this.submitOrder.location.latitude = this.addresses[0].latitude
+          this.submitOrder.location.longitude = this.addresses[0].longitude
+          this.submitOrder.location.tag = this.addresses[0].tag
+          this.submitOrder.location.house = this.addresses[0].house
+          this.jGetDistance(this.addresses[0].latitude, this.addresses[0].longitude)
+        }
       })
     },
     addQuantity (index) {
@@ -417,7 +430,6 @@ export default {
     },
     showItem () {
       this.item.splice(0)
-      console.log('showItem')
       this.item = getLocalStorage('cart')
       this.submitOrder.order = getLocalStorage('cart')
     },
@@ -448,11 +460,15 @@ export default {
 
       // this.submitOrder.delivery_type = getLocalStorage('userData').delivery_type
       this.submitOrder.total.productQuantity = this.item.length
-      this.submitOrder.location.address = getLocalStorage('userData').default_address.address
-      this.submitOrder.location.house = getLocalStorage('userData').default_address.house
-      this.submitOrder.location.latitude = getLocalStorage('userData').default_address.latitude
-      this.submitOrder.location.longitude = getLocalStorage('userData').default_address.longitude
-      this.submitOrder.location.tag = getLocalStorage('userData').default_address.tag
+      if (getLocalStorage('userData').default_address && getLocalStorage('userData').default_address.address) {
+        this.submitOrder.location.address = getLocalStorage('userData').default_address.address
+      } else {
+        this.getAddress()
+      }
+      this.submitOrder.location.house = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.house : ''
+      this.submitOrder.location.latitude = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.latitude : ''
+      this.submitOrder.location.longitude = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.longitude : ''
+      this.submitOrder.location.tag = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.tag : ''
     },
     selectAdd (event) {
       if (event.target.value === '2') {
@@ -536,7 +552,6 @@ export default {
       this.getSetting()
     },
     jGetDistance (latitude, longitude) {
-      console.log(latitude)
       var origin = new window.google.maps.LatLng(latitude, longitude)
       var destination = new window.google.maps.LatLng(this.submitOrder.location.latitude, this.submitOrder.location.longitude)
       const service = new window.google.maps.DistanceMatrixService()
@@ -550,11 +565,8 @@ export default {
       }
       service.getDistanceMatrix(request).then((response) => {
       // put response
-        console.log(response)
         if (response.rows[0].elements[0].distance) {
-          console.log(response.rows[0].elements[0].distance.text.split(' ')[0].replace(',', ''))
           // console.log(this.storeInfo.delivery_radius)
-          console.log(response)
           this.submitOrder.dis = parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0].replace(',', ''))
           this.jDelivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0].replace(',', '')))
         } else {

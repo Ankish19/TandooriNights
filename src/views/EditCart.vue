@@ -46,7 +46,7 @@
                                     <td class="price" v-if="it.addOnTotal">${{ it?it.addOnTotal:'' }}</td>
                                     <td class="price" v-else>${{ it?it.price:'' }}</td>
                                     <td class="actions">
-                                        <a href="#/" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
+                                        <a class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -223,6 +223,7 @@ export default {
           name.push(storedNames[j])
         }
       }
+      this.$toast.success('An item removed.')
       localStorage.removeItem('cart')
       localStorage.setItem('cart', JSON.stringify(name))
       this.showItem()
