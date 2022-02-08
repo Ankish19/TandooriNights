@@ -25,7 +25,7 @@
                                 <h5 class="mb-0">You order</h5>
                               </div>
                               <div class="col-md-6 float-right">
-                                <a href="#" data-toggle="modal" class="action-icon ml-5" @click="editCart"><i class="ti ti-pencil"></i> Edit order</a>
+                                <a data-toggle="modal" class="action-icon ml-5 cursor-pointer" @click="editCart"><i class="ti ti-pencil"></i> Edit order</a>
                               </div>
                               </div>
                             </div>
@@ -130,7 +130,7 @@
                                   aria-current="true" v-if="submitOrder.delivery_type == 1"
                                 >
                                 <span class="text-danger" v-if="radiusError && radiusError != 0">{{ 'Kindly select another address.' }}</span>
-                                <span class="float-right" v-if="submitOrder.location.address"><a href="#/" data-toggle="modal" data-target="#exampleModal" class="text-primary">Change address</a></span>
+                                <span class="float-right" v-if="submitOrder.location.address"><a data-toggle="modal" data-target="#exampleModal" class="text-primary cursor-pointer">Change address</a></span>
                                 <span class="float-right" v-else><a class="text-primary" @click="changeAdd('checkout')">Add or select address</a></span>
                                   <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 font-weight-bold">{{ submitOrder.location?'Your default address':'No default address' }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
@@ -161,7 +161,7 @@
                                               >
                                                 <div class="d-flex w-100 justify-content-between">
                                                   <h5 class="mb-1 font-weight-bold">
-                                                  <a href="#/" >{{ address.tag }}</a>
+                                                  <a class="cursor-pointer">{{ address.tag }}</a>
                                                   </h5>
                                                 </div>
                                                 <p class="mb-1">
@@ -207,6 +207,7 @@
                                           </div>
                                       </div>
                                       <span class="text-danger" v-if="discountLimit">{{ discountLimit }}</span>
+                                      <span class="text-success" v-if="coupon_applied">{{ coupon_applied }}</span>
                                     </div>
                                 </div>
                               </div>
@@ -215,8 +216,8 @@
                                   <div class="col-md-12">
                                     <label>Tips</label>
                                     <ul class="p-0">
-                                    <li class="tipValue" v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)">{{ tip }}</li>
-                                    <li class="tipValue" @click="selectTip('custom')">Custom</li>
+                                    <li v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)" :class="submitOrder.tipAmount == tip?`bg-primary tipValue text-white`:`tipValue`">{{ tip }}</li>
+                                    <li @click="selectTip('custom')" :class="selected_tip == 'custom'?`bg-primary tipValue text-white`:`tipValue`">Custom</li>
                                     </ul>
                                         <div class="form-group" v-if="customTip">
                                           <input type="text" v-model="submitOrder.tipAmount" class="form-control">
@@ -274,6 +275,7 @@ export default {
   name: 'checkout',
   data () {
     return {
+      selected_tip: 1,
       radiusError: '',
       deliveryCharges: 0,
       tipBox: 0,
@@ -334,7 +336,8 @@ export default {
         partial_wallet: '',
         dis: 0,
         pending_payment: '',
-        tipAmount: 0
+        tipAmount: 0,
+        coupon_applied: ''
       }
     }
   },
@@ -342,18 +345,21 @@ export default {
     getRestaurantInfo().then(res => {
       this.storeInfo = res.data
     })
-    if (getLocalStorage('cart')) {
-      this.getAddress()
-      this.getSetting()
-      this.showItem()
-      this.submitOrder.order = getLocalStorage('cart')
-      this.getUserData()
-      this.jDelivery_charges_calculate('9')
-    } else {
-      this.$router.push('/menu')
-    }
+    this.checkCart()
   },
   methods: {
+    checkCart () {
+      if (getLocalStorage('cart') && getLocalStorage('cart').length > 0) {
+        this.getAddress()
+        this.getSetting()
+        this.showItem()
+        this.submitOrder.order = getLocalStorage('cart')
+        this.getUserData()
+        this.jDelivery_charges_calculate('9')
+      } else {
+        this.$router.push('/menu')
+      }
+    },
     changeAdd (page) {
       localStorage.setItem('page', page)
       this.$router.push('/addmanageaddress')
@@ -509,6 +515,7 @@ export default {
         subTotal: this.orderTotal
       }
       checkCoupon(data).then(res => {
+        console.log(res.data)
         if (res.data.success === false) {
         } else {
           this.couponDetail = res.data
@@ -523,6 +530,7 @@ export default {
           } else if (this.orderTotal < 10) {
             this.discountLimit = res.data.subtotal_message
           }
+          this.coupon_applied = 'Coupon Applied'
           this.taxTotal = 0
           this.totalAmount = 0
           this.orderTotal = 0
@@ -541,9 +549,11 @@ export default {
     },
     selectTip (tip) {
       if (tip !== 'custom') {
+        this.selected_tip = tip
         this.submitOrder.tipAmount = tip
         this.customTip = false
       } else {
+        this.selected_tip = 'custom'
         this.customTip = !this.customTip
       }
       this.orderTotal = 0
@@ -603,6 +613,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.cursor-pointer{
+  cursor: pointer !important;
+}
 #checkout{
   li.tipValue {
     list-style: none;

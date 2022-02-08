@@ -63,52 +63,55 @@
               </h4>
               <div class="row mb-5">
                 <div class="container">
-                <div class="row">
-                <div class="col-md-12 mb-20">
-                <div class="wishlist-table ">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th scope="col">Order Id </th>
-                      <th scope="col">Description</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Total Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="line" v-for="order in orders" :key="order.id">
-                      <td>
-                        <div class="wh-item-info">
-                          <router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`" class="font-weight-bold">{{ order.unique_order_id }}</router-link>
-                          <p>{{ order.created_at }}</p>
+                  <div class="row">
+                    <div class="col-md-12 mb-20">
+                      <div class="wishlist-table">
+                        <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th scope="col">Order Id </th>
+                              <th scope="col">Description</th>
+                              <th scope="col">Status</th>
+                              <th scope="col">Total Price</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="line" v-for="order in orders" :key="order.id">
+                              <td>
+                                <div class="wh-item-info">
+                                  <router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`" class="font-weight-bold">{{ order.unique_order_id }}</router-link>
+                                  <p>{{ order.created_at }}</p>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="wh-item-info">
+                                  <a href="#" class="font-weight-bold">{{ order.restaurant.name }}</a>
+                                  <p><span v-for="orderItems in order.orderitems" :key="orderItems.id">{{ orderItems.name }}, </span></p>
+                                </div>
+                              </td>
+                              <td>
+                                <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 1"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Order Placed  &rsaquo;</router-link></span>
+                                <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 2"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Order Accepted &rsaquo;</router-link></span>
+                                <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 3"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Delivery Assigned &rsaquo;</router-link></span>
+                                <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 4"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Picked Up &rsaquo;</router-link></span>
+                                <span class="wh-tem-status text-success font-weight-bold" v-if="order.orderstatus_id === 5"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`">Completed &rsaquo;</router-link></span>
+                                <span class="wh-tem-status text-danger font-weight-bold" v-if="order.orderstatus_id === 6"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`">Cancelled &rsaquo;</router-link></span>
+                                <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 7"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Ready for Pickup  &rsaquo;</router-link></span>
+                                <span class="wh-tem-status text-warning font-weight-bold hide" v-if="order.orderstatus_id === 8"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`">Awaiting Payment &rsaquo;</router-link></span>
+                                <span class="wh-tem-status text-danger font-weight-bold hide" v-if="order.orderstatus_id === 9"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`">Payment Failed &rsaquo;</router-link></span>
+                              </td>
+                              <td>
+                                <span class="wh-tem-price">${{ order.total }}</span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div class="">
+                          <jw-pagination :items="exampleItems" @changePage="onChangePage"></jw-pagination>
                         </div>
-                      </td>
-                      <td>
-                        <div class="wh-item-info">
-                          <a href="#" class="font-weight-bold">{{ order.restaurant.name }}</a>
-                          <p><span v-for="orderItems in order.orderitems" :key="orderItems.id">{{ orderItems.name }}, </span></p>
-                        </div>
-                      </td>
-                      <td>
-                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 1"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Order Placed  &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 2"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Order Accepted &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 3"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Delivery Assigned &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 4"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Picked Up &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-success font-weight-bold" v-if="order.orderstatus_id === 5"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`">Completed &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-danger font-weight-bold" v-if="order.orderstatus_id === 6"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`">Cancelled &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-warning font-weight-bold" v-if="order.orderstatus_id === 7"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`"> Ready for Pickup  &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-warning font-weight-bold hide" v-if="order.orderstatus_id === 8"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`">Awaiting Payment &rsaquo;</router-link></span>
-                        <span class="wh-tem-status text-danger font-weight-bold hide" v-if="order.orderstatus_id === 9"><router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`">Payment Failed &rsaquo;</router-link></span>
-                      </td>
-                      <td>
-                        <span class="wh-tem-price">${{ order.total }}</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                </div>
-                </div>
-                </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -126,6 +129,7 @@ import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
 import { getOrders } from '@/store/api'
 
+const exampleItems = [...Array(150).keys()].map(i => ({ id: (i + 1), name: 'Item ' + (i + 1) }))
 export default {
   created () {},
   components: {
@@ -145,7 +149,9 @@ export default {
         value: ''
       },
       interval: '',
-      orders: []
+      orders: [],
+      exampleItems,
+      pageOfItems: []
     }
   },
   mounted () {
@@ -158,11 +164,19 @@ export default {
     clearInterval(this.interval)
   },
   methods: {
+    onChangePage (pageOfItems) {
+      // update page of items
+      this.pageOfItems = pageOfItems
+    },
     getOrder () {
       getOrders(this.form).then(res => {
         console.log(res.data.data)
         this.orders = res.data.data
       })
+    },
+    onPageChange (page) {
+      console.log(page)
+      this.currentPage = page
     }
   },
 

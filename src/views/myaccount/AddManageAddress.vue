@@ -93,8 +93,8 @@
                   </b-form-group>
                         <div class="display-list mt-1">
                           <p>
-                            <a href="#/"
-                              @click="currentLoc"><i class="fa fa-location-arrow" aria-hidden="true"></i>
+                            <a
+                              @click="currentLoc" class="cursor-pointer"><i class="fa fa-location-arrow" aria-hidden="true"></i>
                               Use My Current Location</a
                             >
                           </p>
@@ -295,5 +295,8 @@ a.text-left.active {
   font-size: 18px;
   font-weight: 700;
   margin-top: 8px;
+}
+.cursor-pointer{
+  cursor: pointer !important;
 }
 </style>
