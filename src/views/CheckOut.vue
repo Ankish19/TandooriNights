@@ -336,9 +336,9 @@ export default {
         partial_wallet: '',
         dis: 0,
         pending_payment: '',
-        tipAmount: 0,
-        coupon_applied: ''
-      }
+        tipAmount: 0
+      },
+      coupon_applied: ''
     }
   },
   mounted () {
@@ -590,17 +590,16 @@ export default {
         this.radiusError = 'Kindly select another address'
         this.delivery_amount = 0
       } else {
+        this.radiusError = null
         if (this.storeInfo.free_delivery_subtotal !== 0 && this.orderTotal.toFixed(2) <= this.storeInfo.free_delivery_subtotal) {
           this.delivery_amount = 0
         } else if (this.storeInfo.delivery_charge_type === 'DYNAMIC') {
           if (dis > this.storeInfo.base_delivery_distance) {
-            this.radiusError = null
             var extraDistance = parseFloat(dis) - parseFloat(this.storeInfo.base_delivery_distance)
             var extraCharge = (parseFloat(extraDistance) / parseFloat(this.storeInfo.extra_delivery_distance)) * parseFloat(this.storeInfo.extra_delivery_charge)
             var dynamicDeliveryCharge = parseFloat(this.storeInfo.base_delivery_charge) + parseFloat(extraCharge)
             this.delivery_amount = Math.ceil(dynamicDeliveryCharge)
           } else {
-            this.radiusError = 0
             this.delivery_amount = Math.round(this.storeInfo.base_delivery_charge)
           }
         } else {
