@@ -131,7 +131,7 @@
                                 >
                                 <span class="text-danger" v-if="radiusError && radiusError != 0">{{ 'Kindly select another address.' }}</span>
                                 <span class="float-right" v-if="submitOrder.location.address"><a data-toggle="modal" data-target="#exampleModal" class="text-primary cursor-pointer">Change address</a></span>
-                                <span class="float-right" v-else><a class="text-primary" @click="changeAdd('checkout')">Add or select address</a></span>
+                                <span class="float-right" v-else><a class="text-primary cursor-pointer" @click="changeAdd('checkout')">Add or select address</a></span>
                                   <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 font-weight-bold">{{ submitOrder.location?'Your default address':'No default address' }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
                                   </div>

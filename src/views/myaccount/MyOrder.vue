@@ -155,9 +155,9 @@ export default {
   },
   mounted () {
     this.getOrder()
-    // this.interval = setInterval(() => {
-    //   this.getOrder()
-    // }, 10000)
+    this.interval = setInterval(() => {
+      this.getOrder()
+    }, 10000)
   },
   destroyed () {
     clearInterval(this.interval)
@@ -165,14 +165,11 @@ export default {
   methods: {
     onChangePage (pageOfItems) {
       // update page of items
-      console.log(pageOfItems)
-      console.log('1')
-      this.form.page = ''
       this.pageOfItems = pageOfItems
     },
     getOrder () {
       getOrders(this.form).then(res => {
-        console.log(res.data.data)
+        console.log(res.data)
         this.orders = res.data
       })
     },
