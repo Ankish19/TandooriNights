@@ -76,7 +76,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr class="line" v-for="order in orders" :key="order.id">
+                            <tr class="line" v-for="order in pageOfItems" :key="order.id">
                               <td>
                                 <div class="wh-item-info">
                                   <router-link :to="`/orderdetails/${order.id}/${order.unique_order_id}`" class="font-weight-bold">{{ order.unique_order_id }}</router-link>
@@ -107,7 +107,7 @@
                           </tbody>
                         </table>
                         <div class="">
-                          <jw-pagination :items="exampleItems" @changePage="onChangePage"></jw-pagination>
+                          <jw-pagination :items="orders" @changePage="onChangePage"></jw-pagination>
                         </div>
                       </div>
                     </div>
@@ -129,7 +129,6 @@ import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
 import { getOrders } from '@/store/api'
 
-const exampleItems = [...Array(150).keys()].map(i => ({ id: (i + 1), name: 'Item ' + (i + 1) }))
 export default {
   created () {},
   components: {
@@ -146,19 +145,19 @@ export default {
   data () {
     return {
       form: {
-        value: ''
+        value: '',
+        page: ''
       },
       interval: '',
       orders: [],
-      exampleItems,
       pageOfItems: []
     }
   },
   mounted () {
     this.getOrder()
-    this.interval = setInterval(() => {
-      this.getOrder()
-    }, 10000)
+    // this.interval = setInterval(() => {
+    //   this.getOrder()
+    // }, 10000)
   },
   destroyed () {
     clearInterval(this.interval)
@@ -166,12 +165,15 @@ export default {
   methods: {
     onChangePage (pageOfItems) {
       // update page of items
+      console.log(pageOfItems)
+      console.log('1')
+      this.form.page = ''
       this.pageOfItems = pageOfItems
     },
     getOrder () {
       getOrders(this.form).then(res => {
         console.log(res.data.data)
-        this.orders = res.data.data
+        this.orders = res.data
       })
     },
     onPageChange (page) {
