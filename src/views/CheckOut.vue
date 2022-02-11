@@ -292,11 +292,11 @@
                                               <div class="select-container">
                                                   <select class="form-control" v-model="cardType">
                                                       <option selected disabled>-- Card Type --</option>
-                                                      <option value="Visa Card">
-                                                      Visa Card
+                                                      <option value="VISA">
+                                                      VISA
                                                       </option>
-                                                      <option value="Master Card">
-                                                        Master Card
+                                                      <option value="DISCOVER">
+                                                        DISCOVER
                                                       </option>
                                                   </select>
                                               </div>
@@ -327,7 +327,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { getSettings, getRestaurantInfo, placeOrder, checkCoupon, getAddresses } from '@/store/api'
+import { getSettings, getRestaurantInfo, placeOrder, checkCoupon, getAddresses, CardToken } from '@/store/api'
 import { getLocalStorage, tipTax } from '@/store/service'
 
 export default {
@@ -335,10 +335,10 @@ export default {
   name: 'checkout',
   data () {
     return {
-      cardNumber: '',
+      cardNumber: '6011361000006668',
       cardHolderName: '',
-      cvv: '',
-      cardType: '',
+      cvv: '123',
+      cardType: 'DISCOVER',
       cardExpiryDate: '',
       error: {
         cardNumber: '',
@@ -421,6 +421,28 @@ export default {
     this.checkCart()
   },
   methods: {
+
+    payment () {
+      const card = {
+        card:
+        {
+          number: this.cardNumber,
+          exp_month: '12',
+          exp_year: '2024',
+          cvv: this.cvv,
+          first6: '601136',
+          last4: '6668',
+          country: 'ca',
+          brand: this.cardType,
+          name: this.cardHolderName
+        }
+      }
+      CardToken(JSON.stringify(card)).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     selectMethod (event) {
       if (event.target.value === 'COD') {
         this.paymentForm = 0
@@ -637,6 +659,8 @@ export default {
         if (this.cardNumber === '') {
           this.error.cardType = 'Please enter card type'
         }
+        console.log('pay')
+        this.payment()
       } else {
         placeOrder(this.submitOrder).then(res => {
           if (res.data.success === true) {

@@ -87,3 +87,14 @@ export const checkCoupon = (data) => {
   }
   return axios.post(`${apiUrl}apply-coupon`, datanew, { headers: apiHeaders() })
 }
+
+// -------------Payment api
+
+export const CardToken = (data) => {
+  return axios.post('https://token-sandbox.dev.clover.com/v1/tokens', data, {
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: '156f720c779148062edc734a07a7588e'
+    }
+  })
+}
