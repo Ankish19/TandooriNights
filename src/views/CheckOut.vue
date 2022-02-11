@@ -622,11 +622,21 @@ export default {
     },
     placeOrder () {
       if (this.submitOrder.method === 'Clover') {
-        this.error.cardHolderName = 'Please enter card holder name'
-        this.error.cardExpiryDate = 'Please enter card expiry date'
-        this.error.cvv = 'Please enter cvv'
-        this.error.cardNumber = 'Please enter card number'
-        this.error.cardType = 'Please enter card type'
+        if (this.cardHolderName === '') {
+          this.error.cardHolderName = 'Please enter card holder name'
+        }
+        if (this.cardExpiryDate === '') {
+          this.error.cardExpiryDate = 'Please enter card expiry date'
+        }
+        if (this.cvv === '') {
+          this.error.cvv = 'Please enter cvv'
+        }
+        if (this.cardNumber === '') {
+          this.error.cardNumber = 'Please enter card number'
+        }
+        if (this.cardNumber === '') {
+          this.error.cardType = 'Please enter card type'
+        }
       } else {
         placeOrder(this.submitOrder).then(res => {
           if (res.data.success === true) {
