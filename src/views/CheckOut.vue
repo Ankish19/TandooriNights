@@ -261,20 +261,7 @@
                                         <span class="custom-control-description ml-2">ONLINE PAYMENT</span>
                                     </label>
                                   </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-center" v-if="showAddress == 1 && radiusError == null">
-                            <button class="btn btn-primary btn-lg" @click="placeOrder"><span>Order now!</span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container text-left">
-                <div class="row">
-                    <div class="col-xl-12 col-lg-7 order-lg-first">
-                        <div class="bg-white p-4 p-md-5 mb-4">
+                        <div class="bg-white mt-5">
                             <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Card Details</h4>
 
                             <div class="row mb-5">
@@ -317,7 +304,14 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-primary btn-lg"><span>Pay Now!</span></button>
+                            <button class="btn btn-primary btn-md"><span>Pay Now!</span></button>
+                        </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="text-center mt-5" v-if="showAddress == 1 && radiusError == null">
+                            <button class="btn btn-primary btn-lg" @click="placeOrder"><span>Order now!</span></button>
                         </div>
                     </div>
                 </div>
