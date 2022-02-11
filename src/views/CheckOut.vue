@@ -275,12 +275,12 @@
                                           </div>
                                       </div>
                                       <div class="row mb-5">
-                                          <div class="form-group col-sm-6">
+                                          <div class="form-group col-sm-8">
                                               <label>Card Expiry Date:</label>
                                               <input type="text" class="form-control" v-model="cardExpiryDate">
                                               <span class="text-danger">{{ error.cardExpiryDate }}</span>
                                           </div>
-                                          <div class="form-group col-sm-2">
+                                          <div class="form-group col-sm-4">
                                               <label>CVV:</label>
                                               <input type="password" class="form-control" v-model="cvv">
                                               <span class="text-danger">{{ error.cvv }}</span>
@@ -302,10 +302,10 @@
                                               </div>
                                               <span class="text-danger">{{ error.cardType }}</span>
                                         </div>
+                                        <div class="form-group col-sm-6 text-center">
+                            <button class="btn btn-primary btn-md" style="margin-top:38px;"><span>Pay Now !</span></button>
+                              </div>
                                       </div>
-                                  </div>
-                                  <div class="text-center">
-                                      <button class="btn btn-primary btn-md"><span>Pay Now!</span></button>
                                   </div>
                                 </div>
                                 </div>
