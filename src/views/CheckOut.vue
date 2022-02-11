@@ -621,7 +621,7 @@ export default {
       })
     },
     placeOrder () {
-      if (this.submitOrder.method === 'CARD') {
+      if (this.submitOrder.method === 'Clover') {
         this.error.cardHolderName = 'Please enter card holder name'
         this.error.cardExpiryDate = 'Please enter card expiry date'
         this.error.cvv = 'Please enter cvv'
