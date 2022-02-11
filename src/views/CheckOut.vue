@@ -263,26 +263,26 @@
                                       <div class="row mb-5">
                                           <div class="form-group col-sm-12">
                                               <label>Card Number:</label>
-                                              <input type="text" class="form-control" v-model="cardNumber">
+                                              <input type="text" class="form-control" placeholder="Enter card number" v-model="cardNumber">
                                               <span class="text-danger">{{ error.cardNumber }}</span>
                                           </div>
                                       </div>
                                       <div class="row mb-5">
                                           <div class="form-group col-sm-12">
                                               <label>Card Holder's Name:</label>
-                                              <input type="text" class="form-control" v-model="cardHolderName">
+                                              <input type="text" class="form-control" placeholder="Enter card holder name" v-model="cardHolderName">
                                               <span class="text-danger">{{ error.cardHolderName }}</span>
                                           </div>
                                       </div>
                                       <div class="row mb-5">
                                           <div class="form-group col-sm-8">
                                               <label>Card Expiry Date:</label>
-                                              <input type="text" class="form-control" v-model="cardExpiryDate">
+                                              <input type="text" class="form-control" placeholder="Enter card expiry date" v-model="cardExpiryDate">
                                               <span class="text-danger">{{ error.cardExpiryDate }}</span>
                                           </div>
                                           <div class="form-group col-sm-4">
                                               <label>CVV:</label>
-                                              <input type="password" class="form-control" v-model="cvv">
+                                              <input type="password" class="form-control" placeholder="Enter CVV" v-model="cvv">
                                               <span class="text-danger">{{ error.cvv }}</span>
                                           </div>
                                       </div>
@@ -303,8 +303,8 @@
                                               <span class="text-danger">{{ error.cardType }}</span>
                                         </div>
                                         <div class="form-group col-sm-6 text-center">
-                            <button class="btn btn-primary btn-md" style="margin-top:38px;"><span>Pay Now !</span></button>
-                              </div>
+                                          <button class="btn btn-primary btn-md" style="margin-top:38px;"><span>Pay Now !</span></button>
+                                        </div>
                                       </div>
                                   </div>
                                 </div>
@@ -623,13 +623,13 @@ export default {
     placeOrder () {
       if (this.submitOrder.method === 'Clover') {
         if (this.cardHolderName === '') {
-          this.error.cardHolderName = 'Please enter card holder name'
+          this.error.cardHolderName = 'Please enter ard holder name'
         }
         if (this.cardExpiryDate === '') {
           this.error.cardExpiryDate = 'Please enter card expiry date'
         }
         if (this.cvv === '') {
-          this.error.cvv = 'Please enter cvv'
+          this.error.cvv = 'Please enter CVV'
         }
         if (this.cardNumber === '') {
           this.error.cardNumber = 'Please enter card number'
