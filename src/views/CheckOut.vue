@@ -246,66 +246,68 @@
                                 <div class="col-md-12 form-group">
                                 <div class="row">
                                     <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" checked  value="COD" v-model="submitOrder.method">
+                                        <input type="radio" name="payment_type" checked  value="COD" v-model="submitOrder.method" @change="selectMethod($event)">
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description ml-2">COD</span>
                                     </label>
                                     <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" checked  value="CARD" v-model="submitOrder.method">
+                                        <input type="radio" name="payment_type" checked  value="CARD" v-model="submitOrder.method" @change="selectMethod($event)">
                                         <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description ml-2">CARD</span>
-                                    </label>
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" checked  value="ONLINE PAYMENT" v-model="submitOrder.method">
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description ml-2">ONLINE PAYMENT</span>
+                                        <span class="custom-control-description ml-2">CARD/ONLINE PAYMENT</span>
                                     </label>
                                   </div>
-                        <div class="bg-white mt-5">
-                            <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Card Details</h4>
+                                <div v-if="paymentForm == 1">
+                                  <div class="bg-white mt-5">
+                                      <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Card Details</h4>
 
-                            <div class="row mb-5">
-                                <div class="form-group col-sm-12">
-                                    <label>Card Number:</label>
-                                    <input type="text" class="form-control">
+                                      <div class="row mb-5">
+                                          <div class="form-group col-sm-12">
+                                              <label>Card Number:</label>
+                                              <input type="text" class="form-control" v-model="cardNumber">
+                                              <span class="text-danger">{{ error.cardNumber }}</span>
+                                          </div>
+                                      </div>
+                                      <div class="row mb-5">
+                                          <div class="form-group col-sm-12">
+                                              <label>Card Holder's Name:</label>
+                                              <input type="text" class="form-control" v-model="cardHolderName">
+                                              <span class="text-danger">{{ error.cardHolderName }}</span>
+                                          </div>
+                                      </div>
+                                      <div class="row mb-5">
+                                          <div class="form-group col-sm-6">
+                                              <label>Card Expiry Date:</label>
+                                              <input type="text" class="form-control" v-model="cardExpiryDate">
+                                              <span class="text-danger">{{ error.cardExpiryDate }}</span>
+                                          </div>
+                                          <div class="form-group col-sm-2">
+                                              <label>CVV:</label>
+                                              <input type="password" class="form-control" v-model="cvv">
+                                              <span class="text-danger">{{ error.cvv }}</span>
+                                          </div>
+                                      </div>
+                                      <div class="row mb-5">
+                                        <div class="form-group col-sm-6">
+                                            <label>Card Type</label>
+                                              <div class="select-container">
+                                                  <select class="form-control" v-model="cardType">
+                                                      <option selected disabled>-- Card Type --</option>
+                                                      <option value="Visa Card">
+                                                      Visa Card
+                                                      </option>
+                                                      <option value="Master Card">
+                                                        Master Card
+                                                      </option>
+                                                  </select>
+                                              </div>
+                                              <span class="text-danger">{{ error.cardType }}</span>
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <div class="text-center">
+                                      <button class="btn btn-primary btn-md"><span>Pay Now!</span></button>
+                                  </div>
                                 </div>
-                            </div>
-                            <div class="row mb-5">
-                                <div class="form-group col-sm-12">
-                                    <label>Card Holder's Name:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row mb-5">
-                                <div class="form-group col-sm-6">
-                                    <label>Card Expiry Date:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-2">
-                                    <label>CVV:</label>
-                                    <input type="password" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row mb-5">
-                              <div class="form-group col-sm-6">
-                                  <label>Card Type</label>
-                                    <div class="select-container">
-                                        <select class="form-control">
-                                            <option selected disabled>-- Card Type --</option>
-                                            <option value="1">
-                                             Visa Card
-                                            </option>
-                                            <option value="2">
-                                              Master Card
-                                            </option>
-                                        </select>
-                                    </div>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <button class="btn btn-primary btn-md"><span>Pay Now!</span></button>
-                        </div>
                                 </div>
                             </div>
 
@@ -333,6 +335,18 @@ export default {
   name: 'checkout',
   data () {
     return {
+      cardNumber: '',
+      cardHolderName: '',
+      cvv: '',
+      cardType: '',
+      cardExpiryDate: '',
+      error: {
+        cardNumber: '',
+        cardHolderName: '',
+        cvv: '',
+        cardType: '',
+        cardExpiryDate: ''
+      },
       selected_tip: 1,
       radiusError: '',
       deliveryCharges: 0,
@@ -388,7 +402,7 @@ export default {
           totalPrice: '',
           tip_to_driver: ''
         },
-        method: 'COD',
+        method: '',
         payment_token: '',
         delivery_type: '',
         partial_wallet: '',
@@ -396,7 +410,8 @@ export default {
         pending_payment: '',
         tipAmount: 0
       },
-      coupon_applied: ''
+      coupon_applied: '',
+      paymentForm: 0
     }
   },
   mounted () {
@@ -406,6 +421,15 @@ export default {
     this.checkCart()
   },
   methods: {
+    selectMethod (event) {
+      if (event.target.value === 'COD') {
+        this.paymentForm = 0
+        this.submitOrder.method = 'COD'
+      } else if (event.target.value === 'CARD') {
+        this.paymentForm = 1
+        this.submitOrder.method = 'Clover'
+      }
+    },
     checkCart () {
       if (getLocalStorage('cart') && getLocalStorage('cart').length > 0) {
         this.getAddress()
@@ -597,13 +621,21 @@ export default {
       })
     },
     placeOrder () {
-      placeOrder(this.submitOrder).then(res => {
-        if (res.data.success === true) {
-          localStorage.removeItem('cart')
-        }
-        this.$toast.success('Order place successfully')
-        this.$router.push('/myorder')
-      })
+      if (this.submitOrder.method === 'CARD') {
+        this.error.cardHolderName = 'Please enter card holder name'
+        this.error.cardExpiryDate = 'Please enter card expiry date'
+        this.error.cvv = 'Please enter cvv'
+        this.error.cardNumber = 'Please enter card number'
+        this.error.cardType = 'Please enter card type'
+      } else {
+        placeOrder(this.submitOrder).then(res => {
+          if (res.data.success === true) {
+            localStorage.removeItem('cart')
+          }
+          this.$toast.success('Order place successfully')
+          this.$router.push('/myorder')
+        })
+      }
     },
     selectTip (tip) {
       if (tip !== 'custom') {
