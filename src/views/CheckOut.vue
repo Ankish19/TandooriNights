@@ -243,17 +243,81 @@
                                         <span class="custom-control-description">Credit Card</span>
                                     </label>
                                 </div> -->
-                                <div class="col-md-4 col-sm-6 form-group">
+                                <div class="col-md-12 form-group">
+                                <div class="row">
                                     <label class="custom-control custom-radio">
                                         <input type="radio" name="payment_type" checked  value="COD" v-model="submitOrder.method">
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description ml-2">COD</span>
                                     </label>
+                                    <label class="custom-control custom-radio">
+                                        <input type="radio" name="payment_type" checked  value="CARD" v-model="submitOrder.method">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description ml-2">CARD</span>
+                                    </label>
+                                    <label class="custom-control custom-radio">
+                                        <input type="radio" name="payment_type" checked  value="ONLINE PAYMENT" v-model="submitOrder.method">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description ml-2">ONLINE PAYMENT</span>
+                                    </label>
+                                  </div>
                                 </div>
                             </div>
                         </div>
                         <div class="text-center" v-if="showAddress == 1 && radiusError == null">
                             <button class="btn btn-primary btn-lg" @click="placeOrder"><span>Order now!</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container text-left">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-7 order-lg-first">
+                        <div class="bg-white p-4 p-md-5 mb-4">
+                            <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Card Details</h4>
+
+                            <div class="row mb-5">
+                                <div class="form-group col-sm-12">
+                                    <label>Card Number:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="form-group col-sm-12">
+                                    <label>Card Holder's Name:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="form-group col-sm-6">
+                                    <label>Card Expiry Date:</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-sm-2">
+                                    <label>CVV:</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                              <div class="form-group col-sm-6">
+                                  <label>Card Type</label>
+                                    <div class="select-container">
+                                        <select class="form-control">
+                                            <option selected disabled>-- Card Type --</option>
+                                            <option value="1">
+                                             Visa Card
+                                            </option>
+                                            <option value="2">
+                                              Master Card
+                                            </option>
+                                        </select>
+                                    </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-lg"><span>Pay Now!</span></button>
                         </div>
                     </div>
                 </div>
