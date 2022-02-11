@@ -302,11 +302,11 @@
                                               </div>
                                               <span class="text-danger">{{ error.cardType }}</span>
                                         </div>
-                                      </div>
-                                  </div>
-                                  <div class="form-group col-sm-6 text-center">
+                                        <div class="form-group col-sm-6 text-center">
                             <button class="btn btn-primary btn-md" style="margin-top:38px;"><span>Pay Now !</span></button>
                               </div>
+                                      </div>
+                                  </div>
                                 </div>
                                 </div>
                             </div>
