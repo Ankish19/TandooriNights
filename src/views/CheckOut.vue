@@ -256,7 +256,7 @@
                                         <span class="custom-control-description ml-2">CARD/ONLINE PAYMENT</span>
                                     </label>
                                   </div>
-                                <div v-if="paymentForm == 1">
+                                <!-- <div v-if="paymentForm == 1">
                                   <div class="bg-white mt-5">
                                       <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Card Details</h4>
 
@@ -303,12 +303,15 @@
                                               <span class="text-danger">{{ error.cardType }}</span>
                                         </div>
                                         <div class="form-group col-sm-6 text-center">
-                                          <button class="btn btn-primary btn-md" style="margin-top:38px;"><span>Pay Now !</span></button>
+                                          <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment"><span>Pay Now !</span></button>
                                         </div>
                                       </div>
                                   </div>
+                                </div> -->
+                                <div v-if="paymentForm == 1">
+                                  <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment"><span>Go to payment page</span></button>
                                 </div>
-                                </div>
+                              </div>
                             </div>
 
                         </div>
@@ -421,24 +424,49 @@ export default {
     this.checkCart()
   },
   methods: {
-
     payment () {
-      const card = {
-        card:
-        {
-          number: this.cardNumber,
-          exp_month: '12',
-          exp_year: '2024',
-          cvv: this.cvv,
-          first6: '601136',
-          last4: '6668',
-          country: 'ca',
-          brand: this.cardType,
-          name: this.cardHolderName
+      // const card = {
+      //   ecomind: 'ecom',
+      //   amount: '3000',
+      //   currency: 'CAD',
+      //   capture: true,
+      //   source: 'clv_1TSTS3Lo3tNdThBrFsRFV4M6'
+      // }
+      var card = {
+        customer: {
+          email: this.submitOrder.user.data.email,
+          firstName: this.submitOrder.user.data.name,
+          lastName: '',
+          phoneNumber: this.submitOrder.user.data.phone.renderToString
+        },
+        shoppingCart: {
+          lineItems: []
         }
       }
+      for (var i = 0; i < this.item.length; i++) {
+        var arr = {
+          name: this.item[i].name,
+          unitQty: this.item[i].quantity,
+          price: this.item[i].price * 100
+        }
+        if (card.shoppingCart.lineItems.length) {
+          card.shoppingCart.lineItems.push(arr)
+        } else {
+          card.shoppingCart.lineItems = [arr]
+        }
+        // card.shoppingCart.lineItems = [
+        //   {
+        //     name: this.item[i].name,
+        //     unitQty: this.item[i].quantity,
+        //     totalTaxAmount: 56,
+        //     price: this.item[i].price * 100
+        //   }
+        // ]
+      }
+      console.log(card)
       CardToken(JSON.stringify(card)).then(res => {
-        console.log(res)
+        console.log(res.data)
+        window.location.href = res.data.href
       }).catch(err => {
         console.log(err)
       })
@@ -626,15 +654,16 @@ export default {
           this.submitOrder.coupon = {
             code: res.data.code
           }
-          if (res.data.discount_type === 'AMOUNT' && this.orderTotal >= 10) {
+          if (res.data.discount_type === 'AMOUNT' && this.orderTotal >= res.data.min_subtotal) {
             this.discountPrice = res.data.discount
-          } else if (res.data.discount_type === 'PERCENTAGE' && this.orderTotal >= 10) {
+            this.coupon_applied = 'Coupon Applied'
+          } else if (res.data.discount_type === 'PERCENTAGE' && this.orderTotal >= res.data.min_subtotal) {
             this.discountPercent = res.data.discount
             this.discountPrice = ((this.discountPercent / 100) * this.orderTotal)
-          } else if (this.orderTotal < 10) {
-            this.discountLimit = res.data.subtotal_message
+            this.coupon_applied = 'Coupon Applied'
+          } else if (this.orderTotal < res.data.min_subtotal) {
+            this.discountLimit = 'Your order value should be atleast $' + res.data.min_subtotal
           }
-          this.coupon_applied = 'Coupon Applied'
           this.taxTotal = 0
           this.totalAmount = 0
           this.orderTotal = 0
@@ -645,7 +674,7 @@ export default {
     placeOrder () {
       if (this.submitOrder.method === 'Clover') {
         if (this.cardHolderName === '') {
-          this.error.cardHolderName = 'Please enter ard holder name'
+          this.error.cardHolderName = 'Please enter card holder name'
         }
         if (this.cardExpiryDate === '') {
           this.error.cardExpiryDate = 'Please enter card expiry date'

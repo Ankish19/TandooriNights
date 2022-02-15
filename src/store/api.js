@@ -91,10 +91,13 @@ export const checkCoupon = (data) => {
 // -------------Payment api
 
 export const CardToken = (data) => {
-  return axios.post('https://token-sandbox.dev.clover.com/v1/tokens', data, {
+  return axios.post('https://sandbox.dev.clover.com/invoicingcheckoutservice/v1/checkouts', data, {
     headers: {
       'Content-Type': 'application/json',
-      apikey: '156f720c779148062edc734a07a7588e'
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      Authorization: 'Bearer bf3850e9-9a53-9308-28e8-da58bc2924a8',
+      'X-Clover-Merchant-ID': 'BR64HEM4EVS21'
     }
   })
 }
