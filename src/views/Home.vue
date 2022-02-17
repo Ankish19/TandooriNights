@@ -308,7 +308,7 @@
                                 <p>It’ was amazing feeling for my belly!</p>
                             </div>
                             <footer>
-                                <img src="http://assets.suelo.pl/soup/img/avatars/avatar02.jpg" alt="">
+                                <img src="#" alt="">
                                 <span class="name">Mark Johnson<span class="text-muted">, Google</span></span>
                             </footer>
                         </blockquote>
@@ -319,7 +319,7 @@
                                 <p>Great food and great atmosphere!</p>
                             </div>
                             <footer>
-                                <img src="http://assets.suelo.pl/soup/img/avatars/avatar01.jpg" alt="">
+                                <img src="#" alt="">
                                 <span class="name">Kate Hudson<span class="text-muted">, LinkedIn</span></span>
                             </footer>
                         </blockquote>
