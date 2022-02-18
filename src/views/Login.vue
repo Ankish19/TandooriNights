@@ -48,7 +48,6 @@
                         v-model="form.password"
                         placeholder="Password"
                         type="password"
-                        :class="[error !== ''?'border-danger':'']"
                       ></b-form-input>
                     </b-form-group>
                   </b-form-group>
