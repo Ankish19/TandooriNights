@@ -9,7 +9,7 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
-              <h1 class="mb-0">Menu</h1>
+              <h1 class="mb-0">Online Order</h1>
               <h4 class="text-muted mb-0">
                 Some information about our restaurant
               </h4>

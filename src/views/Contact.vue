@@ -66,7 +66,7 @@
             ></a>
           </div>
           <div class="col-lg-5 offset-lg-2 col-md-6">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.980454849165!2d-113.97040968401946!3d51.10882077957173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5371637ffd480cfb%3A0xbcc259dc49a97ae5!2s101%20Westwinds%20Dr%20NE%2C%20Calgary%2C%20AB%20T3J%205H3%2C%20Canada!5e0!3m2!1sen!2sin!4v1640782046742!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.980454849165!2d-113.97040968401946!3d51.10882077957173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5371637ffd480cfb%3A0xbcc259dc49a97ae5!2s101%20Westwinds%20Dr%20NE%2C%20Calgary%2C%20AB%20T3J%205H3%2C%20Canada!5e0!3m2!1sen!2sin!4v1640782046742!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
           </div>
         </div>
       </div>
