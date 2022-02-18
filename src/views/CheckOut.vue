@@ -25,7 +25,7 @@
                                 <h5 class="mb-0">You order</h5>
                               </div>
                               <div class="col-md-6 float-right">
-                                <a href="#" data-toggle="modal" class="action-icon ml-5" @click="editCart"><i class="ti ti-pencil"></i> Edit order</a>
+                                <a data-toggle="modal" class="action-icon ml-5 cursor-pointer" @click="editCart"><i class="ti ti-pencil"></i> Edit order</a>
                               </div>
                               </div>
                             </div>
@@ -129,8 +129,9 @@
                                   class="list-group-item list-group-item-action mt-4"
                                   aria-current="true" v-if="submitOrder.delivery_type == 1"
                                 >
-                                <span class="text-danger" v-if="radiusError && radiusError != 0">{{ 'Delivery address is out of range.' }}</span>
-                                <span class="float-right"><a href="#/" data-toggle="modal" data-target="#exampleModal" class="text-primary">Change address</a></span>
+                                <span class="text-danger" v-if="radiusError && radiusError != 0">{{ 'Kindly select another address.' }}</span>
+                                <span class="float-right" v-if="submitOrder.location.address"><a data-toggle="modal" data-target="#exampleModal" class="text-primary cursor-pointer">Change address</a></span>
+                                <span class="float-right" v-else><a class="text-primary cursor-pointer" @click="changeAdd('checkout')">Add or select address</a></span>
                                   <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 font-weight-bold">{{ submitOrder.location?'Your default address':'No default address' }}<i class="fa fa-star text-white ml-1" aria-hidden="true"></i></h5>
                                   </div>
@@ -160,7 +161,7 @@
                                               >
                                                 <div class="d-flex w-100 justify-content-between">
                                                   <h5 class="mb-1 font-weight-bold">
-                                                  <a href="#/" >{{ address.tag }}</a>
+                                                  <a class="cursor-pointer">{{ address.tag }}</a>
                                                   </h5>
                                                 </div>
                                                 <p class="mb-1">
@@ -206,6 +207,7 @@
                                           </div>
                                       </div>
                                       <span class="text-danger" v-if="discountLimit">{{ discountLimit }}</span>
+                                      <span class="text-success" v-if="coupon_applied">{{ coupon_applied }}</span>
                                     </div>
                                 </div>
                               </div>
@@ -214,18 +216,17 @@
                                   <div class="col-md-12">
                                     <label>Tips</label>
                                     <ul class="p-0">
-                                    <li class="tipValue" v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)">{{ tip }}</li>
-                                    <li class="tipValue" @click="selectTip('custom')">Custom</li>
+                                    <li v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)" :class="submitOrder.tipAmount == tip?`bg-primary tipValue text-white`:`tipValue`">{{ tip }}</li>
+                                    <li @click="selectTip('custom')" :class="selected_tip == 'custom'?`bg-primary tipValue text-white`:`tipValue`">Custom</li>
                                     </ul>
                                         <div class="form-group" v-if="customTip">
-                                          <input type="text" v-model="submitOrder.tipAmount" class="form-control">
+                                          <input type="number" maxlength="6" v-model="submitOrder.tipAmount" class="form-control">
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-
-                            <h4 class="border-bottom pb-4"><i class="ti ti-wallet mr-3 text-primary"></i>Payment</h4>
+                            <h4 class="border-bottom pb-4" v-if="submitOrder.delivery_type == 2 || submitOrder.delivery_type == 1"><i class="ti ti-wallet mr-3 text-primary"></i>Payment</h4>
                             <div class="row text-lg">
                                 <!-- <div class="col-md-4 col-sm-6 form-group">
                                     <label class="custom-control custom-radio">
@@ -241,16 +242,79 @@
                                         <span class="custom-control-description">Credit Card</span>
                                     </label>
                                 </div> -->
-                                <div class="col-md-4 col-sm-6 form-group">
+                                <div class="col-md-12 form-group">
+                                <div class="row" v-if="submitOrder.delivery_type == 2 || submitOrder.delivery_type == 1">
                                     <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" checked  value="COD" v-model="submitOrder.method">
+                                        <input type="radio" name="payment_type" checked  value="COD" v-model="submitOrder.method" @change="selectMethod($event)">
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description ml-2">COD</span>
                                     </label>
+                                    <label class="custom-control custom-radio">
+                                        <input type="radio" name="payment_type" checked  value="CARD" v-model="submitOrder.method" @change="selectMethod($event)">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description ml-2">CARD/ONLINE PAYMENT</span>
+                                    </label>
+                                  </div>
+                                <!-- <div v-if="paymentForm == 1">
+                                  <div class="bg-white mt-5">
+                                      <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Card Details</h4>
+
+                                      <div class="row mb-5">
+                                          <div class="form-group col-sm-12">
+                                              <label>Card Number:</label>
+                                              <input type="text" class="form-control" placeholder="Enter card number" v-model="cardNumber">
+                                              <span class="text-danger">{{ error.cardNumber }}</span>
+                                          </div>
+                                      </div>
+                                      <div class="row mb-5">
+                                          <div class="form-group col-sm-12">
+                                              <label>Card Holder's Name:</label>
+                                              <input type="text" class="form-control" placeholder="Enter card holder name" v-model="cardHolderName">
+                                              <span class="text-danger">{{ error.cardHolderName }}</span>
+                                          </div>
+                                      </div>
+                                      <div class="row mb-5">
+                                          <div class="form-group col-sm-8">
+                                              <label>Card Expiry Date:</label>
+                                              <input type="text" class="form-control" placeholder="Enter card expiry date" v-model="cardExpiryDate">
+                                              <span class="text-danger">{{ error.cardExpiryDate }}</span>
+                                          </div>
+                                          <div class="form-group col-sm-4">
+                                              <label>CVV:</label>
+                                              <input type="password" class="form-control" placeholder="Enter CVV" v-model="cvv">
+                                              <span class="text-danger">{{ error.cvv }}</span>
+                                          </div>
+                                      </div>
+                                      <div class="row mb-5">
+                                        <div class="form-group col-sm-6">
+                                            <label>Card Type</label>
+                                              <div class="select-container">
+                                                  <select class="form-control" v-model="cardType">
+                                                      <option selected disabled>-- Card Type --</option>
+                                                      <option value="VISA">
+                                                      VISA
+                                                      </option>
+                                                      <option value="DISCOVER">
+                                                        DISCOVER
+                                                      </option>
+                                                  </select>
+                                              </div>
+                                              <span class="text-danger">{{ error.cardType }}</span>
+                                        </div>
+                                        <div class="form-group col-sm-6 text-center">
+                                          <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment"><span>Pay Now !</span></button>
+                                        </div>
+                                      </div>
+                                  </div>
+                                </div> -->
+                                <div v-if="paymentForm == 1">
+                                  <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment"><span>Go to payment page</span></button>
                                 </div>
+                              </div>
                             </div>
+
                         </div>
-                        <div class="text-center" v-if="showAddress == 1 && radiusError == null">
+                        <div class="text-center mt-5" v-if="showAddress == 1 && radiusError == null && orderNow == 1">
                             <button class="btn btn-primary btn-lg" @click="placeOrder"><span>Order now!</span></button>
                         </div>
                     </div>
@@ -265,14 +329,15 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { getSettings, getRestaurantInfo, placeOrder, checkCoupon, getAddresses } from '@/store/api'
-import { getLocalStorage, tipTax } from '@/store/service'
+import { getSettings, getRestaurantInfo, placeOrder, checkCoupon, getAddresses, CardToken } from '@/store/api'
+import { getLocalStorage, tipTax, saveLocalStorage } from '@/store/service'
 
 export default {
   components: { Headbar, Footer },
   name: 'checkout',
   data () {
     return {
+      selected_tip: 1,
       radiusError: '',
       deliveryCharges: 0,
       tipBox: 0,
@@ -312,11 +377,12 @@ export default {
           data: ''
         },
         order: [],
+        delivery_amount: 0,
         coupon: '',
         quantity: 0,
         location: {
-          lat: '',
-          lng: '',
+          latitude: '',
+          longitude: '',
           address: '',
           house: null,
           tag: null
@@ -327,41 +393,131 @@ export default {
           totalPrice: '',
           tip_to_driver: ''
         },
-        method: 'COD',
+        method: '',
         payment_token: '',
         delivery_type: '',
         partial_wallet: '',
         dis: 0,
         pending_payment: '',
         tipAmount: 0
-      }
+      },
+      coupon_applied: '',
+      paymentForm: 0,
+      orderNow: 0
     }
   },
   mounted () {
     getRestaurantInfo().then(res => {
       this.storeInfo = res.data
     })
-    if (getLocalStorage('cart')) {
-      this.getSetting()
-      this.showItem()
-      this.submitOrder.order = getLocalStorage('cart')
-      this.getUserData()
-      this.getAddress()
-      this.delivery_charges_calculate('9')
-    } else {
-      this.$router.push('/menu')
-    }
+    this.checkCart()
   },
   methods: {
+    payment () {
+      // const card = {
+      //   ecomind: 'ecom',
+      //   amount: '3000',
+      //   currency: 'CAD',
+      //   capture: true,
+      //   source: 'clv_1TSTS3Lo3tNdThBrFsRFV4M6'
+      // }
+      saveLocalStorage('submitOrder', JSON.stringify(this.submitOrder))
+      var card = {
+        customer: {
+          email: this.submitOrder.user.data.email,
+          firstName: this.submitOrder.user.data.name,
+          lastName: '',
+          phoneNumber: this.submitOrder.user.data.phone.renderToString
+        },
+        shoppingCart: {
+          lineItems: []
+        }
+      }
+      var arr = { }
+      for (var i = 0; i < this.item.length; i++) {
+        arr = {
+          name: this.item[i].name,
+          unitQty: this.item[i].quantity,
+          price: this.item[i].price * 100
+        }
+        if (card.shoppingCart.lineItems.length) {
+          card.shoppingCart.lineItems.push(arr)
+        } else {
+          card.shoppingCart.lineItems = [arr]
+        }
+      }
+      if (card.shoppingCart.lineItems.length) {
+        arr = {
+          name: 'Tax(' + getLocalStorage('taxes').taxPercentage.value + '%)',
+          unitQty: '1',
+          price: Math.round(this.taxTotal * 100)
+        }
+        card.shoppingCart.lineItems.push(arr)
+
+        if (getLocalStorage('submitOrder').tipAmount > 0) {
+          arr = {
+            name: 'Tip',
+            unitQty: '1',
+            price: getLocalStorage('submitOrder').tipAmount * 100
+          }
+          card.shoppingCart.lineItems.push(arr)
+        }
+
+        if (getLocalStorage('submitOrder').delivery_amount > 0) {
+          arr = {
+            name: 'Delivery charges',
+            unitQty: '1',
+            price: getLocalStorage('submitOrder').delivery_amount * 100
+          }
+          card.shoppingCart.lineItems.push(arr)
+        }
+      }
+
+      CardToken(JSON.stringify(card)).then(res => {
+        console.log(res.data)
+        window.location.href = res.data.href
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    selectMethod (event) {
+      if (event.target.value === 'COD') {
+        this.paymentForm = 0
+        this.submitOrder.method = 'COD'
+        this.orderNow = 1
+      } else if (event.target.value === 'CARD') {
+        this.paymentForm = 1
+        this.submitOrder.method = 'Clover'
+        this.orderNow = 0
+      }
+    },
+    checkCart () {
+      if (getLocalStorage('cart') && getLocalStorage('cart').length > 0) {
+        this.getAddress()
+        this.getSetting()
+        this.showItem()
+        this.submitOrder.order = getLocalStorage('cart')
+        this.getUserData()
+        this.jDelivery_charges_calculate('9')
+      } else {
+        this.$router.push('/menu')
+      }
+    },
+    changeAdd (page) {
+      localStorage.setItem('page', page)
+      this.$router.push('/addmanageaddress')
+    },
     editCart () {
       this.$router.push('/editCart')
     },
     selectAddress (address) {
       this.submitOrder.location.address = address.address
       this.submitOrder.location.house = address.house
-      this.submitOrder.location.lat = address.latitude
-      this.submitOrder.location.lng = address.longitude
+      this.submitOrder.location.latitude = address.latitude
+      this.submitOrder.location.longitude = address.longitude
       this.submitOrder.location.tag = address.tag
+
+      this.submitOrder.user.data.default_address = this.submitOrder.location
       this.$toast.success('New address selected successfully.')
       // this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
       this.jGetDistance(this.storeInfo.latitude, this.storeInfo.longitude)
@@ -369,6 +525,14 @@ export default {
     getAddress () {
       getAddresses().then(res => {
         this.addresses = res.data
+        if (this.addresses.length === 1) {
+          this.submitOrder.location.address = this.addresses[0].address
+          this.submitOrder.location.latitude = this.addresses[0].latitude
+          this.submitOrder.location.longitude = this.addresses[0].longitude
+          this.submitOrder.location.tag = this.addresses[0].tag
+          this.submitOrder.location.house = this.addresses[0].house
+          this.jGetDistance(this.addresses[0].latitude, this.addresses[0].longitude)
+        }
       })
     },
     addQuantity (index) {
@@ -414,6 +578,7 @@ export default {
       }
     },
     showItem () {
+      this.item.splice(0)
       this.item = getLocalStorage('cart')
       this.submitOrder.order = getLocalStorage('cart')
     },
@@ -444,11 +609,15 @@ export default {
 
       // this.submitOrder.delivery_type = getLocalStorage('userData').delivery_type
       this.submitOrder.total.productQuantity = this.item.length
-      this.submitOrder.location.address = getLocalStorage('userData').default_address.address
-      this.submitOrder.location.house = getLocalStorage('userData').default_address.house
-      this.submitOrder.location.lat = getLocalStorage('userData').default_address.latitude
-      this.submitOrder.location.lng = getLocalStorage('userData').default_address.longitude
-      this.submitOrder.location.tag = getLocalStorage('userData').default_address.tag
+      if (getLocalStorage('userData').default_address && getLocalStorage('userData').default_address.address) {
+        this.submitOrder.location.address = getLocalStorage('userData').default_address.address
+      } else {
+        this.getAddress()
+      }
+      this.submitOrder.location.house = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.house : ''
+      this.submitOrder.location.latitude = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.latitude : ''
+      this.submitOrder.location.longitude = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.longitude : ''
+      this.submitOrder.location.tag = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.tag : ''
     },
     selectAdd (event) {
       if (event.target.value === '2') {
@@ -489,19 +658,22 @@ export default {
         subTotal: this.orderTotal
       }
       checkCoupon(data).then(res => {
+        console.log(res.data)
         if (res.data.success === false) {
         } else {
           this.couponDetail = res.data
           this.submitOrder.coupon = {
             code: res.data.code
           }
-          if (res.data.discount_type === 'AMOUNT' && this.orderTotal >= 10) {
+          if (res.data.discount_type === 'AMOUNT' && this.orderTotal >= res.data.min_subtotal) {
             this.discountPrice = res.data.discount
-          } else if (res.data.discount_type === 'PERCENTAGE' && this.orderTotal >= 10) {
+            this.coupon_applied = 'Coupon Applied'
+          } else if (res.data.discount_type === 'PERCENTAGE' && this.orderTotal >= res.data.min_subtotal) {
             this.discountPercent = res.data.discount
             this.discountPrice = ((this.discountPercent / 100) * this.orderTotal)
-          } else if (this.orderTotal < 10) {
-            this.discountLimit = res.data.subtotal_message
+            this.coupon_applied = 'Coupon Applied'
+          } else if (this.orderTotal < res.data.min_subtotal) {
+            this.discountLimit = 'Your order value should be atleast $' + res.data.min_subtotal
           }
           this.taxTotal = 0
           this.totalAmount = 0
@@ -521,9 +693,11 @@ export default {
     },
     selectTip (tip) {
       if (tip !== 'custom') {
+        this.selected_tip = tip
         this.submitOrder.tipAmount = tip
         this.customTip = false
       } else {
+        this.selected_tip = 'custom'
         this.customTip = !this.customTip
       }
       this.orderTotal = 0
@@ -531,40 +705,9 @@ export default {
       this.totalAmount = 0
       this.getSetting()
     },
-    getDistance (latitude, longitude) {
-      var origin = new window.google.maps.LatLng(latitude, longitude)
-      var destination = new window.google.maps.LatLng(this.submitOrder.location.lat, this.submitOrder.location.lng)
-      const service = new window.google.maps.DistanceMatrixService()
-      const request = {
-        origins: [origin],
-        destinations: [destination],
-        travelMode: window.google.maps.TravelMode.DRIVING,
-        unitSystem: window.google.maps.UnitSystem.METRIC,
-        avoidHighways: false,
-        avoidTolls: false
-      }
-      service.getDistanceMatrix(request).then((response) => {
-      // put response
-        console.log(response.rows[0].elements[0])
-        console.log(this.storeInfo.delivery_radius)
-        if (response.rows[0].elements[0].distance) {
-          if (parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]) > parseFloat(this.storeInfo.delivery_radius)) {
-            console.log('if')
-            this.radiusError = 'Please change address or select pickup way'
-            this.submitOrder.dis = response.rows[0].elements[0].distance.text.split(' ')[0]
-            this.delivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0]))
-          } else {
-            console.log('else')
-            this.radiusError = null
-            this.submitOrder.dis = 0
-            this.delivery_amount = 0
-          }
-        }
-      })
-    },
     jGetDistance (latitude, longitude) {
       var origin = new window.google.maps.LatLng(latitude, longitude)
-      var destination = new window.google.maps.LatLng(this.submitOrder.location.lat, this.submitOrder.location.lng)
+      var destination = new window.google.maps.LatLng(this.submitOrder.location.latitude, this.submitOrder.location.longitude)
       const service = new window.google.maps.DistanceMatrixService()
       const request = {
         origins: [origin],
@@ -577,8 +720,8 @@ export default {
       service.getDistanceMatrix(request).then((response) => {
       // put response
         if (response.rows[0].elements[0].distance) {
-          console.log(response.rows[0].elements[0].distance.text.split(' ')[0].replace(',', ''))
           // console.log(this.storeInfo.delivery_radius)
+          this.submitOrder.dis = parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0].replace(',', ''))
           this.jDelivery_charges_calculate(parseFloat(response.rows[0].elements[0].distance.text.split(' ')[0].replace(',', '')))
         } else {
           this.radiusError = 'Kindly select another address'
@@ -588,50 +731,27 @@ export default {
     },
     jDelivery_charges_calculate (dis) {
       if (dis > parseFloat(this.storeInfo.delivery_radius)) {
-        console.log('main-if')
         this.radiusError = 'Kindly select another address'
         this.delivery_amount = 0
       } else {
+        this.radiusError = null
         if (this.storeInfo.free_delivery_subtotal !== 0 && this.orderTotal.toFixed(2) <= this.storeInfo.free_delivery_subtotal) {
-          console.log('else { if')
           this.delivery_amount = 0
         } else if (this.storeInfo.delivery_charge_type === 'DYNAMIC') {
           if (dis > this.storeInfo.base_delivery_distance) {
-            console.log('else-if if')
-            this.radiusError = null
             var extraDistance = parseFloat(dis) - parseFloat(this.storeInfo.base_delivery_distance)
             var extraCharge = (parseFloat(extraDistance) / parseFloat(this.storeInfo.extra_delivery_distance)) * parseFloat(this.storeInfo.extra_delivery_charge)
             var dynamicDeliveryCharge = parseFloat(this.storeInfo.base_delivery_charge) + parseFloat(extraCharge)
-            console.log('before ceil' + dynamicDeliveryCharge)
             this.delivery_amount = Math.ceil(dynamicDeliveryCharge)
+            this.submitOrder.delivery_amount = this.delivery_amount
           } else {
-            console.log('roundbase_delivery')
-            this.radiusError = 0
             this.delivery_amount = Math.round(this.storeInfo.base_delivery_charge)
+            this.submitOrder.delivery_amount = this.delivery_amount
           }
         } else {
-          console.log('rounddelivery_charges')
           this.delivery_amount = Math.round(this.storeInfo.delivery_charges)
+          this.submitOrder.delivery_amount = this.delivery_amount
         }
-      }
-      console.log(this.delivery_amount)
-    },
-    delivery_charges_calculate (dis) {
-      console.log(this.storeInfo.free_delivery_subtotal)
-      console.log(this.orderTotal)
-      if (this.storeInfo.free_delivery_subtotal !== 0 && this.orderTotal.toFixed(2) <= this.storeInfo.free_delivery_subtotal) {
-        this.delivery_amount = 0
-      } else if (this.storeInfo.delivery_charge_type === 'DYNAMIC') {
-        if (dis > this.storeInfo.base_delivery_distance) {
-          var extraDistance = parseFloat(dis) - parseFloat(this.storeInfo.base_delivery_distance)
-          var extraCharge = (parseFloat(extraDistance) / parseFloat(this.storeInfo.extra_delivery_distance)) * parseFloat(this.storeInfo.extra_delivery_charge)
-          var dynamicDeliveryCharge = parseFloat(this.storeInfo.base_delivery_charge) + parseFloat(extraCharge)
-          this.delivery_amount = Math.ceil(dynamicDeliveryCharge)
-        } else {
-          this.delivery_amount = Math.round(this.storeInfo.base_delivery_charge)
-        }
-      } else {
-        this.delivery_amount = Math.round(this.storeInfo.delivery_charges)
       }
     }
   }
@@ -639,6 +759,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.cursor-pointer{
+  cursor: pointer !important;
+}
 #checkout{
   li.tipValue {
     list-style: none;

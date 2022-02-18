@@ -5,7 +5,7 @@
     <!-- Content -->
     <div id="content">
       <!-- Page Title -->
-      <div class="page-title bg-light">
+      <div class="page-title bg-light" style="position: sticky !important; top: 0px;">
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
@@ -24,12 +24,12 @@
       <div class="page-content">
         <div class="container">
           <div class="row no-gutters">
-            <div class="col-md-3 left-bar-fixed text-left">
+            <div class="col-md-3 left-bar-fixed text-left" >
               <!-- Menu Navigation -->
-              <nav id="menu-navigation" class="stick-to-content"  @scroll="data-local-scroll">
+              <nav id="menu-navigation" class="stick-to-content" data-local-scroll :class="scrollClass?'sticky':''">
                 <ul class="nav nav-menu bg-dark dark">
                   <li v-for="(item, value, index) in Items" :key="index">
-                    <a :href="`#${value}`" class="menu-link">{{ value }}</a>
+                    <a :href="`menu#${value}`" class="menu-link">{{ value }}</a>
                     <!-- <span v-for="(item1, index1) in Items[value]" :key="index1">
                         {{ item1.name }}
                       </span> -->
@@ -56,6 +56,7 @@ import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import { getMenu } from '@/store/api'
 import MenuComp from '@/views/layouts/MenuComp.vue'
+
 export default {
   props: {
   },
@@ -69,8 +70,15 @@ export default {
     return {
       Items: [],
       newCart: [],
-      cartshow: false
+      cartshow: false,
+      scrollClass: false
     }
+  },
+  created () {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
   },
   mounted () {
     // eslint-disable-next-line no-unused-expressions
@@ -91,6 +99,10 @@ export default {
     })
   },
   methods: {
+    handleScroll (event) {
+      // Any code to be executed when the window is scrolled
+      this.scrollClass = true
+    },
     addItem (event) {
       this.newCart = event
     },
@@ -100,7 +112,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -120,6 +131,12 @@ export default {
 //     position: relative;
 //     left:350px;
 // }
+
+.sticky {
+ position: fixed;
+ /* top: 0px; */
+ width: 277.5px;
+}
 .menu{
  scroll-behavior: smooth;
  }

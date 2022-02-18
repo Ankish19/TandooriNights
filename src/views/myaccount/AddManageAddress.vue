@@ -93,8 +93,8 @@
                   </b-form-group>
                         <div class="display-list mt-1">
                           <p>
-                            <a href="#/"
-                              @click="currentLoc"><i class="fa fa-location-arrow" aria-hidden="true"></i>
+                            <a
+                              @click="currentLoc" class="cursor-pointer"><i class="fa fa-location-arrow" aria-hidden="true"></i>
                               Use My Current Location</a
                             >
                           </p>
@@ -257,6 +257,12 @@ export default {
           saveAddress(this.form).then(res => {
             console.log(res.data)
             this.$toast.success('New address successfully')
+            if (localStorage.getItem('page') === 'checkout') {
+              localStorage.removeItem('page')
+              this.$router.push('/checkout')
+            } else {
+              this.$router.push('/manageaddress')
+            }
           }).catch((err) => {
             console.log(err)
           })
@@ -289,5 +295,8 @@ a.text-left.active {
   font-size: 18px;
   font-weight: 700;
   margin-top: 8px;
+}
+.cursor-pointer{
+  cursor: pointer !important;
 }
 </style>

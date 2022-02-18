@@ -87,3 +87,17 @@ export const checkCoupon = (data) => {
   }
   return axios.post(`${apiUrl}apply-coupon`, datanew, { headers: apiHeaders() })
 }
+
+// -------------Payment api
+
+export const CardToken = (data) => {
+  return axios.post('https://api.clover.com/invoicingcheckoutservice/v1/checkouts', data, {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      Authorization: 'Bearer 63d11ca9-a29d-32b9-0972-3df192f945d0',
+      'X-Clover-Merchant-ID': 'K35XECMJWJYW1'
+    }
+  })
+}

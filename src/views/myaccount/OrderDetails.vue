@@ -22,38 +22,6 @@
           <div class="col-xl-4 col-lg-5">
             <SildeBar></SildeBar>
           </div>
-          <!-- <div class="col-xl-8 col-lg-7">
-                        <div class="bg-white p-4 p-md-5 mb-4">
-                            <h4 class="border-bottom pb-4"><i class="ti ti-user mr-3 text-primary"></i>My Account</h4>
-                            <div class="row mb-5">
-                                <div class="form-group col-sm-6">
-                                    <label>Name:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Surename:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Street and number:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>City:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>Phone number:</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label>E-mail address:</label>
-                                    <input type="email" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
           <div class="col-xl-8 col-lg-7">
             <div class="bg-white p-4 p-md-5 mb-4">
               <h4 class="border-bottom pb-4">
@@ -104,8 +72,9 @@
                     <div class="row" v-for="orderItem in item.orderitems" :key="orderItem.id">
                       <div class="col-md-12 mt-3">
                         <div class="d-flex mb-1 align-items-start" style="font-size: 1.2rem;">
-                            <strong class="mr-1" style="width: 100%;">{{ orderItem.name }}</strong>
-                            <span class="border-grey-800 text-default">{{ orderItem.quantity }}x ${{ orderItem.price }}</span>
+                          <div class="col-md-10"><strong class="mr-1" style="width: 100%;">{{ orderItem.name }}</strong></div>
+                          <div class="col-md-2" v-if="orderItem.order_item_addons.length > 0"><span class="border-grey-800 text-default">{{ orderItem.quantity }}QTY</span></div>
+                          <div class="col-md-2" v-else><span class="border-grey-800 text-default">{{ orderItem.quantity }}x ${{ orderItem.price }}</span></div>
                         </div>
                       </div>
                       <div class="col-md-12" v-if="orderItem.order_item_addons.length > 0">
@@ -113,13 +82,13 @@
                               <thead>
                                 <tr>
                                   <th>Addon</th>
-                                  <th>Price</th>
+                                  <th class="text-right">Price</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr v-for="addon in orderItem.order_item_addons" :key="addon.id">
                                   <td>{{ addon.addon_name }}</td>
-                                  <td>${{ addon.addon_price }}</td>
+                                  <td class="text-right">${{ addon.addon_price }}</td>
                                 </tr>
                               </tbody>
                         </table>
@@ -207,6 +176,12 @@ export default {
   },
   mounted () {
     this.orderDetail()
+    this.interval = setInterval(() => {
+      this.orderDetail()
+    }, 10000)
+  },
+  destroyed () {
+    clearInterval(this.interval)
   },
   methods: {
     orderDetail () {

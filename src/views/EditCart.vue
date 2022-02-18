@@ -46,7 +46,7 @@
                                     <td class="price" v-if="it.addOnTotal">${{ it?it.addOnTotal:'' }}</td>
                                     <td class="price" v-else>${{ it?it.price:'' }}</td>
                                     <td class="actions">
-                                        <a href="#/" class="action-icon" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
+                                        <a class="action-icon cursor-pointer" @click="deleteItem(index)"><i class="ti ti-close"></i></a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -152,14 +152,16 @@ export default {
     getRestaurantInfo().then(res => {
       this.storeInfo = res.data
     })
-    if (getLocalStorage('cart')) {
-      this.showItem()
-      console.log(this.submitOrder.order)
-    } else {
-      this.$router.push('/menu')
-    }
+    this.checkCart()
   },
   methods: {
+    checkCart () {
+      if (getLocalStorage('cart') && getLocalStorage('cart').length > 0) {
+        this.showItem()
+      } else {
+        this.$router.push('/menu')
+      }
+    },
     cartUpdate () {
       var storedNames = JSON.parse(localStorage.getItem('cart'))
       var name = []
@@ -223,9 +225,11 @@ export default {
           name.push(storedNames[j])
         }
       }
+      this.$toast.success('An item removed.')
       localStorage.removeItem('cart')
       localStorage.setItem('cart', JSON.stringify(name))
       this.showItem()
+      this.checkCart()
     },
     getUserData () {
       this.submitOrder.user.data = getLocalStorage('userData')
@@ -247,6 +251,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.cursor-pointer{
+  cursor: pointer !important;
+}
+
 #checkout{
   li.tipValue {
     list-style: none;

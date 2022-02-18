@@ -7,7 +7,19 @@ import store from './store'
 import { getGoogleApi } from './store/api'
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
+import JwPagination from 'jw-vue-pagination'
+import { StripePlugin } from '@vue-stripe/vue-stripe'
 
+const options = {
+  pk: 'pk_test_G1rWGnRBT4OayfHaxO377TV5',
+  stripeAccount: process.env.STRIPE_ACCOUNT,
+  apiVersion: process.env.API_VERSION,
+  locale: process.env.LOCALE
+}
+
+Vue.use(StripePlugin, options)
+
+Vue.component('jw-pagination', JwPagination)
 Vue.config.productionTip = false
 
 Vue.use(VueGoogleMaps, {

@@ -23,6 +23,7 @@
             <b-form @submit.prevent="verOtp">
             <b-row>
               <b-col cols="6" class="mx-auto">
+                <h4>Verification send on your email</h4>
                 <b-col cols="12">
                   <b-form-group>
                     <b-form-group>
