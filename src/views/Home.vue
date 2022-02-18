@@ -74,7 +74,7 @@
             ><i class="fa fa-star"></i>
           </div>
           <h1 class="display-2">About Tandoori <strong style="color:#DDAE71;">Night</strong></h1>
-          <p class="lead text-muted mb-5">
+          <p class="lead text-dark mb-5">
             Tandoori Nights reimagine the wonders of Canadian fare in a space that evokes a bygone era of a boisterous yet
             elegant Canada—all within the heart of Calgary City.
           </p>
@@ -85,7 +85,7 @@
             </div>
             <div class="feature-content">
               <h4 class="mb-2"><b class="text-heading">The Best of Us</b></h4>
-              <p class="text-muted mb-0">
+              <p class="text-dark mb-0">
                 At Tandoori Nights, we are dedicated to all things seasonal with a market-driven day-time menu that also offers
                 a variety of Veg Appetizers and Non - Veg Appetizers.
               </p>
@@ -98,7 +98,7 @@
             </div>
             <div class="feature-content">
               <h4 class="mb-2"><b class="text-heading">The Dedication and Commitment</b></h4>
-              <p class="text-muted mb-0">
+              <p class="text-dark mb-0">
                 Stock up on bread, pastries, and grab n' go salads and sandwiches. At Tandoori Nights, they continue their dedication to our specials
                 with come together to celebrate and savor beloved annual traditions, where each experience brims with culinary delights.
               </p>
@@ -305,22 +305,44 @@
                         <blockquote class="blockquote light animated" data-animation="fadeInLeft">
                             <div class="blockquote-content">
                                 <div class="rate rate-sm mb-3"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i></div>
-                                <p>It’ was amazing feeling for my belly!</p>
+                                <p>Did takeout a couple times and they have not disappointed. Amazing food, amazing quality. I haven’t had Indian food like this in Calgary anywhere else. Delicious and fresh! Their service and quality is unmatched.</p>
                             </div>
                             <footer>
                                 <img src="#" alt="">
-                                <span class="name">Mark Johnson<span class="text-muted">, Google</span></span>
+                                <span class="name">Manpreet Brar<span class="text-muted">, Google</span></span>
                             </footer>
                         </blockquote>
                         <!-- Blockquote -->
                         <blockquote class="blockquote animated" data-animation="fadeInRight" data-animation-delay="300">
                             <div class="blockquote-content dark">
                                 <div class="rate rate-sm mb-3"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i></div>
-                                <p>Great food and great atmosphere!</p>
+                                <p>Very good food, fresh and tasty veg samosa and veg pakoara so good.</p>
                             </div>
                             <footer>
                                 <img src="#" alt="">
-                                <span class="name">Kate Hudson<span class="text-muted">, LinkedIn</span></span>
+                                <span class="name">Virinder Sidhu<span class="text-muted">, Google</span></span>
+                            </footer>
+                        </blockquote>
+                        <!-- Blockquote -->
+                        <blockquote class="blockquote light animated" data-animation="fadeInLeft">
+                            <div class="blockquote-content">
+                                <div class="rate rate-sm mb-3"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i></div>
+                                <p>Great food. Owner is one of the best person I have ever met. Amazing service and Mutton is worth trying.</p>
+                            </div>
+                            <footer>
+                                <img src="#" alt="">
+                                <span class="name">Rocker Maahip<span class="text-muted">, Google</span></span>
+                            </footer>
+                        </blockquote>
+                        <!-- Blockquote -->
+                        <blockquote class="blockquote light animated" data-animation="fadeInLeft">
+                            <div class="blockquote-content dark">
+                                <div class="rate rate-sm mb-3"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i></div>
+                                <p>Had a great buffet lunch there for a very reasonable price. The owners pride themselves on serving fresh food even on a buffet line. 10/10. Will visit again.</p>
+                            </div>
+                            <footer>
+                                <img src="#" alt="">
+                                <span class="name">Charles Chang<span class="text-muted">, Google</span></span>
                             </footer>
                         </blockquote>
                     </div>
@@ -464,5 +486,8 @@ a.panel-cart-action.btn.btn-secondary.btn-block.btn-lg {
     color: #ddae71;
     font-weight: 800;
     font-size: 23px;
+}
+.menu-sample-carousel .slick-list {
+    overflow: hidden;
 }
 </style>

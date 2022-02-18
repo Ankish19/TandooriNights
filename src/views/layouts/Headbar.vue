@@ -23,7 +23,7 @@
                                 <router-link to="/about">About</router-link>
                             </li>
                             <li class="has-dropdown">
-                                <router-link to="/menu">Menu</router-link>
+                                <router-link to="/menu">Online Order</router-link>
                             </li>
                             <li class="has-dropdown">
                                 <router-link to="/contact">Contact Us</router-link>
