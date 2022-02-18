@@ -255,7 +255,7 @@
                                         <span class="custom-control-description ml-2">CARD/ONLINE PAYMENT</span>
                                     </label>
                                   </div>
-                                <!-- <div v-if="paymentForm == 1">
+                               <!-- <div v-if="paymentForm == 1">
                                   <div class="bg-white mt-5">
                                       <h4 class="border-bottom pb-4"><i class="ti ti-package mr-3 text-primary"></i>Card Details</h4>
 
@@ -302,11 +302,11 @@
                                               <span class="text-danger">{{ error.cardType }}</span>
                                         </div>
                                         <div class="form-group col-sm-6 text-center">
-                                          <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment"><span>Pay Now !</span></button>
+                                          <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment1"><span>Pay Now !</span></button>
                                         </div>
                                       </div>
                                   </div>
-                                </div> -->
+                                </div>-->
                                 <div v-if="paymentForm == 1">
                                   <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment"><span>Go to payment page</span></button>
                                 </div>
@@ -329,7 +329,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { getSettings, getRestaurantInfo, placeOrder, checkCoupon, getAddresses, CardToken } from '@/store/api'
+import { getSettings, getRestaurantInfo, placeOrder, checkCoupon, getAddresses, CardToken, CardToken1 } from '@/store/api'
 import { getLocalStorage, tipTax, saveLocalStorage } from '@/store/service'
 
 export default {
@@ -337,6 +337,19 @@ export default {
   name: 'checkout',
   data () {
     return {
+      cardNumber: '6011361000006668',
+      cardHolderName: '',
+      cvv: '123',
+      cardType: 'DISCOVER',
+      cardExpiryDate: '',
+      error: {
+        cardNumber: '',
+        cardHolderName: '',
+        cvv: '',
+        cardType: '',
+        cardExpiryDate: ''
+      },
+      paymentForm: 0,
       selected_tip: 1,
       radiusError: '',
       deliveryCharges: 0,
@@ -402,7 +415,6 @@ export default {
         tipAmount: 0
       },
       coupon_applied: '',
-      paymentForm: 0,
       orderNow: 0
     }
   },
@@ -413,6 +425,27 @@ export default {
     this.checkCart()
   },
   methods: {
+    payment1 () {
+      const card = {
+        card:
+        {
+          number: this.cardNumber,
+          exp_month: '12',
+          exp_year: '2024',
+          cvv: this.cvv,
+          first6: '601136',
+          last4: '6668',
+          country: 'ca',
+          brand: this.cardType,
+          name: this.cardHolderName
+        }
+      }
+      CardToken1(card).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     payment () {
       // const card = {
       //   ecomind: 'ecom',
@@ -434,45 +467,12 @@ export default {
         }
       }
       var arr = { }
-      for (var i = 0; i < this.item.length; i++) {
-        arr = {
-          name: this.item[i].name,
-          unitQty: this.item[i].quantity,
-          price: this.item[i].price * 100
-        }
-        if (card.shoppingCart.lineItems.length) {
-          card.shoppingCart.lineItems.push(arr)
-        } else {
-          card.shoppingCart.lineItems = [arr]
-        }
+      arr = {
+        name: 'Total Amount',
+        unitQty: '1',
+        price: this.totalAmount * 100
       }
-      if (card.shoppingCart.lineItems.length) {
-        arr = {
-          name: 'Tax(' + getLocalStorage('taxes').taxPercentage.value + '%)',
-          unitQty: '1',
-          price: Math.round(this.taxTotal * 100)
-        }
-        card.shoppingCart.lineItems.push(arr)
-
-        if (getLocalStorage('submitOrder').tipAmount > 0) {
-          arr = {
-            name: 'Tip',
-            unitQty: '1',
-            price: getLocalStorage('submitOrder').tipAmount * 100
-          }
-          card.shoppingCart.lineItems.push(arr)
-        }
-
-        if (getLocalStorage('submitOrder').delivery_amount > 0) {
-          arr = {
-            name: 'Delivery charges',
-            unitQty: '1',
-            price: getLocalStorage('submitOrder').delivery_amount * 100
-          }
-          card.shoppingCart.lineItems.push(arr)
-        }
-      }
-
+      card.shoppingCart.lineItems.push(arr)
       CardToken(JSON.stringify(card)).then(res => {
         console.log(res.data)
         window.location.href = res.data.href

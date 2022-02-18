@@ -56,7 +56,7 @@
     </div>
 </template>
 <script>
-import { getinvoiceDetail, paymentProcess } from '@/store/api'
+import { paymentProcess } from '@/store/api'
 import { getUserData } from '@/store/services'
 const styles = {
   style: {

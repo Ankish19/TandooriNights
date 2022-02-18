@@ -101,3 +101,13 @@ export const CardToken = (data) => {
     }
   })
 }
+
+export const CardToken1 = (data) => {
+  return axios.post('https://token-sandbox.dev.clover.com/v1/tokens', data, {
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: '156f720c779148062edc734a07a7588e',
+      'Access-Control-Allow-Origin': 'http://localhost:3000'
+    }
+  })
+}

@@ -47,7 +47,7 @@ export default {
     }
   },
   mounted () {
-    if (getLocalStorage('submitOrder') && getLocalStorage('submitOrder').length > 0) {
+    if (getLocalStorage('submitOrder') && getLocalStorage('submitOrder').method === 'Clover') {
       this.interval = setInterval(() => {
         this.placeOrder()
       }, 10000)
