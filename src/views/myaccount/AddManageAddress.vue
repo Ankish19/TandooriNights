@@ -138,6 +138,7 @@
                         <span>Save Address</span>
                       </button>
                     </div>
+                    <span class="text-danger" v-if="error">{{ error }}</span>
                   </div>
                   <!-- /input-group -->
                   </b-form>
@@ -252,22 +253,24 @@ export default {
       this.form.latitude = addressData.latitude
     },
     address () {
-      this.$refs.addressValidate.validate().then(success => {
-        if (success) {
-          saveAddress(this.form).then(res => {
-            console.log(res.data)
-            this.$toast.success('New address successfully')
-            if (localStorage.getItem('page') === 'checkout') {
-              localStorage.removeItem('page')
-              this.$router.push('/checkout')
-            } else {
-              this.$router.push('/manageaddress')
-            }
-          }).catch((err) => {
-            console.log(err)
-          })
-        }
-      })
+      this.error = ''
+      if (!this.form.house || !this.form.address || !this.form.tag) {
+        this.error = 'All fields are required.'
+        this.$toast.error('All fields are required.')
+      } if (this.error === '') {
+        saveAddress(this.form).then(res => {
+          console.log(res.data)
+          this.$toast.success('New address successfully')
+          if (localStorage.getItem('page') === 'checkout') {
+            localStorage.removeItem('page')
+            this.$router.push('/checkout')
+          } else {
+            this.$router.push('/manageaddress')
+          }
+        }).catch((err) => {
+          console.log(err)
+        })
+      }
     }
   }
 }
