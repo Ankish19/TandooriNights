@@ -218,6 +218,10 @@ export default {
     this.getSetting()
     this.showItem()
     this.getCalc()
+    const externalScript = document.createElement('script')
+    externalScript.setAttribute('src', '../js/core.js')
+    externalScript.setAttribute('type', 'text/javascript')
+    document.head.appendChild(externalScript)
   },
   methods: {
     showItem () {
