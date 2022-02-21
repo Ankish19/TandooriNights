@@ -113,7 +113,7 @@ export default {
     },
     resend_otp () {
       resendVerifyOtp(this.form).then(res => {
-        console.log(res.data)
+        this.$toast.success('Send resend otp successfully')
       })
     },
     logout () {
