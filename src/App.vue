@@ -4,6 +4,16 @@
   </div>
 </template>
 
+<script>
+export default {
+  mounted () {
+    const externalScript = document.createElement('script')
+    externalScript.setAttribute('src', '../js/core.js')
+    externalScript.setAttribute('type', 'text/javascript')
+    document.head.appendChild(externalScript)
+  }
+}
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

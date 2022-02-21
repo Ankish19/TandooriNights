@@ -39,13 +39,22 @@
                     <b-button class="w-100" type="submit"><span>Verify OTP</span></b-button>
                   </b-form-group>
                 </b-col>
-                <b-col cols="12" class="text-right">
+                <b-row>
+                <b-col cols="6" class="text-left">
                   <p class="pd-a1">
-                    <router-link to="#"
-                      @click="resend_otp"><strong>Resend Code </strong></router-link
+                    <span
+                      @click="logout"><strong>Login another account </strong></span
                     >
                   </p>
                 </b-col>
+                <b-col cols="6" class="text-right">
+                  <p class="pd-a1">
+                    <span
+                      @click="resend_otp"><strong>Resend Code </strong></span
+                    >
+                  </p>
+                </b-col>
+                </b-row>
               </b-col>
             </b-row>
           </b-form>
@@ -58,7 +67,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { getLocalStorage } from '@/store/service'
+import { getLocalStorage, saveLocalStorage } from '@/store/service'
 import { verifyOtp, resendVerifyOtp } from '@/store/api'
 import {
   BForm,
@@ -95,6 +104,7 @@ export default {
     verOtp () {
       verifyOtp(this.form).then(res => {
         if (res.data.valid_otp === true) {
+          saveLocalStorage('userDataVerify', true)
           this.$router.push('/myaccount')
         } else {
           this.$toast.error('Invalid Otp')
@@ -103,8 +113,14 @@ export default {
     },
     resend_otp () {
       resendVerifyOtp(this.form).then(res => {
-        console.log(res.data)
+        this.$toast.success('Send resend otp successfully')
       })
+    },
+    logout () {
+      localStorage.removeItem('userData')
+      localStorage.removeItem('cart')
+      localStorage.removeItem('userDataVerify')
+      this.$router.push('/')
     }
   }
 }

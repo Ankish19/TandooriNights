@@ -62,16 +62,16 @@
                 My Wallet
               </h4>
               <div class="row mb-5">
-                    <div class="card-bottom pt-3 px-3 mb-2">
+                    <div class="card-bottom pt-3 px-3 mb-2 w-80">
                       <div class="d-flex flex-row justify-content-between text-align-center">
                           <div class="d-flex flex-column"><span>Balance amount</span>
                               <p><i class="fa fa-usd" aria-hidden="true"></i> <span class="text-white">88,989</span></p>
                           </div> <button class="btn btn-secondary"><i class="fa fa-sign-in" aria-hidden="true"></i></button>
                       </div>
-                      <div class="col-md-12"><img src="@/assets/logo.svg" alt="logo" width="80px" class="card-img"></div>
-                      <div class="col-md-12 card-text">XXXX-XXXX-XXXX-7888</div>
+                      <div class="col-md-12"><img src="@/assets/logo.svg" alt="logo" width="100px" class="card-img"></div>
+                      <!-- <div class="col-md-12 card-text"></div> -->
                       <div class="row">
-                      <div class="col-md-6 card-sub">06 / 2025</div>
+                      <!-- <div class="col-md-6 card-sub"></div> -->
                       <div class="col-md-6 card-sub">Prepaid Card By Tandoori Night</div>
                       </div>
                   </div>

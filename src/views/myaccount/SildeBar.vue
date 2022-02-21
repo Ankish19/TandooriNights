@@ -4,7 +4,7 @@
               <div class="bg-dark dark p-4">
                 <h5 class="mb-0">My Account</h5>
               </div>
-              <div class="cart-summary">
+              <div class="cart-summary-1">
                 <ul class="text-list">
                   <li class="text-link">
                     <i class="fa fa-home" aria-hidden="true"></i>
@@ -36,6 +36,8 @@ export default {
   methods: {
     logOut () {
       localStorage.removeItem('userData')
+      localStorage.removeItem('cart')
+      localStorage.removeItem('userDataVerify')
       this.$router.push('/')
     }
   },
