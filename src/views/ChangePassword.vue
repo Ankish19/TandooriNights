@@ -41,9 +41,9 @@
                         v-model="form.code"
                         placeholder="Reset Code"
                       ></b-form-input>
-                      <span class="text-danger" v-if="error.code">{{ error.code }}</span>
                     </b-form-group>
                   </b-form-group>
+                  <span class="text-danger" v-if="error.code">{{ error.code }}</span>
                 </b-col>
                 <b-col cols="12">
                   <b-form-group>
@@ -53,9 +53,9 @@
                         placeholder="Password"
                         type="password"
                       ></b-form-input>
-                      <span class="text-danger" v-if="error.password">{{ error.password }}</span>
                     </b-form-group>
                   </b-form-group>
+                  <span class="text-danger" v-if="error.password">{{ error.password }}</span>
                 </b-col>
                 <b-col cols="12" class="mt-3">
                   <b-form-group>
@@ -123,6 +123,8 @@ export default {
   },
   methods: {
     changePassword () {
+      this.error.code = ''
+      this.error.password = ''
       if (this.form.password.length < 8) {
         this.error.password = 'Password contains atleast 8 characters'
       } else if (!this.form.code) {
@@ -130,6 +132,12 @@ export default {
       } else {
         changeUserPassword(this.form).then(res => {
           console.log(res.data)
+          if (res.data.success === false && res.data.message === 'Invalid OTP') {
+            this.error.code = 'Invalid OTP'
+          } else if (res.data.success === true) {
+            this.$toast.success('Password changed successfully')
+            this.$router.push('/login')
+          }
         })
       }
     }
