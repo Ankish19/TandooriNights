@@ -446,7 +446,7 @@ li.has-dropdown a {
   color: #383c40 !important;
 }
 .module.left a {
-  width: 112px;
+  width: 129px;
   margin: 0px;
 }
 a.module.module-cart.right {
