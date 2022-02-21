@@ -88,6 +88,11 @@ export const checkCoupon = (data) => {
   return axios.post(`${apiUrl}apply-coupon`, datanew, { headers: apiHeaders() })
 }
 
+export const getUserWallet = () => {
+  var data = ''
+  return axios.post(`${apiUrl}get-wallet-transactions`, data, { headers: apiHeaders() })
+}
+
 // -------------Payment api
 
 export const CardToken = (data) => {
