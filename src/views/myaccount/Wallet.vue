@@ -207,9 +207,13 @@ a.text-left.active {
 .card-bottom.pt-3.px-3.mb-2 {
     margin: auto;
 }
-.card-img{
-  position: relative;
+.card-img {
+    position: relative;
     top: -18px;
-    width: 80px;
+    width: 141px;
+}
+.card-bottom.pt-3.px-3.mb-2.w-80 {
+    width: 477px;
+    height: 238px;
 }
 </style>
