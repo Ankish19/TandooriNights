@@ -183,4 +183,10 @@ a.text-left.active {
     color: #ddae71;
     font-family: 'Raleway';
 }
+.card {
+    width: 100% !important;
+    background: #F06292;
+    border-radius: 15px;
+    border: none;
+}
 </style>
