@@ -132,12 +132,4 @@ export default {
 //     left:350px;
 // }
 
-.sticky {
- position: fixed;
- /* top: 0px; */
- width: 277.5px;
-}
-.menu{
- scroll-behavior: smooth;
- }
 </style>

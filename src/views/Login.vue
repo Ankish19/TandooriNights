@@ -83,11 +83,11 @@
                     </p>
                   </b-col>
                   <b-col cols="6" class="mt-3">
-                    <!-- <p class="text-right">
+                    <p class="text-right">
                       <router-link to="/forget"
                         ><strong>Forget password</strong></router-link
                       >
-                    </p> -->
+                    </p>
                   </b-col>
                 </b-row>
               </b-col>
