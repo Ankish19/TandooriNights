@@ -144,6 +144,7 @@ export default {
         if (res.data.success === true) {
           // localStorage.setItem('userData', res.data.data)
           saveLocalStorage('userData', JSON.stringify(res.data.data))
+          saveLocalStorage('userDataVerify', res.data.data.verified_at ? 'true' : 'false')
           this.$router.push('/myaccount')
         } else {
           this.error = 'Invalid email/ password'

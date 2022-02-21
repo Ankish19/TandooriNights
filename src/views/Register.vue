@@ -140,6 +140,7 @@ export default {
         if (res.data.success === true) {
           // localStorage.setItem('userData', res.data.data)
           saveLocalStorage('userData', JSON.stringify(res.data.data))
+          saveLocalStorage('userDataVerify', false)
           this.$router.push('/otpverify?type=' + res.data.verification.type)
         } else if (res.data.email_phone_already_used === true) {
           this.error = 'this email/ phone already exists'
