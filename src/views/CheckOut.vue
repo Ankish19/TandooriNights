@@ -18,7 +18,7 @@
             <div class="container text-left">
                 <div class="row">
                     <div class="col-xl-4 col-lg-5">
-                        <div class="cart-details shadow bg-white stick-to-content mb-4">
+                        <div class="cart-details1 shadow bg-white stick-to-content1 mb-4">
                             <div class="bg-dark dark p-4">
                             <div class="row">
                               <div class="col-md-6">

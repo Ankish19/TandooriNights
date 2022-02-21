@@ -122,10 +122,10 @@ const router = new VueRouter({
 
 router.beforeEach((to, _, next) => {
   const userData = getLocalStorage('userData')
-  const userDataVerify = getLocalStorage('userDataVerify')
+  const userDataVerify = getLocalStorage('userDataVerify') ?? false
 
   if (userData) {
-    if (to.path === '/login' || to.path === '/register' || to.path === '') {
+    if (to.path === '/login' || to.path === '/register' || to.path === '' || to.path === '/forget' || to.path === '/change-password') {
       return next('/')
     } else if (userData.verified_at === null || !userDataVerify) {
       // console.log(userData.verified_at)

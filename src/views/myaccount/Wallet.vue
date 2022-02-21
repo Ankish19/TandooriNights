@@ -65,7 +65,7 @@
                     <div class="card-bottom pt-3 px-3 mb-2 w-80">
                       <div class="d-flex flex-row justify-content-between text-align-center">
                           <div class="d-flex flex-column"><span>Balance amount</span>
-                              <p><i class="fa fa-usd" aria-hidden="true"></i> <span class="text-white">88,989</span></p>
+                              <p><i class="fa fa-usd" aria-hidden="true"></i> <span class="text-white" v-if="wallet">{{ wallet.balance.toFixed('2') }}</span></p>
                           </div> <button class="btn btn-secondary"><i class="fa fa-sign-in" aria-hidden="true"></i></button>
                       </div>
                       <div class="col-md-12"><img src="@/assets/logo.svg" alt="logo" width="100px" class="card-img"></div>
@@ -91,6 +91,7 @@
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
+import { getUserWallet } from '@/store/api'
 import //   BContainer,
 //   BRow,
 //   BCol,
@@ -110,6 +111,21 @@ export default {
     // BForm,
     // BFormGroup,
     // BFormInput
+  },
+  data () {
+    return {
+      wallet: ''
+    }
+  },
+  mounted () {
+    this.getWallet()
+  },
+  methods: {
+    getWallet () {
+      getUserWallet().then(res => {
+        this.wallet = res.data
+      })
+    }
   },
 
   name: 'Wallet'
