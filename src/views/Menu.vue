@@ -132,4 +132,7 @@ export default {
 //     left:350px;
 // }
 
+.menu{
+ scroll-behavior: smooth;
+ }
 </style>
