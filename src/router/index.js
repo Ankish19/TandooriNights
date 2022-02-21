@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import { getLocalStorage } from '../store/service'
-import { resendVerifyOtp } from '../store/api'
+// import { resendVerifyOtp } from '../store/api'
 
 Vue.use(VueRouter)
 
@@ -129,13 +129,13 @@ router.beforeEach((to, _, next) => {
       return next('/')
     } else if (userData.verified_at === null || !userDataVerify) {
       // console.log(userData.verified_at)
-      const form = {
-        email: userData.email,
-        phone: userData.phone
-      }
-      resendVerifyOtp(form).then(res => {
-        console.log(res.data)
-      })
+      // const form = {
+      //   email: userData.email,
+      //   phone: userData.phone
+      // }
+      // resendVerifyOtp(form).then(res => {
+      //   console.log(res.data)
+      // })
       return next({
         path: '/otpverify',
         query: { redirect: 'email' }
