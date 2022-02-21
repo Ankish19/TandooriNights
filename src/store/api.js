@@ -29,8 +29,18 @@ export const otpverify = (data) => {
   return axios.post(`${apiUrl}otpverify`, data)
 }
 
+// Email
+
 export const resendVerifyOtp = (data) => {
   return axios.post(`${apiUrl}resend_verify_otp`, data)
+}
+
+export const sendPasswordResetMail = (data) => {
+  return axios.post(`${apiUrl}send-password-reset-mail`, data)
+}
+
+export const changeUserPassword = (data) => {
+  return axios.post(`${apiUrl}change-user-password`, data)
 }
 
 export const getGoogleApi = async () => {

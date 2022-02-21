@@ -8,7 +8,7 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
-              <h1 class="mb-0">Forget Password</h1>
+              <h1 class="mb-0">Change Password</h1>
               <h4 class="text-muted mb-0">
                 Some information about our restaurant
               </h4>
@@ -19,8 +19,9 @@
 
       <!-- Section -->
       <section class="sectionbg">
+      <h4>Password reset mail sent</h4>
         <b-container>
-          <b-form @submit.prevent="forgetPassword">
+          <b-form @submit.prevent="changePassword">
             <b-row>
               <b-col cols="6" class="mx-auto">
                 <b-col cols="12">
@@ -30,6 +31,29 @@
                         v-model="form.email"
                         placeholder="Email"
                       ></b-form-input>
+                    </b-form-group>
+                  </b-form-group>
+                </b-col>
+                <b-col cols="12">
+                  <b-form-group>
+                    <b-form-group>
+                      <b-form-input
+                        v-model="form.code"
+                        placeholder="Reset Code"
+                      ></b-form-input>
+                      <span class="text-danger" v-if="error.code">{{ error.code }}</span>
+                    </b-form-group>
+                  </b-form-group>
+                </b-col>
+                <b-col cols="12">
+                  <b-form-group>
+                    <b-form-group>
+                      <b-form-input
+                        v-model="form.password"
+                        placeholder="Password"
+                        type="password"
+                      ></b-form-input>
+                      <span class="text-danger" v-if="error.password">{{ error.password }}</span>
                     </b-form-group>
                   </b-form-group>
                 </b-col>
@@ -57,7 +81,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { sendPasswordResetMail } from '@/store/api'
+import { changeUserPassword } from '@/store/api'
 import {
   BForm,
   BFormGroup,
@@ -83,18 +107,31 @@ export default {
   data () {
     return {
       form: {
-        email: ''
+        email: '',
+        code: '',
+        password: ''
+      },
+      error: {
+        email: '',
+        code: '',
+        password: ''
       }
     }
   },
+  mounted () {
+    this.form.email = this.$route.query.email
+  },
   methods: {
-    forgetPassword () {
-      sendPasswordResetMail(this.form).then(res => {
-        console.log(res.data)
-        if (res.data.success === true) {
-          this.$router.push(`/change-password?email=${this.form.email}`)
-        }
-      })
+    changePassword () {
+      if (this.form.password.length < 8) {
+        this.error.password = 'Password contains atleast 8 characters'
+      } else if (!this.form.code) {
+        this.error.code = 'Enter reset code'
+      } else {
+        changeUserPassword(this.form).then(res => {
+          console.log(res.data)
+        })
+      }
     }
   }
 }

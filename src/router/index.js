@@ -103,6 +103,11 @@ const routes = [
     component: () => import('../views/EditCart.vue')
   },
   {
+    path: '/change-password',
+    name: 'ChangePassword',
+    component: () => import('../views/ChangePassword.vue')
+  },
+  {
     path: '/updateprofile',
     name: 'UpdateProfile',
     component: () => import('../views/myaccount/UpdateProfile.vue')

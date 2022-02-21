@@ -45,9 +45,9 @@
                     <div class="md-stepper-horizontal orange">
                       <div class="md-step active done">
                         <!-- <div class="md-step-circle"><span>1</span></div> -->
-                        <div class="text-center" v-if="item.orderstatus_id === 1"><h5><span class="fa fa-circle text-danger"></span> Order Placed</h5></div>
+                        <div class="text-center " v-if="item.orderstatus_id === 1"><h5><span class="fa fa-circle text-danger"></span> Order Placed</h5></div>
                         <div class="text-center" v-else-if="item.orderstatus_id === 2"><h5><span class="fa fa-circle text-warning"></span> Order Accepted</h5></div>
-                        <div class="text-center" v-else-if="item.orderstatus_id === 3"><h5><span class="fa fa-circle text-warning"></span> Delivery Assigned</h5></div>
+                        <div class="text-center border-bottom" v-else-if="item.orderstatus_id === 3"><h5><span class="fa fa-circle text-warning"></span> Delivery Assigned</h5></div>
                         <div class="text-center" v-else-if="item.orderstatus_id === 4"><h5><span class="fa fa-circle text-warning"></span> Picked Up</h5></div>
                         <div class="text-center" v-else-if="item.orderstatus_id === 5"><h5><span class="fa fa-circle text-success"></span> Completed</h5></div>
                         <div class="text-center" v-else-if="item.orderstatus_id === 6"><h5><span class="fa fa-circle text-danger"></span> Cancelled</h5></div>
@@ -60,9 +60,14 @@
                       </div>
                     </div>
                 </div>
-                <!--<div class="col-md-12 text-center mb-3">
-                  <p class="text-success font-weight-bold"><i class="fa fa-check" ></i> Order Delivered on 29 December 29, 11:00 AM By John</p>
-                </div>-->
+                  <div class="col-md-12 text-center mb-3" v-if="item.accept_delivery">
+                      <h4 class="border-bottom pb-4">Driver Details</h4>
+                  </div>
+                  <div class="col-md-12" v-if="item.accept_delivery">
+                      <strong>Driver name: </strong> {{ item.accept_delivery.user.delivery_guy_detail.name }}<br/>
+                      <strong>Tel: </strong> {{ item.accept_delivery.user.phone }}<br/>
+                      <strong>Vehicle number: </strong> {{ item.accept_delivery.user.delivery_guy_detail.vehicle_number }}
+                  </div>
                  <div class="col-md-12 text-center mb-3">
                   <h4 class="border-bottom pb-4">
                     Bill Details
