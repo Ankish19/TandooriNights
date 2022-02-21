@@ -36,6 +36,8 @@ export default {
   methods: {
     logOut () {
       localStorage.removeItem('userData')
+      localStorage.removeItem('cart')
+      localStorage.removeItem('userDataVerify')
       this.$router.push('/')
     }
   },
