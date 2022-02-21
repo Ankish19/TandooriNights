@@ -245,6 +245,11 @@
                                 <div class="col-md-12 form-group">
                                 <div class="row" v-if="submitOrder.delivery_type == 2 || submitOrder.delivery_type == 1">
                                     <label class="custom-control custom-radio">
+                                        <input type="checkbox" name="wallet" checked  value="wallet" v-model="wallet" @change="selectWallet($event)">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description ml-2">Wallet Balance $</span>
+                                    </label>
+                                    <label class="custom-control custom-radio">
                                         <input type="radio" name="payment_type" checked  value="COD" v-model="submitOrder.method" @change="selectMethod($event)">
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description ml-2">COD</span>
@@ -415,7 +420,8 @@ export default {
         tipAmount: 0
       },
       coupon_applied: '',
-      orderNow: 0
+      orderNow: 0,
+      wallet: ''
     }
   },
   mounted () {
@@ -470,7 +476,7 @@ export default {
       arr = {
         name: 'Total Amount',
         unitQty: '1',
-        price: this.totalAmount * 100
+        price: Math.round(this.submitOrder.total.totalPrice * 100)
       }
       card.shoppingCart.lineItems.push(arr)
       CardToken(JSON.stringify(card)).then(res => {
@@ -494,7 +500,7 @@ export default {
     checkCart () {
       if (getLocalStorage('cart') && getLocalStorage('cart').length > 0) {
         this.getAddress()
-        this.getSetting()
+        this.getSetting('mounted')
         this.showItem()
         this.submitOrder.order = getLocalStorage('cart')
         this.getUserData()
@@ -552,7 +558,7 @@ export default {
       this.orderTotal = 0
       this.taxTotal = 0
       this.totalAmount = 0
-      this.getSetting()
+      this.getSetting('addQuantity')
     },
     minusQuantity (item, index) {
       if (item.quantity > 0) {
@@ -574,7 +580,7 @@ export default {
         this.orderTotal = 0
         this.taxTotal = 0
         this.totalAmount = 0
-        this.getSetting()
+        this.getSetting('minusQuantity')
       }
     },
     showItem () {
@@ -598,7 +604,7 @@ export default {
       this.orderTotal = 0
       this.taxTotal = 0
       this.totalAmount = 0
-      this.getSetting()
+      this.getSetting('deleteItem')
     },
     getUserData () {
       this.submitOrder.user.data = getLocalStorage('userData')
@@ -647,9 +653,10 @@ export default {
             this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
           }
         }
+        // var deliveryTotal = parseFloat(this.orderTotal) + parseFloat(this.delivery_amount)
         this.taxTotal = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
         this.totalAmount = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) + parseFloat(this.taxTotal)
-        this.submitOrder.total.totalPrice = this.totalAmount
+        this.submitOrder.total.totalPrice = parseFloat(this.totalAmount) + parseFloat(this.submitOrder.tipAmount)
       })
     },
     couponVerify () {
@@ -678,7 +685,7 @@ export default {
           this.taxTotal = 0
           this.totalAmount = 0
           this.orderTotal = 0
-          this.getSetting()
+          this.getSetting('coupon')
         }
       })
     },
@@ -703,7 +710,7 @@ export default {
       this.orderTotal = 0
       this.taxTotal = 0
       this.totalAmount = 0
-      this.getSetting()
+      this.getSetting('selectTip')
     },
     jGetDistance (latitude, longitude) {
       var origin = new window.google.maps.LatLng(latitude, longitude)
