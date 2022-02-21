@@ -316,7 +316,7 @@
                         <blockquote class="blockquote animated" data-animation="fadeInRight" data-animation-delay="300">
                             <div class="blockquote-content dark">
                                 <div class="rate rate-sm mb-3"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i></div>
-                                <p>Very good food, fresh and tasty veg samosa and veg pakoara so good.</p>
+                                <p class="text-white">Very good food, fresh and tasty veg samosa and veg pakoara so good.</p>
                             </div>
                             <footer>
                                 <img src="#" alt="">
@@ -338,7 +338,7 @@
                         <blockquote class="blockquote light animated" data-animation="fadeInLeft">
                             <div class="blockquote-content dark">
                                 <div class="rate rate-sm mb-3"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i></div>
-                                <p>Had a great buffet lunch there for a very reasonable price. The owners pride themselves on serving fresh food even on a buffet line. 10/10. Will visit again.</p>
+                                <p  class="text-white">Had a great buffet lunch there for a very reasonable price. The owners pride themselves on serving fresh food even on a buffet line. 10/10. Will visit again.</p>
                             </div>
                             <footer>
                                 <img src="#" alt="">
