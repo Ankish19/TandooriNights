@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import { getLocalStorage } from '../store/service'
+import { resendVerifyOtp } from '../store/api'
 
 Vue.use(VueRouter)
 
@@ -116,10 +117,24 @@ const router = new VueRouter({
 
 router.beforeEach((to, _, next) => {
   const userData = getLocalStorage('userData')
+  const userDataVerify = getLocalStorage('userDataVerify')
 
   if (userData) {
     if (to.path === '/login' || to.path === '/register' || to.path === '') {
       return next('/')
+    } else if (userData.verified_at === null || !userDataVerify) {
+      // console.log(userData.verified_at)
+      const form = {
+        email: userData.email,
+        phone: userData.phone
+      }
+      resendVerifyOtp(form).then(res => {
+        console.log(res.data)
+      })
+      return next({
+        path: '/otpverify',
+        query: { redirect: 'email' }
+      })
     }
   } else if (!userData) {
     if (to.path === '/myaccount' || to.path === '/checkout' || to.path === '/editcart' || to.path === '/ManageAddress' || to.path === '/addmanageaddress' || to.path === '/myorder' || to.path === '/wallet') {
