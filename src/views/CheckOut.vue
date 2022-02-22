@@ -505,11 +505,14 @@ export default {
           lineItems: []
         }
       }
+      if (getLocalStorage('submitOrder') && getLocalStorage('submitOrder').total) {
+        this.submitOrder.total.totalPrice = getLocalStorage('submitOrder').total.totalPrice
+      }
       var arr = { }
       arr = {
         name: 'Total Amount',
         unitQty: '1',
-        price: Math.round(getLocalStorage('submitOrder').total.totalPrice * 100)
+        price: Math.round(this.submitOrder.total.totalPrice * 100)
       }
       card.shoppingCart.lineItems.push(arr)
       CardToken(JSON.stringify(card)).then(res => {
@@ -694,6 +697,9 @@ export default {
         }
         this.submitOrder.total.totalPrice = this.totalAmount
         if (from === 'final') {
+          if (getLocalStorage('submitOrder')) {
+            localStorage.removeItem('submitOrder')
+          }
           saveLocalStorage('submitOrder', JSON.stringify(this.submitOrder))
         }
       })
