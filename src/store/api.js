@@ -88,15 +88,19 @@ export const checkCoupon = (data) => {
   return axios.post(`${apiUrl}apply-coupon`, datanew, { headers: apiHeaders() })
 }
 
+export const getUserWallet = (data) => {
+  return axios.post(`${apiUrl}get-wallet-transactions`, data, { headers: apiHeaders() })
+}
+
 // -------------Payment api
 
 export const CardToken = (data) => {
   console.log(data)
-  var data1 = {}
-  return axios.get('https://apisandbox.dev.clover.com/pakms/apikey', data1, {
+  // var data1 = {}
+  return axios.get('https://api.clover.com/invoicingcheckoutservice/v1/checkouts', data, {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer f0dc5622-ab52-2d8f-4936-8f5557cae2b6'
+      Authorization: 'Bearer 4dbcaf37-75b1-d3fe-c64e-c6ca7934277d'
     }
   })
 }

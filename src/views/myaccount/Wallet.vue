@@ -100,7 +100,7 @@ import //   BContainer,
 //   BFormInput
 'bootstrap-vue'
 export default {
-  created () {},
+  name: 'Wallet',
   components: {
     Headbar,
     Footer,
@@ -122,13 +122,13 @@ export default {
   },
   methods: {
     getWallet () {
-      getUserWallet().then(res => {
+      const data = ''
+      getUserWallet(data).then(res => {
         this.wallet = res.data
+        console.log(res.data)
       })
     }
-  },
-
-  name: 'Wallet'
+  }
 }
 </script>
 <style>

@@ -63,28 +63,28 @@
                                         <strong>+$<span class="cart-delivery">{{ taxTotal?taxTotal.toFixed(2):0 }}</span></strong>
                                     </div>
                                 </div>
-                                <div class="row" v-if="wallet && wallet.balance > 0 &&  wallet.balance < submitOrder.total.totalPrice">
+                                <!-- <div class="row" v-if="wallet && wallet.balance > 0 &&  wallet.balance < submitOrder.total.totalPrice">
                                     <div class="col-7 text-right text-muted">Wallet:</div>
                                     <div class="col-5">
                                         <strong>-$<span class="cart-delivery">{{ wallet.balance.toFixed(2) }}</span></strong>
                                     </div>
-                                </div>
+                                </div> -->
                                 <hr class="hr-sm">
                                 <div class="row text-lg">
                                     <div class="col-7 text-right text-muted">Total:</div>
                                     <div class="col-5">
                                       <strong>$
                                         <span class="cart-total" v-if="deliveryCharges == 1 && delivery_amount > 0 && wallet.balance < submitOrder.total.totalPrice">
-                                         {{ totalAmount?((parseFloat(totalAmount.toFixed(2))+parseFloat(submitOrder.tipAmount)+parseFloat(delivery_amount.toFixed(2)))-parseFloat(wallet.balance)).toFixed(2):0 }}
+                                         {{ totalAmount?parseFloat(totalAmount.toFixed(2)):0 }}
                                         </span>
                                         <span class="cart-total" v-else-if="deliveryCharges == 1 && delivery_amount > 0">
-                                         {{ totalAmount?(parseFloat(totalAmount.toFixed(2))+parseFloat(submitOrder.tipAmount)+parseFloat(delivery_amount.toFixed(2))).toFixed(2):0 }}
+                                         {{ totalAmount?parseFloat(totalAmount.toFixed(2)):0 }}
                                         </span>
                                         <span class="cart-total" v-else-if="wallet.balance < submitOrder.total.totalPrice">
-                                         {{ totalAmount?(parseFloat(totalAmount.toFixed(2))+parseFloat(submitOrder.tipAmount.toFixed(2))-parseFloat(wallet.balance)):0 }}
+                                         {{ totalAmount?parseFloat(totalAmount.toFixed(2)):0 }}
                                         </span>
                                         <span class="cart-total" v-else>
-                                          {{ totalAmount?(parseFloat(totalAmount.toFixed(2))+parseFloat(submitOrder.tipAmount)+parseFloat(delivery_amount.toFixed(2))).toFixed(2):0 }}
+                                          {{ totalAmount?parseFloat(totalAmount.toFixed(2)):0 }}
                                         </span>
                                       </strong>
                                     </div>
@@ -256,11 +256,11 @@
                                 </div> -->
                                 <div class="col-md-12 form-group">
                                 <div class="row" v-if="submitOrder.delivery_type == 2 || submitOrder.delivery_type == 1">
-                                    <label class="custom-control custom-radio">
+                                    <!-- <label class="custom-control custom-radio">
                                         <input type="checkbox" name="wallet" value="wallet" v-model="getWallet" @change="selectWallet($event)">
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description ml-2">Wallet Balance <br/>${{ wallet.balance?wallet.balance.toFixed(2):0 }}</span>
-                                    </label>
+                                    </label> -->
                                     <label class="custom-control custom-radio">
                                         <input type="radio" name="payment_type" checked  value="COD" v-model="submitOrder.method" @change="selectMethod($event)">
                                         <span class="custom-control-indicator"></span>
@@ -445,6 +445,10 @@ export default {
     getRestaurantInfo().then(res => {
       this.storeInfo = res.data
     })
+    const data = ''
+    getUserWallet(data).then(res => {
+      this.wallet = res.data
+    })
     this.checkCart()
   },
   methods: {
@@ -472,17 +476,14 @@ export default {
     selectWallet (event) {
       if (event.target.value === 'wallet') {
         this.submitOrder.partial_wallet = false
-        getUserWallet().then(res => {
-          this.wallet = res.data
-          if (this.wallet.balance > 0 && this.wallet.balance < this.submitOrder.total.totalPrice) {
-            this.submitOrder.partial_wallet = true
-            console.log(this.submitOrder.partial_wallet = true)
-          } else {
-            this.submitOrder.partial_wallet = false
-            console.log(this.submitOrder.partial_wallet = false)
-          }
-          console.log(this.wallet)
-        })
+
+        if (this.wallet.balance > 0 && this.wallet.balance < this.submitOrder.total.totalPrice) {
+          this.submitOrder.partial_wallet = true
+          console.log(this.submitOrder.partial_wallet = true)
+        } else {
+          this.submitOrder.partial_wallet = false
+          console.log(this.submitOrder.partial_wallet = false)
+        }
       }
     },
     payment () {
@@ -692,8 +693,10 @@ export default {
           this.taxTotal = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
           this.totalAmount = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) + parseFloat(this.taxTotal)
         }
-        if (this.tipAmount > 0) {
-          this.totalAmount = parseFloat(this.totalAmount) + parseFloat(this.tipAmount)
+        console.log(this.submitOrder.tipAmount)
+        if (this.submitOrder.tipAmount > 0) {
+          console.log(this.submitOrder.tipAmount)
+          this.totalAmount = parseFloat(this.totalAmount) + parseFloat(this.submitOrder.tipAmount)
         }
         this.submitOrder.total.totalPrice = this.totalAmount
         if (from === 'final') {
@@ -801,7 +804,7 @@ export default {
       }
       this.deliveryTotal = parseFloat(this.orderTotal) + parseFloat(this.delivery_amount)
       this.taxTotal = (parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
-      // this.totalAmount = ((parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice))) + parseFloat(this.taxTotal)
+      this.totalAmount = ((parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice))) + parseFloat(this.taxTotal)
     }
   }
 }
