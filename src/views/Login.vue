@@ -10,7 +10,7 @@
             <div class="col-lg-12">
               <h1 class="mb-0">login</h1>
               <h4 class="text-muted mb-0">
-                Some informations about our restaurant
+                Some information about our restaurant
               </h4>
             </div>
           </div>
@@ -48,7 +48,6 @@
                         v-model="form.password"
                         placeholder="Password"
                         type="password"
-                        :class="[error !== ''?'border-danger':'']"
                       ></b-form-input>
                     </b-form-group>
                   </b-form-group>
@@ -84,11 +83,11 @@
                     </p>
                   </b-col>
                   <b-col cols="6" class="mt-3">
-                    <!-- <p class="text-right">
+                    <p class="text-right">
                       <router-link to="/forget"
                         ><strong>Forget password</strong></router-link
                       >
-                    </p> -->
+                    </p>
                   </b-col>
                 </b-row>
               </b-col>
@@ -145,6 +144,7 @@ export default {
         if (res.data.success === true) {
           // localStorage.setItem('userData', res.data.data)
           saveLocalStorage('userData', JSON.stringify(res.data.data))
+          saveLocalStorage('userDataVerify', res.data.data.verified_at ? 'true' : 'false')
           this.$router.push('/myaccount')
         } else {
           this.error = 'Invalid email/ password'

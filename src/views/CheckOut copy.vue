@@ -228,8 +228,8 @@
                                   <div class="col-md-12">
                                     <label>Tips</label>
                                     <ul class="p-0">
-                                    <li v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)" :class="submitOrder.tipAmount == tip?`bg-primary tipValue text-white`:`tipValue`">{{ tip }}</li>
-                                    <li @click="selectTip('custom')" :class="selected_tip == 'custom'?`bg-primary tipValue text-white`:`tipValue`">Custom</li>
+                                      <li v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)" :class="submitOrder.tipAmount == tip?`bg-primary tipValue text-white`:`tipValue`">{{ tip }}</li>
+                                      <li @click="selectTip('custom')" :class="selected_tip == 'custom'?`bg-primary tipValue text-white`:`tipValue`">Custom</li>
                                     </ul>
                                         <div class="form-group" v-if="customTip">
                                           <input type="number" maxlength="6" v-model="submitOrder.tipAmount" class="form-control">

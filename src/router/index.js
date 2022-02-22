@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import { getLocalStorage } from '../store/service'
+import { resendVerifyOtp } from '../store/api'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/about',
     name: 'About',
     component: () => import('../views/About.vue')
+  },
+  {
+    path: '/payment-success',
+    name: 'PaymentSuccess',
+    component: () => import('../views/PaymentSuccess.vue')
   },
   {
     path: '/menu',
@@ -51,6 +57,11 @@ const routes = [
     name: 'OtpVerify',
     component: () => import('../views/OtpVerify.vue')
   },
+  // {
+  //   path: '/stripe',
+  //   name: 'Stripe',
+  //   component: () => import('../views/Stripe.vue')
+  // },
   {
     path: '/checkout',
     name: 'Checkout',
@@ -92,6 +103,11 @@ const routes = [
     component: () => import('../views/EditCart.vue')
   },
   {
+    path: '/change-password',
+    name: 'ChangePassword',
+    component: () => import('../views/ChangePassword.vue')
+  },
+  {
     path: '/updateprofile',
     name: 'UpdateProfile',
     component: () => import('../views/myaccount/UpdateProfile.vue')
@@ -106,10 +122,28 @@ const router = new VueRouter({
 
 router.beforeEach((to, _, next) => {
   const userData = getLocalStorage('userData')
+  const userDataVerify = getLocalStorage('userDataVerify') ?? false
 
   if (userData) {
-    if (to.path === '/login' || to.path === '/register' || to.path === '') {
+    if (to.path === '/login' || to.path === '/register' || to.path === '' || to.path === '/forget' || to.path === '/change-password') {
       return next('/')
+    } else if (userData.verified_at === null || userDataVerify === 'false') {
+      if (to.path !== '/otpverify') {
+        // console.log(userData.verified_at)
+        const form = {
+          email: userData.email,
+          phone: userData.phone
+        }
+        resendVerifyOtp(form).then(res => {
+          console.log(res.data)
+        })
+        return next({
+          path: '/otpverify',
+          query: { redirect: 'email' }
+        })
+      } else {
+        return next()
+      }
     }
   } else if (!userData) {
     if (to.path === '/myaccount' || to.path === '/checkout' || to.path === '/editcart' || to.path === '/ManageAddress' || to.path === '/addmanageaddress' || to.path === '/myorder' || to.path === '/wallet') {

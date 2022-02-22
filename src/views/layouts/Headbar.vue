@@ -23,7 +23,7 @@
                                 <router-link to="/about">About</router-link>
                             </li>
                             <li class="has-dropdown">
-                                <router-link to="/menu">Menu</router-link>
+                                <router-link to="/menu">Online Order</router-link>
                             </li>
                             <li class="has-dropdown">
                                 <router-link to="/contact">Contact Us</router-link>
@@ -218,6 +218,10 @@ export default {
     this.getSetting()
     this.showItem()
     this.getCalc()
+    const externalScript = document.createElement('script')
+    externalScript.setAttribute('src', '../js/core.js')
+    externalScript.setAttribute('type', 'text/javascript')
+    document.head.appendChild(externalScript)
   },
   methods: {
     showItem () {
