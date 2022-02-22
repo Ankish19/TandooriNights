@@ -799,6 +799,9 @@ export default {
           this.submitOrder.delivery_amount = this.delivery_amount
         }
       }
+      this.deliveryTotal = parseFloat(this.orderTotal) + parseFloat(this.delivery_amount)
+      this.taxTotal = (parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
+      this.totalAmount = (parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice)) + parseFloat(this.taxTotal)
     }
   }
 }

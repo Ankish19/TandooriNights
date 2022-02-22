@@ -29,18 +29,8 @@ export const otpverify = (data) => {
   return axios.post(`${apiUrl}otpverify`, data)
 }
 
-// Email
-
 export const resendVerifyOtp = (data) => {
   return axios.post(`${apiUrl}resend_verify_otp`, data)
-}
-
-export const sendPasswordResetMail = (data) => {
-  return axios.post(`${apiUrl}send-password-reset-mail`, data)
-}
-
-export const changeUserPassword = (data) => {
-  return axios.post(`${apiUrl}change-user-password`, data)
 }
 
 export const getGoogleApi = async () => {
@@ -98,31 +88,15 @@ export const checkCoupon = (data) => {
   return axios.post(`${apiUrl}apply-coupon`, datanew, { headers: apiHeaders() })
 }
 
-export const getUserWallet = () => {
-  var data = ''
-  return axios.post(`${apiUrl}get-wallet-transactions`, data, { headers: apiHeaders() })
-}
-
 // -------------Payment api
 
 export const CardToken = (data) => {
-  return axios.post('https://api.clover.com/invoicingcheckoutservice/v1/checkouts', data, {
+  console.log(data)
+  var data1 = {}
+  return axios.get('https://apisandbox.dev.clover.com/pakms/apikey', data1, {
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      Authorization: 'Bearer 63d11ca9-a29d-32b9-0972-3df192f945d0',
-      'X-Clover-Merchant-ID': 'K35XECMJWJYW1'
-    }
-  })
-}
-
-export const CardToken1 = (data) => {
-  return axios.post('https://token-sandbox.dev.clover.com/v1/tokens', data, {
-    headers: {
-      'Content-Type': 'application/json',
-      apikey: '156f720c779148062edc734a07a7588e',
-      'Access-Control-Allow-Origin': 'http://localhost:3000'
+      Authorization: 'Bearer f0dc5622-ab52-2d8f-4936-8f5557cae2b6'
     }
   })
 }
