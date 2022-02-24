@@ -63,12 +63,12 @@
                                         <strong>+$<span class="cart-delivery">{{ taxTotal?taxTotal.toFixed(2):0 }}</span></strong>
                                     </div>
                                 </div>
-                                <!-- <div class="row" v-if="wallet && wallet.balance > 0 &&  wallet.balance < submitOrder.total.totalPrice">
+                                <div class="row" v-if="showWallet == 1 && wallet && wallet.balance > 0 &&  wallet.balance < submitOrder.total.totalPrice">
                                     <div class="col-7 text-right text-muted">Wallet:</div>
                                     <div class="col-5">
                                         <strong>-$<span class="cart-delivery">{{ wallet.balance.toFixed(2) }}</span></strong>
                                     </div>
-                                </div> -->
+                                </div>
                                 <hr class="hr-sm">
                                 <div class="row text-lg">
                                     <div class="col-7 text-right text-muted">Total:</div>
@@ -256,7 +256,7 @@
                                 </div> -->
                                 <div class="col-md-12 form-group">
                                 <div class="row" v-if="submitOrder.delivery_type == 2 || submitOrder.delivery_type == 1">
-                                    <label class="custom-control custom-radio">
+                                    <label class="custom-control custom-radio" v-if="wallet && wallet.balance > 0 &&  wallet.balance < submitOrder.total.totalPrice">
                                         <input type="checkbox" name="wallet" value="wallet" v-model="getWallet" @change="selectWallet($event)">
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description ml-2">Wallet Balance <br/>${{ wallet.balance?wallet.balance.toFixed(2):0 }}</span>
