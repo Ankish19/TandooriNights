@@ -325,7 +325,7 @@
                                   </div>
                                 </div>-->
                                 <div v-if="paymentForm == 1">
-                                  <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment"><span>Go to payment page</span></button>
+                                  <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment(totalAmount)"><span>Go to payment page</span></button>
                                 </div>
                               </div>
                             </div>
@@ -769,7 +769,7 @@ export default {
       this.taxTotal = (parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
       this.totalAmount = ((parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice))) + parseFloat(this.taxTotal)
     },
-    payment () {
+    payment (amount) {
       // const card = {
       //   ecomind: 'ecom',
       //   amount: '3000',
@@ -789,7 +789,7 @@ export default {
           lineItems: []
         }
       }
-      console.log(parseFloat(this.totalAmount.toFixed('2')) + 'amount')
+      console.log(parseFloat(amount.toFixed(2)) + 'amount')
       if (getLocalStorage('submitOrder') && getLocalStorage('submitOrder').total) {
         this.submitOrder.total.totalPrice = getLocalStorage('submitOrder').total.totalPrice
       }
@@ -797,7 +797,7 @@ export default {
       arr = {
         name: 'Total Amount',
         unitQty: '1',
-        price: Math.round(this.submitOrder.total.totalPrice * 100)
+        price: parseFloat(amount.toFixed(2))
       }
       card.shoppingCart.lineItems.push(arr)
       CardToken(JSON.stringify(card)).then(res => {
