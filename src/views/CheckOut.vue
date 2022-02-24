@@ -486,43 +486,6 @@ export default {
         }
       }
     },
-    payment () {
-      // const card = {
-      //   ecomind: 'ecom',
-      //   amount: '3000',
-      //   currency: 'CAD',
-      //   capture: true,
-      //   source: 'clv_1TSTS3Lo3tNdThBrFsRFV4M6'
-      // }
-      this.getSetting('final')
-      var card = {
-        customer: {
-          email: this.submitOrder.user.data.email,
-          firstName: this.submitOrder.user.data.name,
-          lastName: '',
-          phoneNumber: this.submitOrder.user.data.phone.renderToString
-        },
-        shoppingCart: {
-          lineItems: []
-        }
-      }
-      if (getLocalStorage('submitOrder') && getLocalStorage('submitOrder').total) {
-        this.submitOrder.total.totalPrice = getLocalStorage('submitOrder').total.totalPrice
-      }
-      var arr = { }
-      arr = {
-        name: 'Total Amount',
-        unitQty: '1',
-        price: Math.round(this.submitOrder.total.totalPrice * 100)
-      }
-      card.shoppingCart.lineItems.push(arr)
-      CardToken(JSON.stringify(card)).then(res => {
-        console.log(res.data)
-        window.location.href = res.data.href
-      }).catch(err => {
-        console.log(err)
-      })
-    },
     selectMethod (event) {
       if (event.target.value === 'COD') {
         this.paymentForm = 0
@@ -805,6 +768,44 @@ export default {
       this.deliveryTotal = parseFloat(this.orderTotal) + parseFloat(this.delivery_amount)
       this.taxTotal = (parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
       this.totalAmount = ((parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice))) + parseFloat(this.taxTotal)
+    },
+    payment () {
+      // const card = {
+      //   ecomind: 'ecom',
+      //   amount: '3000',
+      //   currency: 'CAD',
+      //   capture: true,
+      //   source: 'clv_1TSTS3Lo3tNdThBrFsRFV4M6'
+      // }
+      this.getSetting('final')
+      var card = {
+        customer: {
+          email: this.submitOrder.user.data.email,
+          firstName: this.submitOrder.user.data.name,
+          lastName: '',
+          phoneNumber: this.submitOrder.user.data.phone.renderToString
+        },
+        shoppingCart: {
+          lineItems: []
+        }
+      }
+      console.log(parseFloat(this.totalAmount.toFixed('2')) + 'amount')
+      if (getLocalStorage('submitOrder') && getLocalStorage('submitOrder').total) {
+        this.submitOrder.total.totalPrice = getLocalStorage('submitOrder').total.totalPrice
+      }
+      var arr = { }
+      arr = {
+        name: 'Total Amount',
+        unitQty: '1',
+        price: Math.round(this.submitOrder.total.totalPrice * 100)
+      }
+      card.shoppingCart.lineItems.push(arr)
+      CardToken(JSON.stringify(card)).then(res => {
+        console.log(res.data)
+        window.location.href = res.data.href
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }
