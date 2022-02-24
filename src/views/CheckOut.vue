@@ -816,7 +816,7 @@ export default {
       card.shoppingCart.lineItems.push(arr)
       CardToken(JSON.stringify(card)).then(res => {
         console.log(res.data)
-        // window.location.href = res.data.href
+        window.location.href = res.data.href
       }).catch(err => {
         console.log(err)
       })
