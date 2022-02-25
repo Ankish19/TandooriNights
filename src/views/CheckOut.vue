@@ -75,13 +75,13 @@
                                     <div class="col-5">
                                       <strong>$
                                         <span class="cart-total" v-if="deliveryCharges == 1 && delivery_amount > 0 && showWallet == 1 && wallet.balance < submitOrder.total.totalPrice">
-                                         {{ totalAmount?(parseFloat(totalAmount.toFixed(2))-parseFloat(wallet.balance.toFixed(2))).toFixed(2):0 }}
+                                         {{ totalAmount?(parseFloat(totalAmount.toFixed(2))):0 }}
                                         </span>
                                         <span class="cart-total" v-else-if="deliveryCharges == 1 && delivery_amount > 0">
                                          {{ totalAmount?parseFloat(totalAmount.toFixed(2)):0 }}
                                         </span>
                                         <span class="cart-total" v-else-if="showWallet == 1 && wallet.balance < submitOrder.total.totalPrice">
-                                         {{ totalAmount?(parseFloat(totalAmount.toFixed(2))-parseFloat(wallet.balance.toFixed(2))).toFixed(2):0 }}
+                                         {{ totalAmount?(parseFloat(totalAmount.toFixed(2))):0 }}
                                         </span>
                                         <span class="cart-total" v-else>
                                           {{ totalAmount?parseFloat(totalAmount.toFixed(2)):0 }}
@@ -488,6 +488,7 @@ export default {
 
         if (this.wallet.balance > 0 && this.wallet.balance < this.submitOrder.total.totalPrice) {
           this.submitOrder.partial_wallet = true
+          this.totalAmount = parseFloat(this.totalAmount.toFixed(2)) - parseFloat(this.wallet.balance.toFixed(2))
         } else {
           this.submitOrder.partial_wallet = false
         }
