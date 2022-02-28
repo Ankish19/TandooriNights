@@ -482,7 +482,6 @@ export default {
         this.getWallet = 'wallet'
         this.showWallet = 1
       }
-      console.log(this.getWallet)
       if (this.getWallet === 'wallet') {
         this.submitOrder.partial_wallet = false
 
