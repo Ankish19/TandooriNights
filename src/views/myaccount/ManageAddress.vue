@@ -158,6 +158,8 @@ export default {
   methods: {
     userDat () {
       this.userData = getLocalStorage('userData')
+      this.userData.verified_at = new Date()
+      console.log(this.userData)
     },
     getAddr () {
       getAddresses().then(res => {
