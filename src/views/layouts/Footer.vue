@@ -11,30 +11,22 @@
             /></a>
           </div>
           <div class="col-lg-4 col-md-6">
-            <h5 class="text-muted">Latest news</h5>
+            <h5 class="text-light">About</h5>
+            <h4 class="text-light">Tandoori Nights</h4>
+
             <ul class="list-posts">
               <li>
                 <a href="#" class="title"
-                  >How to create effective webdeisign?</a
+                  >101- 4851 Westwinds Dr NE, Calgary, T3J 4L4</a
                 >
-                <span class="date">February 14, 2015</span>
-              </li>
-              <li>
-                <a href="#" class="title"
-                  >Awesome weekend in Polish mountains!</a
-                >
-                <span class="date">February 14, 2015</span>
-              </li>
-              <li>
-                <a href="#" class="title"
-                  >How to create effective webdeisign?</a
-                >
-                <span class="date">February 14, 2015</span>
               </li>
             </ul>
+            <h4 class="text-light">Timmings</h4>
+            <p>Wednesday-Monday 11am–10pm</p>
+            <p>Tuesday-Closed</p>
           </div>
           <div class="col-lg-5 col-md-6">
-            <h5 class="text-muted">Subscribe Us!</h5>
+            <h5 class="text-light">Subscribe Us!</h5>
             <!-- MailChimp Form -->
             <form
               action="//suelo.us12.list-manage.com/subscribe/post-json?u=ed47dbfe167d906f2bc46a01b&amp;id=24ac8a22ad"
@@ -73,17 +65,15 @@
                 </span>
               </div>
             </form>
-            <h5 class="text-muted mb-3">Social Media</h5>
+            <h5 class="text-light mb-3">Social Media</h5>
             <a
-              href="#"
+              href="https://www.facebook.com/tandoorinightsca/"
               class="icon icon-social icon-circle icon-sm icon-facebook"
               ><i class="fa fa-facebook"></i
             ></a>
-            <a href="#" class="icon icon-social icon-circle icon-sm icon-google"
-              ><i class="fa fa-google"></i
-            ></a>
+            &nbsp;
             <a
-              href="#"
+              href="https://www.instagram.com/tandoorinightscalgary/"
               class="icon icon-social icon-circle icon-sm icon-instagram"
               ><i class="fa fa-instagram"></i
             ></a>
@@ -92,7 +82,7 @@
         <!-- Footer 2nd Row -->
         <div class="footer-second-row">
           <span class="text-muted"
-            >Copyright Tandoori Night 2022 ©. Made with love by Tng Websolutions.</span
+            >Copyright Tandoori Night 2022 ©. Made by <a href="https://tngwebsolutions.ca/">T&G Web Solutions Ltd.</a></span
           >
         </div>
       </div>
