@@ -84,6 +84,15 @@ import Footer from '@/views/layouts/Footer.vue'
 export default {
   methods: {},
   name: 'About',
+  metaInfo: {
+    title: 'About',
+    titleTemplate: '%s | Online Food order',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'description', content: 'Tandoori Nights' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    ]
+  },
   components: {
     Headbar,
     Footer

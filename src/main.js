@@ -9,6 +9,7 @@ import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 import JwPagination from 'jw-vue-pagination'
 import { StripePlugin } from '@vue-stripe/vue-stripe'
+import VueMeta from 'vue-meta'
 
 const options = {
   pk: 'pk_test_G1rWGnRBT4OayfHaxO377TV5',
@@ -17,7 +18,7 @@ const options = {
   locale: process.env.LOCALE
 }
 
-Vue.use(StripePlugin, options)
+Vue.use(StripePlugin, options, VueMeta)
 
 Vue.component('jw-pagination', JwPagination)
 Vue.config.productionTip = false
