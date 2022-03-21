@@ -10,7 +10,7 @@
               <img alt="Vue logo" class="footer-logo" src="@/assets/logo.svg"
             /></a>
           </div>
-          <div class="col-lg-4 col-md-6">
+          <!-- <div class="col-lg-4 col-md-6">
             <h5 class="text-muted">Latest news</h5>
             <ul class="list-posts">
               <li>
@@ -30,6 +30,19 @@
                   >How to create effective webdeisign?</a
                 >
                 <span class="date">February 14, 2015</span>
+              </li>
+            </ul>
+          </div> -->
+          <div class="col-lg-4 col-md-6">
+            <h5 class="text-muted">About</h5>
+            <ul class="list-posts">
+              <li>
+                <h5>Tandoori Nights</h5>
+              </li>
+              <li>
+                <a href="#" class="title"
+                  >101- 4851 Westwinds Dr NE, Calgary, T3J 4L4</a
+                >
               </li>
             </ul>
           </div>
