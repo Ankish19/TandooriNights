@@ -5,29 +5,57 @@
       <div class="container">
         <!-- Footer 1st Row -->
         <div class="footer-first-row row">
-          <div class="col-lg-3 text-center">
+          <div class="col-lg-3 text-left">
             <a href="#">
               <img alt="Vue logo" class="footer-logo" src="@/assets/logo.svg"
             /></a>
+            <p>Tandoori Nights reimagine the wonders of Canadian fare in a space that evokes a bygone era of a boisterous yet elegant Canada—all within the heart of Calgary City.</p>
           </div>
-          <div class="col-lg-4 col-md-6">
-            <h5 class="text-light">About</h5>
-            <h4 class="text-light">Tandoori Nights</h4>
-
+          <div class="col-lg-1"></div>
+          <div class="col-lg-4 col-md-6 text-left">
+            <h5 class="text-light">Contact</h5>
             <ul class="list-posts">
               <li>
                 <a href="#" class="title"
                   >101- 4851 Westwinds Dr NE, Calgary, T3J 4L4</a
                 >
+                <br>
+                <p> Follow Us On &nbsp;
+                <a
+              href="https://www.facebook.com/tandoorinightsca/"
+              class="icon icon-social icon-circle icon-sm icon-facebook"
+              ><i class="fa fa-facebook"></i
+            ></a>
+            &nbsp;
+            <a
+              href="https://www.instagram.com/tandoorinightscalgary/"
+              class="icon icon-social icon-circle icon-sm icon-instagram"
+              ><i class="fa fa-instagram"></i
+            ></a></p>
+            <hr class="hr-md">
+              <a>Queries/Support:</a>
+               <a href="tel:+1-604-614-9324" class="title mt-3 mb-4"
+                  >+1-604-614-9324</a
+                >
+                <a>Booking:</a>
+                <a href="tel:+1-403-568-9858" class="title mt-2 mb-4"
+                  >+1-403-568-9858</a
+                >
+                <a>E-mail:</a>
+                <a href="tel:+1-403-568-9858" class="title mt-2"
+                  >info@tandoorinights.ca</a
+                >
+                <hr class="hr-md">
               </li>
-            </ul>
-            <h4 class="text-light">Timmings</h4>
+              <h5 class="text-light">Timmings</h5>
+              <li>
             <p>Wednesday-Monday 11am–10pm</p>
             <p>Tuesday-Closed</p>
+            </li>
+            </ul>
           </div>
-          <div class="col-lg-5 col-md-6">
-            <h5 class="text-light">Subscribe Us!</h5>
-            <!-- MailChimp Form -->
+          <div class="col-lg-4 col-md-6">
+            <!-- <h5 class="text-light">Subscribe Us!</h5>
             <form
               action="//suelo.us12.list-manage.com/subscribe/post-json?u=ed47dbfe167d906f2bc46a01b&amp;id=24ac8a22ad"
               id="sign-up-form"
@@ -64,19 +92,9 @@
                   </button>
                 </span>
               </div>
-            </form>
-            <h5 class="text-light mb-3">Social Media</h5>
-            <a
-              href="https://www.facebook.com/tandoorinightsca/"
-              class="icon icon-social icon-circle icon-sm icon-facebook"
-              ><i class="fa fa-facebook"></i
-            ></a>
-            &nbsp;
-            <a
-              href="https://www.instagram.com/tandoorinightscalgary/"
-              class="icon icon-social icon-circle icon-sm icon-instagram"
-              ><i class="fa fa-instagram"></i
-            ></a>
+            </form> -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.980454849165!2d-113.97040968401946!3d51.10882077957173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5371637ffd480cfb%3A0xbcc259dc49a97ae5!2s101%20Westwinds%20Dr%20NE%2C%20Calgary%2C%20AB%20T3J%205H3%2C%20Canada!5e0!3m2!1sen!2sin!4v1640782046742!5m2!1sen!2sin" width="300px" height="300px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
           </div>
         </div>
         <!-- Footer 2nd Row -->
@@ -410,6 +428,6 @@ button.btn.btn-footer.btn-submit {
   border-radius: 0px;
 }
 .footer-logo {
-  width: 220px;
+  width: 150px;
 }
 </style>
