@@ -3,8 +3,10 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import { getLocalStorage } from '../store/service'
 import { resendVerifyOtp } from '../store/api'
+import VueMeta from 'vue-meta'
 
 Vue.use(VueRouter)
+Vue.use(VueMeta)
 
 const routes = [
   {
@@ -56,6 +58,11 @@ const routes = [
     path: '/otpverify',
     name: 'OtpVerify',
     component: () => import('../views/OtpVerify.vue')
+  },
+  {
+    path: '*',
+    name: '404',
+    component: () => import('../views/404.vue')
   },
   // {
   //   path: '/stripe',

@@ -89,12 +89,9 @@
         </div>
         <nav class="module module-navigation"></nav>
         <div class="module module-social">
-            <h6 class="text-sm mb-3">Follow Us!</h6>
-            <a href="#" class="icon icon-social icon-circle icon-sm icon-facebook"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="icon icon-social icon-circle icon-sm icon-google"><i class="fa fa-google"></i></a>
-            <a href="#" class="icon icon-social icon-circle icon-sm icon-twitter"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="icon icon-social icon-circle icon-sm icon-youtube"><i class="fa fa-youtube"></i></a>
-            <a href="#" class="icon icon-social icon-circle icon-sm icon-instagram"><i class="fa fa-instagram"></i></a>
+            <h6 class="text-sm mb-3"><b>Follow Us!</b></h6>
+            <a to="https://www.facebook.com/tandoorinightsca/" class="icon icon-social icon-circle icon-sm icon-facebook"><i class="fa fa-facebook"></i></a> &nbsp;
+            <a to="https://www.instagram.com/tandoorinightscalgary/" class="icon icon-social icon-circle icon-sm icon-instagram"><i class="fa fa-instagram"></i></a>
         </div>
     </nav>
 
@@ -295,5 +292,8 @@ input#mce-EMAIL {
     padding: 22px;
     border: 1px solid #ffff;
     background: white !important;
+}
+.icon-social{
+background-color: #4267B2;
 }
 </style>
