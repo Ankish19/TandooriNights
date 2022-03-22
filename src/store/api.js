@@ -88,7 +88,7 @@ export const checkCoupon = (data) => {
   return axios.post(`${apiUrl}apply-coupon`, datanew, { headers: apiHeaders() })
 }
 
-export const sendPasswordResetMail    = (data) => {
+export const sendPasswordResetMail = (data) => {
   return axios.post(`${apiUrl}send-password-reset-mail`, data)
 }
 
