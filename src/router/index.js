@@ -118,6 +118,11 @@ const routes = [
     path: '/updateprofile',
     name: 'UpdateProfile',
     component: () => import('../views/myaccount/UpdateProfile.vue')
+  },
+  {
+    path: '/apptemplate',
+    name: 'apptemplate',
+    component: () => import('../views/AppTemplate.vue')
   }
 ]
 
