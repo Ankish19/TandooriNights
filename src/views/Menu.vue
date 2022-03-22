@@ -66,6 +66,16 @@ export default {
     Footer,
     MenuComp
   },
+  metaInfo: {
+    title: 'Best Fine Dining Restaurant',
+    titleTemplate: '%s | Food Order Online in Calgary NE',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'description', content: 'Order the delicious and flavourful food your way online near you at the best fine dining restaurant places to eat in Calgary NE at easy rates and easy procedure.' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'keywords', content: 'Best Fine Dinning Restaurant Calgary NE, Best Places to Eat in Calgary NE, Food Order Online in Calgary' }
+    ]
+  },
   data () {
     return {
       Items: [],

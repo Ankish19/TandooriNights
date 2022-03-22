@@ -363,12 +363,13 @@ export default {
   props: {},
   name: 'Home',
   metaInfo: {
-    title: 'Tandoori Nights',
-    titleTemplate: '%s | Online Food order',
+    title: 'Punjabi Food in Calgary NE',
+    titleTemplate: '%s | Top Punjabi Restaurant in Calgary NE ',
     meta: [
       { charset: 'utf-8' },
-      { name: 'description', content: 'Tandoori Nights' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      { name: 'description', content: 'Come find us for the best Punjabi food that suits your taste at an affordable price and delicious snack at the best Punjabi restaurant in Calgary NE.' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'keywords', content: 'Punjabi Restaurant in Calgary NE, Best Punjabi Restaurant in Calgary NE, Top Punjabi Restaurant  Calgary, Punjabi Snack Restaurant in Calgary NE, Best Punjabi Food in Calgary NE' }
     ]
   },
   components: {

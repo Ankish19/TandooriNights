@@ -156,6 +156,16 @@ import {
 } from 'bootstrap-vue'
 export default {
   name: 'Contact',
+  metaInfo: {
+    title: 'Tiffin Service Calgary NE',
+    titleTemplate: '%s | Best Indian Restaurants in Calgary Northeast',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'description', content: 'Get the best reliable tiffin service near me at a modest price with the easy processed and fastest delivery at the best Indian restaurant in Northeast Calgary.' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'keywords', content: 'Indian Restaurant Calgary Northeast, Best Indian Restaurant in North East Calgary, Tiffin Service Calgary NE, Indian Restaurants Near Me' }
+    ]
+  },
   components: {
     Headbar,
     Footer,
