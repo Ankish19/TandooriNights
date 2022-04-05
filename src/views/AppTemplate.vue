@@ -7,8 +7,8 @@
 <div class="text-section mx-auto">
 <h1 class="text">Get Your Food App</h1>
 <p class="text">No need for a  Wi-Fi network or mobile data plan. The <br> choice of OVER 1 billion users.</p>
-<a href="#" class="btn btn-outline-secondary buttonone"><span class="order"><i class="fa fa-apple" aria-hidden="true"></i> App Store</span></a>&nbsp;
-<a href="#" class="btn btn-outline-secondary buttontwo"><span class="order"><i class="fa fa-android" aria-hidden="true"></i> Play Store</span></a>
+<a href="https://apps.apple.com/us/app/tandoori-nights-ca/id1615350175" class="btn btn-outline-secondary buttonone" target="_blank"><span class="order"><i class="fa fa-apple" aria-hidden="true"></i> App Store</span></a>&nbsp;
+<a href="https://play.google.com/store/apps/details?id=com.tandoori_nights "  class="btn btn-outline-secondary buttontwo" target="_blank"><span class="order"><i class="fa fa-android" aria-hidden="true"></i> Play Store</span></a>
 </div>
 </div>
   <div class="col-md-6">

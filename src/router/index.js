@@ -120,9 +120,14 @@ const routes = [
     component: () => import('../views/myaccount/UpdateProfile.vue')
   },
   {
-    path: '/apptemplate',
+    path: '/app-download',
     name: 'apptemplate',
     component: () => import('../views/AppTemplate.vue')
+  },
+  {
+    path: '/privacypolicy',
+    name: 'privacypolicy',
+    component: () => import('../views/PrivacyPolicy.vue')
   }
 ]
 

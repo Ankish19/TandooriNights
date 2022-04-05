@@ -99,9 +99,13 @@
         </div>
         <!-- Footer 2nd Row -->
         <div class="footer-second-row">
-          <span class="text-muted"
+        <div class="row">
+        <div class="col-md-6"><span class="text-muted"
             >Copyright Tandoori Night 2022 ©. Made by <a href="https://tngwebsolutions.ca/">T&G Web Solutions Ltd.</a></span
-          >
+          ></div>
+        <div class="col-md-6 text-muted text-right"><router-link to="/privacypolicy">Privacy Policy</router-link></div>
+        </div>
+
         </div>
       </div>
 
