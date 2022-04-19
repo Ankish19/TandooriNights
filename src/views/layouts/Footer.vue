@@ -47,10 +47,9 @@
                 >
                 <hr class="hr-md">
               </li>
-              <h5 class="text-light">Timmings</h5>
+              <h5 class="text-light">Timings</h5>
               <li>
-            <p>Wednesday-Monday 11am–10pm</p>
-            <p>Tuesday-Closed</p>
+            <p>Monday To Sunday 11am to 10pm</p>
             </li>
             </ul>
           </div>
