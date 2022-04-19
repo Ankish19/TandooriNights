@@ -159,7 +159,11 @@ export default {
     userDat () {
       this.userData = getLocalStorage('userData')
       this.userData.verified_at = new Date()
-      console.log(this.userData)
+      if ((typeof this.userData.role !== 'undefined')) {
+        if (this.userData.role === 'table') {
+          this.$router.push('/myorder')
+        }
+      }
     },
     getAddr () {
       getAddresses().then(res => {

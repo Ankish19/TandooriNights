@@ -125,3 +125,8 @@ export const CardToken1 = (data) => {
     }
   })
 }
+
+export const tableLogin = (table) => {
+  console.log(table)
+  return axios.post(`${apiUrl}tablelogin/${table}`)
+}

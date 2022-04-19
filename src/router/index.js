@@ -128,6 +128,11 @@ const routes = [
     path: '/privacypolicy',
     name: 'privacypolicy',
     component: () => import('../views/PrivacyPolicy.vue')
+  },
+  {
+    path: '/table-login/:table',
+    name: 'tableLogin',
+    component: () => import('../views/Table_login.vue')
   }
 ]
 
