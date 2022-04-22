@@ -7,9 +7,9 @@
 <script>
 export default {
   mounted () {
-    if (this.$device.android || this.$device.iphone) {
-      this.$router.push({ name: 'apptemplate' })
-    }
+    // if (this.$device.android || this.$device.iphone) {
+    //   this.$router.push({ name: 'apptemplate' })
+    // }
     // console.log(this.$device.android) // false
     const externalScript = document.createElement('script')
     externalScript.setAttribute('src', '../js/core.js')
