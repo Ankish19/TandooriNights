@@ -10,6 +10,9 @@
 <a href="https://apps.apple.com/us/app/tandoori-nights-ca/id1615350175" class="btn btn-outline-secondary buttonone" target="_blank"><span class="order"><i class="fa fa-apple" aria-hidden="true"></i> App Store</span></a>&nbsp;
 <a href="https://play.google.com/store/apps/details?id=com.tandoori_nights "  class="btn btn-outline-secondary buttontwo" target="_blank"><span class="order"><i class="fa fa-android" aria-hidden="true"></i> Play Store</span></a>
 </div>
+<div class="mt-6">
+<a href="https://tandoorinights.ca"  class="btn btn-success" target="_blank"><span class="order"><i aria-hidden="true" class="fa fa-arrow-circle-right"></i> Continue Website </span>
+</a></div>
 </div>
   <div class="col-md-6">
   <div class="appimage"><img src="@/assets/appphone.png" class="phoneimage" alt="" /></div>
@@ -74,5 +77,7 @@ p.text {
     font-family: monospace;
     color: white;
 }
-
+.mt-6 {
+    padding-top: 88px;
+}
 </style>
