@@ -87,7 +87,22 @@
                 <i class="ti ti-close"></i>
             </button>
         </div>
-        <nav class="module module-navigation"></nav>
+        <nav class="module module-navigation1">
+            <ul id="nav-main-mobile" class="nav nav-main-mobile">
+                <li class="has-dropdown">
+                    <router-link to="/">Home</router-link>
+                </li>
+                <li class="has-dropdown">
+                    <router-link to="/about">About</router-link>
+                </li>
+                <li class="has-dropdown">
+                    <router-link to="/menu">Online Order</router-link>
+                </li>
+                <li class="has-dropdown">
+                    <router-link to="/contact">Contact Us</router-link>
+                </li>
+            </ul>
+        </nav>
         <div class="module module-social">
             <h6 class="text-sm mb-3"><b>Follow Us!</b></h6>
             <a to="https://www.facebook.com/tandoorinightsca/" class="icon icon-social icon-circle icon-sm icon-facebook"><i class="fa fa-facebook"></i></a> &nbsp;

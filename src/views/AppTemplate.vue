@@ -11,8 +11,9 @@
 <a href="https://play.google.com/store/apps/details?id=com.tandoori_nights "  class="btn btn-outline-secondary buttontwo" target="_blank"><span class="order"><i class="fa fa-android" aria-hidden="true"></i> Play Store</span></a>
 </div>
 <div class="mt-6">
-<a href="https://tandoorinights.ca"  class="btn btn-success" target="_blank"><span class="order"><i aria-hidden="true" class="fa fa-arrow-circle-right"></i> Continue Website </span>
-</a></div>
+<div class="btn btn-success" target="_blank" @click="continuefun">
+<span class="order"><i aria-hidden="true" class="fa fa-arrow-circle-right"></i> Continue Website </span>
+</div></div>
 </div>
   <div class="col-md-6">
   <div class="appimage"><img src="@/assets/appphone.png" class="phoneimage" alt="" /></div>
@@ -30,6 +31,11 @@ export default {
   components: {
     Headbar,
     Footer
+  },
+  methods: {
+    continuefun () {
+      this.$router.push(this.$router.history._startLocation)
+    }
   }
 }
 </script>
