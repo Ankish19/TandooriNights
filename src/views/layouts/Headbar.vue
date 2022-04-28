@@ -65,9 +65,9 @@
         </div>
 
         <div class="module module-logo">
-            <a href="#">
+            <router-link to="/">
                 <img src="@/assets/logo.png" alt="" />
-            </a>
+            </router-link>
         </div>
 
         <a href="#" class="module module-cart" data-toggle="panel-cart">
@@ -80,9 +80,9 @@
     <!-- Panel Mobile -->
     <nav id="panel-mobile" class="">
         <div class="module module-logo bg-dark dark">
-            <a href="#">
+            <router-link to="/">
                 <img src="assets/img/logo-light.svg" alt="" width="88" />
-            </a>
+            </router-link>
             <button class="close" data-toggle="panel-mobile">
                 <i class="ti ti-close"></i>
             </button>
