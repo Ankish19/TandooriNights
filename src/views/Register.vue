@@ -22,7 +22,7 @@
         <b-container>
           <b-form @submit.prevent="save">
             <b-row>
-              <b-col cols="6" class="mx-auto">
+              <b-col cols="12" sm="6" class="mx-auto">
                 <b-col cols="12">
                   <h2 class="font-weight-bold">Register Form</h2>
                 </b-col>

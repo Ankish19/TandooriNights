@@ -6,9 +6,9 @@
         <!-- Footer 1st Row -->
         <div class="footer-first-row row">
           <div class="col-lg-3 text-left">
-            <nuxt-link to="/">
+            <router-link to="/">
               <img alt="Vue logo" class="footer-logo" src="@/assets/logo.svg"
-            /></nuxt-link>
+            /> </router-link>
             <p>Tandoori Nights reimagine the wonders of Canadian fare in a space that evokes a bygone era of a boisterous yet elegant Canada—all within the heart of Calgary City.</p>
           </div>
           <div class="col-lg-1"></div>

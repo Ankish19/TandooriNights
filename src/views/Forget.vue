@@ -22,7 +22,7 @@
         <b-container>
           <b-form @submit.prevent="forgetPassword">
             <b-row>
-              <b-col cols="6" class="mx-auto">
+              <b-col cols="12" sm="6" class="mx-auto">
                 <b-col cols="12">
                   <b-form-group>
                     <b-form-group>

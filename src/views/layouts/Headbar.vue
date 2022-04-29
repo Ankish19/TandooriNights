@@ -89,16 +89,16 @@
         </div>
         <nav class="module module-navigation1">
             <ul id="nav-main-mobile" class="nav nav-main-mobile">
-                <li class="has-dropdown">
+                <li class="has-dropdown mx-3">
                     <router-link to="/">Home</router-link>
                 </li>
-                <li class="has-dropdown">
+                <li class="has-dropdown mx-3">
                     <router-link to="/about">About</router-link>
                 </li>
-                <li class="has-dropdown">
+                <li class="has-dropdown mx-3">
                     <router-link to="/menu">Online Order</router-link>
                 </li>
-                <li class="has-dropdown">
+                <li class="has-dropdown mx-3">
                     <router-link to="/contact">Contact Us</router-link>
                 </li>
             </ul>

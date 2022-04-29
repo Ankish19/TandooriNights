@@ -86,4 +86,9 @@ p.text {
 .mt-6 {
     padding-top: 88px;
 }
+@media screen and (max-width: 480px) {
+  .appbackground{
+    height: 925px;
+    }
+}
 </style>
