@@ -217,12 +217,12 @@
 
                                 <div class="row">
                                   <div class="col-md-12">
-                                    <label>Tips</label>
-                                    <ul class="p-0">
-                                    <li class="tipValue bg-success text-white">Tip</li>
-                                    <li class="tipValue bg-success text-white">Custom</li>
-                                    </ul>
-                                        <div class="form-group">
+                                    <p>Tips</p>
+                                    <button class="tipValue btn btn-outline-primary btn-md ml-3"><span>10</span></button>
+                                    <button class="tipValue btn btn-outline-primary btn-md ml-3"><span>20</span></button>
+                                    <button class="tipValue btn btn-outline-primary btn-md ml-3"><span>30</span></button>
+                                    <button class="tipValue  btn btn-outline-primary btn-md ml-3"><span>Custom</span></button>
+                                  <div class="form-group" style="margin-top:20px;">
                                           <input type="number" maxlength="6" class="form-control">
                                         </div>
                                   </div>
