@@ -3,7 +3,6 @@ import { apiHeaders } from './service'
 
 const apiUrl = 'https://tandoorinights.ca/rest/api/'
 const storeSlug = 'tandoori-nights-6rvkykyawv4cyzr'
-const storeID = '2'
 
 export const getMenu = () => {
   return axios.post(
@@ -80,12 +79,7 @@ export const getOrderDetail = (data) => {
 }
 
 export const checkCoupon = (data) => {
-  var datanew = {
-    coupon: data.coupon,
-    restaurant_id: storeID,
-    subtotal: data.subTotal
-  }
-  return axios.post(`${apiUrl}apply-coupon`, datanew, { headers: apiHeaders() })
+  return axios.post(`${apiUrl}apply-coupon`, data, { headers: apiHeaders() })
 }
 
 export const sendPasswordResetMail = (data) => {

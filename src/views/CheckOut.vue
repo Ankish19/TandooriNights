@@ -204,9 +204,9 @@
                                     <label>Coupon Code</label>
                                     <div class="form-group">
                                        <div class="input-group mb-3">
-                                          <input type="text" placeholder="Enter coupon code" class="form-control">
+                                          <input type="text" placeholder="Enter coupon code" class="form-control" v-model="form.coupon">
                                           <div class="input-group-append">
-                                            <button class="input-group-text bg-primary text-white">Verify</button>
+                                            <button class="input-group-text bg-primary text-white" @click="couponVerify">Verify</button>
                                           </div>
                                       </div>
                                       <span class="text-danger">Discount Limit </span>
@@ -335,7 +335,7 @@
 </div>
 </template>
 <script>
-import { getRestaurantInfo, getAddresses, getSettings } from '@/store/api'
+import { getRestaurantInfo, getAddresses, getSettings, checkCoupon } from '@/store/api'
 import { getLocalStorage } from '@/store/service'
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
@@ -355,6 +355,9 @@ export default {
       taxTotal: 0,
       totalAmount: 0,
       orderTotal: 0,
+      discountPrice: 0,
+      discountLimit: '',
+      coupon_applied: '',
       tipTax: {
         tips: {},
         taxPercentage: {},
@@ -565,6 +568,34 @@ export default {
       this.$toast.success('New address selected successfully.')
       // this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
       this.jGetDistance(this.storeInfo.latitude, this.storeInfo.longitude)
+    },
+    couponVerify () {
+      const data = {
+        coupon: this.form.coupon,
+        subTotal: this.orderTotal,
+        restaurant_id: this.submitOrder.id
+      }
+      checkCoupon(data).then(res => {
+        if (res.data.success === false) {
+          this.discountLimit = res.data.message ?? 'Coupon not available'
+        } else {
+          this.couponDetail = res.data
+          this.submitOrder.coupon = {
+            code: res.data.code
+          }
+          if (res.data.discount_type === 'AMOUNT' && this.orderTotal >= res.data.min_subtotal) {
+            this.discountPrice = res.data.discount
+            this.coupon_applied = 'Coupon Applied'
+          } else if (res.data.discount_type === 'PERCENTAGE' && this.orderTotal >= res.data.min_subtotal) {
+            this.discountPercent = res.data.discount
+            this.discountPrice = ((this.discountPercent / 100) * this.orderTotal)
+            this.coupon_applied = 'Coupon Applied'
+          } else if (this.orderTotal < res.data.min_subtotal) {
+            this.discountLimit = 'Your order value should be atleast $' + res.data.min_subtotal
+          }
+          this.getSetting('coupon')
+        }
+      })
     }
   }
 }
