@@ -25,7 +25,7 @@
                                 <h5 class="mb-0">You order</h5>
                               </div>
                               <div class="col-md-6 float-right">
-                                <a data-toggle="modal" class="action-icon ml-5" href="#/"><i class="ti ti-pencil"></i> Edit order</a>
+                                <a data-toggle="modal" class="action-icon ml-5" @click="editCart"><i class="ti ti-pencil"></i> Edit order</a>
                               </div>
                               </div>
                             </div>
@@ -338,7 +338,12 @@ export default {
   watch: {
   },
   components: { Headbar, Footer },
-  name: 'checkout'
+  name: 'checkout',
+  methods: {
+    editCart () {
+      this.$router.push('/editCart')
+    }
+  }
 }
 </script>
 

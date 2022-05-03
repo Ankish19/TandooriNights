@@ -25,7 +25,7 @@
                                 <h5 class="mb-0">You order</h5>
                               </div>
                               <div class="col-md-6 float-right">
-                                <a data-toggle="modal" class="action-icon ml-5 cursor-pointer" @click="editCart"><i class="ti ti-pencil"></i> Edit order</a>
+                                <a data-toggle="modal" class="action-icon ml-5" @click="editCart" href="#/"><i class="ti ti-pencil"></i> Edit order</a>
                               </div>
                               </div>
                             </div>
@@ -45,28 +45,28 @@
                                     <div class="col-7 text-right text-muted">Order total:</div>
                                     <div class="col-5"><strong>+$<span class="cart-products-total">{{ orderTotal.toFixed(2) }}</span></strong></div>
                                 </div>
-                                <div class="row" v-if="discountPrice > 0">
+                                <div class="row">
                                     <div class="col-7 text-right text-muted">Discount:</div>
-                                    <div class="col-5"><strong>-$<span class="cart-products-total">{{ discountPrice }}</span></strong></div>
+                                    <div class="col-5"><strong>-$<span class="cart-products-total">0</span></strong></div>
                                 </div>
-                                <div class="row" v-if="deliveryCharges == 1 && delivery_amount > 0">
+                                <div class="row">
                                     <div class="col-7 text-right text-muted">Delivery:</div>
                                     <div class="col-5"><strong>+$<span class="cart-delivery">{{ delivery_amount }}</span></strong></div>
                                 </div>
-                                <div class="row" v-if="submitOrder.tipAmount">
+                                <div class="row">
                                     <div class="col-7 text-right text-muted">Tip:</div>
-                                    <div class="col-5"><strong>+$<span class="cart-delivery">{{ submitOrder.tipAmount }}</span></strong></div>
+                                    <div class="col-5"><strong>+$<span class="cart-delivery">0</span></strong></div>
                                 </div>
                                <div class="row">
-                                    <div class="col-7 text-right text-muted">Total Tax({{ tipTax?tipTax.taxPercentage.value:'' }}%):</div>
+                                    <div class="col-7 text-right text-muted">Total Tax:</div>
                                     <div class="col-5">
                                         <strong>+$<span class="cart-delivery">{{ taxTotal?taxTotal.toFixed(2):0 }}</span></strong>
                                     </div>
                                 </div>
-                                <div class="row" v-if="showWallet == 1 && wallet && wallet.balance > 0">
+                                <div class="row">
                                     <div class="col-7 text-right text-muted">Wallet:</div>
                                     <div class="col-5">
-                                        <strong>-$<span class="cart-delivery">{{ wallet.balance.toFixed(2) }}</span></strong>
+                                        <strong>-$<span class="cart-delivery">0</span></strong>
                                     </div>
                                 </div>
                                 <hr class="hr-sm">
@@ -74,17 +74,8 @@
                                     <div class="col-7 text-right text-muted">Total:</div>
                                     <div class="col-5">
                                       <strong>$
-                                        <span class="cart-total" v-if="deliveryCharges == 1 && delivery_amount > 0 && showWallet == 1">
-                                         {{ totalAmount?(parseFloat(totalAmount.toFixed(2))):0 }}
-                                        </span>
-                                        <span class="cart-total" v-else-if="deliveryCharges == 1 && delivery_amount > 0">
-                                         {{ totalAmount?parseFloat(totalAmount.toFixed(2)):0 }}
-                                        </span>
-                                        <span class="cart-total" v-else-if="showWallet == 1">
-                                         {{ totalAmount?(parseFloat(totalAmount.toFixed(2))):0 }}
-                                        </span>
-                                        <span class="cart-total" v-else>
-                                          {{ totalAmount?parseFloat(totalAmount.toFixed(2)):0 }}
+                                        <span class="cart-total">
+                                        {{ totalAmount?totalAmount.toFixed(2):0 }}
                                         </span>
                                       </strong>
                                     </div>
@@ -198,11 +189,11 @@
                             <div class="row mb-5">
                                 <div class="form-group col-sm-6">
                                     <label>Phone number:</label>
-                                    <input type="text" class="form-control" v-model="form.phone" disabled>
+                                    <input type="text" class="form-control" :value="form.phone" disabled>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label>E-mail address:</label>
-                                    <input type="email" class="form-control" v-model="form.email" disabled>
+                                    <input type="email" class="form-control" :value="form.email" disabled>
                                 </div>
                             </div>
 
@@ -213,32 +204,32 @@
                                     <label>Coupon Code</label>
                                     <div class="form-group">
                                        <div class="input-group mb-3">
-                                          <input type="text" placeholder="Enter coupon code" class="form-control" v-model="form.coupon">
+                                          <input type="text" placeholder="Enter coupon code" class="form-control">
                                           <div class="input-group-append">
-                                            <button class="input-group-text bg-primary text-white" @click="couponVerify">Verify</button>
+                                            <button class="input-group-text bg-primary text-white">Verify</button>
                                           </div>
                                       </div>
-                                      <span class="text-danger" v-if="discountLimit">{{ discountLimit }}</span>
-                                      <span class="text-success" v-if="coupon_applied">{{ coupon_applied }}</span>
+                                      <span class="text-danger">Discount Limit </span>
+                                      <span class="text-success"> Coupon Applied</span>
                                     </div>
                                 </div>
                               </div>
 
-                                <div class="row" v-if="submitOrder.delivery_type == 1">
+                                <div class="row">
                                   <div class="col-md-12">
                                     <label>Tips</label>
                                     <ul class="p-0">
-                                    <li v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)" :class="submitOrder.tipAmount == tip?`bg-primary tipValue text-white`:`tipValue`">{{ tip }}</li>
-                                    <li @click="selectTip('custom')" :class="selected_tip == 'custom'?`bg-primary tipValue text-white`:`tipValue`">Custom</li>
+                                    <li class="tipValue bg-success text-white">Tip</li>
+                                    <li class="tipValue bg-success text-white">Custom</li>
                                     </ul>
-                                        <div class="form-group" v-if="customTip">
-                                          <input type="number" maxlength="6" v-model="submitOrder.tipAmount" class="form-control">
+                                        <div class="form-group">
+                                          <input type="number" maxlength="6" class="form-control">
                                         </div>
                                   </div>
                                 </div>
 
                             </div>
-                            <h4 class="border-bottom pb-4" v-if="submitOrder.delivery_type == 2 || submitOrder.delivery_type == 1"><i class="ti ti-wallet mr-3 text-primary"></i>Payment</h4>
+                            <h4 class="border-bottom pb-4"><i class="ti ti-wallet mr-3 text-primary"></i>Payment</h4>
                             <div class="row text-lg">
                                 <!-- <div class="col-md-4 col-sm-6 form-group">
                                     <label class="custom-control custom-radio">
@@ -255,19 +246,19 @@
                                     </label>
                                 </div> -->
                                 <div class="col-md-12 form-group">
-                                <div class="row" v-if="submitOrder.delivery_type == 2 || submitOrder.delivery_type == 1">
-                                    <label class="custom-control custom-radio" v-if="wallet && wallet.balance > 0">
-                                        <input type="checkbox" name="wallet" value="wallet" v-model="getWallet" @change="selectWallet($event)">
+                                <div class="row">
+                                    <label class="custom-control custom-radio">
+                                        <input type="radio" name="payment_type" value="wallet">
                                         <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description ml-2">Wallet Balance <br/>${{ wallet.balance?wallet.balance.toFixed(2):0 }}</span>
+                                        <span class="custom-control-description ml-2">Wallet Balance <br/></span>
                                     </label>
                                     <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" checked  value="COD" v-model="submitOrder.method" @change="selectMethod($event)">
+                                        <input type="radio" name="payment_type" checked  value="COD">
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description ml-2">COD</span>
                                     </label>
                                     <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" checked  value="CARD" v-model="submitOrder.method" @change="selectMethod($event)">
+                                        <input type="radio" name="payment_type" checked  value="CARD">
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description ml-2">Card/Online Payment</span>
                                     </label>
@@ -324,15 +315,15 @@
                                       </div>
                                   </div>
                                 </div>-->
-                                <div v-if="paymentForm == 1">
-                                  <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment(totalAmount)"><span>Go to payment page</span></button>
+                                <div>
+                                  <button class="btn btn-primary btn-md" style="margin-top:38px;"><span>Go to payment page</span></button>
                                 </div>
                               </div>
                             </div>
 
                         </div>
-                        <div class="text-center mt-5" v-if="showAddress == 1 && radiusError == null && orderNow == 1">
-                            <button class="btn btn-primary btn-lg" @click="placeOrder"><span>Order now!</span></button>
+                        <div class="text-center mt-5">
+                            <button class="btn btn-primary btn-lg"><span>Order now!</span></button>
                         </div>
                     </div>
                 </div>
@@ -344,64 +335,31 @@
 </div>
 </template>
 <script>
+import { getRestaurantInfo, getAddresses, getSettings } from '@/store/api'
+import { getLocalStorage } from '@/store/service'
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { getSettings, getRestaurantInfo, placeOrder, checkCoupon, getAddresses, CardToken, CardToken1, getUserWallet } from '@/store/api'
-import { getLocalStorage, tipTax, saveLocalStorage } from '@/store/service'
 
 export default {
+  watch: {
+  },
   components: { Headbar, Footer },
   name: 'checkout',
   data () {
     return {
-      cardNumber: '6011361000006668',
-      cardHolderName: '',
-      cvv: '123',
-      cardType: 'DISCOVER',
-      cardExpiryDate: '',
-      error: {
-        cardNumber: '',
-        cardHolderName: '',
-        cvv: '',
-        cardType: '',
-        cardExpiryDate: ''
-      },
-      paymentForm: 0,
-      selected_tip: 1,
+      storeInfo: '',
       radiusError: '',
-      deliveryCharges: 0,
-      tipBox: 0,
-      showAddress: 0,
       addresses: [],
-      amount: 0,
-      form: {
-        name: '',
-        lastName: '',
-        address: '',
-        email: '',
-        phone: '',
-        street: '',
-        coupon: ''
-      },
-      couponDetail: '',
-      discountPrice: 0,
-      discountPercent: 0,
-      discountLimit: '',
-      item: [],
+      delivery_amount: 0,
+      deliveryTotal: 0,
+      taxTotal: 0,
+      totalAmount: 0,
+      orderTotal: 0,
       tipTax: {
         tips: {},
         taxPercentage: {},
         tipsvalue: []
       },
-      delivery_amount: 0,
-      customTip: false,
-      user: {},
-      orderTotal: 0,
-      taxes: [],
-      taxTotal: 0,
-      totalAmount: 0,
-      storeInfo: '',
-      delivery_type: '',
       submitOrder: {
         user: {
           data: ''
@@ -431,146 +389,55 @@ export default {
         pending_payment: '',
         tipAmount: 0
       },
-      coupon_applied: '',
-      orderNow: 0,
-      wallet: {
-        balance: 0
-      },
-      deliveryTotal: 0,
-      balance: 0,
-      getWallet: '',
-      showWallet: 0
+      item: [],
+      form: {
+        name: '',
+        lastName: '',
+        address: '',
+        email: '',
+        phone: '',
+        street: '',
+        coupon: ''
+      }
     }
   },
   mounted () {
-    getRestaurantInfo().then(res => {
-      this.storeInfo = res.data
-    })
-    const data = ''
-    getUserWallet(data).then(res => {
-      this.wallet = res.data
-    })
+    this.getResInfo()
     this.checkCart()
   },
   methods: {
-    payment1 () {
-      const card = {
-        card:
-        {
-          number: this.cardNumber,
-          exp_month: '12',
-          exp_year: '2024',
-          cvv: this.cvv,
-          first6: '601136',
-          last4: '6668',
-          country: 'ca',
-          brand: this.cardType,
-          name: this.cardHolderName
-        }
-      }
-      CardToken1(card).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
+    getResInfo () {
+      getRestaurantInfo().then(res => {
+        this.storeInfo = res.data
       })
     },
-    selectWallet (event) {
-      if (!this.getWallet) {
-        this.getWallet = ''
-        this.showWallet = 0
-        this.getSetting()
-      } else {
-        this.getWallet = 'wallet'
-        this.showWallet = 1
-      }
-      if (this.getWallet === 'wallet') {
-        this.submitOrder.partial_wallet = false
-        if (this.wallet.balance > 0 && this.wallet.balance < this.totalAmount) {
-          this.submitOrder.partial_wallet = true
-          this.totalAmount = parseFloat(this.totalAmount.toFixed(2)) - parseFloat(this.wallet.balance.toFixed(2))
-        } else {
-          this.submitOrder.partial_wallet = false
-        }
-      }
-    },
-    selectMethod (event) {
-      if (event.target.value === 'COD') {
-        this.paymentForm = 0
-        this.submitOrder.method = 'COD'
-        this.orderNow = 1
-      } else if (event.target.value === 'CARD') {
-        this.paymentForm = 1
-        this.submitOrder.method = 'Clover'
-        this.orderNow = 0
-      }
-    },
-    checkCart () {
-      if (getLocalStorage('cart') && getLocalStorage('cart').length > 0) {
-        this.getAddress()
-        this.getSetting('mounted')
-        this.showItem()
-        this.submitOrder.order = getLocalStorage('cart')
-        this.getUserData()
-        this.jDelivery_charges_calculate('9')
-      } else {
-        this.$router.push('/menu')
-      }
+    editCart () {
+      this.$router.push('/editCart')
     },
     changeAdd (page) {
       localStorage.setItem('page', page)
       this.$router.push('/addmanageaddress')
     },
-    editCart () {
-      this.$router.push('/editCart')
-    },
-    selectAddress (address) {
-      this.submitOrder.location.address = address.address
-      this.submitOrder.location.house = address.house
-      this.submitOrder.location.latitude = address.latitude
-      this.submitOrder.location.longitude = address.longitude
-      this.submitOrder.location.tag = address.tag
-
-      this.submitOrder.user.data.default_address = this.submitOrder.location
-      this.$toast.success('New address selected successfully.')
-      // this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
-      this.jGetDistance(this.storeInfo.latitude, this.storeInfo.longitude)
-    },
-    getAddress () {
-      getAddresses().then(res => {
-        this.addresses = res.data
-        if (this.addresses.length === 1) {
-          this.submitOrder.location.address = this.addresses[0].address
-          this.submitOrder.location.latitude = this.addresses[0].latitude
-          this.submitOrder.location.longitude = this.addresses[0].longitude
-          this.submitOrder.location.tag = this.addresses[0].tag
-          this.submitOrder.location.house = this.addresses[0].house
-          this.jGetDistance(this.addresses[0].latitude, this.addresses[0].longitude)
+    getSetting () {
+      this.orderTotal = 0
+      this.taxTotal = 0
+      this.totalAmount = 0
+      getSettings().then(res => {
+        this.tipTax.taxPercentage = res.data[45]
+        this.tipTax.tips = res.data[109]
+        this.tipTax.tipsvalue = res.data[109].value.split(',')
+        for (var i = 0; i < this.item.length; i++) {
+          if (this.item[i].addOnTotal) {
+            this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].addOnTotal)
+          } else {
+            this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
+          }
         }
+        var taxTotal = this.orderTotal * this.tipTax.taxPercentage.value / 100
+        this.taxTotal = taxTotal
+        this.totalAmount = this.orderTotal + taxTotal
+        this.submitOrder.total.totalPrice = this.totalAmount
       })
-    },
-    showItem () {
-      this.item.splice(0)
-      this.item = getLocalStorage('cart')
-      this.submitOrder.order = getLocalStorage('cart')
-    },
-    getUserData () {
-      this.submitOrder.user.data = getLocalStorage('userData')
-      this.form.name = getLocalStorage('userData').name
-      this.form.email = getLocalStorage('userData').email
-      this.form.phone = getLocalStorage('userData').phone
-      this.delivery_type = getLocalStorage('userData').delivery_type
-
-      // this.submitOrder.delivery_type = getLocalStorage('userData').delivery_type
-      this.submitOrder.total.productQuantity = this.item.length
-      if (getLocalStorage('userData').default_address && getLocalStorage('userData').default_address.address) {
-        this.submitOrder.location.address = getLocalStorage('userData').default_address.address
-      } else {
-        this.getAddress()
-      }
-      this.submitOrder.location.house = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.house : ''
-      this.submitOrder.location.latitude = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.latitude : ''
-      this.submitOrder.location.longitude = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.longitude : ''
-      this.submitOrder.location.tag = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.tag : ''
     },
     selectAdd (event) {
       if (event.target.value === '2') {
@@ -582,97 +449,10 @@ export default {
       } else if (event.target.value === '1') {
         this.showAddress = 1
         this.tipBox = 1
+        this.getAddress()
         this.jGetDistance(this.storeInfo.latitude, this.storeInfo.longitude)
         this.deliveryCharges = 1
       }
-    },
-    getSetting (from) {
-      console.log(from)
-      this.orderTotal = 0
-      this.taxTotal = 0
-      this.totalAmount = 0
-      getSettings().then(res => {
-        this.tipTax.taxPercentage = res.data[45]
-        this.tipTax.tips = res.data[109]
-        this.tipTax.tipsvalue = res.data[109].value.split(',')
-        tipTax('taxes', JSON.stringify(this.tipTax))
-        this.taxes = getLocalStorage('taxes')
-        for (var i = 0; i < this.item.length; i++) {
-          if (this.item[i].addOnTotal) {
-            this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].addOnTotal)
-          } else {
-            this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].price)
-          }
-        }
-        if (this.delivery_amount > 0) {
-          this.deliveryTotal = parseFloat(this.orderTotal) + parseFloat(this.delivery_amount)
-          this.taxTotal = (parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
-          this.totalAmount = (parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice)) + parseFloat(this.taxTotal)
-        } else {
-          this.taxTotal = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage.value) / 100
-          this.totalAmount = (parseFloat(this.orderTotal) - parseFloat(this.discountPrice)) + parseFloat(this.taxTotal)
-        }
-        console.log(this.submitOrder.tipAmount)
-        if (this.submitOrder.tipAmount > 0) {
-          console.log(this.submitOrder.tipAmount)
-          this.totalAmount = parseFloat(this.totalAmount) + parseFloat(this.submitOrder.tipAmount)
-        }
-        this.submitOrder.total.totalPrice = this.totalAmount
-        if (from === 'final') {
-          if (getLocalStorage('submitOrder')) {
-            localStorage.removeItem('submitOrder')
-          }
-          saveLocalStorage('submitOrder', JSON.stringify(this.submitOrder))
-        }
-      })
-    },
-    couponVerify () {
-      const data = {
-        coupon: this.form.coupon,
-        subTotal: this.orderTotal
-      }
-      checkCoupon(data).then(res => {
-        console.log(res.data)
-        if (res.data.success === false) {
-          this.discountLimit = res.data.message ?? 'Coupon not available'
-        } else {
-          this.couponDetail = res.data
-          this.submitOrder.coupon = {
-            code: res.data.code
-          }
-          if (res.data.discount_type === 'AMOUNT' && this.orderTotal >= res.data.min_subtotal) {
-            this.discountPrice = res.data.discount
-            this.coupon_applied = 'Coupon Applied'
-          } else if (res.data.discount_type === 'PERCENTAGE' && this.orderTotal >= res.data.min_subtotal) {
-            this.discountPercent = res.data.discount
-            this.discountPrice = ((this.discountPercent / 100) * this.orderTotal)
-            this.coupon_applied = 'Coupon Applied'
-          } else if (this.orderTotal < res.data.min_subtotal) {
-            this.discountLimit = 'Your order value should be atleast $' + res.data.min_subtotal
-          }
-          this.getSetting('coupon')
-        }
-      })
-    },
-    placeOrder () {
-      placeOrder(this.submitOrder).then(res => {
-        if (res.data.success === true) {
-          localStorage.removeItem('cart')
-        }
-        this.$toast.success('Order place successfully')
-        this.$router.push('/myorder')
-      })
-    },
-    selectTip (tip) {
-      if (tip !== 'custom') {
-        this.selected_tip = tip
-        this.submitOrder.tipAmount = tip
-        this.customTip = false
-      } else {
-        this.selected_tip = 'custom'
-        this.customTip = !this.customTip
-      }
-      this.getSetting('selectTip')
     },
     jGetDistance (latitude, longitude) {
       var origin = new window.google.maps.LatLng(latitude, longitude)
@@ -722,54 +502,69 @@ export default {
           this.submitOrder.delivery_amount = this.delivery_amount
         }
       }
+      this.taxTotal = 0
+      this.totalAmount = 0
       this.deliveryTotal = parseFloat(this.orderTotal) + parseFloat(this.delivery_amount)
-      this.taxTotal = (parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage ? this.taxes.taxPercentage.value : 0) / 100
-      this.totalAmount = ((parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice))) + parseFloat(this.taxTotal)
+      this.taxTotal = this.deliveryTotal * parseInt(this.tipTax.taxPercentage.value) / 100
+      this.totalAmount = this.deliveryTotal + this.taxTotal
+      this.submitOrder.total.totalPrice = this.totalAmount
     },
-    payment (amount) {
-      // const card = {
-      //   ecomind: 'ecom',
-      //   amount: '3000',
-      //   currency: 'CAD',
-      //   capture: true,
-      //   source: 'clv_1TSTS3Lo3tNdThBrFsRFV4M6'
-      // }
-      this.getSetting('final')
-      var card = {
-        customer: {
-          email: this.submitOrder.user.data.email,
-          firstName: this.submitOrder.user.data.name,
-          lastName: '',
-          phoneNumber: this.submitOrder.user.data.phone.renderToString
-        },
-        shoppingCart: {
-          lineItems: []
+    checkCart () {
+      if (getLocalStorage('cart') && getLocalStorage('cart').length > 0) {
+        this.showItem()
+        this.getSetting()
+        this.submitOrder.order = getLocalStorage('cart')
+        this.getUserData()
+      } else {
+        this.$router.push('/menu')
+      }
+    },
+    showItem () {
+      this.item.splice(0)
+      this.item = getLocalStorage('cart')
+      this.submitOrder.order = getLocalStorage('cart')
+    },
+    getUserData () {
+      this.submitOrder.user.data = getLocalStorage('userData')
+      this.form.name = getLocalStorage('userData').name
+      this.form.email = getLocalStorage('userData').email
+      this.form.phone = getLocalStorage('userData').phone
+      this.delivery_type = getLocalStorage('userData').delivery_type
+
+      // this.submitOrder.delivery_type = getLocalStorage('userData').delivery_type
+      this.submitOrder.total.productQuantity = this.item.length
+      if (getLocalStorage('userData').default_address && getLocalStorage('userData').default_address.address) {
+        this.submitOrder.location.address = getLocalStorage('userData').default_address.address
+      }
+      this.submitOrder.location.house = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.house : ''
+      this.submitOrder.location.latitude = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.latitude : ''
+      this.submitOrder.location.longitude = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.longitude : ''
+      this.submitOrder.location.tag = getLocalStorage('userData').default_address ? getLocalStorage('userData').default_address.tag : ''
+    },
+    getAddress () {
+      getAddresses().then(res => {
+        this.addresses = res.data
+        if (this.addresses.length === 1) {
+          this.submitOrder.location.address = this.addresses[0].address
+          this.submitOrder.location.latitude = this.addresses[0].latitude
+          this.submitOrder.location.longitude = this.addresses[0].longitude
+          this.submitOrder.location.tag = this.addresses[0].tag
+          this.submitOrder.location.house = this.addresses[0].house
+          this.jGetDistance(this.addresses[0].latitude, this.addresses[0].longitude)
         }
-      }
-      console.log(this.wallet.balance + 'bal')
-      if (getLocalStorage('submitOrder') && getLocalStorage('submitOrder').total) {
-        if (this.showWallet === 1 && this.wallet.balance < amount.toFixed(2)) {
-          amount = amount - this.wallet.balance
-          this.submitOrder.total.totalPrice = amount - this.wallet.balance
-        } else {
-          this.submitOrder.total.totalPrice = getLocalStorage('submitOrder').total.totalPrice
-        }
-      }
-      console.log(parseFloat(amount.toFixed(2)) + 'amount')
-      console.log(this.submitOrder.total.totalPrice + 'submitOrder')
-      var arr = { }
-      arr = {
-        name: 'Total Amount',
-        unitQty: '1',
-        price: parseFloat(amount.toFixed(2)) * 100
-      }
-      card.shoppingCart.lineItems.push(arr)
-      CardToken(JSON.stringify(card)).then(res => {
-        console.log(res.data)
-        window.location.href = res.data.href
-      }).catch(err => {
-        console.log(err)
       })
+    },
+    selectAddress (address) {
+      this.submitOrder.location.address = address.address
+      this.submitOrder.location.house = address.house
+      this.submitOrder.location.latitude = address.latitude
+      this.submitOrder.location.longitude = address.longitude
+      this.submitOrder.location.tag = address.tag
+
+      this.submitOrder.user.data.default_address = this.submitOrder.location
+      this.$toast.success('New address selected successfully.')
+      // this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
+      this.jGetDistance(this.storeInfo.latitude, this.storeInfo.longitude)
     }
   }
 }

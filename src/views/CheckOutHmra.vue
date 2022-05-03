@@ -45,7 +45,7 @@
                                     <div class="col-7 text-right text-muted">Order total:</div>
                                     <div class="col-5"><strong>+$<span class="cart-products-total">{{ orderTotal.toFixed(2) }}</span></strong></div>
                                 </div>
-                                <div class="row" v-if="orderTotal >= 10 && discountPrice > 0">
+                                <div class="row" v-if="discountPrice > 0">
                                     <div class="col-7 text-right text-muted">Discount:</div>
                                     <div class="col-5"><strong>-$<span class="cart-products-total">{{ discountPrice }}</span></strong></div>
                                 </div>
@@ -63,7 +63,7 @@
                                         <strong>+$<span class="cart-delivery">{{ taxTotal?taxTotal.toFixed(2):0 }}</span></strong>
                                     </div>
                                 </div>
-                                <div class="row" v-if="showWallet == 1 && wallet.balance > 0 &&  wallet.balance < submitOrder.total.totalPrice">
+                                <div class="row" v-if="showWallet == 1 && wallet && wallet.balance > 0">
                                     <div class="col-7 text-right text-muted">Wallet:</div>
                                     <div class="col-5">
                                         <strong>-$<span class="cart-delivery">{{ wallet.balance.toFixed(2) }}</span></strong>
@@ -74,14 +74,14 @@
                                     <div class="col-7 text-right text-muted">Total:</div>
                                     <div class="col-5">
                                       <strong>$
-                                        <span class="cart-total" v-if="deliveryCharges == 1 && delivery_amount > 0 && showWallet == 1 && wallet.balance < submitOrder.total.totalPrice">
-                                         {{ totalAmount?(parseFloat(totalAmount.toFixed(2))-parseFloat(wallet.balance.toFixed(2))).toFixed(2):0 }}
+                                        <span class="cart-total" v-if="deliveryCharges == 1 && delivery_amount > 0 && showWallet == 1">
+                                         {{ totalAmount?(parseFloat(totalAmount.toFixed(2))):0 }}
                                         </span>
                                         <span class="cart-total" v-else-if="deliveryCharges == 1 && delivery_amount > 0">
                                          {{ totalAmount?parseFloat(totalAmount.toFixed(2)):0 }}
                                         </span>
-                                        <span class="cart-total" v-else-if="showWallet == 1 && wallet.balance < submitOrder.total.totalPrice">
-                                         {{ totalAmount?(parseFloat(totalAmount.toFixed(2))-parseFloat(wallet.balance.toFixed(2))).toFixed(2):0 }}
+                                        <span class="cart-total" v-else-if="showWallet == 1">
+                                         {{ totalAmount?(parseFloat(totalAmount.toFixed(2))):0 }}
                                         </span>
                                         <span class="cart-total" v-else>
                                           {{ totalAmount?parseFloat(totalAmount.toFixed(2)):0 }}
@@ -256,8 +256,8 @@
                                 </div> -->
                                 <div class="col-md-12 form-group">
                                 <div class="row" v-if="submitOrder.delivery_type == 2 || submitOrder.delivery_type == 1">
-                                    <label class="custom-control custom-radio">
-                                        <input type="checkbox" name="wallet" v-model="getWallet" @change="selectWallet($event)">
+                                    <label class="custom-control custom-radio" v-if="wallet && wallet.balance > 0">
+                                        <input type="checkbox" name="wallet" value="wallet" v-model="getWallet" @change="selectWallet($event)">
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description ml-2">Wallet Balance <br/>${{ wallet.balance?wallet.balance.toFixed(2):0 }}</span>
                                     </label>
@@ -325,7 +325,7 @@
                                   </div>
                                 </div>-->
                                 <div v-if="paymentForm == 1">
-                                  <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment"><span>Go to payment page</span></button>
+                                  <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment(totalAmount)"><span>Go to payment page</span></button>
                                 </div>
                               </div>
                             </div>
@@ -354,7 +354,6 @@ export default {
   name: 'checkout',
   data () {
     return {
-      showWallet: 0,
       cardNumber: '6011361000006668',
       cardHolderName: '',
       cvv: '123',
@@ -439,7 +438,8 @@ export default {
       },
       deliveryTotal: 0,
       balance: 0,
-      getWallet: ''
+      getWallet: '',
+      showWallet: 0
     }
   },
   mounted () {
@@ -449,7 +449,6 @@ export default {
     const data = ''
     getUserWallet(data).then(res => {
       this.wallet = res.data
-      console.log(this.wallet)
     })
     this.checkCart()
   },
@@ -476,66 +475,23 @@ export default {
       })
     },
     selectWallet (event) {
-      console.log(event.target.value)
       if (!this.getWallet) {
         this.getWallet = ''
         this.showWallet = 0
+        this.getSetting()
       } else {
         this.getWallet = 'wallet'
         this.showWallet = 1
       }
-      console.log(this.getWallet)
       if (this.getWallet === 'wallet') {
         this.submitOrder.partial_wallet = false
-
-        if (this.wallet.balance > 0 && this.wallet.balance < this.submitOrder.total.totalPrice) {
+        if (this.wallet.balance > 0 && this.wallet.balance < this.totalAmount) {
           this.submitOrder.partial_wallet = true
+          this.totalAmount = parseFloat(this.totalAmount.toFixed(2)) - parseFloat(this.wallet.balance.toFixed(2))
         } else {
           this.submitOrder.partial_wallet = false
         }
       }
-    },
-    payment () {
-      // const card = {
-      //   ecomind: 'ecom',
-      //   amount: '3000',
-      //   currency: 'CAD',
-      //   capture: true,
-      //   source: 'clv_1TSTS3Lo3tNdThBrFsRFV4M6'
-      // }
-      this.getSetting('final')
-      var card = {
-        customer: {
-          email: this.submitOrder.user.data.email,
-          firstName: this.submitOrder.user.data.name,
-          lastName: '',
-          phoneNumber: this.submitOrder.user.data.phone.renderToString
-        },
-        shoppingCart: {
-          lineItems: []
-        }
-      }
-      var total = 0
-      if (getLocalStorage('submitOrder') && getLocalStorage('submitOrder').total) {
-        if (this.showWallet === 1 && this.wallet.balance < getLocalStorage('submitOrder').total.totalPrice) {
-          total = getLocalStorage('submitOrder').total.totalPrice - this.wallet.balance
-        } else {
-          total = getLocalStorage('submitOrder').total.totalPrice
-        }
-      }
-      var arr = { }
-      arr = {
-        name: 'Total Amount',
-        unitQty: '1',
-        price: Math.round(total * 100)
-      }
-      card.shoppingCart.lineItems.push(arr)
-      CardToken(JSON.stringify(card)).then(res => {
-        console.log(res.data)
-        window.location.href = res.data.href
-      }).catch(err => {
-        console.log(err)
-      })
     },
     selectMethod (event) {
       if (event.target.value === 'COD') {
@@ -592,65 +548,14 @@ export default {
         }
       })
     },
-    addQuantity (index) {
-      var storedNames = JSON.parse(localStorage.getItem('cart'))
-      var name = []
-      for (var j = 0; j < storedNames.length; j++) {
-        if (j === index) {
-          storedNames[index].quantity++
-          name.push(storedNames[j])
-        } else {
-          name.push(storedNames[j])
-        }
-      }
-      localStorage.removeItem('cart')
-      localStorage.setItem('cart', JSON.stringify(name))
-      this.showItem()
-      this.getSetting('addQuantity')
-    },
-    minusQuantity (item, index) {
-      if (item.quantity > 0) {
-        var storedNames = JSON.parse(localStorage.getItem('cart'))
-        var name = []
-        // var name = storedNames.slice(index, 1)
-        // localStorage.setItem('cart', JSON.stringify(name))
-        for (var j = 0; j < storedNames.length; j++) {
-          if (j === index) {
-            storedNames[index].quantity--
-            name.push(storedNames[j])
-          } else {
-            name.push(storedNames[j])
-          }
-        }
-        localStorage.removeItem('cart')
-        localStorage.setItem('cart', JSON.stringify(name))
-        this.showItem()
-        this.getSetting('minusQuantity')
-      }
-    },
     showItem () {
       this.item.splice(0)
       this.item = getLocalStorage('cart')
       this.submitOrder.order = getLocalStorage('cart')
     },
-    deleteItem (index) {
-      var storedNames = JSON.parse(localStorage.getItem('cart'))
-      var name = []
-      // var name = storedNames.slice(index, 1)
-      // localStorage.setItem('cart', JSON.stringify(name))
-      for (var j = 0; j < storedNames.length; j++) {
-        if (j !== index) {
-          name.push(storedNames[j])
-        }
-      }
-      localStorage.removeItem('cart')
-      localStorage.setItem('cart', JSON.stringify(name))
-      this.showItem()
-      this.getSetting('deleteItem')
-    },
     getUserData () {
       this.submitOrder.user.data = getLocalStorage('userData')
-      this.form.name = getLocalStorage('userData').name
+     this.form.name = getLocalStorage('userData').name
       this.form.email = getLocalStorage('userData').email
       this.form.phone = getLocalStorage('userData').phone
       this.delivery_type = getLocalStorage('userData').delivery_type
@@ -674,7 +579,6 @@ export default {
         this.deliveryCharges = 0
         this.delivery_amount = 0
         this.radiusError = null
-        this.getSetting()
       } else if (event.target.value === '1') {
         this.showAddress = 1
         this.tipBox = 1
@@ -730,6 +634,7 @@ export default {
       checkCoupon(data).then(res => {
         console.log(res.data)
         if (res.data.success === false) {
+          this.discountLimit = res.data.message ?? 'Coupon not available'
         } else {
           this.couponDetail = res.data
           this.submitOrder.coupon = {
@@ -820,6 +725,51 @@ export default {
       this.deliveryTotal = parseFloat(this.orderTotal) + parseFloat(this.delivery_amount)
       this.taxTotal = (parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice)) * parseInt(this.taxes.taxPercentage ? this.taxes.taxPercentage.value : 0) / 100
       this.totalAmount = ((parseFloat(this.deliveryTotal) - parseFloat(this.discountPrice))) + parseFloat(this.taxTotal)
+    },
+    payment (amount) {
+      // const card = {
+      //   ecomind: 'ecom',
+      //   amount: '3000',
+      //   currency: 'CAD',
+      //   capture: true,
+      //   source: 'clv_1TSTS3Lo3tNdThBrFsRFV4M6'
+      // }
+      this.getSetting('final')
+      var card = {
+        customer: {
+          email: this.submitOrder.user.data.email,
+          firstName: this.submitOrder.user.data.name,
+          lastName: '',
+          phoneNumber: this.submitOrder.user.data.phone.renderToString
+        },
+        shoppingCart: {
+          lineItems: []
+        }
+      }
+      console.log(this.wallet.balance + 'bal')
+      if (getLocalStorage('submitOrder') && getLocalStorage('submitOrder').total) {
+        if (this.showWallet === 1 && this.wallet.balance < amount.toFixed(2)) {
+          amount = amount - this.wallet.balance
+          this.submitOrder.total.totalPrice = amount - this.wallet.balance
+        } else {
+          this.submitOrder.total.totalPrice = getLocalStorage('submitOrder').total.totalPrice
+        }
+      }
+      console.log(parseFloat(amount.toFixed(2)) + 'amount')
+      console.log(this.submitOrder.total.totalPrice + 'submitOrder')
+      var arr = { }
+      arr = {
+        name: 'Total Amount',
+        unitQty: '1',
+        price: parseFloat(amount.toFixed(2)) * 100
+      }
+      card.shoppingCart.lineItems.push(arr)
+      CardToken(JSON.stringify(card)).then(res => {
+        console.log(res.data)
+        window.location.href = res.data.href
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }
