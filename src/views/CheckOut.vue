@@ -225,6 +225,11 @@
                                         </div>
                                   </div>
                                 </div>
+                                <div class="row">
+                                <div class="col-md-12 mt-3">
+                                  <button class="badge bg-danger text-white px-2 py-2 ml-3"><span><i class="ti ti-close mr-3 text-light"></i> <big>Clear Tip</big></span></button>
+                                </div>
+                                </div>
 
                             </div>
                             <h4 class="border-bottom pb-4"><i class="ti ti-wallet mr-3 text-primary"></i>Payment</h4>
