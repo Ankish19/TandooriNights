@@ -555,7 +555,7 @@ export default {
     },
     getUserData () {
       this.submitOrder.user.data = getLocalStorage('userData')
-     this.form.name = getLocalStorage('userData').name
+      this.form.name = getLocalStorage('userData').name
       this.form.email = getLocalStorage('userData').email
       this.form.phone = getLocalStorage('userData').phone
       this.delivery_type = getLocalStorage('userData').delivery_type
@@ -629,7 +629,8 @@ export default {
     couponVerify () {
       const data = {
         coupon: this.form.coupon,
-        subTotal: this.orderTotal
+        subTotal: this.orderTotal,
+        restaurant_id: this.storeInfo.id
       }
       checkCoupon(data).then(res => {
         console.log(res.data)

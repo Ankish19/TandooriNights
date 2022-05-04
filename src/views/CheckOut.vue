@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-7 text-right text-muted">Discount:</div>
-                                    <div class="col-5"><strong>-$<span class="cart-products-total">0</span></strong></div>
+                                    <div class="col-5"><strong>-$<span class="cart-products-total">{{ discountPrice.toFixed(2) }}</span></strong></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-7 text-right text-muted">Delivery:</div>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-7 text-right text-muted">Tip:</div>
-                                    <div class="col-5"><strong>+$<span class="cart-delivery">0</span></strong></div>
+                                    <div class="col-5"><strong>+$<span class="cart-delivery">{{ submitOrder.tipAmount }}</span></strong></div>
                                 </div>
                                <div class="row">
                                     <div class="col-7 text-right text-muted">Total Tax:</div>
@@ -209,8 +209,8 @@
                                             <button class="input-group-text bg-primary text-white" @click="couponVerify">Verify</button>
                                           </div>
                                       </div>
-                                      <span class="text-danger">Discount Limit </span>
-                                      <span class="text-success"> Coupon Applied</span>
+                                      <span class="text-danger" v-if="discountLimit">{{ discountLimit }}</span>
+                                      <span class="text-success" v-if="coupon_applied">{{ coupon_applied }}</span>
                                     </div>
                                 </div>
                               </div>
@@ -218,12 +218,10 @@
                                 <div class="row">
                                   <div class="col-md-12">
                                     <p>Tips</p>
-                                    <button class="tipValue btn btn-outline-primary btn-md ml-3"><span>10</span></button>
-                                    <button class="tipValue btn btn-outline-primary btn-md ml-3"><span>20</span></button>
-                                    <button class="tipValue btn btn-outline-primary btn-md ml-3"><span>30</span></button>
-                                    <button class="tipValue  btn btn-outline-primary btn-md ml-3"><span>Custom</span></button>
-                                  <div class="form-group" style="margin-top:20px;">
-                                          <input type="number" maxlength="6" class="form-control">
+                                    <button class="tipValue btn btn-outline-primary btn-md ml-3" v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)"><span>{{ tip }}</span></button>
+                                    <button class="tipValue  btn btn-outline-primary btn-md ml-3" @click="selectTip('custom')"><span>Custom</span></button>
+                                  <div class="form-group" style="margin-top:20px;" v-if="customTip">
+                                          <input type="text" maxlength="6" class="form-control" @keyup="customTipEvnt" v-model="selected_tip">
                                         </div>
                                   </div>
                                 </div>
@@ -358,6 +356,8 @@ export default {
       discountPrice: 0,
       discountLimit: '',
       coupon_applied: '',
+      customTip: false,
+      selected_tip: 0,
       tipTax: {
         tips: {},
         taxPercentage: {},
@@ -447,8 +447,17 @@ export default {
         this.showAddress = 1
         this.submitOrder.tipAmount = 0
         this.deliveryCharges = 0
-        this.delivery_amount = 0
         this.radiusError = null
+        this.totalAmount = 0
+        this.taxTotal = 0
+        this.totalAmount = 0
+        this.deliveryTotal = (parseFloat(this.orderTotal) + 0) - this.discountPrice
+        this.taxTotal = this.deliveryTotal * parseInt(this.tipTax.taxPercentage.value) / 100
+        this.totalAmount = parseFloat(this.deliveryTotal) + parseFloat(this.taxTotal) + parseFloat(this.submitOrder.tipAmount)
+        this.submitOrder.total.totalPrice = this.totalAmount
+        this.delivery_amount = 0
+        this.submitOrder.delivery_amount = 0
+        this.submitOrder.dis = 0
       } else if (event.target.value === '1') {
         this.showAddress = 1
         this.tipBox = 1
@@ -509,7 +518,7 @@ export default {
       this.totalAmount = 0
       this.deliveryTotal = parseFloat(this.orderTotal) + parseFloat(this.delivery_amount)
       this.taxTotal = this.deliveryTotal * parseInt(this.tipTax.taxPercentage.value) / 100
-      this.totalAmount = this.deliveryTotal + this.taxTotal
+      this.totalAmount = parseFloat(this.deliveryTotal) + parseFloat(this.taxTotal) + parseFloat(this.submitOrder.tipAmount)
       this.submitOrder.total.totalPrice = this.totalAmount
     },
     checkCart () {
@@ -570,10 +579,13 @@ export default {
       this.jGetDistance(this.storeInfo.latitude, this.storeInfo.longitude)
     },
     couponVerify () {
+      this.discountPrice = 0
+      this.coupon_applied = ''
+      this.discountLimit = ''
       const data = {
         coupon: this.form.coupon,
         subTotal: this.orderTotal,
-        restaurant_id: this.submitOrder.id
+        restaurant_id: this.storeInfo.id
       }
       checkCoupon(data).then(res => {
         if (res.data.success === false) {
@@ -593,9 +605,40 @@ export default {
           } else if (this.orderTotal < res.data.min_subtotal) {
             this.discountLimit = 'Your order value should be atleast $' + res.data.min_subtotal
           }
-          this.getSetting('coupon')
         }
+        this.taxTotal = 0
+        this.totalAmount = 0
+        this.deliveryTotal = (parseFloat(this.orderTotal) + parseFloat(this.delivery_amount)) - this.discountPrice
+        this.taxTotal = this.deliveryTotal * parseInt(this.tipTax.taxPercentage.value) / 100
+        this.totalAmount = parseFloat(this.deliveryTotal) + parseFloat(this.taxTotal) + parseFloat(this.submitOrder.tipAmount)
+        this.submitOrder.total.totalPrice = this.totalAmount
       })
+    },
+    selectTip (tip) {
+      if (tip !== 'custom') {
+        this.selected_tip = tip
+        this.submitOrder.tipAmount = tip
+        this.customTip = false
+
+        this.taxTotal = 0
+        this.totalAmount = 0
+        this.deliveryTotal = (parseFloat(this.orderTotal) + parseFloat(this.delivery_amount)) - this.discountPrice
+        this.taxTotal = this.deliveryTotal * parseInt(this.tipTax.taxPercentage.value) / 100
+        this.totalAmount = parseFloat(this.deliveryTotal) + parseFloat(this.taxTotal) + parseFloat(this.submitOrder.tipAmount)
+        this.submitOrder.total.totalPrice = this.totalAmount
+      } else {
+        this.customTip = !this.customTip
+      }
+    },
+    customTipEvnt (event) {
+      var tip = event.target.value
+      this.taxTotal = 0
+      this.totalAmount = 0
+      this.submitOrder.tipAmount = tip
+      this.deliveryTotal = (parseFloat(this.orderTotal) + parseFloat(this.delivery_amount)) - this.discountPrice
+      this.taxTotal = this.deliveryTotal * parseInt(this.tipTax.taxPercentage.value) / 100
+      this.totalAmount = parseFloat(this.deliveryTotal) + parseFloat(this.taxTotal) + parseFloat(tip)
+      this.submitOrder.total.totalPrice = this.totalAmount
     }
   }
 }
