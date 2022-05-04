@@ -63,10 +63,10 @@
                                         <strong>+$<span class="cart-delivery">{{ taxTotal?taxTotal.toFixed(2):0 }}</span></strong>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" v-if="showWallet == 1 && wallet && wallet.balance > 0">
                                     <div class="col-7 text-right text-muted">Wallet:</div>
                                     <div class="col-5">
-                                        <strong>-$<span class="cart-delivery">0</span></strong>
+                                        <strong>-$<span class="cart-delivery">{{ wallet?wallet.balance.toFixed(2):'' }}</span></strong>
                                     </div>
                                 </div>
                                 <hr class="hr-sm">
@@ -104,12 +104,15 @@
                                     <label>Select way</label>
                                     <div class="select-container">
                                         <select class="form-control" v-model="submitOrder.delivery_type" @change="selectAdd($event)">
-                                            <option selected disabled>-- Select Way --</option>
-                                            <option value="2" v-if="storeInfo && storeInfo.delivery_type === 3 || storeInfo.delivery_type === 2">
+                                            <option selected disabled v-if="storeInfo && storeInfo.is_tabletop !== 0 && submitOrder.user.data.role !== 'table'">-- Select Way --</option>
+                                            <option value="2" v-if="storeInfo && (storeInfo.delivery_type === 3 || storeInfo.delivery_type === 2) && submitOrder.user.data.role !== 'table'">
                                              Self PickUp
                                             </option>
-                                            <option value="1" v-if="storeInfo && storeInfo.delivery_type === 3 || storeInfo.delivery_type === 1">
+                                            <option value="1" v-if="storeInfo && (storeInfo.delivery_type === 3 || storeInfo.delivery_type === 1) && submitOrder.user.data.role !== 'table'">
                                               Delivery
+                                            </option>
+                                            <option value="3" v-if="storeInfo && storeInfo.is_tabletop === 1 && submitOrder.user.data.role === 'table'">
+                                              Tabletop Ordering
                                             </option>
                                         </select>
                                     </div>
@@ -215,19 +218,19 @@
                                 </div>
                               </div>
 
-                                <div class="row">
+                                <div class="row" v-if="submitOrder.delivery_type == 1 || submitOrder.delivery_type == 3">
                                   <div class="col-md-12">
                                     <p>Tips</p>
                                     <button class="tipValue btn btn-outline-primary btn-md ml-3" v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)"><span>{{ tip }}</span></button>
                                     <button class="tipValue  btn btn-outline-primary btn-md ml-3" @click="selectTip('custom')"><span>Custom</span></button>
                                   <div class="form-group" style="margin-top:20px;" v-if="customTip">
-                                          <input type="text" maxlength="6" class="form-control" @keyup="customTipEvnt" v-model="selected_tip">
+                                          <input type="number" maxlength="6" class="form-control" @keyup="customTipEvnt" v-model="selected_tip">
                                         </div>
                                   </div>
                                 </div>
                                 <div class="row">
-                                <div class="col-md-12 mt-3">
-                                  <button class="badge bg-danger text-white px-2 py-2 ml-3"><span><i class="ti ti-close mr-3 text-light"></i> <big>Clear Tip</big></span></button>
+                                <div class="col-md-12 mt-3" v-if="submitOrder.tipAmount > 0">
+                                  <button class="badge bg-danger text-white px-2 py-2 ml-3" @click="selectTip(0)"><span><i class="ti ti-close mr-3 text-light"></i> <big>Clear Tip</big></span></button>
                                 </div>
                                 </div>
 
@@ -250,18 +253,18 @@
                                 </div> -->
                                 <div class="col-md-12 form-group">
                                 <div class="row">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" value="wallet">
+                                    <label class="custom-control custom-radio" v-if="wallet && wallet.balance > 0 && wallet.balance < totalAmount">
+                                        <input type="checkbox" name="wallet" value="wallet" v-model="getWallet" @change="selectWallet($event)">
                                         <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description ml-2">Wallet Balance <br/></span>
+                                        <span class="custom-control-description ml-2">Wallet Balance <br/>${{ wallet.balance?wallet.balance.toFixed(2):0 }}</span>
                                     </label>
                                     <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" checked  value="COD">
+                                        <input type="radio" name="payment_type" checked  value="COD" v-model="submitOrder.method" @change="selectMethod($event)">
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description ml-2">COD</span>
                                     </label>
                                     <label class="custom-control custom-radio">
-                                        <input type="radio" name="payment_type" checked  value="CARD">
+                                        <input type="radio" name="payment_type" checked  value="CARD" v-model="submitOrder.method" @change="selectMethod($event)">
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description ml-2">Card/Online Payment</span>
                                     </label>
@@ -318,15 +321,15 @@
                                       </div>
                                   </div>
                                 </div>-->
-                                <div>
-                                  <button class="btn btn-primary btn-md" style="margin-top:38px;"><span>Go to payment page</span></button>
+                                 <div v-if="paymentForm == 1">
+                                  <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment(totalAmount)"><span>Go to payment page</span></button>
                                 </div>
                               </div>
                             </div>
 
                         </div>
-                        <div class="text-center mt-5">
-                            <button class="btn btn-primary btn-lg"><span>Order now!</span></button>
+                        <div class="text-center mt-5" v-if="((showAddress == 1 && radiusError == null) || submitOrder.delivery_type === 3) && orderNow == 1">
+                            <button class="btn btn-primary btn-lg" @click="placeOrder"><span>Order now!</span></button>
                         </div>
                     </div>
                 </div>
@@ -338,7 +341,7 @@
 </div>
 </template>
 <script>
-import { getRestaurantInfo, getAddresses, getSettings, checkCoupon } from '@/store/api'
+import { getRestaurantInfo, getAddresses, getSettings, checkCoupon, getUserWallet, placeOrder } from '@/store/api'
 import { getLocalStorage } from '@/store/service'
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
@@ -363,6 +366,14 @@ export default {
       coupon_applied: '',
       customTip: false,
       selected_tip: 0,
+      showAddress: 0,
+      orderNow: 0,
+      paymentForm: 0,
+      wallet: {
+        balance: 0
+      },
+      getWallet: '',
+      showWallet: 0,
       tipTax: {
         tips: {},
         taxPercentage: {},
@@ -391,7 +402,7 @@ export default {
         },
         method: '',
         payment_token: '',
-        delivery_type: '',
+        delivery_type: 0,
         partial_wallet: false,
         dis: 0,
         pending_payment: '',
@@ -412,11 +423,18 @@ export default {
   mounted () {
     this.getResInfo()
     this.checkCart()
+    const data = ''
+    getUserWallet(data).then(res => {
+      this.wallet = res.data
+    })
   },
   methods: {
     getResInfo () {
       getRestaurantInfo().then(res => {
         this.storeInfo = res.data
+        if (this.storeInfo && this.storeInfo.is_tabletop === 1 && this.submitOrder.user.data.role === 'table') {
+          this.submitOrder.delivery_type = 3
+        }
       })
     },
     editCart () {
@@ -644,6 +662,47 @@ export default {
       this.taxTotal = this.deliveryTotal * parseInt(this.tipTax.taxPercentage.value) / 100
       this.totalAmount = parseFloat(this.deliveryTotal) + parseFloat(this.taxTotal) + parseFloat(tip)
       this.submitOrder.total.totalPrice = this.totalAmount
+    },
+    selectWallet (event) {
+      if (!this.getWallet) {
+        this.getWallet = ''
+        this.showWallet = 0
+        console.log('1')
+      } else {
+        this.getWallet = 'wallet'
+        this.showWallet = 1
+        console.log('2')
+      }
+      if (this.getWallet === 'wallet') {
+        this.submitOrder.partial_wallet = false
+        if (this.wallet.balance > 0 && this.wallet.balance < this.totalAmount) {
+          console.log('3')
+          this.submitOrder.partial_wallet = true
+          this.totalAmount = parseFloat(this.totalAmount.toFixed(2)) - parseFloat(this.wallet.balance.toFixed(2))
+        } else {
+          this.submitOrder.partial_wallet = false
+        }
+      }
+    },
+    selectMethod (event) {
+      if (event.target.value === 'COD') {
+        this.paymentForm = 0
+        this.submitOrder.method = 'COD'
+        this.orderNow = 1
+      } else if (event.target.value === 'CARD') {
+        this.paymentForm = 1
+        this.submitOrder.method = 'Clover'
+        this.orderNow = 0
+      }
+    },
+    placeOrder () {
+      placeOrder(this.submitOrder).then(res => {
+        if (res.data.success === true) {
+          localStorage.removeItem('cart')
+        }
+        this.$toast.success('Order place successfully')
+        this.$router.push('/myorder')
+      })
     }
   }
 }
