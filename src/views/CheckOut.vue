@@ -54,7 +54,7 @@
                                     <div class="col-5"><strong>+$<span class="cart-delivery">{{ delivery_amount }}</span></strong></div>
                                 </div>
                                <div class="row">
-                                    <div class="col-7 text-right text-muted">Total Tax:</div>
+                                    <div class="col-7 text-right text-muted">Total Tax ({{ tipTax?tipTax.taxPercentage.value:'' }}%):</div>
                                     <div class="col-5">
                                         <strong>+$<span class="cart-delivery">{{ taxTotal?taxTotal.toFixed(2):0 }}</span></strong>
                                     </div>
