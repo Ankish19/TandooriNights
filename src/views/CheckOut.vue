@@ -186,17 +186,17 @@
                             <div class="row mb-5" v-if="submitOrder.delivery_type != 3">
                                 <div class="form-group col-sm-12">
                                     <label>Name:</label>
-                                    <input type="text" class="form-control" :value="form.name" >
+                                    <input type="text" class="form-control" :value="form.name" disabled>
                                 </div>
                             </div>
                             <div class="row mb-5" v-if="submitOrder.delivery_type != 3">
                                 <div class="form-group col-sm-6">
                                     <label>Phone number:</label>
-                                    <input type="text" class="form-control" :value="form.phone">
+                                    <input type="text" class="form-control" :value="form.phone" disabled>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label>E-mail address:</label>
-                                    <input type="email" class="form-control" :value="form.email">
+                                    <input type="email" class="form-control" :value="form.email" disabled>
                                 </div>
                             </div>
 
