@@ -128,6 +128,7 @@ import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
 import { getOrders } from '@/store/api'
+import { getLocalStorage } from '@/store/service'
 
 export default {
   created () {},
@@ -168,7 +169,8 @@ export default {
       this.pageOfItems = pageOfItems
     },
     getOrder () {
-      getOrders(this.form).then(res => {
+      console.log(getLocalStorage('userData').role)
+      getOrders(this.form, getLocalStorage('userData').role).then(res => {
         console.log(res.data)
         this.orders = res.data
       })

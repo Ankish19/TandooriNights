@@ -59,8 +59,8 @@ export const deleteAddress = (data) => {
   return axios.post(`${apiUrl}delete-address`, data, { headers: apiHeaders() })
 }
 
-export const getOrders = (data) => {
-  return axios.post(`${apiUrl}get-orders`, data, { headers: apiHeaders() })
+export const getOrders = (data, role) => {
+  return axios.post(`${apiUrl}get-orders?table=${role}`, data, { headers: apiHeaders() })
 }
 
 export const getSettings = (data) => {
