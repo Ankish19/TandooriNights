@@ -708,7 +708,9 @@ export default {
       }
     },
     placeOrder () {
-      this.submitOrder.order_comment = `Name: ${this.form.tableOrder.name}, Phone: ${this.form.tableOrder.phone}, Number of person: ${this.form.tableOrder.person}`
+      if (this.submitOrder.delivery_type === 3) {
+        this.submitOrder.order_comment = `Name: ${this.form.tableOrder.name}, Phone: ${this.form.tableOrder.phone}, Number of person: ${this.form.tableOrder.person}`
+      }
       placeOrder(this.submitOrder).then(res => {
         if (res.data.success === true) {
           localStorage.removeItem('cart')
