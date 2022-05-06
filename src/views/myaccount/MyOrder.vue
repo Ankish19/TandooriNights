@@ -169,9 +169,7 @@ export default {
       this.pageOfItems = pageOfItems
     },
     getOrder () {
-      console.log(getLocalStorage('userData').role)
       getOrders(this.form, getLocalStorage('userData').role).then(res => {
-        console.log(res.data)
         this.orders = res.data
       })
     },
