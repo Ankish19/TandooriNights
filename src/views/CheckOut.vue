@@ -359,7 +359,7 @@
 </div>
 </template>
 <script>
-import { getRestaurantInfo, getAddresses, getSettings, checkCoupon, getUserWallet, placeOrder } from '@/store/api'
+import { getRestaurantInfo, getAddresses, getSettings, checkCoupon, CardToken, getUserWallet, placeOrder } from '@/store/api'
 import { getLocalStorage } from '@/store/service'
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
@@ -580,6 +580,51 @@ export default {
       } else {
         this.$router.push('/menu')
       }
+    },
+    payment (amount) {
+      // const card = {
+      //   ecomind: 'ecom',
+      //   amount: '3000',
+      //   currency: 'CAD',
+      //   capture: true,
+      //   source: 'clv_1TSTS3Lo3tNdThBrFsRFV4M6'
+      // }
+      this.getSetting('final')
+      var card = {
+        customer: {
+          email: this.submitOrder.user.data.email,
+          firstName: this.submitOrder.user.data.name,
+          lastName: '',
+          phoneNumber: this.submitOrder.user.data.phone.renderToString
+        },
+        shoppingCart: {
+          lineItems: []
+        }
+      }
+      console.log(this.wallet.balance + 'bal')
+      if (getLocalStorage('submitOrder') && getLocalStorage('submitOrder').total) {
+        if (this.showWallet === 1 && this.wallet.balance < amount.toFixed(2)) {
+          amount = amount - this.wallet.balance
+          this.submitOrder.total.totalPrice = amount - this.wallet.balance
+        } else {
+          this.submitOrder.total.totalPrice = getLocalStorage('submitOrder').total.totalPrice
+        }
+      }
+      console.log(parseFloat(amount.toFixed(2)) + 'amount')
+      console.log(this.submitOrder.total.totalPrice + 'submitOrder')
+      var arr = { }
+      arr = {
+        name: 'Total Amount',
+        unitQty: '1',
+        price: parseFloat(amount.toFixed(2)) * 100
+      }
+      card.shoppingCart.lineItems.push(arr)
+      CardToken(JSON.stringify(card)).then(res => {
+        console.log(res.data)
+        window.location.href = res.data.href
+      }).catch(err => {
+        console.log(err)
+      })
     },
     showItem () {
       this.item.splice(0)
