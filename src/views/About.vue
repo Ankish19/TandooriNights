@@ -82,7 +82,6 @@ import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 
 export default {
-  methods: {},
   name: 'About',
   metaInfo: {
     title: 'Breakfast & Fastfood Restaurant',
