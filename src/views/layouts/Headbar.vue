@@ -33,7 +33,7 @@
                     <div class="module left">
                         <router-link class="btn btn-outline-secondary" to="/login" v-if="!user">
                             <span class="order">Login</span></router-link>
-                        <router-link class="btn btn-outline-secondary" to="/myaccount" v-if="user">
+                        <router-link class="btn btn-outline-secondary" to="/myaccount" v-if="user && userVerify === true">
                             <span class="order">My Account</span></router-link>
                     </div>
                 </div>
@@ -200,6 +200,7 @@ export default {
   data () {
     return {
       user: [],
+      userVerify: '',
       classSlider: 'hide',
       item: [],
       tipTax: {
@@ -238,6 +239,7 @@ export default {
   methods: {
     showItem () {
       this.user = getLocalStorage('userData')
+      this.userVerify = getLocalStorage('userDataVerify')
       this.item = getLocalStorage('cart')
     },
     slideMinicart (event) {
