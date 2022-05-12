@@ -339,7 +339,7 @@
                                       </div>
                                   </div>
                                 </div>-->
-                                 <div v-if="paymentForm == 1">
+                                 <div v-if="paymentForm == 1 && showAddress == 1 && radiusError == null">
                                   <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment(totalAmount)"><span>Go to payment page</span></button>
                                 </div>
                               </div>

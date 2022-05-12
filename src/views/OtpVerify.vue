@@ -105,9 +105,9 @@ export default {
       verifyOtp(this.form).then(res => {
         if (res.data.valid_otp === true) {
           saveLocalStorage('userDataVerify', 'true')
-          const userData = getLocalStorage('userData')
+          var userData = getLocalStorage('userData')
           userData.verified_at = new Date()
-          saveLocalStorage('userData', userData)
+          saveLocalStorage('userData', JSON.stringify(userData))
           this.$router.push('/myaccount')
         } else {
           this.$toast.error('Invalid Otp')
