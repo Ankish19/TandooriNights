@@ -718,6 +718,9 @@ export default {
     },
     customTipEvnt (event) {
       var tip = event.target.value
+      if (tip === '') {
+        tip = 0
+      }
       this.calculate(this.orderTotal, this.delivery_amount, this.discountPrice, tip)
     },
     selectWallet (event) {
