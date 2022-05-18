@@ -545,4 +545,19 @@ a.panel-cart-action.btn.btn-secondary.btn-block.btn-lg {
 .menu-sample-carousel .slick-list {
   overflow: hidden;
 }
+
+h1.font-amazing.display-2.mb-2 {
+    font-weight: 800;
+    color: #1d1d1b;
+}
+.buttonone{
+      border: 1px solid #e36f2f;
+    background: #e36f2f;
+}
+.buttontwo {
+  background: #fff;
+    color: #484040;
+    border: 1px solid #ffffff;
+  /* transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out; */
+}
 </style>
