@@ -7,6 +7,21 @@
         <div class="slide">
           <div class="bg-image zooming">
             <img
+              src="@/assets/banner1.jpg"
+              alt=""
+            />
+          </div>
+          <div class="container v-center ml-5">
+            <h1 class="display-2 mb-2 font-amazing">Download Our Apps</h1>
+            <h4 class="mb-5 text-white">Available On Apple App Store & Google Play Store</h4>
+            <a href="https://apps.apple.com/us/app/tandoori-nights-ca/id1615350175" class="btn btn-outline-secondary buttonone" target="_blank"><span class="order"><i class="fa fa-apple" aria-hidden="true"></i> App Store</span></a>&nbsp;
+            <a href="https://play.google.com/store/apps/details?id=com.tandoori_nights "  class="btn btn-outline-secondary buttontwo" target="_blank"><span class="order"><i class="fa fa-android" aria-hidden="true"></i> Play Store</span></a>
+          </div>
+        </div>
+        <!-- Slide -->
+        <div class="slide">
+          <div class="bg-image zooming">
+            <img
               src="@/assets/01.jpg"
               alt=""
             />
@@ -499,5 +514,20 @@ a.panel-cart-action.btn.btn-secondary.btn-block.btn-lg {
 }
 .menu-sample-carousel .slick-list {
     overflow: hidden;
+}
+
+h1.font-amazing.display-2.mb-2 {
+    font-weight: 800;
+    color: #1d1d1b;
+}
+.buttonone{
+      border: 1px solid #e36f2f;
+    background: #e36f2f;
+}
+.buttontwo {
+  background: #fff;
+    color: #484040;
+    border: 1px solid #ffffff;
+  /* transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out; */
 }
 </style>
