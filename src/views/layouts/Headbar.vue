@@ -101,6 +101,12 @@
                 <li class="has-dropdown mx-3">
                     <router-link to="/contact">Contact Us</router-link>
                 </li>
+                <li class="has-dropdown mx-3" v-if="user">
+                    <router-link to="/myorder">My Order</router-link>
+                </li>
+                <li class="has-dropdown mx-3" v-else>
+                    <router-link to="/login">Login</router-link>
+                </li>
             </ul>
         </nav>
         <div class="module module-social">
