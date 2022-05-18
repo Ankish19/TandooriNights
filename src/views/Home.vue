@@ -6,49 +6,54 @@
         <!-- Slide -->
         <div class="slide">
           <div class="bg-image zooming">
-            <img
-              src="@/assets/01.jpg"
-              alt=""
-            />
+            <img src="@/assets/01.jpg" alt="" />
           </div>
           <div class="container v-center">
-            <h1 class="display-2 mb-2">Good Food Choices </h1>
+            <h1 class="display-2 mb-2">Good Food Choices</h1>
             <h4 class="text-muted mb-5">Are Good Investments!</h4>
-            <router-link to="/menu" class="btn btn-outline-primary btn-lg">
-              <span>Get it now!</span>
-              </router-link>
+            <a
+              href="https://apps.apple.com/us/app/tandoori-nights-ca/id1615350175"
+              class="btn btn-outline-secondary buttonone"
+              target="_blank"
+              ><span class="order"
+                ><i class="fa fa-apple" aria-hidden="true"></i> App Store</span
+              ></a
+            >&nbsp;
+            <a
+              href="https://play.google.com/store/apps/details?id=com.tandoori_nights "
+              class="btn btn-outline-secondary buttontwo"
+              target="_blank"
+              ><span class="order"
+                ><i class="fa fa-android" aria-hidden="true"></i> Play
+                Store</span
+              ></a
+            >
           </div>
         </div>
         <!-- Slide -->
         <div class="slide">
           <div class="bg-image zooming">
-            <img
-              src="@/assets/02.jpg"
-              alt=""
-            />
+            <img src="@/assets/02.jpg" alt="" />
           </div>
           <div class="container v-center">
             <h1 class="display-2 mb-2">Your Delicious</h1>
             <h4 class="text-muted mb-5">Food Is Here!</h4>
-             <router-link to="/menu" class="btn btn-outline-primary btn-lg">
+            <router-link to="/menu" class="btn btn-outline-primary btn-lg">
               <span>Order Now</span>
-              </router-link>
+            </router-link>
           </div>
         </div>
         <!-- Slide -->
         <div class="slide">
           <div class="bg-image zooming">
-            <img
-              src="@/assets/03.jpg"
-              alt=""
-            />
+            <img src="@/assets/03.jpg" alt="" />
           </div>
           <div class="container v-center">
-            <h1 class="display-2">Discover the New </h1>
-               <h4 class="text-muted">Way to Love Food!</h4>
+            <h1 class="display-2">Discover the New</h1>
+            <h4 class="text-muted">Way to Love Food!</h4>
             <div class="btn-group">
- <router-link to="/menu" class="btn btn-outline-primary btn-lg">
-              <span>Order Now</span>
+              <router-link to="/menu" class="btn btn-outline-primary btn-lg">
+                <span>Order Now</span>
               </router-link>
             </div>
           </div>
@@ -59,10 +64,7 @@
     <section class="section section-bg-edge">
       <div class="image right col-md-6 offset-md-6">
         <div class="bg-image">
-          <img
-            src="@/assets/bg-burger.jpg"
-            alt=""
-          />
+          <img src="@/assets/bg-burger.jpg" alt="" />
         </div>
       </div>
 
@@ -73,10 +75,13 @@
             ><i class="fa fa-star active"></i><i class="fa fa-star active"></i
             ><i class="fa fa-star"></i>
           </div>
-          <h1 class="display-2">About Tandoori <strong style="color:#DDAE71;">Night</strong></h1>
+          <h1 class="display-2">
+            About Tandoori <strong style="color: #ddae71">Night</strong>
+          </h1>
           <p class="lead text-dark mb-5">
-            Tandoori Nights reimagine the wonders of Canadian fare in a space that evokes a bygone era of a boisterous yet
-            elegant Canada—all within the heart of Calgary City.
+            Tandoori Nights reimagine the wonders of Canadian fare in a space
+            that evokes a bygone era of a boisterous yet elegant Canada—all
+            within the heart of Calgary City.
           </p>
           <!-- Feature -->
           <div class="feature feature-1">
@@ -86,8 +91,9 @@
             <div class="feature-content">
               <h4 class="mb-2"><b class="text-heading">The Best of Us</b></h4>
               <p class="text-dark mb-0">
-                At Tandoori Nights, we are dedicated to all things seasonal with a market-driven day-time menu that also offers
-                a variety of Veg Appetizers and Non - Veg Appetizers.
+                At Tandoori Nights, we are dedicated to all things seasonal with
+                a market-driven day-time menu that also offers a variety of Veg
+                Appetizers and Non - Veg Appetizers.
               </p>
             </div>
           </div>
@@ -97,10 +103,15 @@
               <i class="ti ti-heart"></i>
             </div>
             <div class="feature-content">
-              <h4 class="mb-2"><b class="text-heading">The Dedication and Commitment</b></h4>
+              <h4 class="mb-2">
+                <b class="text-heading">The Dedication and Commitment</b>
+              </h4>
               <p class="text-dark mb-0">
-                Stock up on bread, pastries, and grab n' go salads and sandwiches. At Tandoori Nights, they continue their dedication to our specials
-                with come together to celebrate and savor beloved annual traditions, where each experience brims with culinary delights.
+                Stock up on bread, pastries, and grab n' go salads and
+                sandwiches. At Tandoori Nights, they continue their dedication
+                to our specials with come together to celebrate and savor
+                beloved annual traditions, where each experience brims with
+                culinary delights.
               </p>
             </div>
           </div>
@@ -138,99 +149,63 @@
         <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
-            <img
-              src="@/assets/non-veg.jpg"
-              alt=""
-              class="image"
-            />
+            <img src="@/assets/non-veg.jpg" alt="" class="image" />
             <h3 class="title">Non-Veg</h3>
           </a>
         </div>
         <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
-            <img
-              src="@/assets/veg-appetizers.jpg"
-              alt=""
-              class="image"
-            />
+            <img src="@/assets/veg-appetizers.jpg" alt="" class="image" />
             <h3 class="title">Veg Appetizers</h3>
           </a>
         </div>
         <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
-            <img
-              src="@/assets/veg-main.jpg"
-              alt=""
-              class="image"
-            />
+            <img src="@/assets/veg-main.jpg" alt="" class="image" />
             <h3 class="title">Veg Main</h3>
           </a>
         </div>
         <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
-            <img
-              src="@/assets/breads.jpg"
-              alt=""
-              class="image"
-            />
+            <img src="@/assets/breads.jpg" alt="" class="image" />
             <h3 class="title">Breads</h3>
           </a>
         </div>
         <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
-            <img
-              src="@/assets/breavages.jpg"
-              alt=""
-              class="image"
-            />
+            <img src="@/assets/breavages.jpg" alt="" class="image" />
             <h3 class="title">Beverages</h3>
           </a>
         </div>
         <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
-            <img
-              src="@/assets/kids.jpg"
-              alt=""
-              class="image"
-            />
+            <img src="@/assets/kids.jpg" alt="" class="image" />
             <h3 class="title">Kids</h3>
           </a>
         </div>
         <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
-            <img
-              src="@/assets/rice.jpg"
-              alt=""
-              class="image"
-            />
+            <img src="@/assets/rice.jpg" alt="" class="image" />
             <h3 class="title">Rice</h3>
           </a>
         </div>
         <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
-            <img
-              src="@/assets/sides.jpg"
-              alt=""
-              class="image"
-            />
+            <img src="@/assets/sides.jpg" alt="" class="image" />
             <h3 class="title">Sides</h3>
           </a>
         </div>
-         <!-- Menu Sample -->
+        <!-- Menu Sample -->
         <div class="menu-sample slider-img">
           <a href="#">
-            <img
-              src="@/assets/sweets.jpg"
-              alt=""
-              class="image"
-            />
+            <img src="@/assets/sweets.jpg" alt="" class="image" />
             <h3 class="title">Sweets</h3>
           </a>
         </div>
@@ -265,7 +240,8 @@
               <div class="feature-content">
                 <h4 class="mb-2 text-white font-weight-bold">Make a payment</h4>
                 <p class="text-muted mb-0">
-                  Take the most sizzling flavors for a price that is perfect to pay!
+                  Take the most sizzling flavors for a price that is perfect to
+                  pay!
                 </p>
               </div>
             </div>
@@ -281,7 +257,8 @@
                   Recieve your food!
                 </h4>
                 <p class="text-muted mb-3">
-                  Get the enticing Indian-style dishes for you and your specials at Tandoori Nights!
+                  Get the enticing Indian-style dishes for you and your specials
+                  at Tandoori Nights!
                 </p>
               </div>
             </div>
@@ -289,67 +266,127 @@
         </div>
       </div>
     </section>
-     <!-- Section - About -->
-        <section class="section section-bg-edge ">
+    <!-- Section - About -->
+    <section class="section section-bg-edge">
+      <div class="image right col-md-6 offset-md-6">
+        <div class="bg-image"><img src="@/assets/bg-ts.jpg" alt="" /></div>
+      </div>
 
-            <div class="image right col-md-6 offset-md-6">
-                <div class="bg-image"><img src="@/assets/bg-ts.jpg" alt=""></div>
-            </div>
-
-            <div class="container">
-                <div class="col-lg-5 col-md-9">
-                    <div class="rate mb-5 rate-lg"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i></div>
-                    <h1>The best food in Calgary!</h1>
-                    <div class="blockquotes">
-                        <!-- Blockquote -->
-                        <blockquote class="blockquote light animated" data-animation="fadeInLeft">
-                            <div class="blockquote-content">
-                                <div class="rate rate-sm mb-3"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i></div>
-                                <p>Did takeout a couple times and they have not disappointed. Amazing food, amazing quality. I haven’t had Indian food like this in Calgary anywhere else. Delicious and fresh! Their service and quality is unmatched.</p>
-                            </div>
-                            <footer>
-                                <img src="#" alt="">
-                                <span class="name">Manpreet Brar<span class="text-muted">, Google</span></span>
-                            </footer>
-                        </blockquote>
-                        <!-- Blockquote -->
-                        <blockquote class="blockquote animated" data-animation="fadeInRight" data-animation-delay="300">
-                            <div class="blockquote-content dark">
-                                <div class="rate rate-sm mb-3"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i></div>
-                                <p class="text-white">Very good food, fresh and tasty veg samosa and veg pakoara so good.</p>
-                            </div>
-                            <footer>
-                                <img src="#" alt="">
-                                <span class="name">Virinder Sidhu<span class="text-muted">, Google</span></span>
-                            </footer>
-                        </blockquote>
-                        <!-- Blockquote -->
-                        <blockquote class="blockquote light animated" data-animation="fadeInLeft">
-                            <div class="blockquote-content">
-                                <div class="rate rate-sm mb-3"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i></div>
-                                <p>Great food. Owner is one of the best person I have ever met. Amazing service and Mutton is worth trying.</p>
-                            </div>
-                            <footer>
-                                <img src="#" alt="">
-                                <span class="name">Rocker Maahip<span class="text-muted">, Google</span></span>
-                            </footer>
-                        </blockquote>
-                        <!-- Blockquote -->
-                        <blockquote class="blockquote light animated" data-animation="fadeInLeft">
-                            <div class="blockquote-content dark">
-                                <div class="rate rate-sm mb-3"><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i></div>
-                                <p  class="text-white">Had a great buffet lunch there for a very reasonable price. The owners pride themselves on serving fresh food even on a buffet line. 10/10. Will visit again.</p>
-                            </div>
-                            <footer>
-                                <img src="#" alt="">
-                                <span class="name">Charles Chang<span class="text-muted">, Google</span></span>
-                            </footer>
-                        </blockquote>
-                    </div>
+      <div class="container">
+        <div class="col-lg-5 col-md-9">
+          <div class="rate mb-5 rate-lg">
+            <i class="fa fa-star active"></i><i class="fa fa-star active"></i
+            ><i class="fa fa-star active"></i><i class="fa fa-star active"></i
+            ><i class="fa fa-star"></i>
+          </div>
+          <h1>The best food in Calgary!</h1>
+          <div class="blockquotes">
+            <!-- Blockquote -->
+            <blockquote
+              class="blockquote light animated"
+              data-animation="fadeInLeft"
+            >
+              <div class="blockquote-content">
+                <div class="rate rate-sm mb-3">
+                  <i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i><i class="fa fa-star"></i>
                 </div>
-            </div>
-
-        </section>
+                <p>
+                  Did takeout a couple times and they have not disappointed.
+                  Amazing food, amazing quality. I haven’t had Indian food like
+                  this in Calgary anywhere else. Delicious and fresh! Their
+                  service and quality is unmatched.
+                </p>
+              </div>
+              <footer>
+                <img src="#" alt="" />
+                <span class="name"
+                  >Manpreet Brar<span class="text-muted">, Google</span></span
+                >
+              </footer>
+            </blockquote>
+            <!-- Blockquote -->
+            <blockquote
+              class="blockquote animated"
+              data-animation="fadeInRight"
+              data-animation-delay="300"
+            >
+              <div class="blockquote-content dark">
+                <div class="rate rate-sm mb-3">
+                  <i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i><i class="fa fa-star"></i>
+                </div>
+                <p class="text-white">
+                  Very good food, fresh and tasty veg samosa and veg pakoara so
+                  good.
+                </p>
+              </div>
+              <footer>
+                <img src="#" alt="" />
+                <span class="name"
+                  >Virinder Sidhu<span class="text-muted">, Google</span></span
+                >
+              </footer>
+            </blockquote>
+            <!-- Blockquote -->
+            <blockquote
+              class="blockquote light animated"
+              data-animation="fadeInLeft"
+            >
+              <div class="blockquote-content">
+                <div class="rate rate-sm mb-3">
+                  <i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i>
+                </div>
+                <p>
+                  Great food. Owner is one of the best person I have ever met.
+                  Amazing service and Mutton is worth trying.
+                </p>
+              </div>
+              <footer>
+                <img src="#" alt="" />
+                <span class="name"
+                  >Rocker Maahip<span class="text-muted">, Google</span></span
+                >
+              </footer>
+            </blockquote>
+            <!-- Blockquote -->
+            <blockquote
+              class="blockquote light animated"
+              data-animation="fadeInLeft"
+            >
+              <div class="blockquote-content dark">
+                <div class="rate rate-sm mb-3">
+                  <i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i
+                  ><i class="fa fa-star active"></i>
+                </div>
+                <p class="text-white">
+                  Had a great buffet lunch there for a very reasonable price.
+                  The owners pride themselves on serving fresh food even on a
+                  buffet line. 10/10. Will visit again.
+                </p>
+              </div>
+              <footer>
+                <img src="#" alt="" />
+                <span class="name"
+                  >Charles Chang<span class="text-muted">, Google</span></span
+                >
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <Footer></Footer>
   </div>
@@ -364,12 +401,20 @@ export default {
   name: 'Home',
   metaInfo: {
     title: 'Punjabi Food in Calgary NE',
-    titleTemplate: '%s | Top Punjabi Restaurant in Calgary NE ',
+    titleTemplate: '%s | Top Punjabi Restaurant in Calgary NE',
     meta: [
       { charset: 'utf-8' },
-      { name: 'description', content: 'Come find us for the best Punjabi food that suits your taste at an affordable price and delicious snack at the best Punjabi restaurant in Calgary NE.' },
+      {
+        name: 'description',
+        content:
+          'Come find us for the best Punjabi food that suits your taste at an affordable price and delicious snack at the best Punjabi restaurant in Calgary NE.'
+      },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'keywords', content: 'Punjabi Restaurant in Calgary NE, Best Punjabi Restaurant in Calgary NE, Top Punjabi Restaurant  Calgary, Punjabi Snack Restaurant in Calgary NE, Best Punjabi Food in Calgary NE' }
+      {
+        name: 'keywords',
+        content:
+          'Punjabi Restaurant in Calgary NE, Best Punjabi Restaurant in Calgary NE, Top Punjabi Restaurant  Calgary, Punjabi Snack Restaurant in Calgary NE, Best Punjabi Food in Calgary NE'
+      }
     ]
   },
   components: {
@@ -492,12 +537,12 @@ a.panel-cart-action.btn.btn-secondary.btn-block.btn-lg {
   padding: 22px;
   background: #343a40;
 }
-.text-heading{
-    color: #ddae71;
-    font-weight: 800;
-    font-size: 23px;
+.text-heading {
+  color: #ddae71;
+  font-weight: 800;
+  font-size: 23px;
 }
 .menu-sample-carousel .slick-list {
-    overflow: hidden;
+  overflow: hidden;
 }
 </style>
