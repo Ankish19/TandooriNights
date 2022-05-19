@@ -276,10 +276,10 @@
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description ml-2">Wallet Balance <br/>${{ wallet.balance?wallet.balance.toFixed(2):0 }}</span>
                                     </label>
-                                    <label class="custom-control custom-radio">
+                                    <label class="custom-control custom-radio" v-if="submitOrder.user.data.role === 'table'">
                                         <input type="radio" name="payment_type" checked  value="COD" v-model="submitOrder.method" @change="selectMethod($event)">
                                         <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description ml-2">COD</span>
+                                        <span class="custom-control-description ml-2">Pay Later</span>
                                     </label>
                                     <label class="custom-control custom-radio">
                                         <input type="radio" name="payment_type" checked  value="CARD" v-model="submitOrder.method" @change="selectMethod($event)">
@@ -394,6 +394,7 @@ export default {
       showWallet: 0,
       tipTax: {
         tips: {},
+        tipsPercentage: false,
         taxPercentage: {},
         tipsvalue: []
       },
@@ -483,7 +484,12 @@ export default {
       getSettings().then(res => {
         this.tipTax.taxPercentage = res.data[45]
         this.tipTax.tips = res.data[109]
-        this.tipTax.tipsvalue = res.data[109].value.split(',')
+        this.tipTax.tipsPercentage = res.data[111].value
+        if (res.data[111].value === 'true') {
+          this.tipTax.tipsvalue = res.data[110].value.split(',')
+        } else {
+          this.tipTax.tipsvalue = res.data[109].value.split(',')
+        }
         for (var i = 0; i < this.item.length; i++) {
           if (this.item[i].addOnTotal) {
             this.orderTotal += parseInt(this.item[i].quantity) * parseFloat(this.item[i].addOnTotal)
@@ -601,7 +607,6 @@ export default {
           lineItems: []
         }
       }
-      console.log(this.wallet.balance + 'bal')
       if (getLocalStorage('submitOrder') && getLocalStorage('submitOrder').total) {
         if (this.showWallet === 1 && this.wallet.balance < amount.toFixed(2)) {
           amount = amount - this.wallet.balance
@@ -610,8 +615,6 @@ export default {
           this.submitOrder.total.totalPrice = getLocalStorage('submitOrder').total.totalPrice
         }
       }
-      console.log(parseFloat(amount.toFixed(2)) + 'amount')
-      console.log(this.submitOrder.total.totalPrice + 'submitOrder')
       var arr = { }
       arr = {
         name: 'Total Amount',
@@ -707,9 +710,15 @@ export default {
     },
     selectTip (tip) {
       if (tip !== 'custom') {
-        this.selected_tip = tip
-        this.submitOrder.tipAmount = tip
-        this.customTip = false
+        if (this.tipTax.tipsPercentage === 'true') {
+          this.selected_tip = (parseFloat(this.orderTotal) * tip / 100).toFixed(2)
+          this.submitOrder.tipAmount = (parseFloat(this.orderTotal) * tip / 100).toFixed(2)
+          this.customTip = false
+        } else {
+          this.selected_tip = tip
+          this.submitOrder.tipAmount = tip
+          this.customTip = false
+        }
 
         this.calculate(this.orderTotal, this.delivery_amount, this.discountPrice, this.submitOrder.tipAmount)
       } else {
