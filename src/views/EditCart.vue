@@ -166,8 +166,14 @@ export default {
       var storedNames = JSON.parse(localStorage.getItem('cart'))
       var name = []
       for (var j = 0; j < storedNames.length; j++) {
-        storedNames[j].quantity = this.add_quantity[j]
-        name.push(storedNames[j])
+        if (this.add_quantity[j] === '0') {
+          console.log(this.add_quantity[j])
+          storedNames[j].quantity = 1
+          // name.push(storedNames[j])
+        } else {
+          storedNames[j].quantity = this.add_quantity[j]
+          name.push(storedNames[j])
+        }
       }
       localStorage.removeItem('cart')
       localStorage.setItem('cart', JSON.stringify(name))

@@ -25,7 +25,7 @@
                   v-model="form.email"
                   placeholder="Email"
                 ></b-form-input> -->
-              <b-col cols="6" class="mx-auto">
+              <b-col cols="12" sm="6" class="mx-auto">
                 <!--<b-col cols="12">
                   <h2 class="font-weight-bold">Login Form</h2>
                 </b-col>-->

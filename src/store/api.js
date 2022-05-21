@@ -3,7 +3,7 @@ import { apiHeaders } from './service'
 
 const apiUrl = 'https://tandoorinights.ca/rest/api/'
 const storeSlug = 'tandoori-nights-6rvkykyawv4cyzr'
-const storeID = '2'
+// const storeID = '2'
 
 export const getMenu = () => {
   return axios.post(
@@ -59,8 +59,8 @@ export const deleteAddress = (data) => {
   return axios.post(`${apiUrl}delete-address`, data, { headers: apiHeaders() })
 }
 
-export const getOrders = (data) => {
-  return axios.post(`${apiUrl}get-orders`, data, { headers: apiHeaders() })
+export const getOrders = (data, role) => {
+  return axios.post(`${apiUrl}get-orders?table=${role}`, data, { headers: apiHeaders() })
 }
 
 export const getSettings = (data) => {
@@ -82,7 +82,7 @@ export const getOrderDetail = (data) => {
 export const checkCoupon = (data) => {
   var datanew = {
     coupon: data.coupon,
-    restaurant_id: storeID,
+    restaurant_id: data.restaurant_id,
     subtotal: data.subTotal
   }
   return axios.post(`${apiUrl}apply-coupon`, datanew, { headers: apiHeaders() })
@@ -124,4 +124,9 @@ export const CardToken1 = (data) => {
       Authorization: 'Bearer f0dc5622-ab52-2d8f-4936-8f5557cae2b6'
     }
   })
+}
+
+export const tableLogin = (table) => {
+  console.log(table)
+  return axios.post(`${apiUrl}tablelogin/${table}`)
 }

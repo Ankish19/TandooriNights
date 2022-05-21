@@ -5,37 +5,56 @@
       <div class="container">
         <!-- Footer 1st Row -->
         <div class="footer-first-row row">
-          <div class="col-lg-3 text-center">
-            <a href="#">
+          <div class="col-lg-3 text-left">
+            <router-link to="/">
               <img alt="Vue logo" class="footer-logo" src="@/assets/logo.svg"
-            /></a>
+            /> </router-link>
+            <p>Tandoori Nights reimagine the wonders of Canadian fare in a space that evokes a bygone era of a boisterous yet elegant Canada—all within the heart of Calgary City.</p>
           </div>
-          <div class="col-lg-4 col-md-6">
-            <h5 class="text-muted">Latest news</h5>
+          <div class="col-lg-1"></div>
+          <div class="col-lg-4 col-md-6 text-left">
+            <h5 class="text-light">Contact</h5>
             <ul class="list-posts">
               <li>
                 <a href="#" class="title"
-                  >How to create effective webdeisign?</a
+                  >101- 4851 Westwinds Dr NE, Calgary, T3J 4L4</a
                 >
-                <span class="date">February 14, 2015</span>
+                <br>
+                <p> Follow Us On &nbsp;
+                <a
+              href="https://www.facebook.com/tandoorinightsca/"
+              class="icon icon-social icon-circle icon-sm icon-facebook"
+              ><i class="fa fa-facebook"></i
+            ></a>
+            &nbsp;
+            <a
+              href="https://www.instagram.com/tandoorinightscalgary/"
+              class="icon icon-social icon-circle icon-sm icon-instagram"
+              ><i class="fa fa-instagram"></i
+            ></a></p>
+            <hr class="hr-md">
+              <a>Queries/Support:</a>
+               <a href="tel:+1-604-614-9324" class="title mt-3 mb-4"
+                  >+1-604-614-9324</a
+                >
+                <a>Booking:</a>
+                <a href="tel:+1-403-568-9858" class="title mt-2 mb-4"
+                  >+1-403-568-9858</a
+                >
+                <a>E-mail:</a>
+                <a href="tel:+1-403-568-9858" class="title mt-2"
+                  >info@tandoorinights.ca</a
+                >
+                <hr class="hr-md">
               </li>
+              <h5 class="text-light">Timings</h5>
               <li>
-                <a href="#" class="title"
-                  >Awesome weekend in Polish mountains!</a
-                >
-                <span class="date">February 14, 2015</span>
-              </li>
-              <li>
-                <a href="#" class="title"
-                  >How to create effective webdeisign?</a
-                >
-                <span class="date">February 14, 2015</span>
-              </li>
+            <p>Monday To Sunday 11am to 10pm</p>
+            </li>
             </ul>
           </div>
-          <div class="col-lg-5 col-md-6">
-            <h5 class="text-muted">Subscribe Us!</h5>
-            <!-- MailChimp Form -->
+          <div class="col-lg-4 col-md-6">
+            <!-- <h5 class="text-light">Subscribe Us!</h5>
             <form
               action="//suelo.us12.list-manage.com/subscribe/post-json?u=ed47dbfe167d906f2bc46a01b&amp;id=24ac8a22ad"
               id="sign-up-form"
@@ -72,28 +91,20 @@
                   </button>
                 </span>
               </div>
-            </form>
-            <h5 class="text-muted mb-3">Social Media</h5>
-            <a
-              href="#"
-              class="icon icon-social icon-circle icon-sm icon-facebook"
-              ><i class="fa fa-facebook"></i
-            ></a>
-            <a href="#" class="icon icon-social icon-circle icon-sm icon-google"
-              ><i class="fa fa-google"></i
-            ></a>
-            <a
-              href="#"
-              class="icon icon-social icon-circle icon-sm icon-instagram"
-              ><i class="fa fa-instagram"></i
-            ></a>
+            </form> -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.980454849165!2d-113.97040968401946!3d51.10882077957173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5371637ffd480cfb%3A0xbcc259dc49a97ae5!2s101%20Westwinds%20Dr%20NE%2C%20Calgary%2C%20AB%20T3J%205H3%2C%20Canada!5e0!3m2!1sen!2sin!4v1640782046742!5m2!1sen!2sin" width="300px" height="300px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
           </div>
         </div>
         <!-- Footer 2nd Row -->
         <div class="footer-second-row">
-          <span class="text-muted"
-            >Copyright Tandoori Night 2022 ©. Made with love by Tng Websolutions.</span
-          >
+        <div class="row">
+        <div class="col-md-6"><span class="text-muted"
+            >Copyright Tandoori Night 2022 ©. Made by <a href="https://tngwebsolutions.ca/">T&G Web Solutions Ltd.</a></span
+          ></div>
+        <div class="col-md-6 text-muted text-right"><router-link to="/privacypolicy">Privacy Policy</router-link></div>
+        </div>
+
         </div>
       </div>
 
@@ -420,6 +431,6 @@ button.btn.btn-footer.btn-submit {
   border-radius: 0px;
 }
 .footer-logo {
-  width: 220px;
+  width: 150px;
 }
 </style>

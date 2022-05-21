@@ -64,11 +64,11 @@
               <div class="row mb-5">
                 <div class="container">
                   <div class="row">
-                    <div class="col-md-12 mb-20">
+                    <div class="col-md-12 col-sm-12 col-xs-12 mb-20">
                       <div class="wishlist-table">
                         <table class="table table-bordered">
                           <thead>
-                            <tr>
+                            <tr class="col-md-12">
                               <th scope="col">Order Id </th>
                               <th scope="col">Description</th>
                               <th scope="col">Status</th>
@@ -128,6 +128,7 @@ import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
 import { getOrders } from '@/store/api'
+import { getLocalStorage } from '@/store/service'
 
 export default {
   created () {},
@@ -168,8 +169,7 @@ export default {
       this.pageOfItems = pageOfItems
     },
     getOrder () {
-      getOrders(this.form).then(res => {
-        console.log(res.data)
+      getOrders(this.form, getLocalStorage('userData').role).then(res => {
         this.orders = res.data
       })
     },
@@ -267,6 +267,14 @@ tr.line {
 tr.line:hover {
     border-bottom: 2px solid #f6f6f6;
     background: #dfdedd;
+}
+
+.wishlist-table {
+    overflow: hidden;
+    overflow-x: scroll;
+}
+li.page-item.previous.disabled a.page-link {
+    padding: 6px 5px 0px 25px !important;
 }
 @media (max-width: 991px){
 .menu-sample .title {

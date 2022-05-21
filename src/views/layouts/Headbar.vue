@@ -33,7 +33,7 @@
                     <div class="module left">
                         <router-link class="btn btn-outline-secondary" to="/login" v-if="!user">
                             <span class="order">Login</span></router-link>
-                        <router-link class="btn btn-outline-secondary" to="/myaccount" v-if="user">
+                        <router-link class="btn btn-outline-secondary" to="/myaccount" v-if="user || userVerify === true">
                             <span class="order">My Account</span></router-link>
                     </div>
                 </div>
@@ -65,9 +65,9 @@
         </div>
 
         <div class="module module-logo">
-            <a href="#">
+            <router-link to="/">
                 <img src="@/assets/logo.png" alt="" />
-            </a>
+            </router-link>
         </div>
 
         <a href="#" class="module module-cart" data-toggle="panel-cart">
@@ -80,21 +80,36 @@
     <!-- Panel Mobile -->
     <nav id="panel-mobile" class="">
         <div class="module module-logo bg-dark dark">
-            <a href="#">
+            <router-link to="/">
                 <img src="assets/img/logo-light.svg" alt="" width="88" />
-            </a>
+            </router-link>
             <button class="close" data-toggle="panel-mobile">
                 <i class="ti ti-close"></i>
             </button>
         </div>
-        <nav class="module module-navigation"></nav>
+        <nav class="module module-navigation1">
+            <ul id="nav-main-mobile" class="nav nav-main-mobile">
+                <li class="has-dropdown mx-3">
+                    <router-link to="/">Home</router-link>
+                </li>
+                <li class="has-dropdown mx-3">
+                    <router-link to="/about">About</router-link>
+                </li>
+                <li class="has-dropdown mx-3">
+                    <router-link to="/menu">Online Order</router-link>
+                </li>
+                <li class="has-dropdown mx-3">
+                    <router-link to="/contact">Contact Us</router-link>
+                </li>
+                <li class="has-dropdown mx-3" v-if="user">
+                    <router-link to="/myorder">My Orders</router-link>
+                </li>
+            </ul>
+        </nav>
         <div class="module module-social">
-            <h6 class="text-sm mb-3">Follow Us!</h6>
-            <a href="#" class="icon icon-social icon-circle icon-sm icon-facebook"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="icon icon-social icon-circle icon-sm icon-google"><i class="fa fa-google"></i></a>
-            <a href="#" class="icon icon-social icon-circle icon-sm icon-twitter"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="icon icon-social icon-circle icon-sm icon-youtube"><i class="fa fa-youtube"></i></a>
-            <a href="#" class="icon icon-social icon-circle icon-sm icon-instagram"><i class="fa fa-instagram"></i></a>
+            <h6 class="text-sm mb-3"><b>Follow Us!</b></h6>
+            <a to="https://www.facebook.com/tandoorinightsca/" class="icon icon-social icon-circle icon-sm icon-facebook"><i class="fa fa-facebook"></i></a> &nbsp;
+            <a to="https://www.instagram.com/tandoorinightscalgary/" class="icon icon-social icon-circle icon-sm icon-instagram"><i class="fa fa-instagram"></i></a>
         </div>
     </nav>
 
@@ -188,6 +203,7 @@ export default {
   data () {
     return {
       user: [],
+      userVerify: '',
       classSlider: 'hide',
       item: [],
       tipTax: {
@@ -226,6 +242,7 @@ export default {
   methods: {
     showItem () {
       this.user = getLocalStorage('userData')
+      this.userVerify = getLocalStorage('userDataVerify')
       this.item = getLocalStorage('cart')
     },
     slideMinicart (event) {
@@ -295,5 +312,8 @@ input#mce-EMAIL {
     padding: 22px;
     border: 1px solid #ffff;
     background: white !important;
+}
+.icon-social{
+background-color: #4267B2;
 }
 </style>

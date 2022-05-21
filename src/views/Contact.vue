@@ -32,8 +32,10 @@
               class="mb-5"
               width="130"
             />
-            <h4 class="mb-0 font-weight-bold">Tandoori Night</h4>
-            <span class="text-muted">101- 4851 Westwinds Dr NE Calgary, AB T3J 4L4 Canada</span>
+            <h4 class="mb-2 font-weight-bold">Tandoori Night</h4>
+            <span class="text-muted mt-5 mb-5">101- 4851 Westwinds Dr NE Calgary, AB T3J 4L4 Canada</span><br/><br/>
+            <h4 class="mb-0 font-weight-bold">Timings</h4>
+            <p class="text-muted text font-weight-bold">Monday To Sunday 11am to 10pm</p>
             <hr class="hr-md" />
             <div class="row">
               <div class="col-sm-12 mb-3 mb-sm-0">
@@ -153,6 +155,16 @@ import {
 } from 'bootstrap-vue'
 export default {
   name: 'Contact',
+  metaInfo: {
+    title: 'Tiffin Service Calgary NE',
+    titleTemplate: '%s | Best Indian Restaurants in Calgary Northeast',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'description', content: 'Get the best reliable tiffin service near me at a modest price with the easy processed and fastest delivery at the best Indian restaurant in Northeast Calgary.' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'keywords', content: 'Indian Restaurant Calgary Northeast, Best Indian Restaurant in North East Calgary, Tiffin Service Calgary NE, Indian Restaurants Near Me' }
+    ]
+  },
   components: {
     Headbar,
     Footer,

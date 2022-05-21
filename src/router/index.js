@@ -3,8 +3,10 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import { getLocalStorage } from '../store/service'
 import { resendVerifyOtp } from '../store/api'
+import VueMeta from 'vue-meta'
 
 Vue.use(VueRouter)
+Vue.use(VueMeta)
 
 const routes = [
   {
@@ -57,6 +59,11 @@ const routes = [
     name: 'OtpVerify',
     component: () => import('../views/OtpVerify.vue')
   },
+  {
+    path: '*',
+    name: '404',
+    component: () => import('../views/404.vue')
+  },
   // {
   //   path: '/stripe',
   //   name: 'Stripe',
@@ -66,6 +73,11 @@ const routes = [
     path: '/checkout',
     name: 'Checkout',
     component: () => import('../views/CheckOut.vue')
+  },
+  {
+    path: '/checkoutnew',
+    name: 'Checkoutnew',
+    component: () => import('../views/CheckOutNew.vue')
   },
   {
     path: '/myaccount',
@@ -111,6 +123,21 @@ const routes = [
     path: '/updateprofile',
     name: 'UpdateProfile',
     component: () => import('../views/myaccount/UpdateProfile.vue')
+  },
+  {
+    path: '/app-download',
+    name: 'apptemplate',
+    component: () => import('../views/AppTemplate.vue')
+  },
+  {
+    path: '/privacypolicy',
+    name: 'privacypolicy',
+    component: () => import('../views/PrivacyPolicy.vue')
+  },
+  {
+    path: '/table-login/:table',
+    name: 'tableLogin',
+    component: () => import('../views/Table_login.vue')
   }
 ]
 

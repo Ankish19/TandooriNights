@@ -82,8 +82,17 @@ import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 
 export default {
-  methods: {},
   name: 'About',
+  metaInfo: {
+    title: 'Breakfast & Fastfood Restaurant',
+    titleTemplate: '%s | Best Chole Bhature in Calgary NE',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'description', content: 'Start your day with the best breakfast deals at modest rates with its flavourful taste and yummy chole bhature at a Punjabi fine dining restaurant in Calgary NE.' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'keywords', content: 'Breakfast Restaurant  in Calgary NE, Fast food Restaurant  in Calgary NE, Best Chole Bhature in Calgary NE' }
+    ]
+  },
   components: {
     Headbar,
     Footer

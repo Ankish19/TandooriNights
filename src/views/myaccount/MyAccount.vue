@@ -149,6 +149,11 @@ export default {
   methods: {
     userData () {
       this.user = getLocalStorage('userData')
+      if ((typeof this.user.role !== 'undefined')) {
+        if (this.user.role === 'table') {
+          this.$router.push('/myorder')
+        }
+      }
     }
   },
   name: 'MyAccount'
