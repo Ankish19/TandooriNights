@@ -61,7 +61,7 @@
               </h4>
               <div class="row mb-5">
               <div class="col-md-12">
-                 <div class="blog-details-wrap ptb-100">
+                 <div class="blog-details-wrap">
       <div class="container">
         <div class="row gx-5">
           <div class="col-lg-12 order-xl-2 order-lg-1 order-md-1 order-1">
@@ -83,17 +83,17 @@
                 <p class="text-muted mb-4">
                   <a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ user?user.email:'' }}</a>
                 </p>
-                <div class="row">
-                  <div class="col-md-6">
+                <div class="row text-center" style="margin:auto;">
+                  <div class="col-md-12">
                     <div class="d-flex justify-content-center mb-2">
-                      <router-link to="/updateprofile" class="btn btn-primary w-100"><span><i class="fa fa-pencil" aria-hidden="true"></i>  Update</span></router-link>
+                      <router-link to="/updateprofile" class="btn btn-primary w-50"><span><i class="fa fa-pencil" aria-hidden="true"></i>  Update</span></router-link>
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <!-- <div class="col-md-6">
                     <div class="d-flex justify-content-center mb-2">
                       <router-link to="/login" class="btn btn-danger w-100"><span><i class="fa fa-pencil" aria-hidden="true"></i>  Password Changes</span></router-link>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
 
               </div>
