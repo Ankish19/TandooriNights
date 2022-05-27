@@ -119,13 +119,13 @@ import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
 import { getLocalStorage } from '@/store/service'
-import //   BContainer,
-//   BRow,
-//   BCol,
-//   BForm,
-//   BFormGroup,
-//   BFormInput
-'bootstrap-vue'
+// import //   BContainer,
+// //   BRow,
+// //   BCol,
+// //   BForm,
+// //   BFormGroup,
+// //   BFormInput
+// 'bootstrap-vue'
 export default {
   components: {
     Headbar,

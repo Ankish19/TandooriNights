@@ -130,3 +130,7 @@ export const tableLogin = (table) => {
   console.log(table)
   return axios.post(`${apiUrl}tablelogin/${table}`)
 }
+
+export const contactUs = (data) => {
+  return axios.post(`${apiUrl}contact-us`, data)
+}
