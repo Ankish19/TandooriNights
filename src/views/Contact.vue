@@ -77,7 +77,7 @@
     <!-- Section -->
     <section class="sectionbg">
       <b-container>
-        <b-form>
+        <b-form @submit.prevent="sendMessage">
           <b-row>
             <b-col cols="12">
               <h2 class="font-weight-bold">Send Us a Message</h2>
@@ -85,7 +85,7 @@
             <b-col cols="6">
               <b-form-group>
                 <b-form-input
-                  v-model="text"
+                  v-model="form.firstname"
                   placeholder="Firstname"
                 ></b-form-input>
               </b-form-group>
@@ -94,7 +94,7 @@
               <b-form-group>
                 <b-form-group>
                   <b-form-input
-                    v-model="text"
+                    v-model="form.lastname"
                     placeholder="Lastname"
                   ></b-form-input>
                 </b-form-group>
@@ -104,7 +104,7 @@
               <b-form-group>
                 <b-form-group>
                   <b-form-input
-                    v-model="phone"
+                    v-model="form.phone"
                     placeholder="Phone"
                   ></b-form-input>
                 </b-form-group>
@@ -114,7 +114,7 @@
               <b-form-group>
                 <b-form-group>
                   <b-form-input
-                    v-model="email"
+                    v-model="form.email"
                     placeholder="Email"
                   ></b-form-input>
                 </b-form-group>
@@ -123,16 +123,17 @@
             <b-col cols="12">
               <b-form-textarea
                 id="textarea"
-                v-model="text"
+                v-model="form.message"
                 placeholder="Enter something..."
                 rows="3"
               ></b-form-textarea>
             </b-col>
             <b-col cols="12" class="mt-3">
               <b-form-group>
-                <b-button class="w-100"><span>Submit</span></b-button>
+                <b-button class="w-100" type="submit"><span>Submit</span></b-button>
               </b-form-group>
             </b-col>
+            <span class="text-danger text-lg">{{ error }}</span>
           </b-row>
         </b-form>
       </b-container>
@@ -143,6 +144,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
+import { contactUs } from '@/store/api'
 import {
   BForm,
   BFormGroup,
@@ -165,6 +167,18 @@ export default {
       { name: 'keywords', content: 'Indian Restaurant Calgary Northeast, Best Indian Restaurant in North East Calgary, Tiffin Service Calgary NE, Indian Restaurants Near Me' }
     ]
   },
+  data () {
+    return {
+      form: {
+        firstname: '',
+        lastname: '',
+        phone: '',
+        email: '',
+        message: ''
+      },
+      error: ''
+    }
+  },
   components: {
     Headbar,
     Footer,
@@ -176,6 +190,26 @@ export default {
     BCol,
     BContainer,
     BFormTextarea
+  },
+  methods: {
+    sendMessage () {
+      this.error = ''
+      if (!this.form.firstname || !this.form.lastname || !this.form.phone || !this.form.email || !this.form.message) {
+        this.error = '*All fields are required.'
+      } else {
+        contactUs(this.form).then((res) => {
+          console.log(res.data)
+          if (res.data.success === true) {
+            this.form.firstname = null
+            this.form.lastname = null
+            this.form.phone = null
+            this.form.email = null
+            this.form.message = null
+            this.$toast.success('Mail sent successfully.')
+          }
+        })
+      }
+    }
   }
 }
 </script>

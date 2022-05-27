@@ -201,6 +201,9 @@
                             </div>
 
                             <!--TableTop Order -->
+                            <center>
+                              <span class="text-danger text-lg">{{ tableOrder.error }}</span>
+                            </center>
                             <div class="row mb-5" v-if="submitOrder.delivery_type == 3">
                                 <div class="form-group col-sm-12">
                                     <label>Name:</label>
@@ -239,7 +242,11 @@
                                 <div class="row" v-if="submitOrder.delivery_type == 1 || submitOrder.delivery_type == 3">
                                   <div class="col-md-12">
                                     <p>Tips</p>
-                                    <button class="tipValue btn btn-outline-primary btn-md ml-3" v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)"><span>{{ tip }}</span></button>
+                                    <button class="tipValue btn btn-outline-primary btn-md ml-3" v-for="tip in tipTax.tipsvalue" :key="tip" @click="selectTip(tip)">
+                                      <span v-if="!tipTax.tipsPercentage">$</span>
+                                      <span>{{ tip }}</span>
+                                      <span v-if="tipTax.tipsPercentage">%</span>
+                                    </button>
                                     <button class="tipValue  btn btn-outline-primary btn-md ml-3" @click="selectTip('custom')"><span>Custom</span></button>
                                   <div class="form-group" style="margin-top:20px;" v-if="customTip">
                                           <input type="number" maxlength="6" class="form-control" @keyup="customTipEvnt" v-model="selected_tip">
@@ -339,7 +346,9 @@
                                       </div>
                                   </div>
                                 </div>-->
-                                 <div v-if="paymentForm == 1 && showAddress == 1 && radiusError == null">
+                                 <div v-if="(paymentForm == 1 && showAddress == 1 && radiusError == null) ||
+                                    submitOrder.user.data.role == 'table' &&
+                                    submitOrder.method == 'Clover'">
                                   <button class="btn btn-primary btn-md" style="margin-top:38px;" @click="payment(totalAmount)"><span>Go to payment page</span></button>
                                 </div>
                               </div>
@@ -441,6 +450,9 @@ export default {
           phone: null,
           person: null
         }
+      },
+      tableOrder: {
+        error: null
       }
     }
   },
@@ -588,46 +600,50 @@ export default {
       }
     },
     payment (amount) {
-      // const card = {
-      //   ecomind: 'ecom',
-      //   amount: '3000',
-      //   currency: 'CAD',
-      //   capture: true,
-      //   source: 'clv_1TSTS3Lo3tNdThBrFsRFV4M6'
-      // }
-      this.getSetting('final')
-      var card = {
-        customer: {
-          email: this.submitOrder.user.data.email,
-          firstName: this.submitOrder.user.data.name,
-          lastName: '',
-          phoneNumber: this.submitOrder.user.data.phone.renderToString
-        },
-        shoppingCart: {
-          lineItems: []
+      if (this.submitOrder.user.data.role === 'table' && (!this.form.tableOrder.name || !this.form.tableOrder.phone || !this.form.tableOrder.person)) {
+        this.tableOrder.error = '*All Fields are required.'
+      } else {
+        // const card = {
+        //   ecomind: 'ecom',
+        //   amount: '3000',
+        //   currency: 'CAD',
+        //   capture: true,
+        //   source: 'clv_1TSTS3Lo3tNdThBrFsRFV4M6'
+        // }
+        this.getSetting('final')
+        var card = {
+          customer: {
+            email: this.submitOrder.user.data.email,
+            firstName: this.submitOrder.user.data.name,
+            lastName: '',
+            phoneNumber: this.submitOrder.user.data.phone.renderToString
+          },
+          shoppingCart: {
+            lineItems: []
+          }
         }
-      }
-      if (getLocalStorage('submitOrder') && getLocalStorage('submitOrder').total) {
-        if (this.showWallet === 1 && this.wallet.balance < amount.toFixed(2)) {
-          amount = amount - this.wallet.balance
-          this.submitOrder.total.totalPrice = amount - this.wallet.balance
-        } else {
-          this.submitOrder.total.totalPrice = getLocalStorage('submitOrder').total.totalPrice
+        if (getLocalStorage('submitOrder') && getLocalStorage('submitOrder').total) {
+          if (this.showWallet === 1 && this.wallet.balance < amount.toFixed(2)) {
+            amount = amount - this.wallet.balance
+            this.submitOrder.total.totalPrice = amount - this.wallet.balance
+          } else {
+            this.submitOrder.total.totalPrice = getLocalStorage('submitOrder').total.totalPrice
+          }
         }
+        var arr = { }
+        arr = {
+          name: 'Total Amount',
+          unitQty: '1',
+          price: parseFloat(amount.toFixed(2)) * 100
+        }
+        card.shoppingCart.lineItems.push(arr)
+        CardToken(JSON.stringify(card)).then(res => {
+          console.log(res.data)
+          window.location.href = res.data.href
+        }).catch(err => {
+          console.log(err)
+        })
       }
-      var arr = { }
-      arr = {
-        name: 'Total Amount',
-        unitQty: '1',
-        price: parseFloat(amount.toFixed(2)) * 100
-      }
-      card.shoppingCart.lineItems.push(arr)
-      CardToken(JSON.stringify(card)).then(res => {
-        console.log(res.data)
-        window.location.href = res.data.href
-      }).catch(err => {
-        console.log(err)
-      })
     },
     showItem () {
       this.item.splice(0)
@@ -768,13 +784,17 @@ export default {
       if (this.submitOrder.delivery_type === 3) {
         this.submitOrder.order_comment = `Name: ${this.form.tableOrder.name}, Phone: ${this.form.tableOrder.phone}, Number of person: ${this.form.tableOrder.person}`
       }
-      placeOrder(this.submitOrder).then(res => {
-        if (res.data.success === true) {
-          localStorage.removeItem('cart')
-        }
-        this.$toast.success('Order place successfully')
-        this.$router.push('/myorder')
-      })
+      if (this.submitOrder.user.data.role === 'table' && (!this.form.tableOrder.name || !this.form.tableOrder.phone || !this.form.tableOrder.person)) {
+        this.tableOrder.error = '*All Fields are required.'
+      } else {
+        placeOrder(this.submitOrder).then(res => {
+          if (res.data.success === true) {
+            localStorage.removeItem('cart')
+          }
+          this.$toast.success('Order place successfully')
+          this.$router.push('/myorder')
+        })
+      }
     },
     calculate (orderAmount, delivery, discount, tip) {
       this.taxTotal = 0
