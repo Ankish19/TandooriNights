@@ -10,7 +10,9 @@
           </div>
           <div class="container v-center text-left">
             <h1 class="display-2 mb-2 heading-text">Download Our App</h1>
-            <h4 class="mb-5 pre-text">Available on Apple App Store & Google Play Store </h4>
+            <h4 class="mb-5 pre-text">
+              Available on Apple App Store & Google Play Store
+            </h4>
             <a
               href="https://apps.apple.com/us/app/tandoori-nights-ca/id1615350175"
               class="btn btn-outline-secondary buttonone"
@@ -394,37 +396,37 @@
 
 <script>
 // @ is an alias to /src
-import Headbar from '@/views/layouts/Headbar.vue'
-import Footer from '@/views/layouts/Footer.vue'
+import Headbar from "@/views/layouts/Headbar.vue";
+import Footer from "@/views/layouts/Footer.vue";
 export default {
   props: {},
-  name: 'Home',
+  name: "Home",
   metaInfo: {
-    title: 'Punjabi Food in Calgary NE',
-    titleTemplate: '%s | Top Punjabi Restaurant in Calgary NE',
+    title: "Punjabi Food in Calgary NE",
+    titleTemplate: "%s | Top Punjabi Restaurant in Calgary NE",
     meta: [
-      { charset: 'utf-8' },
+      { charset: "utf-8" },
       {
-        name: 'description',
+        name: "description",
         content:
-          'Come find us for the best Punjabi food that suits your taste at an affordable price and delicious snack at the best Punjabi restaurant in Calgary NE.'
+          "Come find us for the best Punjabi food that suits your taste at an affordable price and delicious snack at the best Punjabi restaurant in Calgary NE.",
       },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
-        name: 'keywords',
+        name: "keywords",
         content:
-          'Punjabi Restaurant in Calgary NE, Best Punjabi Restaurant in Calgary NE, Top Punjabi Restaurant  Calgary, Punjabi Snack Restaurant in Calgary NE, Best Punjabi Food in Calgary NE'
-      }
-    ]
+          "Punjabi Restaurant in Calgary NE, Best Punjabi Restaurant in Calgary NE, Top Punjabi Restaurant  Calgary, Punjabi Snack Restaurant in Calgary NE, Best Punjabi Food in Calgary NE",
+      },
+    ],
   },
   components: {
     Headbar,
-    Footer
+    Footer,
   },
-  data () {
-    return {}
-  }
-}
+  data() {
+    return {};
+  },
+};
 </script>
 <style>
 h1.mb-0 {
@@ -547,34 +549,33 @@ a.panel-cart-action.btn.btn-secondary.btn-block.btn-lg {
 }
 
 h1.font-amazing.display-2.mb-2 {
-    font-weight: 800;
-    color: #1d1d1b;
+  font-weight: 800;
+  color: #1d1d1b;
 }
-.buttonone{
-      border: 1px solid #e36f2f;
-    background: #e36f2f;
+.buttonone {
+  border: 1px solid #e36f2f;
+  background: #e36f2f;
 }
 .buttontwo {
   background: #fff;
-    color: #484040;
-    border: 1px solid #ffffff;
+  color: #484040;
+  border: 1px solid #ffffff;
   /* transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out; */
 }
 .heading-text {
-    color: #e36f2f;
-    font-weight: 800;
+  color: #e36f2f;
+  font-weight: 800;
 }
 .pre-text {
-    color: black !important;
-    font-weight: 800;
+  color: black !important;
+  font-weight: 800;
 }
-@media screen and (max-width: 480px)
-{
+@media screen and (max-width: 480px) {
   .heading-text {
     font-size: 25px;
-    }
+  }
   .pre-text {
-      font-size: 15px;
-    }
+    font-size: 15px;
+  }
 }
 </style>
