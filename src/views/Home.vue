@@ -6,11 +6,11 @@
         <!-- Slide -->
         <div class="slide">
           <div class="bg-image zooming">
-            <img src="@/assets/01.jpg" alt="" />
+            <img src="@/assets/banner1.jpg" alt="" />
           </div>
-          <div class="container v-center">
-            <h1 class="display-2 mb-2">Good Food Choices</h1>
-            <h4 class="text-muted mb-5">Are Good Investments!</h4>
+          <div class="container v-center text-left">
+            <h1 class="display-2 mb-2 heading-text">Download Our App</h1>
+            <h4 class="mb-5 pre-text">Available on Apple App Store & Google Play Store </h4>
             <a
               href="https://apps.apple.com/us/app/tandoori-nights-ca/id1615350175"
               class="btn btn-outline-secondary buttonone"
@@ -559,5 +559,22 @@ h1.font-amazing.display-2.mb-2 {
     color: #484040;
     border: 1px solid #ffffff;
   /* transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out; */
+}
+.heading-text {
+    color: #e36f2f;
+    font-weight: 800;
+}
+.pre-text {
+    color: black !important;
+    font-weight: 800;
+}
+@media screen and (max-width: 480px)
+{
+  .heading-text {
+    font-size: 25px;
+    }
+  .pre-text {
+      font-size: 15px;
+    }
 }
 </style>
