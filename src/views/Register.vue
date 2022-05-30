@@ -46,6 +46,11 @@
                     </b-form-group>
                   </b-form-group>
                 </b-col>
+                <div class="text-danger text-left">
+                  <span v-if="error">
+                    {{ error.error }}
+                  </span>
+                </div>
                 <b-col cols="12">
                   <b-form-group>
                     <b-form-group>
@@ -77,8 +82,8 @@
                 </b-col>
                 <div class="text-danger text-center text-left">
                   <span class="text-lg" v-if="err">
-                    {{ err }}
-                  </span>
+                  {{ err }}
+                </span>
                 </div>
                 <b-col cols="12" class="mt-3">
                   <b-form-group>
