@@ -1,4 +1,7 @@
-<template>
+ 
+ 
+ 
+ <template>
 <div>
     <!-- Header -->
     <header id="header" class="light">
