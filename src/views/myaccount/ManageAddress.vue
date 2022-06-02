@@ -121,13 +121,13 @@ import Footer from '@/views/layouts/Footer.vue'
 import SildeBar from '@/views/myaccount/SildeBar.vue'
 import { getLocalStorage, saveLocalStorage } from '@/store/service'
 import { getAddresses, deleteAddress, setDefaultAddress, getUpdateInfo } from '@/store/api'
-import //   BContainer,
-//   BRow,
-//   BCol,
-//   BForm,
-//   BFormGroup,
-//   BFormInput
-'bootstrap-vue'
+// import //   BContainer,
+// //   BRow,
+// //   BCol,
+// //   BForm,
+// //   BFormGroup,
+// //   BFormInput
+// 'bootstrap-vue'
 export default {
   created () {},
   components: {
@@ -187,6 +187,12 @@ export default {
       this.form.address_id = address
       deleteAddress(this.form).then(res => {
         console.log(res.data)
+        if (this.form.address_id === this.userData.default_address_id) {
+          getUpdateInfo().then((res) => {
+            saveLocalStorage('userData', JSON.stringify(res.data.data))
+            this.userDat()
+          })
+        }
         this.$toast.success('Address deleted successfully')
         this.getAddr()
       })

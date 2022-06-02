@@ -18,7 +18,7 @@
             <div class="container text-left">
                 <div class="row">
                     <div class="col-xl-12 col-lg-5">
-                        <div class="cart-details1 shadow bg-white stick-to-content mb-4">
+     <div class="cart-details1 shadow bg-white mb-4">
                             <div class="bg-dark dark p-4"><h5 class="mb-0">You order</h5></div>
                             <table class="cart-table">
                                 <tr v-for="(it, index) in submitOrder.order" :key="index">

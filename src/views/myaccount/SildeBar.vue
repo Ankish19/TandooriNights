@@ -2,7 +2,7 @@
   <div>
         <div class="cart-details shadow bg-white stick-to-content mb-4">
               <div class="bg-dark dark p-4">
-                <h5 class="mb-0">My Account</h5>
+                <h5 class="mb-0"><router-link to="/MyAccount">My Account</router-link></h5>
               </div>
               <div class="cart-summary-1">
                 <ul class="text-list">
@@ -18,10 +18,10 @@
                     <i class="fa fa-money" aria-hidden="true"></i>
                      <router-link to="/wallet" class="text-left">My Wallet</router-link>
                   </li>
-                  <li class="text-link" v-if="user.role !== 'table'">
+                  <!-- <li class="text-link" v-if="user.role !== 'table'">
                     <i class="fa fa-question-circle" aria-hidden="true"></i
                     > <router-link to="/" class="text-left"> Help & FAQs</router-link>
-                  </li>
+                  </li> -->
                   <li class="text-link">
                     <i class="fa fa-sign-out" aria-hidden="true"></i
                     > <a href="#" class="text-left" @click="logOut"> Logout</a>
