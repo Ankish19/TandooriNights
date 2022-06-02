@@ -162,10 +162,10 @@ export default {
             saveLocalStorage('userDataVerify', false)
             this.$router.push('/otpverify?type=' + res.data.verification.type)
           } else if (res.data.email_phone_already_used === true) {
-            this.error = 'this email/ phone already exists'
+            this.error.error = 'this email/ phone already exists'
             this.$toast.error('this email/ phone already exists')
           } else {
-            this.error = 'Registration failed'
+            this.error.error = 'Registration failed'
             this.$toast.error('Registration failed')
           }
         })
