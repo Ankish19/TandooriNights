@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div class="home">
     <Headbar></Headbar>
@@ -395,6 +396,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 // @ is an alias to /src
 import Headbar from "@/views/layouts/Headbar.vue";
 import Footer from "@/views/layouts/Footer.vue";
