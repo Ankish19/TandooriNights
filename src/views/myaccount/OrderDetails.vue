@@ -199,7 +199,7 @@ export default {
   },
   watch: {
     created_at () {
-      process.env.TZ = 'America/Edmonton'
+      process.env.TZ = 'America/Canada'
       // console.log(new Date());
       var totalTime = new Date(this.created_at)
       // var newtotalTime = new Date(totalTime.setMinutes( totalTime.getMinutes() + 690 ));
