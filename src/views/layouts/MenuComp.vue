@@ -190,6 +190,7 @@
 </template>
 <script>
 import { addCart, getCart, getLocalStorage } from '@/store/service'
+
 export default {
   setup () { },
   props: ['items', 'resInfo'],
@@ -214,34 +215,37 @@ export default {
   mounted () {
     this.user = getLocalStorage('userData')
   },
-  watch: {
-    resInfo () {
-      console.log(this.resInfo)
-      console.log(`online--------${this.resInfo.open}`)
-      console.log(`table--------${this.resInfo.table_order_open}`)
-      if (!this.user) {
-        if (this.resInfo.open === 1) {
-          this.showButton = true
-        } else {
-          this.showButton = false
-        }
-      } else {
-        if (this.user && !this.user.role) {
-          if (this.resInfo.open === 1) {
-            this.showButton = true
-          } else {
-            this.showButton = false
-          }
-        } else {
-          if (this.resInfo.table_order_open === 1) {
-            this.showButton = true
-          } else {
-            this.showButton = false
-          }
-        }
-      }
-    }
-  },
+  // watch: {
+  //   resInfo () {
+  //     console.log(this.resInfo)
+  //     console.log(`online--------${this.resInfo.open}`)
+  //     console.log(`table--------${this.resInfo.table_order_open}`)
+  //     if (!this.user) {
+  //       if (this.resInfo.open === 1) {
+  //         console.log('!user')
+  //         this.showButton = true
+  //       } else {
+  //         this.showButton = false
+  //       }
+  //     } else {
+  //       if (this.user && !this.user.role) {
+  //         if (this.resInfo.open === 1) {
+  //           console.log('user')
+  //           this.showButton = true
+  //         } else {
+  //           this.showButton = false
+  //         }
+  //       } else {
+  //         if (this.resInfo.table_order_open === 1) {
+  //           console.log('table')
+  //           this.showButton = true
+  //         } else {
+  //           this.showButton = false
+  //         }
+  //       }
+  //     }
+  //   }
+  // },
   methods: {
     openModal (item) {
       this.cart = getCart('cart')

@@ -156,7 +156,7 @@
                                     </p>
                                 </div>
                               </div> -->
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-6" id="errorShow">
                   <label>Select way</label>
                   <div class="select-container">
                     <select
@@ -586,18 +586,6 @@
               </button>
             </div>
           </div>
-          <div
-            class="text-center mt-5"
-            v-if="
-              ((showAddress == 1 && radiusError == null) ||
-                submitOrder.delivery_type === 3) &&
-              orderNow == 1
-            "
-          >
-            <button class="btn btn-primary btn-lg" @click="placeOrder">
-              <span>Order now!</span>
-            </button>
-          </div>
         </div>
       </div>
     </section>
@@ -738,34 +726,34 @@ export default {
     getResInfo() {
       getRestaurantInfo().then((res) => {
         this.storeInfo = res.data;
-        if (!this.user) {
-          if (this.storeInfo.open === 1) {
-            this.showButton = true
-          } else {
-            this.showButton = false
-          }
-        } else {
-          if (!this.user.hasOwnProperty('role')) {
-            console.log("user");
-            if (this.storeInfo.open === 1) {
-              this.showButton = true
-            } else {
-              this.showButton = false
-            }
-          } else {
-            if (this.storeInfo.table_order_open === 1) {
-              this.showButton = true
-            } else {
-              this.showButton = false
-            }
-        }
-        if (this.showButton === false) {
-          this.$toast.error("Restaurant is now closed.", {
-            timeout: 1500,
-          });
-          this.$router.push("/menu");
-        }
-      }
+      //   if (!this.user) {
+      //     if (this.storeInfo.open === 1) {
+      //       this.showButton = true
+      //     } else {
+      //       this.showButton = false
+      //     }
+      //   } else {
+      //     if (!this.user.hasOwnProperty('role')) {
+      //       console.log("user");
+      //       if (this.storeInfo.open === 1) {
+      //         this.showButton = true
+      //       } else {
+      //         this.showButton = false
+      //       }
+      //     } else {
+      //       if (this.storeInfo.table_order_open === 1) {
+      //         this.showButton = true
+      //       } else {
+      //         this.showButton = false
+      //       }
+      //   }
+      //   if (this.showButton === false) {
+      //     this.$toast.error("Restaurant is now closed.", {
+      //       timeout: 1500,
+      //     });
+      //     this.$router.push("/menu");
+      //   }
+      // }
         if (
           this.storeInfo &&
           this.storeInfo.is_tabletop === 1 &&

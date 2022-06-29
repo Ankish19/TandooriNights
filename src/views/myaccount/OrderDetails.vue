@@ -203,7 +203,7 @@ export default {
       // console.log(new Date());
       var totalTime = new Date(this.created_at)
       // var newtotalTime = new Date(totalTime.setMinutes( totalTime.getMinutes() + 690 ));
-      // console.log(new Date(totalTime.setMinutes( totalTime.getMinutes() + this.item.order_timing )));
+      // console.log(new Date(totalTime.setMinutes(totalTime.getMinutes() + this.item.order_timing)))
       this.countDownDate = new Date(totalTime.setMinutes(totalTime.getMinutes() + this.item.order_timing)).getTime()
       this.clock()
     }
@@ -218,43 +218,43 @@ export default {
         if (this.item.activity !== null) { this.created_at = this.item.activity.created_at }
         console.log(this.created_at)
       })
-    }
-  },
-  clock () {
+    },
+    clock () {
     // Set the date we're counting down to
-    var countDownDate = this.countDownDate
+      var countDownDate = this.countDownDate
 
-    // Update the count down every 1 second
-    var x = setInterval(function () {
+      // Update the count down every 1 second
+      var x = setInterval(function () {
       // Get today's date and time
-      var now = new Date().getTime()
+        var now = new Date().getTime()
 
-      console.log(now)
+        console.log(now)
 
-      // Find the distance between now and the count down date
-      var distance = countDownDate - now
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now
 
-      // Time calculations for days, hours, minutes and seconds
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24))
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000)
-      // console.log('D'+days+' H'+hours+' M'+minutes+' S'+seconds)
-      // Output the result in an element with id="demo"
-      document.getElementById('demo1').innerHTML = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's '
-      console.log(minutes)
-      // this.clockTime = seconds+ 's'
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24))
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000)
+        // console.log('D'+days+' H'+hours+' M'+minutes+' S'+seconds)
+        // Output the result in an element with id="demo"
+        document.getElementById('demo1').innerHTML = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's '
+        console.log(minutes)
+        // this.clockTime = seconds+ 's'
 
-      // If the count down is over, write some text
-      if (distance < 0) {
-        clearInterval(x)
-        if (this.item && this.item.orderstatus_id === 5) {
-          document.getElementById('demo1').innerHTML = 'Order Completed'
-        } else {
-          document.getElementById('demo1').innerHTML = 'Time Elapsed'
+        // If the count down is over, write some text
+        if (distance < 0) {
+          clearInterval(x)
+          if (this.item && this.item.orderstatus_id === 5) {
+            document.getElementById('demo1').innerHTML = 'Order Completed'
+          } else {
+            document.getElementById('demo1').innerHTML = 'Time Elapsed'
+          }
         }
-      }
-    }, 1000)
+      }, 1000)
+    }
   },
 
   name: 'OrderDetails'
