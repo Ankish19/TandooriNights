@@ -104,6 +104,11 @@
                   <table class="table table-bordered" style="font-size:12px;">
                       <tbody>
                       <tr>
+                        <td>Deliver In</td>
+                        <td v-if="item.orderstatus_id === 5" class="text-right text-success"> Order Completed </td>
+                        <td class="text-right" id="demo1" v-else>{{ item.orderstatus_id === 5?'Order Completed':clockTime }}</td>
+                      </tr>
+                      <tr>
                           <td>Payment method</td>
                           <td class="text-right">{{ item.payment_mode }}</td>
                         </tr>
@@ -176,7 +181,11 @@ export default {
         unique_order_id: ''
       },
       item: [],
-      order_items: []
+      deliverIn: null,
+      order_items: [],
+      clockTime: null,
+      countDownDate: '',
+      created_at: ''
     }
   },
   mounted () {
@@ -188,6 +197,17 @@ export default {
   destroyed () {
     clearInterval(this.interval)
   },
+  watch: {
+    created_at () {
+      process.env.TZ = 'America/Edmonton'
+      // console.log(new Date());
+      var totalTime = new Date(this.created_at)
+      // var newtotalTime = new Date(totalTime.setMinutes( totalTime.getMinutes() + 690 ));
+      // console.log(new Date(totalTime.setMinutes( totalTime.getMinutes() + this.item.order_timing )));
+      this.countDownDate = new Date(totalTime.setMinutes(totalTime.getMinutes() + this.item.order_timing)).getTime()
+      this.clock()
+    }
+  },
   methods: {
     orderDetail () {
       this.data.unique_order_id = this.$route.params.uniqueId
@@ -195,8 +215,46 @@ export default {
       getOrderDetail(this.data).then(res => {
         this.item = res.data
         console.log(this.item)
+        if (this.item.activity !== null) { this.created_at = this.item.activity.created_at }
+        console.log(this.created_at)
       })
     }
+  },
+  clock () {
+    // Set the date we're counting down to
+    var countDownDate = this.countDownDate
+
+    // Update the count down every 1 second
+    var x = setInterval(function () {
+      // Get today's date and time
+      var now = new Date().getTime()
+
+      console.log(now)
+
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24))
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000)
+      // console.log('D'+days+' H'+hours+' M'+minutes+' S'+seconds)
+      // Output the result in an element with id="demo"
+      document.getElementById('demo1').innerHTML = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's '
+      console.log(minutes)
+      // this.clockTime = seconds+ 's'
+
+      // If the count down is over, write some text
+      if (distance < 0) {
+        clearInterval(x)
+        if (this.item && this.item.orderstatus_id === 5) {
+          document.getElementById('demo1').innerHTML = 'Order Completed'
+        } else {
+          document.getElementById('demo1').innerHTML = 'Time Elapsed'
+        }
+      }
+    }, 1000)
   },
 
   name: 'OrderDetails'

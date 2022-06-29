@@ -18,7 +18,7 @@
             <div class="container text-left">
                 <div class="row">
                     <div class="col-xl-12 col-lg-5">
-     <div class="cart-details1 shadow bg-white mb-4">
+                      <div class="cart-details1 shadow bg-white mb-4">
                             <div class="bg-dark dark p-4"><h5 class="mb-0">You order</h5></div>
                             <table class="cart-table">
                                 <tr v-for="(it, index) in submitOrder.order" :key="index">
@@ -145,12 +145,42 @@ export default {
         dis: 0,
         pending_payment: '',
         tipAmount: 0
-      }
+      },
+      showButton: null
     }
   },
   mounted () {
+    this.user = getLocalStorage('userData')
     getRestaurantInfo().then(res => {
       this.storeInfo = res.data
+      if (!this.user) {
+        if (this.storeInfo.open === 1) {
+          this.showButton = true
+        } else {
+          this.showButton = false
+        }
+      } else {
+        if (this.user && !this.user.role) {
+          console.log('user')
+          if (this.storeInfo.open === 1) {
+            this.showButton = true
+          } else {
+            this.showButton = false
+          }
+        } else {
+          if (this.storeInfo.table_order_open === 1) {
+            this.showButton = true
+          } else {
+            this.showButton = false
+          }
+        }
+        if (this.showButton === false) {
+          this.$toast.error('Restaurant is now closed.', {
+            timeout: 1500
+          })
+          this.$router.push('/menu')
+        }
+      }
     })
     this.checkCart()
   },

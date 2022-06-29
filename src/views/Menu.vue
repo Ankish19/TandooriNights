@@ -39,7 +39,7 @@
             </div>
             <div class="col-md-9 box-line">
               <!-- Menu Category / Burgers -->
-              <MenuComp :items="Items" v-on:addItem="addItem($event)"></MenuComp>
+              <MenuComp :items="Items" v-on:addItem="addItem($event)" :resInfo="resInfo"></MenuComp>
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { getMenu } from '@/store/api'
+import { getMenu, getRestaurantInfo } from '@/store/api'
 import MenuComp from '@/views/layouts/MenuComp.vue'
 
 export default {
@@ -81,7 +81,8 @@ export default {
       Items: [],
       newCart: [],
       cartshow: false,
-      scrollClass: false
+      scrollClass: false,
+      resInfo: ''
     }
   },
   created () {
@@ -91,6 +92,7 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   mounted () {
+    this.getResInfo()
     // eslint-disable-next-line no-unused-expressions
     getMenu().then((res) => {
       // console.log(res.data['items']['Fast food'])
@@ -109,6 +111,11 @@ export default {
     })
   },
   methods: {
+    getResInfo () {
+      getRestaurantInfo().then((res) => {
+        this.resInfo = res.data
+      })
+    },
     handleScroll (event) {
       // Any code to be executed when the window is scrolled
       this.scrollClass = true

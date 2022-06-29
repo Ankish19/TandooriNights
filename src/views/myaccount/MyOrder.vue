@@ -71,6 +71,7 @@
                             <tr class="col-md-12">
                               <th scope="col">Order Id </th>
                               <th scope="col">Description</th>
+                              <th scope="col">Deliver In</th>
                               <th scope="col">Status</th>
                               <th scope="col">Total Price</th>
                             </tr>
@@ -87,6 +88,17 @@
                                 <div class="wh-item-info">
                                   <a href="#" class="font-weight-bold">{{ order.restaurant.name }}</a>
                                   <p><span v-for="orderItems in order.orderitems" :key="orderItems.id">{{ orderItems.name }}, </span></p>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="wh-item-info">
+                                  <p>
+                                    <span v-if="order.orderstatus_id === 5" class="font-weight-bold text-right text-success"> Order Completed</span>
+                                    <span class="font-weight-bold" v-else-if="order.order_timing != null">
+                                      {{ order.order_timing > 1 ? order.order_timing + ' minutes' : order.order_timing + ' hour' }},
+                                    </span>
+                                    <span v-else class="font-weight-bold text-right"> Order is not accepted yet.</span>
+                                  </p>
                                 </div>
                               </td>
                               <td>
