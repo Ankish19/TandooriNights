@@ -121,6 +121,13 @@
                         <div class="">
                           <jw-pagination :items="orders" @changePage="onChangePage"></jw-pagination>
                         </div>
+                        <audio controls id="audioFile">
+                          <source src="tone.ogg" type="audio/ogg" />
+                          <source
+                            src="../../assets/audio/tone.mp3"
+                            type="audio/mpeg"
+                          />
+                        </audio>
                       </div>
                     </div>
                   </div>
@@ -163,10 +170,13 @@ export default {
       },
       interval: '',
       orders: [],
-      pageOfItems: []
+      pageOfItems: [],
+      oldItems: []
     }
   },
   mounted () {
+    var audio = document.getElementById('audioFile')
+    audio.controls = false
     this.getOrder()
     this.interval = setInterval(() => {
       this.getOrder()
@@ -183,6 +193,25 @@ export default {
     getOrder () {
       getOrders(this.form, getLocalStorage('userData').role).then(res => {
         this.orders = res.data
+        if (this.oldItems.length > 0) {
+          for (let i = 0; i < this.orders.length; i++) {
+            if (
+              this.orders[i].id === this.oldItems[i].id &&
+              this.orders[i].orderstatus_id !== this.oldItems[i].orderstatus_id
+            ) {
+              document.getElementById('audioFile').play()
+              this.$toast.success(
+                this.orders[i].unique_order_id + ' Order status changed.',
+                {
+                  timeout: 1000
+                }
+              )
+            }
+          }
+          this.oldItems = res.data
+        } else {
+          this.oldItems = res.data
+        }
       })
     },
     onPageChange (page) {

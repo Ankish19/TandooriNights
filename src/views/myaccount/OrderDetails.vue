@@ -199,12 +199,12 @@ export default {
   },
   watch: {
     created_at () {
-      process.env.TZ = 'America/Canada'
+      process.env.TZ = 'America/Edmonton'
       // console.log(new Date());
       var totalTime = new Date(this.created_at)
       // var newtotalTime = new Date(totalTime.setMinutes( totalTime.getMinutes() + 690 ));
-      // console.log(new Date(totalTime.setMinutes(totalTime.getMinutes() + this.item.order_timing)))
-      this.countDownDate = new Date(totalTime.setMinutes(totalTime.getMinutes() + this.item.order_timing)).getTime()
+      // console.log('Added ' + new Date(totalTime.setMinutes(Number(totalTime.getMinutes()) + Number(this.item.order_timing))))
+      this.countDownDate = new Date(totalTime.setMinutes(Number(totalTime.getMinutes()) + Number(this.item.order_timing))).getTime()
       this.clock()
     }
   },

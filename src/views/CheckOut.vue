@@ -726,34 +726,34 @@ export default {
     getResInfo() {
       getRestaurantInfo().then((res) => {
         this.storeInfo = res.data;
-      //   if (!this.user) {
-      //     if (this.storeInfo.open === 1) {
-      //       this.showButton = true
-      //     } else {
-      //       this.showButton = false
-      //     }
-      //   } else {
-      //     if (!this.user.hasOwnProperty('role')) {
-      //       console.log("user");
-      //       if (this.storeInfo.open === 1) {
-      //         this.showButton = true
-      //       } else {
-      //         this.showButton = false
-      //       }
-      //     } else {
-      //       if (this.storeInfo.table_order_open === 1) {
-      //         this.showButton = true
-      //       } else {
-      //         this.showButton = false
-      //       }
-      //   }
-      //   if (this.showButton === false) {
-      //     this.$toast.error("Restaurant is now closed.", {
-      //       timeout: 1500,
-      //     });
-      //     this.$router.push("/menu");
-      //   }
-      // }
+        if (!this.user) {
+          if (this.storeInfo.open === '1') {
+            this.showButton = true
+          } else {
+            this.showButton = false
+          }
+        } else {
+          if (!this.user.hasOwnProperty('role')) {
+            console.log("user");
+            if (this.storeInfo.open === '1') {
+              this.showButton = true
+            } else {
+              this.showButton = false
+            }
+          } else {
+            if (this.storeInfo.table_order_open === '1') {
+              this.showButton = true
+            } else {
+              this.showButton = false
+            }
+        }
+        if (this.showButton === false) {
+          this.$toast.error("Restaurant is now closed.", {
+            timeout: 1500,
+          });
+          this.$router.push("/menu");
+        }
+      }
         if (
           this.storeInfo &&
           this.storeInfo.is_tabletop === 1 &&
