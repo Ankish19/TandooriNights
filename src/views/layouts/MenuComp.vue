@@ -189,11 +189,11 @@
   </div>
 </template>
 <script>
-import { addCart, getCart, getLocalStorage } from '@/store/service'
+import { addCart, getCart } from '@/store/service'
 
 export default {
   setup () { },
-  props: ['items', 'resInfo'],
+  props: ['items', 'resInfo', 'user'],
   data () {
     return {
       siteLogo: require('../../assets/burges.jpg'),
@@ -208,18 +208,15 @@ export default {
       addOnTotal: 0,
       singleAddOnTotal: 0,
       multiAddOnTotal: 0,
-      user: [],
       showButton: null
     }
-  },
-  mounted () {
-    this.user = getLocalStorage('userData')
   },
   watch: {
     resInfo () {
       console.log(`online--------${this.resInfo.open}`)
       console.log(`table--------${this.resInfo.table_order_open}`)
       if (!this.user) {
+        console.log('1')
         if (this.resInfo.open === '1') {
           console.log('!user')
           this.showButton = true

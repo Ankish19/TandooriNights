@@ -24,7 +24,7 @@
 <script>
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
-import { placeOrder } from '@/store/api'
+import { placeOrder, cloverApiGetPayment } from '@/store/api'
 import { getLocalStorage } from '@/store/service'
 
 export default {
@@ -37,15 +37,31 @@ export default {
     return {
       showSuccess: 0,
       interval: '',
-      newCart: []
+      newCart: [],
+      paymentId: this.$route.params.paymentId,
+      security: this.$route.params.security
     }
   },
   mounted () {
     if (
       getLocalStorage('submitOrder') &&
-      getLocalStorage('submitOrder').method === 'Clover'
+      getLocalStorage('submitOrder').method === 'Clover' &&
+      getLocalStorage('securityToken').id === this.security
     ) {
-      this.placeOrder()
+      cloverApiGetPayment(this.paymentId)
+        .then((res) => {
+          console.log(res.data)
+          const response = res.data
+          if (response.res.status === 'succeeded') {
+            this.placeOrder()
+          } else {
+            this.$router.push('/cancel')
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+          this.$router.push('/menu')
+        })
     } else {
       this.$router.push('/menu')
     }

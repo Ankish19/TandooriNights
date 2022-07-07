@@ -55,6 +55,7 @@
 import Headbar from '@/views/layouts/Headbar.vue'
 import Footer from '@/views/layouts/Footer.vue'
 import { getMenu, getRestaurantInfo } from '@/store/api'
+import { getLocalStorage } from '@/store/service'
 import MenuComp from '@/views/layouts/MenuComp.vue'
 
 export default {
@@ -92,6 +93,7 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   mounted () {
+    this.user = getLocalStorage('userData')
     this.getResInfo()
     // eslint-disable-next-line no-unused-expressions
     getMenu().then((res) => {

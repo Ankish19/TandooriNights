@@ -153,6 +153,12 @@ const routes = [
     path: '/cancel',
     name: 'cancel',
     component: () => import('../views/Cancel.vue')
+  },
+  {
+    path: '/cardpayment',
+    name: 'cancel',
+    component: () =>
+      import('../views/CardPayment.vue')
   }
 ]
 

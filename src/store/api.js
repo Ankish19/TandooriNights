@@ -134,3 +134,11 @@ export const tableLogin = (table) => {
 export const contactUs = (data) => {
   return axios.post(`${apiUrl}contact-us`, data)
 }
+
+export const cloverApiPayment = (data) => {
+  return axios.post(`${apiUrl}card-payment`, data, { headers: apiHeaders() })
+}
+
+export const cloverApiGetPayment = (paymentId) => {
+  return axios.get(`${apiUrl}get-payment/${paymentId}`, { headers: apiHeaders() })
+}
