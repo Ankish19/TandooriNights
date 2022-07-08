@@ -140,7 +140,7 @@ const routes = [
     component: () => import('../views/Table_login.vue')
   },
   {
-    path: '/success',
+    path: '/success/:paymentId/:security',
     name: 'success',
     component: () => import('../views/Success.vue')
   },

@@ -605,7 +605,7 @@ import {
   getAddresses,
   getSettings,
   checkCoupon,
-  CardToken,
+  // CardToken,
   getUserWallet,
   placeOrder,
 } from "@/store/api";
