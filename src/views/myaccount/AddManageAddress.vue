@@ -103,7 +103,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <h2 style="font-size: 16px" class="font-weight-bold">
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>  New Address
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>New Address
                       </h2>
                     </div>
                       <b-form-input
@@ -256,11 +256,15 @@ export default {
       this.error = ''
       if (!this.form.house || !this.form.address || !this.form.tag) {
         this.error = 'All fields are required.'
-        this.$toast.error('All fields are required.')
+        this.$toast.error('All fields are required.', {
+          timeout: 1000
+        })
       } if (this.error === '') {
         saveAddress(this.form).then(res => {
           console.log(res.data)
-          this.$toast.success('New address successfully')
+          this.$toast.success('New address successfully', {
+            timeout: 1000
+          })
           if (localStorage.getItem('page') === 'checkout') {
             localStorage.removeItem('page')
             this.$router.push('/checkout')

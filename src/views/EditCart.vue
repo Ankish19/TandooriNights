@@ -176,7 +176,7 @@ export default {
         }
         if (this.showButton === false) {
           this.$toast.error('Restaurant is now closed.', {
-            timeout: 1500
+            timeout: 1000
           })
           this.$router.push('/menu')
         }
@@ -207,7 +207,9 @@ export default {
       }
       localStorage.removeItem('cart')
       localStorage.setItem('cart', JSON.stringify(name))
-      this.$toast.success('Order updated successfully')
+      this.$toast.success('Order updated successfully', {
+        timeout: 1000
+      })
       this.$router.push('/checkout')
     },
     addQuantity (index) {
@@ -261,7 +263,9 @@ export default {
           name.push(storedNames[j])
         }
       }
-      this.$toast.success('An item removed.')
+      this.$toast.success('An item removed.', {
+        timeout: 1000
+      })
       localStorage.removeItem('cart')
       localStorage.setItem('cart', JSON.stringify(name))
       this.showItem()

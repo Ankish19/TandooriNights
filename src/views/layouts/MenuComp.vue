@@ -276,7 +276,9 @@ export default {
           item.quantity = 1
           this.cart = [item]
         }
-        this.$toast.success('An item added to cart.')
+        this.$toast.success('An item added to cart.', {
+          timeout: 1000
+        })
         this.$emit('addItem', this.cart)
         addCart('cart', JSON.stringify(this.cart))
       }
@@ -294,7 +296,9 @@ export default {
       }
       console.log(this.cart)
       // this.cart = item
-      this.$toast.success('An item added to cart.')
+      this.$toast.success('An item added to cart.', {
+        timeout: 1000
+      })
       this.$emit('addItem', this.cart)
       addCart('cart', JSON.stringify(this.cart))
       this.close = 'close'

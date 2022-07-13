@@ -749,7 +749,7 @@ export default {
         }
         if (this.showButton === false) {
           this.$toast.error("Restaurant is now closed.", {
-            timeout: 1500,
+            timeout: 1000,
           });
           this.$router.push("/menu");
         }
@@ -1059,7 +1059,9 @@ export default {
       this.submitOrder.location.tag = address.tag;
 
       this.submitOrder.user.data.default_address = this.submitOrder.location;
-      this.$toast.success("New address selected successfully.");
+      this.$toast.success("New address selected successfully.", {
+        timeout: 1000
+      });
       // this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
       this.jGetDistance(this.storeInfo.latitude, this.storeInfo.longitude);
     },
@@ -1203,7 +1205,9 @@ export default {
           if (res.data.success === true) {
             localStorage.removeItem("cart");
           }
-          this.$toast.success("Order place successfully");
+          this.$toast.success("Order place successfully", {
+            timeout: 1000
+          });
           this.$router.push("/myorder");
         });
       }

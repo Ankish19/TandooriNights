@@ -148,7 +148,9 @@ export default {
           this.$router.push('/myaccount')
         } else {
           this.error = 'Invalid email/ password'
-          this.$toast.error('Invalid email/ password')
+          this.$toast.error('Invalid email/ password', {
+            timeout: 1000
+          })
         }
       })
     }

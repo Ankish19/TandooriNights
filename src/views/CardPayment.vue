@@ -348,7 +348,9 @@ export default {
         // console.log(err.response.data);
         const error = err.response.data
         if(error.status === 'error'){
-          this.$toast.error(error.error.message)
+          this.$toast.error(error.error.message, {
+            timeout: 1000
+          })
         }
       })
     }

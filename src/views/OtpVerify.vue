@@ -110,13 +110,17 @@ export default {
           saveLocalStorage('userData', JSON.stringify(userData))
           this.$router.push('/myaccount')
         } else {
-          this.$toast.error('Invalid Otp')
+          this.$toast.error('Invalid Otp', {
+            timeout: 1000
+          })
         }
       })
     },
     resend_otp () {
       resendVerifyOtp(this.form).then(res => {
-        this.$toast.success('Send resend otp successfully')
+        this.$toast.success('Send resend otp successfully', {
+          timeout: 1000
+        })
       })
     },
     logout () {
