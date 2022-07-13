@@ -138,6 +138,12 @@
                         </tr>
                       </tbody>
                   </table>
+                  <div :class="!cancelButton ? 'col-md-12 mt-5 text-center' : 'col-md-12 mt-5 text-center d-none'" v-if="item.orderstatus_id !== 5 && item.orderstatus_id !== 6">
+                    <a href="tel:+1-604-614-9324" class="btn-input"><i class="fa fa-phone"></i>&nbsp;Cancel Order</a>
+                  </div>
+                  <div class="col-md-12 mt-5 text-center" v-if="item.orderstatus_id === 6">
+                    <a href="tel:+1-604-614-9324" class="btn-input"><i class="fa fa-life-ring"></i>&nbsp;Request Support</a>
+                  </div>
                  </div>
               </div>
             </div>
@@ -185,7 +191,8 @@ export default {
       order_items: [],
       clockTime: null,
       countDownDate: '',
-      created_at: ''
+      created_at: '',
+      cancelButton: ''
     }
   },
   mounted () {
@@ -216,7 +223,19 @@ export default {
         this.item = res.data
         console.log(this.item)
         if (this.item.activity !== null) { this.created_at = this.item.activity.created_at }
-        console.log(this.created_at)
+        var date1, date2
+        date1 = new Date()
+        console.log('' + date1)
+        date2 = new Date(this.item.created_at)
+        console.log('<br>' + date2)
+        // get total seconds between two dates
+        var seconds = Math.abs(date1 - date2) / 1000
+        console.log(seconds)
+        if (seconds < 60) {
+          this.cancelButton = ''
+        } else {
+          this.cancelButton = 'd-none'
+        }
       })
     },
     clock () {
@@ -484,5 +503,11 @@ margin-right:20px;
     font-family: 'FontAwesome';
     font-weight: 100;
     content: "\f0f5 ";
+}
+
+a.btn-input {
+    background: #bc0815;
+    padding: 10px;
+    color: white;
 }
 </style>
