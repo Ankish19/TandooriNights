@@ -192,6 +192,8 @@ export default {
         address: '',
         search: '',
         tag: '',
+        longitude: '',
+        latitude: '',
         required
       },
       error: '',
@@ -254,7 +256,7 @@ export default {
     },
     address () {
       this.error = ''
-      if (!this.form.house || !this.form.address || !this.form.tag) {
+      if (!this.form.house || !this.form.address || !this.form.tag || !this.form.latitude || !this.form.longitude) {
         this.error = 'All fields are required.'
         this.$toast.error('All fields are required.', {
           timeout: 1000
