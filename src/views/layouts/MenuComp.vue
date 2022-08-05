@@ -69,7 +69,7 @@
               </div>
               <div class="col-4 text-md text-right">
                 <!-- <strike class="text-danger">${{ selectItem.old_price }}</strike> -->
-                $<span data-product-base-price>{{ addOnTotal.toFixed(2) }}</span>
+                $<span data-product-base-price>{{ Number(addOnTotal).toFixed(2) }}</span>
                 <span class="product-modal-price"></span>
               </div>
             </div>
@@ -245,9 +245,11 @@ export default {
   methods: {
     openModal (item) {
       this.cart = getCart('cart')
-
+      console.log('addOn')
       this.selectItem = item
       if (item.addon_categories.length > 0) {
+        this.addOnTotal = item.price
+        console.log(item.price)
         this.options = []
         this.addons = []
         item.addon_categories.map((data) => {
@@ -288,6 +290,7 @@ export default {
       item.price = 0
       item.quantity = 1
       item.addOnTotal = this.addOnTotal
+      console.log(this.addOnTotal)
       if (this.cart != null) {
         this.cart = getCart('cart')
         this.cart.push(item)
@@ -312,33 +315,40 @@ export default {
         addon_name: addon.name,
         price: addon.price
       }
-      console.log(select)
       if (category.type === 'SINGLE') {
         this.single = [select]
         this.singleAddOnTotal = parseFloat(this.single[0].price)
-        this.addOnTotal = this.singleAddOnTotal + this.multiAddOnTotal
+        this.addOnTotal = parseFloat(this.addOnTotal) + (this.singleAddOnTotal + this.multiAddOnTotal)
+        console.log(this.addOnTotal)
       } else if (category.type === 'MULTI') {
         if (this.multi.length > 0) {
           for (var j = 0; j < this.multi.length; j++) {
             if (select.addon_id === this.multi[j].addon_id) {
               this.multiAddOnTotal -= parseFloat(this.multi[j].price)
+              this.addOnTotal = parseFloat(this.addOnTotal - this.multi[j].price)
+              console.log(1)
               // console.log(this.addOnTotal + 'if')
               this.multi.splice(j, 1)
-              this.addOnTotal = this.singleAddOnTotal + this.multiAddOnTotal
               break
             } else if (select.addon_id !== this.multi[j].addon_id && j === this.multi.length - 1) {
               this.multi.push(select)
-              this.multiAddOnTotal += parseFloat(select.price)
-              // console.log(this.addOnTotal + 'else-if')
-              this.addOnTotal = this.singleAddOnTotal + this.multiAddOnTotal
+              // this.multiAddOnTotal += parseFloat(select.price)
+              // console.log('this.multiAddOnTotal ' + this.multiAddOnTotal)
+
+              this.addOnTotal = parseFloat(this.addOnTotal) + parseFloat(select.price)
+              console.log(2)
               break
             }
           }
         } else {
           this.multi = [select]
-          this.multiAddOnTotal += parseFloat(this.multi[0].price)
-          this.addOnTotal = this.singleAddOnTotal + this.multiAddOnTotal
-          // console.log(this.addOnTotal + 'else')
+          this.multiAddOnTotal = parseFloat(this.multi[0].price)
+          if (this.singleAddOnTotal > 0) {
+            this.addOnTotal = parseFloat(this.singleAddOnTotal + this.multiAddOnTotal)
+          } else {
+            this.addOnTotal = parseFloat(this.addOnTotal) + (this.singleAddOnTotal + this.multiAddOnTotal)
+          }
+          console.log(3)
         }
       }
     }
