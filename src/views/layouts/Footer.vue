@@ -49,7 +49,8 @@
               </li>
               <h5 class="text-light">Timings</h5>
               <li>
-            <p>Monday To Sunday 11am to 10pm</p>
+            <!-- <p>Monday To Sunday 11am to 10pm</p> -->
+            <p>Temporarily Closed</p>
             </li>
             </ul>
           </div>

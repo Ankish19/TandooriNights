@@ -621,7 +621,6 @@ export default {
     Footer,
   },
   //  Init  //
-  mounted() {},
 
   //  Variables  //
   data() {
@@ -705,6 +704,7 @@ export default {
     };
   },
   mounted() {
+    this.$router.push('/menu')
     this.user = getLocalStorage('userData')
     this.getResInfo();
     this.checkCart();

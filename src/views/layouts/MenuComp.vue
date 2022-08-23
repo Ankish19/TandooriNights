@@ -23,16 +23,21 @@
                 <span data-product-base-price>{{ item1.price }}</span>
               </span>
               <button
-                class="btn btn-outline-secondary btn-sm"
+                class="btn btn-outline-secondary btn-sm "
+                disabled
                 data-toggle="modal"
                 data-target="#myModal"
                 @click="openModal(item1)"
                 v-if="item1.addon_categories.length > 0"
-                :disabled="showButton==false"
               >
+              <!-- if you want to enable the button cut the commented code below and paste it above in the button section -->
+              <!-- :disabled="showButton==false" -->
+
                 <span>Add to cart</span>
               </button>
-              <button class="btn btn-outline-secondary btn-sm" @click="openModal(item1)" :disabled="showButton==false" v-else>
+              <!-- :disabled="showButton==false" -->
+              <!-- if you want to enable the button cut the commented code above and paste it below in the button section -->
+              <button class="btn btn-outline-secondary btn-sm " disabled @click="openModal(item1)"  v-else>
                 <span>Add to cart</span>
               </button>
               <br/>
