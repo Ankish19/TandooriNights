@@ -142,7 +142,7 @@ const routes = [
     component: () => import("../views/Table_login.vue"),
   },
   {
-    path: "/success",
+    path: "/success/:paymentId/:security",
     name: "success",
     component: () => import("../views/Success.vue"),
   },
@@ -157,9 +157,9 @@ const routes = [
     component: () => import("../views/Cancel.vue"),
   },
   {
-    path: "/search",
-    name: "search",
-    component: () => import("@/views/Search.vue"),
+    path: "/cardpayment",
+    name: "cancel",
+    component: () => import("../views/CardPayment.vue"),
   },
 ];
 

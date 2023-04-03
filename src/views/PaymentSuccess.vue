@@ -66,7 +66,9 @@ export default {
           localStorage.removeItem('submitOrder')
           this.showSuccess = 1
         }
-        this.$toast.success('Order place successfully')
+        this.$toast.success('Order place successfully', {
+          timeout: 1000
+        })
         clearInterval(this.interval)
         // this.interval = setInterval(() => {
         //   this.$router.push('/myorder')

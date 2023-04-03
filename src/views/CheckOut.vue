@@ -156,7 +156,7 @@
                                     </p>
                                 </div>
                               </div> -->
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-6" id="errorShow">
                   <label>Select way</label>
                   <div class="select-container">
                     <select
@@ -586,18 +586,6 @@
               </button>
             </div>
           </div>
-          <div
-            class="text-center mt-5"
-            v-if="
-              ((showAddress == 1 && radiusError == null) ||
-                submitOrder.delivery_type === 3) &&
-              orderNow == 1
-            "
-          >
-            <button class="btn btn-primary btn-lg" @click="placeOrder">
-              <span>Order now!</span>
-            </button>
-          </div>
         </div>
       </div>
     </section>
@@ -617,11 +605,11 @@ import {
   getAddresses,
   getSettings,
   checkCoupon,
-  CardToken,
+  // CardToken,
   getUserWallet,
   placeOrder,
 } from "@/store/api";
-import { getLocalStorage } from "@/store/service";
+import { getLocalStorage, saveLocalStorage } from "@/store/service";
 
 export default {
   //  My Route  //
@@ -633,11 +621,12 @@ export default {
     Footer,
   },
   //  Init  //
-  mounted() {},
 
   //  Variables  //
   data() {
     return {
+      showButton: null,
+      user: [],
       storeInfo: "",
       radiusError: "",
       addresses: [],
@@ -715,18 +704,56 @@ export default {
     };
   },
   mounted() {
+    this.$router.push('/menu')
+    this.user = getLocalStorage('userData')
     this.getResInfo();
     this.checkCart();
     const data = "";
     getUserWallet(data).then((res) => {
       this.wallet = res.data;
     });
+    this.getTableOrderInfo()
   },
   //  Functions  //
   methods: {
+    getTableOrderInfo() {
+      if (getLocalStorage("tableOrder")) {
+        this.form.tableOrder.name = getLocalStorage("tableOrder").name
+        this.form.tableOrder.phone = getLocalStorage("tableOrder").phone
+        this.form.tableOrder.person = getLocalStorage("tableOrder").person
+      }
+    },
     getResInfo() {
       getRestaurantInfo().then((res) => {
         this.storeInfo = res.data;
+        if (!this.user) {
+          if (this.storeInfo.open === '1') {
+            this.showButton = true
+          } else {
+            this.showButton = false
+          }
+        } else {
+          if (!this.user.hasOwnProperty('role')) {
+            console.log("user");
+            if (this.storeInfo.open === '1') {
+              this.showButton = true
+            } else {
+              this.showButton = false
+            }
+          } else {
+            if (this.storeInfo.table_order_open === '1') {
+              this.showButton = true
+            } else {
+              this.showButton = false
+            }
+        }
+        if (this.showButton === false) {
+          this.$toast.error("Restaurant is now closed.", {
+            timeout: 1000,
+          });
+          this.$router.push("/menu");
+        }
+      }
         if (
           this.storeInfo &&
           this.storeInfo.is_tabletop === 1 &&
@@ -910,7 +937,13 @@ export default {
           !this.form.tableOrder.person)
       ) {
         this.tableOrder.error = "*All Fields are required.";
+        document.getElementById("errorShow").scrollIntoView({
+          behavior: "smooth",
+        });
       } else {
+        saveLocalStorage("submitOrder", JSON.stringify(this.submitOrder));
+        localStorage.removeItem("tableOrder");
+        saveLocalStorage("tableOrder", JSON.stringify(this.form.tableOrder));
         // const card = {
         //   ecomind: 'ecom',
         //   amount: '3000',
@@ -918,48 +951,49 @@ export default {
         //   capture: true,
         //   source: 'clv_1TSTS3Lo3tNdThBrFsRFV4M6'
         // }
-        this.getSetting("final");
-        var card = {
-          customer: {
-            email: this.submitOrder.user.data.email,
-            firstName: this.submitOrder.user.data.name,
-            lastName: "",
-            phoneNumber: this.submitOrder.user.data.phone.renderToString,
-          },
-          shoppingCart: {
-            lineItems: [],
-          },
-        };
-        if (
-          getLocalStorage("submitOrder") &&
-          getLocalStorage("submitOrder").total
-        ) {
-          if (
-            this.showWallet === 1 &&
-            this.wallet.balance < amount.toFixed(2)
-          ) {
-            amount = amount - this.wallet.balance;
-            this.submitOrder.total.totalPrice = amount - this.wallet.balance;
-          } else {
-            this.submitOrder.total.totalPrice =
-              getLocalStorage("submitOrder").total.totalPrice;
-          }
-        }
-        var arr = {};
-        arr = {
-          name: "Total Amount",
-          unitQty: "1",
-          price: parseFloat(amount.toFixed(2)) * 100,
-        };
-        card.shoppingCart.lineItems.push(arr);
-        CardToken(JSON.stringify(card))
-          .then((res) => {
-            console.log(res.data);
-            window.location.href = res.data.href;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        // this.getSetting("final");
+        // var card = {
+        //   customer: {
+        //     email: this.submitOrder.user.data.email,
+        //     firstName: this.submitOrder.user.data.name,
+        //     lastName: "",
+        //     phoneNumber: this.submitOrder.user.data.phone.renderToString,
+        //   },
+        //   shoppingCart: {
+        //     lineItems: [],
+        //   },
+        // };
+        // if (
+        //   getLocalStorage("submitOrder") &&
+        //   getLocalStorage("submitOrder").total
+        // ) {
+        //   if (
+        //     this.showWallet === 1 &&
+        //     this.wallet.balance < amount.toFixed(2)
+        //   ) {
+        //     amount = amount - this.wallet.balance;
+        //     this.submitOrder.total.totalPrice = amount - this.wallet.balance;
+        //   } else {
+        //     this.submitOrder.total.totalPrice =
+        //       getLocalStorage("submitOrder").total.totalPrice;
+        //   }
+        // }
+        // var arr = {};
+        // arr = {
+        //   name: "Total Amount",
+        //   unitQty: "1",
+        //   price: parseFloat(amount.toFixed(2)) * 100,
+        // };
+        // card.shoppingCart.lineItems.push(arr);
+        // CardToken(JSON.stringify(card))
+        //   .then((res) => {
+        //     console.log(res.data);
+        //     window.location.href = res.data.href;
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
+          this.$router.push('/cardpayment')
       }
     },
     showItem() {
@@ -1025,7 +1059,9 @@ export default {
       this.submitOrder.location.tag = address.tag;
 
       this.submitOrder.user.data.default_address = this.submitOrder.location;
-      this.$toast.success("New address selected successfully.");
+      this.$toast.success("New address selected successfully.", {
+        timeout: 1000
+      });
       // this.getDistance(this.storeInfo.latitude, this.storeInfo.longitude)
       this.jGetDistance(this.storeInfo.latitude, this.storeInfo.longitude);
     },
@@ -1147,7 +1183,7 @@ export default {
       }
     },
     placeOrder () {
-      this.orderNow = 0
+      this.tableOrder.error = "";
       if (this.submitOrder.delivery_type === 3) {
         this.submitOrder.order_comment = `Name: ${this.form.tableOrder.name}, Phone: ${this.form.tableOrder.phone}, Number of person: ${this.form.tableOrder.person}`;
       }
@@ -1158,12 +1194,20 @@ export default {
           !this.form.tableOrder.person)
       ) {
         this.tableOrder.error = "*All Fields are required.";
+        document.getElementById("errorShow").scrollIntoView({
+          behavior: "smooth",
+        });
       } else {
+        this.orderNow = 0
+        localStorage.removeItem("tableOrder");
+        saveLocalStorage("tableOrder", JSON.stringify(this.form.tableOrder));
         placeOrder(this.submitOrder).then((res) => {
           if (res.data.success === true) {
             localStorage.removeItem("cart");
           }
-          this.$toast.success("Order place successfully");
+          this.$toast.success("Order place successfully", {
+            timeout: 1000
+          });
           this.$router.push("/myorder");
         });
       }

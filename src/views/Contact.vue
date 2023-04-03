@@ -205,7 +205,9 @@ export default {
             this.form.phone = null
             this.form.email = null
             this.form.message = null
-            this.$toast.success('Mail sent successfully.')
+            this.$toast.success('Mail sent successfully.', {
+              timeout: 1000
+            })
           }
         })
       }

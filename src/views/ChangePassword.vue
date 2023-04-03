@@ -135,7 +135,9 @@ export default {
           if (res.data.success === false && res.data.message === 'Invalid OTP') {
             this.error.code = 'Invalid OTP'
           } else if (res.data.success === true) {
-            this.$toast.success('Password changed successfully')
+            this.$toast.success('Password changed successfully', {
+              timeout: 1000
+            })
             this.$router.push('/login')
           }
         })

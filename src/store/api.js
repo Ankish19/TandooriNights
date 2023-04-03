@@ -22,9 +22,11 @@ export const verifyOtp = (data) => {
 export const login = (data) => {
   return axios.post(`${apiUrl}login`, data)
 }
+
 export const otp = (data) => {
   return axios.post(`${apiUrl}otp`, data)
 }
+
 export const otpverify = (data) => {
   return axios.post(`${apiUrl}otpverify`, data)
 }
@@ -133,4 +135,12 @@ export const tableLogin = (table) => {
 
 export const contactUs = (data) => {
   return axios.post(`${apiUrl}contact-us`, data)
+}
+
+export const cloverApiPayment = (data) => {
+  return axios.post(`${apiUrl}card-payment`, data, { headers: apiHeaders() })
+}
+
+export const cloverApiGetPayment = (paymentId) => {
+  return axios.get(`${apiUrl}get-payment/${paymentId}`, { headers: apiHeaders() })
 }

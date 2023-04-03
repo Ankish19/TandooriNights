@@ -23,17 +23,30 @@
                 <span data-product-base-price>{{ item1.price }}</span>
               </span>
               <button
-                class="btn btn-outline-secondary btn-sm"
+                class="btn btn-outline-secondary btn-sm "
+                disabled
                 data-toggle="modal"
                 data-target="#myModal"
                 @click="openModal(item1)"
                 v-if="item1.addon_categories.length > 0"
               >
+              <!-- if you want to enable the button cut the commented code below and paste it above in the button section -->
+              <!-- :disabled="showButton==false" -->
+
                 <span>Add to cart</span>
               </button>
-              <button class="btn btn-outline-secondary btn-sm" @click="openModal(item1)" v-else>
+              <!-- :disabled="showButton==false" -->
+              <!-- if you want to enable the button cut the commented code above and paste it below in the button section -->
+              <button class="btn btn-outline-secondary btn-sm " disabled @click="openModal(item1)"  v-else>
                 <span>Add to cart</span>
               </button>
+              <br/>
+              <span
+                  v-if="showButton==false"
+                  class="badge badge-danger p-2 mt-3"
+                  style="font-size: 10px; letter-spacing: 2px"
+                  >Restaurant Closed</span
+                >
             </div>
           </div>
         </div>
@@ -61,7 +74,7 @@
               </div>
               <div class="col-4 text-md text-right">
                 <!-- <strike class="text-danger">${{ selectItem.old_price }}</strike> -->
-                $<span data-product-base-price>{{ addOnTotal.toFixed(2) }}</span>
+                $<span data-product-base-price>{{ Number(addOnTotal).toFixed(2) }}</span>
                 <span class="product-modal-price"></span>
               </div>
             </div>
@@ -182,9 +195,10 @@
 </template>
 <script>
 import { addCart, getCart } from '@/store/service'
+
 export default {
   setup () { },
-  props: ['items'],
+  props: ['items', 'resInfo', 'user'],
   data () {
     return {
       siteLogo: require('../../assets/burges.jpg'),
@@ -198,15 +212,49 @@ export default {
       selectedaddons: [],
       addOnTotal: 0,
       singleAddOnTotal: 0,
-      multiAddOnTotal: 0
+      multiAddOnTotal: 0,
+      showButton: null
+    }
+  },
+  watch: {
+    resInfo () {
+      console.log(`online--------${this.resInfo.open}`)
+      console.log(`table--------${this.resInfo.table_order_open}`)
+      if (!this.user) {
+        console.log('1')
+        if (this.resInfo.open === '1') {
+          console.log('!user')
+          this.showButton = true
+        } else {
+          this.showButton = false
+        }
+      } else {
+        if (this.user && !this.user.role) {
+          if (this.resInfo.open === '1') {
+            console.log('user')
+            this.showButton = true
+          } else {
+            this.showButton = false
+          }
+        } else {
+          if (this.resInfo.table_order_open === '1') {
+            console.log('table')
+            this.showButton = true
+          } else {
+            this.showButton = false
+          }
+        }
+      }
     }
   },
   methods: {
     openModal (item) {
       this.cart = getCart('cart')
-
+      console.log('addOn')
       this.selectItem = item
       if (item.addon_categories.length > 0) {
+        this.addOnTotal = item.price
+        console.log(item.price)
         this.options = []
         this.addons = []
         item.addon_categories.map((data) => {
@@ -235,7 +283,9 @@ export default {
           item.quantity = 1
           this.cart = [item]
         }
-        this.$toast.success('An item added to cart.')
+        this.$toast.success('An item added to cart.', {
+          timeout: 1000
+        })
         this.$emit('addItem', this.cart)
         addCart('cart', JSON.stringify(this.cart))
       }
@@ -245,6 +295,7 @@ export default {
       item.price = 0
       item.quantity = 1
       item.addOnTotal = this.addOnTotal
+      console.log(this.addOnTotal)
       if (this.cart != null) {
         this.cart = getCart('cart')
         this.cart.push(item)
@@ -253,7 +304,9 @@ export default {
       }
       console.log(this.cart)
       // this.cart = item
-      this.$toast.success('An item added to cart.')
+      this.$toast.success('An item added to cart.', {
+        timeout: 1000
+      })
       this.$emit('addItem', this.cart)
       addCart('cart', JSON.stringify(this.cart))
       this.close = 'close'
@@ -267,33 +320,40 @@ export default {
         addon_name: addon.name,
         price: addon.price
       }
-      console.log(select)
       if (category.type === 'SINGLE') {
         this.single = [select]
         this.singleAddOnTotal = parseFloat(this.single[0].price)
-        this.addOnTotal = this.singleAddOnTotal + this.multiAddOnTotal
+        this.addOnTotal = parseFloat(this.addOnTotal) + (this.singleAddOnTotal + this.multiAddOnTotal)
+        console.log(this.addOnTotal)
       } else if (category.type === 'MULTI') {
         if (this.multi.length > 0) {
           for (var j = 0; j < this.multi.length; j++) {
             if (select.addon_id === this.multi[j].addon_id) {
               this.multiAddOnTotal -= parseFloat(this.multi[j].price)
+              this.addOnTotal = parseFloat(this.addOnTotal - this.multi[j].price)
+              console.log(1)
               // console.log(this.addOnTotal + 'if')
               this.multi.splice(j, 1)
-              this.addOnTotal = this.singleAddOnTotal + this.multiAddOnTotal
               break
             } else if (select.addon_id !== this.multi[j].addon_id && j === this.multi.length - 1) {
               this.multi.push(select)
-              this.multiAddOnTotal += parseFloat(select.price)
-              // console.log(this.addOnTotal + 'else-if')
-              this.addOnTotal = this.singleAddOnTotal + this.multiAddOnTotal
+              // this.multiAddOnTotal += parseFloat(select.price)
+              // console.log('this.multiAddOnTotal ' + this.multiAddOnTotal)
+
+              this.addOnTotal = parseFloat(this.addOnTotal) + parseFloat(select.price)
+              console.log(2)
               break
             }
           }
         } else {
           this.multi = [select]
-          this.multiAddOnTotal += parseFloat(this.multi[0].price)
-          this.addOnTotal = this.singleAddOnTotal + this.multiAddOnTotal
-          // console.log(this.addOnTotal + 'else')
+          this.multiAddOnTotal = parseFloat(this.multi[0].price)
+          if (this.singleAddOnTotal > 0) {
+            this.addOnTotal = parseFloat(this.singleAddOnTotal + this.multiAddOnTotal)
+          } else {
+            this.addOnTotal = parseFloat(this.addOnTotal) + (this.singleAddOnTotal + this.multiAddOnTotal)
+          }
+          console.log(3)
         }
       }
     }
